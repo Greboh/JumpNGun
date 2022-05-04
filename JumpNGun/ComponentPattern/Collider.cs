@@ -8,10 +8,13 @@ namespace JumpNGun
 {
     public class Collider : Component
     {
-        private Texture2D texture;
+        private Texture2D texture;//texture to be drawn by renderer
 
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer spriteRenderer;//spriterender for drawing
 
+        /// <summary>
+        /// Property for rectangle colisionbox  for sprite
+        /// </summary>
         public Rectangle CollisionBox
         {
             get
@@ -28,7 +31,10 @@ namespace JumpNGun
 
         public override void Start()
         {
+            //get spriterenderer component of GameObject
             spriteRenderer = (SpriteRenderer)GameObject.GetComponent<SpriteRenderer>();
+
+            //load pixeltexture for texture. Texture used to create visible colisionbox for debugging
             texture = GameWorld.Instance.Content.Load<Texture2D>("Pixel");
         }
 
@@ -42,8 +48,14 @@ namespace JumpNGun
             CheckCollision();
         }
 
+        /// <summary>
+        /// Will draw rectangle for visible colisionbox for debugging
+        /// </summary>
+        /// <param name="collisionBox"></param>
+        /// <param name="spriteBatch"></param>
         private void DrawRectangle(Rectangle collisionBox, SpriteBatch spriteBatch)
         {
+            
             Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
             Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
@@ -55,6 +67,10 @@ namespace JumpNGun
             spriteBatch.Draw(texture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
+
+        /// <summary>
+        /// Checks if any colliders (collisionbox) intersects with each other and trigger event if they do
+        /// </summary>
         public void CheckCollision()
         {
             foreach (Collider other in GameWorld.Instance.Colliders)
