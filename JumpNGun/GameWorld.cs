@@ -24,6 +24,7 @@ namespace JumpNGun
             }
         }
 
+  
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -36,11 +37,22 @@ namespace JumpNGun
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
+        private int _screenWidth = 1200;
+        private int _screenHeight = 600;
+
+        public Vector2 ScreenSize { get; private set; }
+
+
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            _graphics.PreferredBackBufferWidth = _screenWidth;
+            _graphics.PreferredBackBufferHeight = _screenHeight;
+            ScreenSize = new Vector2(_screenWidth, _screenHeight);
+            _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -52,6 +64,11 @@ namespace JumpNGun
             foreach (var go in gameObjects)
             {
                 go.Awake();
+            }
+            for (int i = 0; i < 11; i++)
+            {
+            Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
+
             }
 
             
