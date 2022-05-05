@@ -45,12 +45,17 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
+            Director playerDirector = new Director(new PlayerBuilder(PlayerType.Soldier));
+            gameObjects.Add(playerDirector.Construct());
+            
             //call awake method on every active GameObject in list
             foreach (var go in gameObjects)
             {
                 go.Awake();
             }
 
+            
+            
             base.Initialize();
         }
 
