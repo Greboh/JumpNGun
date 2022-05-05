@@ -5,6 +5,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
+    public enum ButtonState
+    {
+        Up,
+        Down
+    }
+
     public class InputHandler
     {
         private static InputHandler _instance;
@@ -37,20 +43,46 @@ namespace JumpNGun
         /// </summary>
         private void AddBindings()
         {
-            _keybindings.Add(Keys.W, new MoveCommand(_up));
+            _keybindings.Add(Keys.W, new JumpCommand());
             _keybindings.Add(Keys.A, new MoveCommand(_left));
             _keybindings.Add(Keys.D, new MoveCommand(_right));
-            _keybindings.Add(Keys.S, new MoveCommand(_down));
         }
 
         public void Execute(Player player)
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            foreach (var key in _keybindings.Keys.Where(key => keyState.IsKeyDown(key)))
+            foreach (Keys key in _keybindings.Keys)
             {
-                _keybindings[key].Execute(player);
+                if(keyState.IsKeyDown(key))
+                {
+                    _keybindings[key].Execute(player);
+                }
+      
+                if(key == Keys.W)
+                {
+                    if(keyState.IsKeyDown(key))
+                    {
+                        EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+                            {
+                                {"buttonState", ButtonState.Down}
+                            }
+                        );
+                    }
+                    if(keyState.IsKeyUp(key))
+                    {
+                        EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+                            {
+                                {"buttonState", ButtonState.Up}
+                            }
+                        );
+                    }
+
+                }
+                
+                
             }
+  
         }
     }
 }

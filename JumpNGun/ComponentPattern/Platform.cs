@@ -21,6 +21,9 @@ namespace JumpNGun
 
         public bool _hasBeenTouched; // true or false according to player having stepped on the platform 
 
+        private bool _dropGround = false;
+        
+        
         public Vector2 GroundPosition { get => groundPosition; set => groundPosition = value; }
 
         public Platform(int speed, int timeBeforeFall, Vector2 position, string tag)
@@ -35,7 +38,10 @@ namespace JumpNGun
         public override void Awake()
         {
             SetVelocity();
+            EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
         }
+
+ 
 
         public override void Start()
         {
@@ -94,7 +100,18 @@ namespace JumpNGun
                 this._hasBeenTouched = true;
             }
         }
+        private void OnCollisionExit(Dictionary<string, object> ctx)
+        {
+            GameObject lastCollision = (GameObject) ctx["lastCollision"];
 
+            Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
+
+            if (lastCollision.Tag == "Player")
+            {
+                _dropGround = true;
+                Console.WriteLine("Ground falling now!");
+            }
+        }
 
     }
 }
