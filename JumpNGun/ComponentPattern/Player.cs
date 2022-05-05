@@ -9,18 +9,19 @@ namespace JumpNGun
     public class Player : Component
     {
         private float _speed; // Speed at which the player moves
-        private float _fallSpeed; // Speed at which the player falls
-
+        private float _fallSpeed = 10; // Speed at which the player falls
         private bool _isGrounded = false;
-        
+
+        public bool IsGrounded { get => _isGrounded; set => _isGrounded = value; }
+
         public Player(float speed)
         {
             _speed = speed;
         }
 
         public override void Awake()
-        { 
-
+        {
+            EventManager.Subscribe("OnCollision", OnCollision);
         }
 
         public override void Start()
@@ -28,7 +29,7 @@ namespace JumpNGun
             SpriteRenderer sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             sr.SetSprite("1_Soldier_idle");
 
-            GameObject.Transform.Position = new Vector2(200, 450);
+            GameObject.Transform.Position = new Vector2(200, 440);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -41,7 +42,6 @@ namespace JumpNGun
             Console.WriteLine(_isGrounded);
             HandleGravity();
             CheckGrounded();
-            
         }
         
         
@@ -81,28 +81,36 @@ namespace JumpNGun
         private void CheckGrounded()
         {
 
-            Collider col = GameObject.GetComponent<Collider>() as Collider;
-            Console.WriteLine(col.GameObject.Tag);
+        }
 
-            if (col.GameObject.Tag == "ground")
-            {
-                _isGrounded = true;
-            }
-            else _isGrounded = false;
+        private void OnCollision(Dictionary<string, object> message)
+        {
 
-            foreach (Collider col in GameWorld.Instance.Colliders)
+            GameObject collisionObject = (GameObject)message["CollidedWith"];//object enemy collided with
+            GameObject collisionOrigin = (GameObject)message["CollidedFrom"];//enemy object that collided
+
+            if (collisionObject != GameObject)
             {
-                if (col != this && col.CollisionBox.Intersects(CollisionBox))
+                if (collisionObject.Tag == "ground")
                 {
-                    EventManager.TriggerEvent("OnCollision", new Dictionary<string, object>
-                    {
-
-                        {"CollidedWith", col.GameObject},
-                        {"CollidedFrom", this.GameObject}
-
-                    });
+                    _isGrounded = true;
+                    Console.WriteLine("Grounded: True");
                 }
             }
+            else if (collisionObject == GameObject) _isGrounded = false;
+            
         }
     }
 }
+            //foreach (Collider col in GameWorld.Instance.Colliders)
+            //{
+            //    if (col != this.GameObject.GetComponent<Collider>() && col.CollisionBox.Intersects(playerCollider.CollisionBox))
+            //    {
+            //        if (col.GameObject.Tag == "ground")
+            //        {
+            //            _isGrounded = true;
+            //            Console.WriteLine("IsGrounded: true");
+            //        }
+            //    }
+            //    //else if(!playerCollider.CollisionBox.Intersects(col.CollisionBox))_isGrounded = false;
+            //}

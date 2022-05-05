@@ -20,7 +20,7 @@ namespace JumpNGun
 
         #region MoveDirections
 
-        private Vector2 _up = new Vector2(0, -1);
+        private Vector2 _up = new Vector2(0, -20);
         private Vector2 _left = new Vector2(-1, 0);
         private Vector2 _right = new Vector2(1, 0);
         private Vector2 _down = new Vector2(0, 1);

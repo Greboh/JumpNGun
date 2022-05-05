@@ -45,7 +45,7 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-
+            CheckCollision();
         }
 
         /// <summary>
