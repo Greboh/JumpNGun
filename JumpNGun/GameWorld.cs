@@ -64,9 +64,9 @@ namespace JumpNGun
             }
             for (int i = 0; i < 11; i++)
             {
-            Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
-
+                Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
             }
+
 
             base.Initialize();
         }

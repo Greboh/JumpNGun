@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Different types of platforms 
+    /// </summary>
     public enum PlatformType { ground, graveyard, grass, dessert }
     public class PlatformFactory : Factory
     {
@@ -36,15 +39,15 @@ namespace JumpNGun
                 case PlatformType.ground:
                     {
 
-                        gameObject.AddComponent(new Platform(10, 200, position));
+                        gameObject.AddComponent(new Platform(10, 200,position, "ground"));
+                        position.X += 129;
                         sr.SetSprite("2");
-
-                        position.X += 125;
                     }
                     break;
                 case PlatformType.grass:
                     {
-
+                        gameObject.AddComponent(new Platform(10, 200, new Vector2(300, 400), "grass"));
+                        sr.SetSprite("Grass platform");
                     }
                     break;
                 case PlatformType.dessert:
