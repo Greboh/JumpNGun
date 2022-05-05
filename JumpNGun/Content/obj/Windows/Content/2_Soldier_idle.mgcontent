@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/2_Soldier_idle.png</SourceFile>
-  <SourceTime>2022-05-05T12:39:51.7444447+02:00</SourceTime>
+  <SourceTime>2022-05-05T12:42:19.9654413+02:00</SourceTime>
   <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/2_Soldier_idle.xnb</DestFile>
-  <DestTime>2022-05-05T12:39:54.8820133+02:00</DestTime>
+  <DestTime>2022-05-05T12:48:41.161723+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

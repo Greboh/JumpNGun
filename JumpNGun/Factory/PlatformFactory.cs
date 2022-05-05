@@ -30,6 +30,7 @@ namespace JumpNGun
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
+            gameObject.Tag = "ground";
 
             gameObject.AddComponent(new Collider());
 

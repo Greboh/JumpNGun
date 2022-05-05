@@ -89,7 +89,7 @@ namespace JumpNGun
 
         private void TEST_InitiateFall()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.Y))
             {
                 this._hasBeenTouched = true;
             }
