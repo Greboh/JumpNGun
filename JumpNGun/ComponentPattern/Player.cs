@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Reflection.Metadata;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
@@ -6,9 +7,10 @@ namespace JumpNGun
     public class Player : Component
     {
         private float _speed; // Speed at which the player moves
+        private float _fallSpeed; // Speed at which the player falls
 
-        private float _deltaTime; // Time since the last frame
-
+        private bool _isGrounded;
+        
         public Player(float speed)
         {
             _speed = speed;
@@ -22,6 +24,7 @@ namespace JumpNGun
         public override void Start()
         {
             SpriteRenderer sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            sr.SetSprite("1_Soldier_idle");
 
             GameObject.Transform.Position = new Vector2(200, 200);
         }
@@ -32,8 +35,9 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            _deltaTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             InputHandler.Intance.Execute(this);
+            
+            HandleGravity();
         }
         
         
@@ -41,20 +45,33 @@ namespace JumpNGun
         
         /// <summary>
         /// Called from MoveCommand.cs
+        /// Moves the player
         /// </summary>
         /// <param name="velocity">The strength at which we want to move</param>
         public void Move(Vector2 velocity)
         {
-            if (velocity == Vector2.Zero) return; // Guard clause 
+            if (!_isGrounded || velocity == Vector2.Zero) return; // Guard clause
             
             // Normalize velocity
             velocity.Normalize();
-            
+
             // Multiply with speed
             velocity *= _speed;
 
             // Translate our current position to the new one
-            GameObject.Transform.Translate(velocity * _deltaTime);
+            GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
+            
+        }
+        
+        private void HandleGravity()
+        {
+            if(_isGrounded) return;
+            
+            Vector2 fallDirection = new Vector2(0, 1);
+
+            fallDirection *= _fallSpeed;
+            
+            GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
     }
 }

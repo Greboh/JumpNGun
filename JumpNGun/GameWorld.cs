@@ -42,6 +42,7 @@ namespace JumpNGun
 
         public Vector2 ScreenSize { get; private set; }
 
+        public static float DeltaTime { get; private set; }
 
         public GameWorld()
         {
@@ -57,7 +58,7 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
-            Director playerDirector = new Director(new PlayerBuilder(PlayerType.Soldier));
+            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
             
             //call awake method on every active GameObject in list
@@ -67,8 +68,7 @@ namespace JumpNGun
             }
             for (int i = 0; i < 11; i++)
             {
-            Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
-
+                Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
             }
 
             
@@ -89,19 +89,22 @@ namespace JumpNGun
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
             }
+            
+            DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            base.Update(gameTime);
+
 
             //call cleanup in every cycle
             CleanUp();
+            
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
