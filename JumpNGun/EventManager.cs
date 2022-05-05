@@ -91,7 +91,7 @@ namespace JumpNGun
                     thisEvent.Invoke(message);
                 }
             }
-            else Console.WriteLine($"Cannot trigger event: {eventName} since it doesn't exist!");
+            //else Console.WriteLine($"Cannot trigger event: {eventName} since it doesn't exist!");
         }
     }
 }
