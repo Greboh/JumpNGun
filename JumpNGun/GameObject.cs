@@ -8,7 +8,7 @@ namespace JumpNGun
 {
     public class GameObject
     {
-        private List<Component> components = new List<Component>();
+        private List<Component> components = new List<Component>();//list for relevant components
 
         public Transform Transform { get; set; } = new Transform();
 
@@ -17,7 +17,9 @@ namespace JumpNGun
         public int Id { get; set; }
 
 
-
+        /// <summary>
+        /// call awake on all components
+        /// </summary>
         public void Awake()
         {
             for (int i = 0; i < components.Count; i++)
@@ -26,6 +28,9 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// call start on all components
+        /// </summary>
         public void Start()
         {
             for (int i = 0; i < components.Count; i++)
@@ -34,6 +39,10 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Update all components
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             for (int i = 0; i < components.Count; i++)
@@ -42,6 +51,10 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Draw relevant sprite for all components
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < components.Count; i++)
@@ -50,6 +63,11 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Add component to a GameObject
+        /// </summary>
+        /// <param name="component">component to be added</param>
+        /// <returns></returns>
         public Component AddComponent(Component component)
         {
             component.GameObject = this;
@@ -59,12 +77,21 @@ namespace JumpNGun
             return component;
         }
 
+        /// <summary>
+        /// Get component of GameObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public Component GetComponent<T>() where T : Component
         {
             return components.Find(x => x.GetType() == typeof(T));
         }
 
-
+        /// <summary>
+        /// Return component of GameObject if it exists
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public bool HasComponent<T>() where T : Component
         {
             Component c = components.Find(x => x.GetType() == typeof(T));
