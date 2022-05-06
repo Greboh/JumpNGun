@@ -28,8 +28,6 @@ namespace JumpNGun
             }
         }
 
-        public Dictionary<string, Action<Dictionary<string, object>>> EventDictionary { get => _eventDictionary; set => _eventDictionary = value; }
-
         /// <summary>
         /// Initializes the dictionary
         /// </summary>
@@ -43,7 +41,7 @@ namespace JumpNGun
         /// </summary>
         /// <param name="eventName">Name of the event that it should subscribe to</param>
         /// <param name="listener">Name of Action that it should listen to</param>
-        public static void Subscribe(string eventName, Action<Dictionary<string, object>> listener)
+        public void Subscribe(string eventName, Action<Dictionary<string, object>> listener)
         {
             Action<Dictionary<string, object>> thisEvent;
 
@@ -64,7 +62,7 @@ namespace JumpNGun
         /// </summary>
         /// <param name="eventName">Name of the event that it should subscribe to</param>
         /// <param name="listener">Name of Action that it should listen to</param>
-        public static void Unsubscribe(string eventName, Action<Dictionary<string, object>> listener)
+        public void Unsubscribe(string eventName, Action<Dictionary<string, object>> listener)
         {
             if (instance == null) return;
             Action<Dictionary<string, object>> thisEvent;
@@ -81,7 +79,7 @@ namespace JumpNGun
         /// </summary>
         /// <param name="eventName">Name of the event that it should trigger</param>
         /// <param name="message">The value that it sents</param>
-        public static void TriggerEvent(string eventName, Dictionary<string, object> message)
+        public void TriggerEvent(string eventName, Dictionary<string, object> message)
         {
             Action<Dictionary<string, object>> thisEvent = null;
             if (Instance._eventDictionary.TryGetValue(eventName, out thisEvent))

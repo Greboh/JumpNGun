@@ -1,18 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
     public class Player : Component
     {
         private float _speed; // Speed at which the player moves
-        private float _fallSpeed = 10; // Speed at which the player falls
-        private bool _isGrounded = false;
+        private float _jumpHeight = -100; // The jump height of the player
+        private float _velocity;
 
-        public bool IsGrounded { get => _isGrounded; set => _isGrounded = value; }
+        private float _gravity = 50; // The force of gravity
+        private float _gravityMultipler;
+
+
+        private bool _isGrounded = false;
+        private bool _canJump;
+        private bool _isJumping;
+
+        private int _jumpCount = 0;
+        private int _maxJumpCount = 2;
+
 
         public Player(float speed)
         {
@@ -21,15 +31,20 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            EventManager.Subscribe("OnCollision", OnCollision);
+            EventManager.Instance.Subscribe("OnCollisionEnter", OnCollisionEnter);
+            EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
+
+            EventManager.Instance.Subscribe("OnJump", OnJumpPressed);
         }
+
 
         public override void Start()
         {
             SpriteRenderer sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             sr.SetSprite("1_Soldier_idle");
 
-            GameObject.Transform.Position = new Vector2(200, 440);
+            GameObject.Transform.Position = new Vector2(200, 420);
+            _gravityMultipler = _gravity;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -39,14 +54,11 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             InputHandler.Intance.Execute(this);
-            Console.WriteLine(_isGrounded);
-            HandleGravity();
-            CheckGrounded();
+
+            HandleGravity(gameTime);
         }
-        
-        
-        
-        
+
+
         /// <summary>
         /// Called from MoveCommand.cs
         /// Moves the player
@@ -54,8 +66,8 @@ namespace JumpNGun
         /// <param name="velocity">The strength at which we want to move</param>
         public void Move(Vector2 velocity)
         {
-            if (!_isGrounded || velocity == Vector2.Zero) return; // Guard clause
-            
+            if (velocity == Vector2.Zero) return; // Guard clause
+
             // Normalize velocity
             velocity.Normalize();
 
@@ -64,53 +76,71 @@ namespace JumpNGun
 
             // Translate our current position to the new one
             GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
-            
         }
 
-        
-        private void HandleGravity()
+        public void Jump()
         {
-            if(_isGrounded) return;
+            _canJump = _jumpCount < _maxJumpCount;
+
+
+            if (!_canJump || _isJumping)
+            {
+                // Console.WriteLine("Cant jump!");
+                // Console.WriteLine($"JumpCount: {_jumpCount}");
+                // Console.WriteLine($"maxJumpCount: {_maxJumpCount}");
+                return;
+            }
+            _jumpCount++;
+
+
+            Vector2 targetDirection = new Vector2(0, _jumpHeight);
+            GameObject.Transform.Translate(targetDirection);
+        }
+
+        private void OnJumpPressed(Dictionary<string, object> ctx)
+        {
+            ButtonState currentState = (ButtonState) ctx["buttonState"];
+            _isJumping = currentState == ButtonState.Down;
+        }
+
+
+        private void HandleGravity(GameTime gameTime)
+        {
+            if (_isGrounded) return;
+
+            _gravityMultipler += (float) gameTime.ElapsedGameTime.TotalSeconds * 100;
             
             Vector2 fallDirection = new Vector2(0, 1);
+            // Console.WriteLine($"GravityMultipler: {_gravityMultipler}");
 
-            fallDirection *= _fallSpeed;
-            
+            fallDirection *= _gravityMultipler;
+
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
-        private void CheckGrounded()
-        {
 
+
+        private void OnCollisionEnter(Dictionary<string, object> ctx)
+        {
+            GameObject otherCollision = (GameObject) ctx["otherCollision"];
+
+            // Console.WriteLine($"CollisionEnter with {otherCollision.Tag}");
+
+            if (otherCollision.Tag == "ground")
+            {
+                _isGrounded = true;
+                _jumpCount = 0;
+                _gravityMultipler = _gravity;
+            }
         }
 
-        private void OnCollision(Dictionary<string, object> message)
+        private void OnCollisionExit(Dictionary<string, object> ctx)
         {
-
-            GameObject collisionObject = (GameObject)message["CollidedWith"];//object enemy collided with
-            GameObject collisionOrigin = (GameObject)message["CollidedFrom"];//enemy object that collided
-
-            if (collisionObject != GameObject)
-            {
-                if (collisionObject.Tag == "ground")
-                {
-                    _isGrounded = true;
-                    Console.WriteLine("Grounded: True");
-                }
-            }
-            else if (collisionObject == GameObject) _isGrounded = false;
+            GameObject lastCollision = (GameObject) ctx["lastCollision"];
             
+            if (lastCollision.Tag == "ground")
+            {
+                _isGrounded = false;
+            }
         }
     }
 }
-            //foreach (Collider col in GameWorld.Instance.Colliders)
-            //{
-            //    if (col != this.GameObject.GetComponent<Collider>() && col.CollisionBox.Intersects(playerCollider.CollisionBox))
-            //    {
-            //        if (col.GameObject.Tag == "ground")
-            //        {
-            //            _isGrounded = true;
-            //            Console.WriteLine("IsGrounded: true");
-            //        }
-            //    }
-            //    //else if(!playerCollider.CollisionBox.Intersects(col.CollisionBox))_isGrounded = false;
-            //}
