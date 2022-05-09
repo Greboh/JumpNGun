@@ -43,6 +43,7 @@ namespace JumpNGun
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
+        public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
 
         public GameWorld()
         {
@@ -58,21 +59,22 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
+            PlatformSpawner.Instance.SpawnGround();
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
-            
+
+
+            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
+
             //call awake method on every active GameObject in list
             foreach (var go in gameObjects)
             {
                 go.Awake();
             }
-            for (int i = 0; i < 11; i++)
-            {
-                Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
-            }
 
             
-            
+
+
             base.Initialize();
         }
 

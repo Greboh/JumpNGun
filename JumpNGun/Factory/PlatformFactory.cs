@@ -24,7 +24,23 @@ namespace JumpNGun
                 return _instance;
             }
         }
-        private Vector2 position = new Vector2(0, 545);
+
+        private Random _random = new Random();
+
+        private Vector2[] _startPositions =
+        {
+            new Vector2(300, 400),
+            new Vector2(600, 350),
+            new Vector2(800, 275),
+            new Vector2(900, 225),
+        };
+
+        private Vector2[] _spawnPositions =
+        {
+
+        };
+
+        private int _positionIncrement;
 
         public override GameObject Create(Enum type)
         {
@@ -34,25 +50,29 @@ namespace JumpNGun
 
             gameObject.AddComponent(new Collider());
 
+            _positionIncrement++;
 
             switch (type)
             {
                 case PlatformType.ground:
                     {
 
-                        gameObject.AddComponent(new Platform(10, 200,position, "ground"));
-                        position.X += 129;
-                        sr.SetSprite("2");
+                        gameObject.AddComponent(new Platform(10, 200,new Vector2(600, 545), "ground"));
+                      
+                        sr.SetSprite("ground_platform");
                     }
                     break;
                 case PlatformType.grass:
                     {
-                        gameObject.AddComponent(new Platform(10, 200, new Vector2(300, 400), "grass"));
+
+                        gameObject.AddComponent(new Platform(10, 200, _startPositions[_positionIncrement], "grass"));
+                        Console.WriteLine((gameObject.GetComponent<Platform>() as Platform).Position);
                         sr.SetSprite("Grass platform");
                     }
                     break;
                 case PlatformType.dessert:
                     {
+
                     }
                     break;
                 case PlatformType.graveyard:
@@ -60,6 +80,7 @@ namespace JumpNGun
                     }break;
             }
             return gameObject;
+            
         }
     }
 }

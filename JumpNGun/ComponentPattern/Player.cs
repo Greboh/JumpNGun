@@ -43,7 +43,7 @@ namespace JumpNGun
             SpriteRenderer sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             sr.SetSprite("1_Soldier_idle");
 
-            GameObject.Transform.Position = new Vector2(200, 420);
+            GameObject.Transform.Position = new Vector2(600, 420);
             _gravityMultipler = _gravity;
         }
 

@@ -17,21 +17,15 @@ namespace JumpNGun
         private Vector2 _moveDirection;//caculated velocity
         private string _tag;//tag correlates to type of ground 
 
-        private Vector2 groundPosition = new Vector2(0, 545);
+        private bool _dropGround = false;//used to initiate increment of platform y-position (falling)
 
-        public bool _hasBeenTouched; // true or false according to player having stepped on the platform 
-
-        private bool _dropGround = false;
-        
-        
-        public Vector2 GroundPosition { get => groundPosition; set => groundPosition = value; }
+        public Vector2 Position { get => _position; set => _position = value; }
 
         public Platform(int speed, int timeBeforeFall, Vector2 position, string tag)
         {
             _speed = speed;
             _timeBeforeFall = timeBeforeFall;
             _tag = tag;
-            _hasBeenTouched = false;
             _position = position;
         }
 
@@ -50,8 +44,7 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            TEST_InitiateFall();
-            FallStartGround(gameTime);
+            InitiateFalling(gameTime);
             DestroyGround();
         }
 
@@ -59,54 +52,55 @@ namespace JumpNGun
         /// Initiates fall of ground
         /// </summary>
         /// <param name="gameTime"></param>
-        private void FallStartGround(GameTime gameTime)
+        private void InitiateFalling(GameTime gameTime)
         {
-            if (_hasBeenTouched && _tag == "ground")
+            if (_dropGround && _tag == "ground")
             {
                 Fall(gameTime);
             }
         }
 
-
-        private void FallPlatform()
-        {
-
-        }
-
+        /// <summary>
+        /// Moves platform and startground up the Y-axis (down in the game window)
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void Fall(GameTime gameTime)
         {
             GameObject.Transform.Translate(_moveDirection * (float)gameTime.ElapsedGameTime.TotalSeconds);
 
         }
 
+        /// <summary>
+        /// Set velocity of platform
+        /// </summary>
         private void SetVelocity()
         {
             _moveDirection = _velocity * _speed;
         }
 
+        /// <summary>
+        /// Removes platform from game when position exceeds screen height
+        /// </summary>
         private void DestroyGround()
         {
-            if (this._position.Y > 600 && _tag == "ground") 
+            if (_position.Y >= GameWorld.Instance.GraphicsDevice.Viewport.Height) 
             {
-                GameWorld.Instance.Destroy(this.GameObject);
+                GameWorld.Instance.Destroy(GameObject);
                 Console.WriteLine("Ground has been destroyed");
             }
         }
 
-        private void TEST_InitiateFall()
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.Y))
-            {
-                this._hasBeenTouched = true;
-            }
-        }
+        /// <summary>
+        /// Initiates falling of platforms when player jumps from startground
+        /// </summary>
+        /// <param name="ctx"></param>
         private void OnCollisionExit(Dictionary<string, object> ctx)
         {
             GameObject lastCollision = (GameObject) ctx["lastCollision"];
 
             Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
 
-            if (lastCollision.Tag == "Player")
+            if (lastCollision.Tag == "ground")
             {
                 _dropGround = true;
                 Console.WriteLine("Ground falling now!");
