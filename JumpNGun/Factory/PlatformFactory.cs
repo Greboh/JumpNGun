@@ -50,7 +50,7 @@ namespace JumpNGun
 
             gameObject.AddComponent(new Collider());
 
-            _positionIncrement++;
+      
 
             switch (type)
             {
@@ -68,6 +68,7 @@ namespace JumpNGun
                         gameObject.AddComponent(new Platform(10, 200, _startPositions[_positionIncrement], "grass"));
                         Console.WriteLine((gameObject.GetComponent<Platform>() as Platform).Position);
                         sr.SetSprite("Grass platform");
+                        _positionIncrement++;
                     }
                     break;
                 case PlatformType.dessert:

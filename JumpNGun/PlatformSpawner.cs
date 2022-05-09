@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
@@ -27,11 +28,17 @@ namespace JumpNGun
 
         public void SpawnGround()
         {
-            GameWorld.Instance.Instantiate(new PlatformFactory().Create(PlatformType.ground));
+            PlatformFactory factory = new PlatformFactory();
+            
+            
+            GameWorld.Instance.Instantiate(factory.Create(PlatformType.ground));
+            
             for (int i = 0; i < 4; i++)
             {
-                GameWorld.Instance.Instantiate(new PlatformFactory().Create(PlatformType.grass));
+                // GameWorld.Instance.Instantiate(new PlatformFactory().Create(PlatformType.grass));
+                GameWorld.Instance.Instantiate(factory.Create(PlatformType.grass));
             }
+
 
         }
 
