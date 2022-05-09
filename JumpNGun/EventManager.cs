@@ -33,27 +33,29 @@ namespace JumpNGun
         /// </summary>
         private void InitDictionary()
         {
-            if (_eventDictionary == null) _eventDictionary = new Dictionary<string, Action<Dictionary<string, object>>>();
+            _eventDictionary ??= new Dictionary<string, Action<Dictionary<string, object>>>();
         }
 
         /// <summary>
         /// Subscribe to an event
         /// </summary>
         /// <param name="eventName">Name of the event that it should subscribe to</param>
-        /// <param name="listener">Name of Action that it should listen to</param>
-        public void Subscribe(string eventName, Action<Dictionary<string, object>> listener)
+        /// <param name="subscriber">Reference of Action that it should subscribe to</param>
+        public void Subscribe(string eventName, Action<Dictionary<string, object>> subscriber)
         {
-            Action<Dictionary<string, object>> thisEvent;
+            Action<Dictionary<string, object>> currentEvent;
 
-            if (Instance._eventDictionary.TryGetValue(eventName, out thisEvent))
+            // check if the eventName already exists in the dictionary and if it does just add the TValue
+            if (Instance._eventDictionary.TryGetValue(eventName, out currentEvent))
             {
-                thisEvent += listener;
-                Instance._eventDictionary[eventName] = thisEvent;
+                currentEvent += subscriber;
+                Instance._eventDictionary[eventName] = currentEvent;
             }
+            // If it doesnt exist already add both TKey and TValue. This makes sure that we don't try to create duplicates of the same TKey since this will lead to error
             else
             {
-                thisEvent += listener;
-                Instance._eventDictionary.Add(eventName, thisEvent);
+                currentEvent += subscriber;
+                Instance._eventDictionary.Add(eventName, currentEvent);
             }
         }
 
@@ -61,15 +63,16 @@ namespace JumpNGun
         /// Unsubscribe to an event
         /// </summary>
         /// <param name="eventName">Name of the event that it should subscribe to</param>
-        /// <param name="listener">Name of Action that it should listen to</param>
-        public void Unsubscribe(string eventName, Action<Dictionary<string, object>> listener)
+        /// <param name="subscriber">Reference of Action that it should listen to</param>
+        public void Unsubscribe(string eventName, Action<Dictionary<string, object>> subscriber)
         {
-            if (instance == null) return;
-            Action<Dictionary<string, object>> thisEvent;
-            if (Instance._eventDictionary.TryGetValue(eventName, out thisEvent))
+            Action<Dictionary<string, object>> currentEvent;
+            
+            // Check if the eventName matches a TKey and remove the event from dictionary otherwise do nothing.
+            if (Instance._eventDictionary.TryGetValue(eventName, out currentEvent))
             {
-                thisEvent -= listener;
-                Instance._eventDictionary[eventName] = thisEvent;
+                currentEvent -= subscriber;
+                Instance._eventDictionary[eventName] = currentEvent;
                 Instance._eventDictionary.Remove(eventName);
             }
         }
@@ -78,18 +81,17 @@ namespace JumpNGun
         /// Trigger an event
         /// </summary>
         /// <param name="eventName">Name of the event that it should trigger</param>
-        /// <param name="message">The value that it sents</param>
-        public void TriggerEvent(string eventName, Dictionary<string, object> message)
+        /// <param name="context">The value that it sends</param>
+        public void TriggerEvent(string eventName, Dictionary<string, object> context)
         {
-            Action<Dictionary<string, object>> thisEvent = null;
-            if (Instance._eventDictionary.TryGetValue(eventName, out thisEvent))
+            Action<Dictionary<string, object>> currentEvent = null;
+            
+            // Check if the eventName matches a TKey and Invoke event otherwise do nothing.
+            if (Instance._eventDictionary.TryGetValue(eventName, out currentEvent))
             {
-                if (thisEvent != null)
-                {
-                    thisEvent.Invoke(message);
-                }
+                currentEvent?.Invoke(context);
             }
-            //else Console.WriteLine($"Cannot trigger event: {eventName} since it doesn't exist!");
+            else Console.WriteLine($"Cannot trigger event: {eventName} since it doesn't exist!");
         }
     }
 }

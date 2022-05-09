@@ -13,7 +13,7 @@ namespace JumpNGun
     public class InputHandler
     {
         private static InputHandler _instance;
-        
+
         public static InputHandler Intance
         {
             get { return _instance ??= new InputHandler(); }
@@ -45,27 +45,18 @@ namespace JumpNGun
             // _keybindings.Add(Keys.A, new MoveCommand(_left));
             // _keybindings.Add(Keys.D, new MoveCommand(_right));
             // _keybindings.Add(Keys.Space, new ShootCommand());            
-            
+
             _keybindings.Add(new KeyInfo(Keys.A), new MoveCommand(_left));
             _keybindings.Add(new KeyInfo(Keys.D), new MoveCommand(_right));
             _keybindings.Add(new KeyInfo(Keys.W), new JumpCommand());
+            _keybindings.Add(new KeyInfo(Keys.LeftAlt), new DashCommand());
             _keybindings.Add(new KeyInfo(Keys.Space), new ShootCommand());
-            
+
         }
 
         public void Execute(Player player)
         {
             KeyboardState keyState = Keyboard.GetState();
-
-            // foreach (Keys key in _keybindings.Keys)
-            // {
-            //     if (keyState.IsKeyDown(key))
-            //     {
-            //         _keybindings[key].Execute(player);
-            //     }
-            //
-            //     HandleJumpLogic(key, keyState);
-            // }
 
             foreach (KeyInfo keyInfo in _keybindings.Keys)
             {
@@ -73,8 +64,8 @@ namespace JumpNGun
                 {
                     _keybindings[keyInfo].Execute(player);
                     keyInfo.IsDown = true;
-                    
-                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+
+                    EventManager.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
                         {
                             {"key", keyInfo.Key},
                             {"isKeyDown", keyInfo.IsDown}
@@ -82,11 +73,12 @@ namespace JumpNGun
                     );
 
                 }
+
                 if (!keyState.IsKeyDown(keyInfo.Key) && keyInfo.IsDown == true)
                 {
                     keyInfo.IsDown = false;
-                    
-                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+
+                    EventManager.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
                         {
                             {"key", keyInfo.Key},
                             {"isKeyDown", keyInfo.IsDown}
@@ -94,46 +86,19 @@ namespace JumpNGun
                     );
                 }
             }
-  
-        }
-        
-        private void HandleJumpLogic(Keys key, KeyboardState keyState)
-        {
-            if(key == Keys.W)
-            {
-                if(keyState.IsKeyDown(key))
-                {
-                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
-                        {
-                            {"key", key},
-                            {"buttonState", ButtonState.Down}
-                        }
-                    );
-                }
-                if(keyState.IsKeyUp(key))
-                {
-                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
-                        {
-                            {"buttonState", ButtonState.Up}
-                        }
-                    );
-                }
 
+        }
+
+        public class KeyInfo
+        {
+            public bool IsDown { get; set; }
+
+            public Keys Key { get; set; }
+
+            public KeyInfo(Keys key)
+            {
+                this.Key = key;
             }
         }
     }
-    
-    public class KeyInfo
-    {
-        public bool IsDown { get; set; }
-
-        public Keys Key { get; set; }
-
-        public KeyInfo(Keys key)
-        {
-            this.Key = key;
-        }
-    }
-    
-    
 }
