@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,75 +13,127 @@ namespace JumpNGun
     public class InputHandler
     {
         private static InputHandler _instance;
-
+        
         public static InputHandler Intance
         {
             get { return _instance ??= new InputHandler(); }
         }
 
         // Dictionary that contains TKeys Keys and TValues ICommands
-        private Dictionary<Keys, ICommand> _keybindings = new Dictionary<Keys, ICommand>();
+        // private Dictionary<Keys, ICommand> _keybindings = new Dictionary<Keys, ICommand>();
+        private Dictionary<KeyInfo, ICommand> _keybindings = new Dictionary<KeyInfo, ICommand>();
 
 
         #region MoveDirections
 
-        private Vector2 _up = new Vector2(0, -1);
         private Vector2 _left = new Vector2(-1, 0);
         private Vector2 _right = new Vector2(1, 0);
-        private Vector2 _down = new Vector2(0, 1);
 
         #endregion
 
         private InputHandler()
         {
-            AddBindings();
+            InitializeInput();
         }
 
         /// <summary>
         /// Adds all bindings used
         /// </summary>
-        private void AddBindings()
+        private void InitializeInput()
         {
-            _keybindings.Add(Keys.W, new JumpCommand());
-            _keybindings.Add(Keys.A, new MoveCommand(_left));
-            _keybindings.Add(Keys.D, new MoveCommand(_right));
+            // _keybindings.Add(Keys.W, new JumpCommand());
+            // _keybindings.Add(Keys.A, new MoveCommand(_left));
+            // _keybindings.Add(Keys.D, new MoveCommand(_right));
+            // _keybindings.Add(Keys.Space, new ShootCommand());            
+            
+            _keybindings.Add(new KeyInfo(Keys.A), new MoveCommand(_left));
+            _keybindings.Add(new KeyInfo(Keys.D), new MoveCommand(_right));
+            _keybindings.Add(new KeyInfo(Keys.W), new JumpCommand());
+            _keybindings.Add(new KeyInfo(Keys.Space), new ShootCommand());
+            
         }
 
         public void Execute(Player player)
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            foreach (Keys key in _keybindings.Keys)
+            // foreach (Keys key in _keybindings.Keys)
+            // {
+            //     if (keyState.IsKeyDown(key))
+            //     {
+            //         _keybindings[key].Execute(player);
+            //     }
+            //
+            //     HandleJumpLogic(key, keyState);
+            // }
+
+            foreach (KeyInfo keyInfo in _keybindings.Keys)
             {
-                if(keyState.IsKeyDown(key))
+                if (keyState.IsKeyDown(keyInfo.Key))
                 {
-                    _keybindings[key].Execute(player);
-                }
-      
-                if(key == Keys.W)
-                {
-                    if(keyState.IsKeyDown(key))
-                    {
-                        EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
-                            {
-                                {"buttonState", ButtonState.Down}
-                            }
-                        );
-                    }
-                    if(keyState.IsKeyUp(key))
-                    {
-                        EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
-                            {
-                                {"buttonState", ButtonState.Up}
-                            }
-                        );
-                    }
+                    _keybindings[keyInfo].Execute(player);
+                    keyInfo.IsDown = true;
+                    
+                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+                        {
+                            {"key", keyInfo.Key},
+                            {"isKeyDown", keyInfo.IsDown}
+                        }
+                    );
 
                 }
-                
-                
+                if (!keyState.IsKeyDown(keyInfo.Key) && keyInfo.IsDown == true)
+                {
+                    keyInfo.IsDown = false;
+                    
+                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+                        {
+                            {"key", keyInfo.Key},
+                            {"isKeyDown", keyInfo.IsDown}
+                        }
+                    );
+                }
             }
   
         }
+        
+        private void HandleJumpLogic(Keys key, KeyboardState keyState)
+        {
+            if(key == Keys.W)
+            {
+                if(keyState.IsKeyDown(key))
+                {
+                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+                        {
+                            {"key", key},
+                            {"buttonState", ButtonState.Down}
+                        }
+                    );
+                }
+                if(keyState.IsKeyUp(key))
+                {
+                    EventManager.Instance.TriggerEvent("OnJump", new Dictionary<string, object>()
+                        {
+                            {"buttonState", ButtonState.Up}
+                        }
+                    );
+                }
+
+            }
+        }
     }
+    
+    public class KeyInfo
+    {
+        public bool IsDown { get; set; }
+
+        public Keys Key { get; set; }
+
+        public KeyInfo(Keys key)
+        {
+            this.Key = key;
+        }
+    }
+    
+    
 }

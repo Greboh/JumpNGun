@@ -16,7 +16,7 @@ namespace JumpNGun
 
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>(); /// dictionary used for animations. string refers to animation
 
-        private Animation currentAnimation; //currently being animatied
+        private Animation currentAnimation; //currently being animated
 
         public override void Start()
         {
@@ -69,6 +69,7 @@ namespace JumpNGun
         {
             if (animationName != currentAnimation.Name)
             {
+                Console.WriteLine($"Playing animationSet: {animationName}");
                 currentAnimation = animations[animationName];
                 timeElapsed = 0;
                 CurrentIndex = 0;

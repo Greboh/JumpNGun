@@ -103,9 +103,7 @@ namespace JumpNGun
         private void OnCollisionExit(Dictionary<string, object> ctx)
         {
             GameObject lastCollision = (GameObject) ctx["lastCollision"];
-
-            Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
-
+            
             if (lastCollision.Tag == "Player")
             {
                 _dropGround = true;

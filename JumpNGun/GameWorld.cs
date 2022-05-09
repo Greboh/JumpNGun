@@ -191,6 +191,28 @@ namespace JumpNGun
                 Colliders.Remove(col);
             }
         }
+        
+        /// <summary>
+        /// Find GameObjects with a specific component
+        /// </summary>
+        /// <typeparam name="T">The component to find</typeparam>
+        /// <returns>GameObject with the component</returns>
+        public Component FindObjectOfType<T>() where T : Component
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                Component c = gameObject.GetComponent<T>();
+
+                if (c != null)
+                {
+                    return c;
+                }
+            }
+
+            return null;
+
+         
+        }
 
 
     }

@@ -8,25 +8,42 @@ namespace JumpNGun
 {
     public class Player : Component
     {
+        private CharacterType _character;
+        
         private float _speed; // Speed at which the player moves
         private float _jumpHeight = -100; // The jump height of the player
-        private float _velocity;
 
         private float _gravity = 50; // The force of gravity
-        private float _gravityMultipler;
+        private float _gravityMultiplier; // Used to multiply the gravity over time making it stronger
 
+        private bool _isGrounded = false; // Is the player grounded
+        private bool _canJump; // Can the player jump
+        private bool _isJumping; // Is the player jumping
 
-        private bool _isGrounded = false;
-        private bool _canJump;
-        private bool _isJumping;
+        private int _jumpCount = 0; // The current amount of player jumps
+        private int _maxJumpCount = 2; // The max allowed amount of player jumps
 
-        private int _jumpCount = 0;
-        private int _maxJumpCount = 2;
+        private bool _canShoot = true;
+        private float _shootTime;
+        private float _shootCooldown;
 
+        private SpriteRenderer _sr; // Reference to the SpriteRenderer component
+        private Animator _animator; // Reference to the Animator component
 
-        public Player(float speed)
+        private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
+        
+        public Player(CharacterType character)
         {
-            _speed = speed;
+            switch (character)
+            {
+                case CharacterType.Soldier:
+                    _speed = 100;
+                    _shootCooldown = 2f;
+                    break;
+
+            }
+            
+            _character = character;
         }
 
         public override void Awake()
@@ -34,17 +51,19 @@ namespace JumpNGun
             EventManager.Instance.Subscribe("OnCollisionEnter", OnCollisionEnter);
             EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
 
-            EventManager.Instance.Subscribe("OnJump", OnJumpPressed);
+            EventManager.Instance.Subscribe("OnJump", OnKeysPressed);
         }
 
 
         public override void Start()
         {
-            SpriteRenderer sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            sr.SetSprite("1_Soldier_idle");
+            _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            _sr.SetSprite("1_Soldier_idle");
+            
+            _animator = GameObject.GetComponent<Animator>() as Animator;
 
             GameObject.Transform.Position = new Vector2(200, 420);
-            _gravityMultipler = _gravity;
+            _gravityMultiplier = _gravity;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -54,7 +73,12 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             InputHandler.Intance.Execute(this);
+            
+            HandleShooting();
+            
+            if(!_movementKeys.ContainsValue(true)) _animator.PlayAnimation("Idle");
 
+            
             HandleGravity(gameTime);
         }
 
@@ -66,7 +90,6 @@ namespace JumpNGun
         /// <param name="velocity">The strength at which we want to move</param>
         public void Move(Vector2 velocity)
         {
-            if (velocity == Vector2.Zero) return; // Guard clause
 
             // Normalize velocity
             velocity.Normalize();
@@ -74,8 +97,32 @@ namespace JumpNGun
             // Multiply with speed
             velocity *= _speed;
 
+            Vector2 _moveDirection = velocity;
+
+
             // Translate our current position to the new one
-            GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
+            GameObject.Transform.Translate(_moveDirection * GameWorld.DeltaTime);
+
+            FlipSprite(_moveDirection);
+            
+            _animator.PlayAnimation("Run");
+        }
+
+        /// <summary>
+        /// Checks if the sprite should be flipped by using the moveDirection
+        /// </summary>
+        private void FlipSprite(Vector2 moveDirection)
+        {
+            // If we are moving left, flip the sprite
+            if(moveDirection.X < 0)
+            {
+                _sr.SpriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            // If we are moving right, unflip the sprite
+            else if (moveDirection.X > 0)
+            {
+                _sr.SpriteEffects = SpriteEffects.None;
+            }
         }
 
         public void Jump()
@@ -85,9 +132,6 @@ namespace JumpNGun
 
             if (!_canJump || _isJumping)
             {
-                // Console.WriteLine("Cant jump!");
-                // Console.WriteLine($"JumpCount: {_jumpCount}");
-                // Console.WriteLine($"maxJumpCount: {_maxJumpCount}");
                 return;
             }
             _jumpCount++;
@@ -95,12 +139,24 @@ namespace JumpNGun
 
             Vector2 targetDirection = new Vector2(0, _jumpHeight);
             GameObject.Transform.Translate(targetDirection);
+            _animator.PlayAnimation("Jump");
         }
 
-        private void OnJumpPressed(Dictionary<string, object> ctx)
+        private void OnKeysPressed(Dictionary<string, object> ctx)
         {
-            ButtonState currentState = (ButtonState) ctx["buttonState"];
-            _isJumping = currentState == ButtonState.Down;
+            if ((Keys)ctx["key"] == Keys.A || (Keys)ctx["key"] == Keys.D || (Keys)ctx["key"] == Keys.W)
+            {
+                _movementKeys[(Keys) ctx["key"]] = (bool) ctx["isKeyDown"];
+                
+                if((Keys)ctx["key"] == Keys.W && (bool)ctx["isKeyDown"])
+                {
+                    _isJumping = (bool) ctx["isKeyDown"];
+                    Console.WriteLine(_isJumping);
+                }
+            }
+            
+            
+
         }
 
 
@@ -108,34 +164,74 @@ namespace JumpNGun
         {
             if (_isGrounded) return;
 
-            _gravityMultipler += (float) gameTime.ElapsedGameTime.TotalSeconds * 100;
+            _gravityMultiplier += (float) gameTime.ElapsedGameTime.TotalSeconds * 100;
             
             Vector2 fallDirection = new Vector2(0, 1);
             // Console.WriteLine($"GravityMultipler: {_gravityMultipler}");
 
-            fallDirection *= _gravityMultipler;
+            fallDirection *= _gravityMultiplier;
 
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
 
 
+        /// <summary>
+        /// Called from ShootCommand.cs
+        /// Shoots a projectile
+        /// </summary>
+        public void Shoot()
+        {
+            if (!_canShoot) return; // Guard clause
+            
+            GameObject projectile = ProjectileFactory.Instance.Create(_character);
+
+            projectile.Transform.Position = GameObject.Transform.Position;
+
+            Vector2 shootRight = new Vector2(1, 0);
+            Vector2 shootLeft = new Vector2(-1, 0);
+
+            (projectile.GetComponent<Projectile>() as Projectile).Velocity = _sr.SpriteEffects == SpriteEffects.None ? shootRight : shootLeft;
+            (projectile.GetComponent<Projectile>() as Projectile).Speed = 100;
+            GameWorld.Instance.Instantiate(projectile);
+
+            _canShoot = false;
+
+
+        }
+        
+        private void HandleShooting()
+        {
+            if(!_canShoot)
+            {
+                _shootTime += GameWorld.DeltaTime;
+                
+                if(_shootTime > _shootCooldown)
+                {
+                    _canShoot = true;
+                    _shootTime = 0;
+                }
+            }
+        }
+
         private void OnCollisionEnter(Dictionary<string, object> ctx)
         {
             GameObject otherCollision = (GameObject) ctx["otherCollision"];
+            
+            if (otherCollision.Tag == "P_Projectile") return;
 
-            // Console.WriteLine($"CollisionEnter with {otherCollision.Tag}");
-
-            if (otherCollision.Tag == "ground")
+                if (otherCollision.Tag == "ground")
             {
                 _isGrounded = true;
                 _jumpCount = 0;
-                _gravityMultipler = _gravity;
+                _gravityMultiplier = _gravity;
             }
         }
 
         private void OnCollisionExit(Dictionary<string, object> ctx)
         {
             GameObject lastCollision = (GameObject) ctx["lastCollision"];
+            
+            if (lastCollision.Tag == "P_Projectile") return;
             
             if (lastCollision.Tag == "ground")
             {
