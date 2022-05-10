@@ -10,7 +10,7 @@ namespace JumpNGun
     {
         private float _speed; // Speed at which the player moves
         private float _jumpHeight = -100; // The jump height of the player
-        private float _velocity;
+        private Vector2 _currentVelocity;
 
         private float _gravity = 50; // The force of gravity
         private float _gravityMultipler;
@@ -23,6 +23,7 @@ namespace JumpNGun
         private int _jumpCount = 0;
         private int _maxJumpCount = 2;
 
+        public Vector2 CurrentVelocity { get => _currentVelocity; set => _currentVelocity = value; }
 
         public Player(float speed)
         {
@@ -31,8 +32,8 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("OnCollisionEnter", OnCollisionEnter);
-            EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
+            //EventManager.Instance.Subscribe("OnCollisionEnter", OnCollisionEnter);
+            //EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
 
             EventManager.Instance.Subscribe("OnJump", OnJumpPressed);
         }
@@ -43,7 +44,7 @@ namespace JumpNGun
             SpriteRenderer sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             sr.SetSprite("1_Soldier_idle");
 
-            GameObject.Transform.Position = new Vector2(600, 420);
+            GameObject.Transform.Position = new Vector2(600, 650);
             _gravityMultipler = _gravity;
         }
 
@@ -54,7 +55,7 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             InputHandler.Intance.Execute(this);
-
+            CheckCollision();
             HandleGravity(gameTime);
         }
 
@@ -76,6 +77,7 @@ namespace JumpNGun
 
             // Translate our current position to the new one
             GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
+            _currentVelocity = velocity;
         }
 
         public void Jump()
@@ -92,7 +94,7 @@ namespace JumpNGun
             }
             _jumpCount++;
 
-
+            _isGrounded = false;
             Vector2 targetDirection = new Vector2(0, _jumpHeight);
             GameObject.Transform.Translate(targetDirection);
         }
@@ -123,7 +125,7 @@ namespace JumpNGun
         {
             GameObject otherCollision = (GameObject) ctx["otherCollision"];
 
-            // Console.WriteLine($"CollisionEnter with {otherCollision.Tag}");
+            //Console.WriteLine($"CollisionEnter with {otherCollision.Tag}");
 
             if (otherCollision.Tag == "ground")
             {
@@ -141,6 +143,26 @@ namespace JumpNGun
             {
                 _isGrounded = false;
             }
+        }
+
+        private void CheckCollision()
+        {
+            Collider p_collider = GameObject.GetComponent<Collider>() as Collider;
+
+            foreach (Collider otherCollider in GameWorld.Instance.Colliders)
+            {
+                if (otherCollider.GameObject.Tag == p_collider.GameObject.Tag) return;
+
+                if (otherCollider.CollisionBox.Top == p_collider.CollisionBox.Bottom && otherCollider.TopLine.Contains(p_collider.BottomLine))
+                {
+                    _isGrounded = true;
+                    _jumpCount = 0;
+                    _gravityMultipler = _gravity;
+                    Console.WriteLine("Top position: " + otherCollider.CollisionBox.Top);
+                    Console.WriteLine("Bottom position: " + p_collider.CollisionBox.Bottom);
+                }
+            }
+            
         }
     }
 }

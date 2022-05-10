@@ -29,6 +29,8 @@ namespace JumpNGun
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private PlatformSpawner spawner =  new PlatformSpawner();
+
         private List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
 
         private List<GameObject> newGameObjects = new List<GameObject>();//List of newly added/instatiated GameObjects
@@ -38,7 +40,7 @@ namespace JumpNGun
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
         private int _screenWidth = 1200;
-        private int _screenHeight = 600;
+        private int _screenHeight = 800;
 
         public Vector2 ScreenSize { get; private set; }
 
@@ -59,7 +61,7 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
-            PlatformSpawner.Instance.SpawnGround();
+            spawner.SpawnGround();
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
 
@@ -92,6 +94,7 @@ namespace JumpNGun
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+            spawner.SpawnPlatform();
 
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)

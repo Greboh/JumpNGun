@@ -13,8 +13,11 @@ namespace JumpNGun
 
         private SpriteRenderer spriteRenderer; //spriterender for drawing
 
-
         private Collider _lastCollision = null;
+        private Rectangle topLine;
+        private Rectangle bottomLine;
+        private Rectangle rightLine;
+        private Rectangle leftLine;
 
 
         /// <summary>
@@ -33,6 +36,11 @@ namespace JumpNGun
                 );
             }
         }
+
+        public Rectangle TopLine { get => topLine; set => topLine = value; }
+        public Rectangle BottomLine { get => bottomLine; set => bottomLine = value; }
+        public Rectangle RightLine { get => rightLine; set => rightLine = value; }
+        public Rectangle LeftLine { get => leftLine; set => leftLine = value; }
 
         public override void Start()
         {
@@ -62,10 +70,10 @@ namespace JumpNGun
         /// <param name="spriteBatch"></param>
         private void DrawRectangle(Rectangle collisionBox, SpriteBatch spriteBatch)
         {
-            Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
-            Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
-            Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
-            Rectangle leftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
+            topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
+            bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
+            rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
+            leftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
 
             spriteBatch.Draw(texture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(texture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
@@ -81,10 +89,11 @@ namespace JumpNGun
         {
             foreach (Collider otherCollision in GameWorld.Instance.Colliders)
             {
-                
                 // CollisionEnter
-                if (otherCollision != this && otherCollision.CollisionBox.Intersects(this.CollisionBox))
+                if (this != otherCollision && otherCollision.CollisionBox.Intersects(this.CollisionBox))
                 {
+
+
                     if (otherCollision.GameObject.Tag != _lastCollision.GameObject.Tag)
                     {
                         _lastCollision = otherCollision;
@@ -94,20 +103,22 @@ namespace JumpNGun
                             }
                         );
                     }
+
+
                 }
             }
-            
-            if(!this.CollisionBox.Intersects(_lastCollision.CollisionBox) && _lastCollision != this)
-                {
-                    EventManager.Instance.TriggerEvent("OnCollisionExit", new Dictionary<string, object>()
+
+            if (!this.CollisionBox.Intersects(_lastCollision.CollisionBox) && _lastCollision != this)
+            {
+                EventManager.Instance.TriggerEvent("OnCollisionExit", new Dictionary<string, object>()
                         {
                             {"lastCollision", _lastCollision.GameObject}
                         }
-                    );
-                    
-                    _lastCollision = this;
-                }
-            
+                );
+
+                _lastCollision = this;
+            }
         }
+
     }
 }

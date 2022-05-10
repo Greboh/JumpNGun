@@ -20,6 +20,7 @@ namespace JumpNGun
         private bool _dropGround = false;//used to initiate increment of platform y-position (falling)
 
         public Vector2 Position { get => _position; set => _position = value; }
+        public bool DropGround { get => _dropGround; set => _dropGround = value; }
 
         public Platform(int speed, int timeBeforeFall, Vector2 position, string tag)
         {
@@ -54,7 +55,7 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         private void InitiateFalling(GameTime gameTime)
         {
-            if (_dropGround && _tag == "ground")
+            if (_dropGround)
             {
                 Fall(gameTime);
             }
@@ -83,7 +84,7 @@ namespace JumpNGun
         /// </summary>
         private void DestroyGround()
         {
-            if (_position.Y >= GameWorld.Instance.GraphicsDevice.Viewport.Height) 
+            if (_position.Y >= GameWorld.Instance.GraphicsDevice.Viewport.Height && _tag=="ground") 
             {
                 GameWorld.Instance.Destroy(GameObject);
                 Console.WriteLine("Ground has been destroyed");
@@ -98,12 +99,14 @@ namespace JumpNGun
         {
             GameObject lastCollision = (GameObject) ctx["lastCollision"];
 
-            Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
+            //Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
 
             if (lastCollision.Tag == "ground")
             {
-                _dropGround = true;
-                Console.WriteLine("Ground falling now!");
+                //_dropGround = true;
+
+                PlatformSpawner.Instance.StartSpawning = true;
+                //Console.WriteLine("Ground falling now!");
             }
         }
 

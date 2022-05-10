@@ -22,30 +22,28 @@ namespace JumpNGun
                 return instance;
             }
         }
+        
+        public bool StartSpawning { get => _startSpawning; set => _startSpawning = value; }
 
-        private int _spawnTimer = 20;
-
+        private PlatformFactory _factory = new PlatformFactory();
+        private float _spawnTimer = 20;
+        private bool _startSpawning = false;
 
         public void SpawnGround()
         {
-            PlatformFactory factory = new PlatformFactory();
-            
-            
-            GameWorld.Instance.Instantiate(factory.Create(PlatformType.ground));
-            
-            for (int i = 0; i < 4; i++)
+            GameWorld.Instance.Instantiate(_factory.Create(PlatformType.ground));
+
+            for (int i = 0; i < 8; i++)
             {
-                // GameWorld.Instance.Instantiate(new PlatformFactory().Create(PlatformType.grass));
-                GameWorld.Instance.Instantiate(factory.Create(PlatformType.grass));
+                GameWorld.Instance.Instantiate(_factory.Create(PlatformType.startPlatform));
             }
-
-
         }
 
-        public void Spawner()
+        public void SpawnPlatform()
         {
-            if (_spawnTimer > GameWorld.DeltaTime)
+            if (_spawnTimer > GameWorld.DeltaTime && _startSpawning == true)
             {
+                Console.WriteLine("Spawning platforms");
                 GameWorld.Instance.Instantiate(new PlatformFactory().Create(PlatformType.grass));
             }
         }
