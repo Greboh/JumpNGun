@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace JumpNGun
@@ -16,6 +18,10 @@ namespace JumpNGun
 
         private Collider _lastCollision = null;
 
+        public Rectangle TopLine { get; set; }
+        public Rectangle BottomLine { get; set; }
+        public Rectangle RightLine { get; set; }
+        public Rectangle LeftLine { get; set; }
 
         /// <summary>
         /// Property for rectangle colisionbox  for sprite
@@ -62,15 +68,16 @@ namespace JumpNGun
         /// <param name="spriteBatch"></param>
         private void DrawRectangle(Rectangle collisionBox, SpriteBatch spriteBatch)
         {
-            Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
-            Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
-            Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
-            Rectangle leftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
+            TopLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
+            BottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
+            RightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
+            LeftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
+            
 
-            spriteBatch.Draw(texture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(texture, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
 
@@ -79,34 +86,39 @@ namespace JumpNGun
         /// </summary>
         public void CheckCollision()
         {
-            foreach (Collider otherCollision in GameWorld.Instance.Colliders)
-            {
-                
-                // CollisionEnter
-                if (otherCollision != this && otherCollision.CollisionBox.Intersects(this.CollisionBox))
-                {
-                    if (otherCollision.GameObject.Tag != _lastCollision.GameObject.Tag)
-                    {
-                        _lastCollision = otherCollision;
-                        EventManager.Instance.TriggerEvent("OnCollisionEnter", new Dictionary<string, object>()
-                            {
-                                {"otherCollision", otherCollision.GameObject}
-                            }
-                        );
-                    }
-                }
-            }
-            
-            if(!this.CollisionBox.Intersects(_lastCollision.CollisionBox) && _lastCollision != this)
-                {
-                    EventManager.Instance.TriggerEvent("OnCollisionExit", new Dictionary<string, object>()
-                        {
-                            {"lastCollision", _lastCollision.GameObject}
-                        }
-                    );
-                    
-                    _lastCollision = this;
-                }
+            // foreach (Collider otherCollision in GameWorld.Instance.Colliders)
+            // {
+            //     // if(otherCollision != this && otherCollision.TopLine.Intersects(CollisionBox))
+            //     // {
+            //     //     Console.WriteLine($"Intersected bottomLine on {otherCollision.GameObject.Tag}");
+            //     // }
+            //
+            //
+            //     // CollisionEnter
+            //     if (otherCollision != this && otherCollision.CollisionBox.Intersects(this.CollisionBox))
+            //     {
+            //         if (otherCollision.GameObject.Tag != _lastCollision.GameObject.Tag)
+            //         {
+            //             _lastCollision = otherCollision;
+            //             EventManager.Instance.TriggerEvent("OnCollisionEnter", new Dictionary<string, object>()
+            //                 {
+            //                     {"otherCollision", otherCollision.GameObject}
+            //                 }
+            //             );
+            //         }
+            //     }
+            // }
+            //
+            // if(!this.CollisionBox.Intersects(_lastCollision.CollisionBox) && _lastCollision != this)
+            //     {
+            //         EventManager.Instance.TriggerEvent("OnCollisionExit", new Dictionary<string, object>()
+            //             {
+            //                 {"lastCollision", _lastCollision.GameObject}
+            //             }
+            //         );
+            //         
+            //         _lastCollision = this;
+            //     }
             
         }
     }

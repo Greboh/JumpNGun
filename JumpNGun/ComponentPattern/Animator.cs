@@ -69,7 +69,7 @@ namespace JumpNGun
         {
             if (animationName != currentAnimation.Name)
             {
-                Console.WriteLine($"Playing animationSet: {animationName}");
+                // Console.WriteLine($"Playing animationSet: {animationName}");
                 currentAnimation = animations[animationName];
                 timeElapsed = 0;
                 CurrentIndex = 0;

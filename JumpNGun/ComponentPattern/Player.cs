@@ -91,11 +91,13 @@ namespace JumpNGun
 
             HandleAnimations();
 
+            CheckCollision();
+            
             HandleGravity();
         }
 
         /// <summary>
-        /// Handles setting Animations 
+        /// Handles when to set Animations 
         /// </summary>
         private void HandleAnimations()
         {
@@ -283,6 +285,33 @@ namespace JumpNGun
             {
                 _isJumping = (bool) ctx["isKeyDown"];
             }
+        }
+
+        private string _groundCollision;
+        
+        private void CheckCollision()
+        {
+            Collider p_Collider = GameObject.GetComponent<Collider>() as Collider;
+            
+            foreach (Collider otherCollision in GameWorld.Instance.Colliders)
+            {
+                if (otherCollision == p_Collider) return;
+                
+                if (p_Collider.CollisionBox.Intersects(otherCollision.TopLine))
+                {
+                    Console.WriteLine("Setting to true");
+                    _isGrounded = true;
+                    _jumpCount = 0;
+                    _gravityPull = _gravity;
+                    _groundCollision = otherCollision.GameObject.Tag;
+                }
+                
+                if(!p_Collider.CollisionBox.Intersects(otherCollision.TopLine))
+                {
+                    _isGrounded = false;
+                }
+            }
+            
         }
 
         private void OnCollisionEnter(Dictionary<string, object> ctx)

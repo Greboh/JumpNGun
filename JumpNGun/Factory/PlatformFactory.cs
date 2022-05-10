@@ -47,7 +47,7 @@ namespace JumpNGun
                     break;
                 case PlatformType.grass:
                     {
-                        gameObject.AddComponent(new Platform(10, 200, new Vector2(300, 400), "grass"));
+                        gameObject.AddComponent(new Platform(10, 200, new Vector2(300, 300), "grass"));
                         sr.SetSprite("Grass platform");
                     }
                     break;

@@ -71,6 +71,7 @@ namespace JumpNGun
                 Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
             }
 
+            Instantiate(PlatformFactory.Instance.Create(PlatformType.grass));
             
             
             base.Initialize();
