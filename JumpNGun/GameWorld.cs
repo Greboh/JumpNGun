@@ -29,6 +29,8 @@ namespace JumpNGun
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private PlatformSpawner spawner =  new PlatformSpawner();
+
         private List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
 
         private List<GameObject> newGameObjects = new List<GameObject>();//List of newly added/instatiated GameObjects
@@ -38,11 +40,12 @@ namespace JumpNGun
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
         private int _screenWidth = 1200;
-        private int _screenHeight = 600;
+        private int _screenHeight = 800;
 
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
+        public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
 
         public GameWorld()
         {
@@ -58,22 +61,23 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
+            spawner.SpawnGround();
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
-            
+
+
+            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
+
             //call awake method on every active GameObject in list
             foreach (var go in gameObjects)
             {
                 go.Awake();
             }
-            for (int i = 0; i < 11; i++)
-            {
-                Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
-            }
 
             Instantiate(PlatformFactory.Instance.Create(PlatformType.grass));
             
-            
+
+
             base.Initialize();
         }
 
@@ -91,6 +95,7 @@ namespace JumpNGun
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+            spawner.SpawnPlatform();
 
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)

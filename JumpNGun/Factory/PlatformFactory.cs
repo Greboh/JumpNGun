@@ -8,7 +8,7 @@ namespace JumpNGun
     /// <summary>
     /// Different types of platforms 
     /// </summary>
-    public enum PlatformType { ground, graveyard, grass, dessert }
+    public enum PlatformType { ground, graveyard, grass, dessert, startPlatform }
     public class PlatformFactory : Factory
     {
         private static PlatformFactory _instance;
@@ -24,7 +24,35 @@ namespace JumpNGun
                 return _instance;
             }
         }
-        private Vector2 position = new Vector2(0, 545);
+
+        private Random _random = new Random();
+
+        private Vector2[] _startPositions =
+        {
+           new Vector2(100, 450),
+           new Vector2(350, 350),
+           new Vector2(575, 225),
+           new Vector2(800, 700),
+           new Vector2(200, 600),
+           new Vector2(900, 530),
+           new Vector2(1000, 650),
+           new Vector2(700, 400),
+
+        };
+
+        private Vector2[] _spawnPositions =
+        {
+            new Vector2(100, 0),
+            new Vector2(200, 0),
+            new Vector2(300, 0),
+            new Vector2(400, 0),
+            new Vector2(500, 0),
+            new Vector2(600, 0),
+            new Vector2(700, 0),
+            new Vector2(800, 0),
+        };
+
+        private int _positionIncrement;
 
         public override GameObject Create(Enum type)
         {
@@ -34,25 +62,36 @@ namespace JumpNGun
 
             gameObject.AddComponent(new Collider());
 
+      
 
             switch (type)
             {
                 case PlatformType.ground:
                     {
 
-                        gameObject.AddComponent(new Platform(10, 200,position, "ground"));
-                        position.X += 129;
-                        sr.SetSprite("2");
+                        gameObject.AddComponent(new Platform(10, 200,new Vector2(600, 780), "ground"));
+                        sr.SetSprite("ground_platform");
+                    }
+                    break;
+                case PlatformType.startPlatform:
+                    {
+                            gameObject.AddComponent(new Platform(10, 200, _startPositions[_positionIncrement], "grass"));
+                            Console.WriteLine((gameObject.GetComponent<Platform>() as Platform).Position);
+                            sr.SetSprite("Grass platform");
+                            _positionIncrement++;
+                    
                     }
                     break;
                 case PlatformType.grass:
                     {
-                        gameObject.AddComponent(new Platform(10, 200, new Vector2(300, 300), "grass"));
+                        gameObject.AddComponent(new Platform(10, 200, _spawnPositions[_random.Next(0,8)], "grass"));
                         sr.SetSprite("Grass platform");
+
                     }
                     break;
                 case PlatformType.dessert:
                     {
+
                     }
                     break;
                 case PlatformType.graveyard:
@@ -60,6 +99,7 @@ namespace JumpNGun
                     }break;
             }
             return gameObject;
+            
         }
     }
 }
