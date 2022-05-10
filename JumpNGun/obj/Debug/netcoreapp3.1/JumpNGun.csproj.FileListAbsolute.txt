@@ -100,3 +100,4 @@ C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcore
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_run.xnb
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_run.xnb
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb

@@ -14,15 +14,12 @@ namespace JumpNGun
         private Texture2D texture; //texture to be drawn by renderer
 
         private SpriteRenderer spriteRenderer; //spriterender for drawing
-
-
-        private Collider _lastCollision = null;
-
         public Rectangle TopLine { get; set; }
         public Rectangle BottomLine { get; set; }
         public Rectangle RightLine { get; set; }
         public Rectangle LeftLine { get; set; }
-
+        
+        
         /// <summary>
         /// Property for rectangle colisionbox  for sprite
         /// </summary>
@@ -47,8 +44,6 @@ namespace JumpNGun
 
             //load pixeltexture for texture. Texture used to create visible colisionbox for debugging
             texture = GameWorld.Instance.Content.Load<Texture2D>("Pixel");
-
-            _lastCollision = this;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -86,40 +81,7 @@ namespace JumpNGun
         /// </summary>
         public void CheckCollision()
         {
-            // foreach (Collider otherCollision in GameWorld.Instance.Colliders)
-            // {
-            //     // if(otherCollision != this && otherCollision.TopLine.Intersects(CollisionBox))
-            //     // {
-            //     //     Console.WriteLine($"Intersected bottomLine on {otherCollision.GameObject.Tag}");
-            //     // }
-            //
-            //
-            //     // CollisionEnter
-            //     if (otherCollision != this && otherCollision.CollisionBox.Intersects(this.CollisionBox))
-            //     {
-            //         if (otherCollision.GameObject.Tag != _lastCollision.GameObject.Tag)
-            //         {
-            //             _lastCollision = otherCollision;
-            //             EventManager.Instance.TriggerEvent("OnCollisionEnter", new Dictionary<string, object>()
-            //                 {
-            //                     {"otherCollision", otherCollision.GameObject}
-            //                 }
-            //             );
-            //         }
-            //     }
-            // }
-            //
-            // if(!this.CollisionBox.Intersects(_lastCollision.CollisionBox) && _lastCollision != this)
-            //     {
-            //         EventManager.Instance.TriggerEvent("OnCollisionExit", new Dictionary<string, object>()
-            //             {
-            //                 {"lastCollision", _lastCollision.GameObject}
-            //             }
-            //         );
-            //         
-            //         _lastCollision = this;
-            //     }
-            
+
         }
     }
 }

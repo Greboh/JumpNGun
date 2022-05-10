@@ -8,7 +8,6 @@
     ".NETCoreApp,Version=v3.1": {
       "JumpNGun/1.0.0": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Analyzers": "3.3.4-beta1.22168.1",
           "MonoGame.Content.Builder.Task": "3.8.0.1641",
           "MonoGame.Framework.WindowsDX": "3.8.0.1641"
         },
@@ -63,10 +62,10 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.Analyzers/3.3.4-beta1.22168.1": {},
+      "Microsoft.CodeAnalysis.Analyzers/1.1.0": {},
       "Microsoft.CodeAnalysis.Common/1.3.0": {
         "dependencies": {
-          "Microsoft.CodeAnalysis.Analyzers": "3.3.4-beta1.22168.1",
+          "Microsoft.CodeAnalysis.Analyzers": "1.1.0",
           "System.AppContext": "4.1.0",
           "System.Collections": "4.0.11",
           "System.Collections.Concurrent": "4.0.12",
@@ -1497,12 +1496,12 @@
       "path": "libuv/1.9.1",
       "hashPath": "libuv.1.9.1.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Analyzers/3.3.4-beta1.22168.1": {
+    "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QS0kcm2j/NvuzNiVovx2J0U7CThw8wdXdfyl0WHaDpoXQIlLG+MwZkArKRnZ4wuDzpG1QzUFYSKqRek3VOlESw==",
-      "path": "microsoft.codeanalysis.analyzers/3.3.4-beta1.22168.1",
-      "hashPath": "microsoft.codeanalysis.analyzers.3.3.4-beta1.22168.1.nupkg.sha512"
+      "sha512": "sha512-HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "path": "microsoft.codeanalysis.analyzers/1.1.0",
+      "hashPath": "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Common/1.3.0": {
       "type": "package",
