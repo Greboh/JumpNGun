@@ -38,7 +38,7 @@ namespace JumpNGun
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
         private int _screenWidth = 1200;
-        private int _screenHeight = 600;
+        private int _screenHeight = 800;
 
         public Vector2 ScreenSize { get; private set; }
 
@@ -71,6 +71,8 @@ namespace JumpNGun
                 Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
             }
 
+            //test sound
+            SoundManager.Instance.PlayClip("soundtrack");
             
             
             base.Initialize();

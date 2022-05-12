@@ -81,7 +81,7 @@ namespace JumpNGun
         public void Jump()
         {
             _canJump = _jumpCount < _maxJumpCount;
-
+            
 
             if (!_canJump || _isJumping)
             {
@@ -90,6 +90,7 @@ namespace JumpNGun
                 // Console.WriteLine($"maxJumpCount: {_maxJumpCount}");
                 return;
             }
+            SoundManager.Instance.PlayClip("test");
             _jumpCount++;
 
 

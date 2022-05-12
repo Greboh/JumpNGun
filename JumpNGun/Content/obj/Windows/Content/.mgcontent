@@ -4,18 +4,22 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/1_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/2.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/2_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/3_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/4_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Desert platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Grass platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/graveyard platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Pixel.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_idle.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/2.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_idle.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/3_Soldier_idle.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/4_Soldier_idle.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/Grass platform.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/graveyard platform.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/Pixel.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack.mp3</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/test.mp3</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

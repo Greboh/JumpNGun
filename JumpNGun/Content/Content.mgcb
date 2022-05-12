@@ -133,3 +133,15 @@
 /processorParam:TextureFormat=Color
 /build:Pixel.png
 
+#begin soundtrack.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundtrack.mp3
+
+#begin test.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:test.mp3
+
