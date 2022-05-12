@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace JumpNGun
 {
@@ -24,12 +26,8 @@ namespace JumpNGun
             }
         }
 
-  
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
-        private PlatformSpawner spawner =  new PlatformSpawner();
 
         private List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
 
@@ -61,10 +59,10 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
-            spawner.SpawnGround();
+            
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
-
+            LevelManager.Instance.GenerateLevel();
 
             //Instantiate(new PlatformFactory().Create(PlatformType.ground));
 
@@ -73,10 +71,6 @@ namespace JumpNGun
             {
                 go.Awake();
             }
-
-            Instantiate(PlatformFactory.Instance.Create(PlatformType.grass));
-            
-
 
             base.Initialize();
         }
@@ -95,7 +89,11 @@ namespace JumpNGun
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            spawner.SpawnPlatform();
+
+            LevelManager.Instance.ChangeLevel();
+            LevelManager.Instance.GenerateLevel();
+
+            
 
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)

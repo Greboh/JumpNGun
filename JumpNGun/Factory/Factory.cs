@@ -13,5 +13,7 @@ namespace JumpNGun
         /// <param name="type">type of specific GameObject to be created</param>
         /// <returns></returns>
         public abstract GameObject Create(Enum type);
+
+        public abstract GameObject Create(Enum type, Vector2 position);
     }
 }

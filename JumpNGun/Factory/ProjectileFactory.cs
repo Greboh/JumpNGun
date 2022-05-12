@@ -32,5 +32,10 @@ namespace JumpNGun
             projectile.Tag = "P_Projectile";
             return projectile;
         }
+
+        public override GameObject Create(Enum type, Microsoft.Xna.Framework.Vector2 position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

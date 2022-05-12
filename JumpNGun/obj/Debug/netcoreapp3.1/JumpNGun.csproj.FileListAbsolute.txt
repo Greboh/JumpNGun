@@ -101,3 +101,13 @@ C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcore
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_run.xnb
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_jump.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_run.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_jump.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_run.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_run.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_run.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_run.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Bullet.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb

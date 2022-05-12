@@ -33,33 +33,22 @@ namespace JumpNGun
         public override void Awake()
         {
             SetVelocity();
-            EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
+            GameObject.Transform.Position = _position;
         }
 
  
 
         public override void Start()
         {
-            GameObject.Transform.Position = _position;
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            InitiateFalling(gameTime);
             DestroyGround();
+            Fall(gameTime);
         }
 
-        /// <summary>
-        /// Initiates fall of ground
-        /// </summary>
-        /// <param name="gameTime"></param>
-        private void InitiateFalling(GameTime gameTime)
-        {
-            if (_dropGround)
-            {
-                Fall(gameTime);
-            }
-        }
 
         /// <summary>
         /// Moves platform and startground up the Y-axis (down in the game window)
@@ -67,8 +56,16 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         private void Fall(GameTime gameTime)
         {
-            GameObject.Transform.Translate(_moveDirection * (float)gameTime.ElapsedGameTime.TotalSeconds);
-
+            if (_dropGround)
+            {
+                foreach (GameObject gameObject in GameWorld.Instance.GameObjects)
+                {
+                    if (gameObject.HasComponent<Platform>())
+                    {
+                        gameObject.Transform.Translate(_moveDirection * (float)gameTime.ElapsedGameTime.TotalSeconds);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -84,29 +81,10 @@ namespace JumpNGun
         /// </summary>
         private void DestroyGround()
         {
-            if (_position.Y >= GameWorld.Instance.GraphicsDevice.Viewport.Height && _tag=="ground") 
+            if (_position.Y >= GameWorld.Instance.GraphicsDevice.Viewport.Height) 
             {
                 GameWorld.Instance.Destroy(GameObject);
                 Console.WriteLine("Ground has been destroyed");
-            }
-        }
-
-        /// <summary>
-        /// Initiates falling of platforms when player jumps from startground
-        /// </summary>
-        /// <param name="ctx"></param>
-        private void OnCollisionExit(Dictionary<string, object> ctx)
-        {
-            GameObject lastCollision = (GameObject) ctx["lastCollision"];
-
-            //Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
-
-            if (lastCollision.Tag == "ground")
-            {
-                //_dropGround = true;
-
-                PlatformSpawner.Instance.StartSpawning = true;
-                //Console.WriteLine("Ground falling now!");
             }
         }
 

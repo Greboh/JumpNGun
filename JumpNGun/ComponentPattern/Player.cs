@@ -44,6 +44,8 @@ namespace JumpNGun
         private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
 
         private Vector2 _moveDirection;
+        private Rectangle _groundCollision = Rectangle.Empty;
+        private bool _hasCollidedWithGround = false;
 
         public Player(CharacterType character)
         {
@@ -75,7 +77,7 @@ namespace JumpNGun
 
             _animator = GameObject.GetComponent<Animator>() as Animator;
 
-            GameObject.Transform.Position = new Vector2(200, 420);
+            GameObject.Transform.Position = new Vector2(600, 420);
             _gravityPull = _gravity;
         }
 
@@ -286,8 +288,7 @@ namespace JumpNGun
             }
         }
 
-        private Rectangle _groundCollision = Rectangle.Empty;
-        private bool _hasCollidedWithGround = false;
+     
 
         private void CheckCollision()
         {
@@ -309,11 +310,11 @@ namespace JumpNGun
                 }
 
                 // If we are grounded but do not collide with our groundCollision, then we are not grounded!
-                if (_isGrounded && !p_Collider.CollisionBox.Intersects(_groundCollision))
+                if (_isGrounded && !p_Collider.CollisionBox.Intersects(_groundCollision) && !p_Collider.CollisionBox.Intersects(otherCollision.CollisionBox))
                 {
                     _isGrounded = false; 
                     _hasCollidedWithGround = false;
-                    // Console.WriteLine("IsNotGrounded");
+                    //(otherCollision.GameObject.GetComponent<Platform>() as Platform).DropGround = true;
                 }
             }
         }
@@ -331,17 +332,14 @@ namespace JumpNGun
                 // Check if the player is inside the ground collision or if hes just a tiny bit above it
                 if (playerCollider.CollisionBox.Bottom >= collisionCollider.CollisionBox.Top && playerCollider.CollisionBox.Bottom <= collisionCollider.CollisionBox.Top + 5)
                 {
+                    
                     _isGrounded = true; // we are grounded
                     _jumpCount = 0; // Reset jump counter
                     _gravityPull = _gravity; // Reset gravity pull
-                    _groundCollision = collisionCollider.CollisionBox; // Reference our current collisionColliders CollisionBox
+                    _groundCollision = collisionCollider.CollisionBox;
+                    ;// Reference our current collisionColliders CollisionBox
                     _hasCollidedWithGround = true; // We have collided with ground now
-
-                    // Console.WriteLine("isGrounded");
-                    // Console.WriteLine("");
-                    // Console.WriteLine($"otherCollision TopLine: {otherCollision.CollisionBox.Top}");
-                    // Console.WriteLine("");
-                    // Console.WriteLine($"P_Collider bottomLine{p_Collider.CollisionBox.Bottom}");
+                    
                 }
             }
             else if (playerCollider.CollisionBox.Intersects(collisionCollider.BottomLine) && !_hasCollidedWithGround)
