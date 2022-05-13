@@ -40,6 +40,7 @@ namespace JumpNGun
 
         private SpriteRenderer _sr; // Reference to the SpriteRenderer component
         private Animator _animator; // Reference to the Animator component
+        private Input _input; // Reference to the Input Component
 
         private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
 
@@ -73,6 +74,8 @@ namespace JumpNGun
             _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             _sr.SetSprite("1_Soldier_idle");
 
+            _input = GameObject.GetComponent<Input>() as Input;
+
             _animator = GameObject.GetComponent<Animator>() as Animator;
 
             GameObject.Transform.Position = new Vector2(200, 420);
@@ -85,8 +88,9 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            InputHandler.Intance.Execute(this);
-
+            // InputHandler.Intance.Execute(this);
+            _input.Execute(this);
+            
             HandleShootLogic();
             HandleDashLogic();
 
@@ -296,7 +300,7 @@ namespace JumpNGun
             foreach (Collider otherCollision in GameWorld.Instance.Colliders)
             {
                 if (otherCollision == p_Collider) return; // Return if the collision is the player itself
-                
+
                 // If our CollisionBox collides with another CollisionBox
                 if (p_Collider.CollisionBox.Intersects(otherCollision.CollisionBox))
                 {
@@ -311,7 +315,7 @@ namespace JumpNGun
                 // If we are grounded but do not collide with our groundCollision, then we are not grounded!
                 if (_isGrounded && !p_Collider.CollisionBox.Intersects(_groundCollision))
                 {
-                    _isGrounded = false; 
+                    _isGrounded = false;
                     _hasCollidedWithGround = false;
                     // Console.WriteLine("IsNotGrounded");
                 }
@@ -348,7 +352,7 @@ namespace JumpNGun
             {
                 // Console.WriteLine("Push To top!");
             }
-            
+
             // If the player hits the ground CollisionBox from either the left or the right side
             else if (playerCollider.CollisionBox.Intersects(collisionCollider.LeftLine) && !_hasCollidedWithGround)
             {
