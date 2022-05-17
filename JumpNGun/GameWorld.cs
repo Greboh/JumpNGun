@@ -37,7 +37,7 @@ namespace JumpNGun
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
-        private int _screenWidth = 1200;
+        private int _screenWidth = 1325;
         private int _screenHeight = 800;
 
         public Vector2 ScreenSize { get; private set; }
@@ -63,7 +63,6 @@ namespace JumpNGun
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
             LevelManager.Instance.GenerateLevel();
-
             //Instantiate(new PlatformFactory().Create(PlatformType.ground));
 
             //call awake method on every active GameObject in list
@@ -78,7 +77,7 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            LevelGenerator.Instance.LoadContent();
             //call start method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -91,15 +90,16 @@ namespace JumpNGun
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
             LevelManager.Instance.ChangeLevel();
+            LevelManager.Instance.ChangeLevelDebug();
             LevelManager.Instance.GenerateLevel();
-
-            
-
+            //Console.WriteLine(Mouse.GetState().Position);
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
+                
             }
+           
             
             DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -116,6 +116,7 @@ namespace JumpNGun
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+            LevelGenerator.Instance.Draw(_spriteBatch);
 
             //draw sprites of every active gameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
@@ -217,7 +218,6 @@ namespace JumpNGun
 
          
         }
-
 
     }
 }

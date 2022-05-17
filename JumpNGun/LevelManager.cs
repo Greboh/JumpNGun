@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
-    enum Level { Level_One, Level_Two, Level_Three }
-
     public class LevelManager
     {
         private static LevelManager _instance;
@@ -19,119 +17,77 @@ namespace JumpNGun
             get { return _instance ??= new LevelManager(); }
         }
 
-        private Level _currentLevel;
-        private bool _levelIsGenerated;
+        public bool CanChangeLevel { get => _canChangeLevel; set => _canChangeLevel = value; }
 
-        private Vector2 groundPosition = new Vector2(600, 780);
+        private bool _levelIsGenerated = false;
+        private int _level = 0;
+        private int _platformAmount = 4;
+        private bool _canChangeLevel = false;
 
-        private Vector2[] _level1Positions =
-        {
-           new Vector2(100, 450),
-           new Vector2(350, 350),
-           new Vector2(575, 225),
-           new Vector2(800, 700),
-           new Vector2(200, 600),
-           new Vector2(900, 530),
-           new Vector2(1000, 650),
-           new Vector2(700, 400),
-        };
+        private GameObject portal = new GameObject();
 
-        private Vector2[] _level2Positions =
-        {
-            new Vector2(200, 450),
-           new Vector2(400, 350),
-           new Vector2(600, 225),
-           new Vector2(800, 700),
-           new Vector2(200, 550),
-           new Vector2(900, 530),
-           new Vector2(1000, 650),
-           new Vector2(1100, 400),
-        };
-
-        private Vector2[] _level3Positions = 
-        {
-           new Vector2(200, 450),
-           new Vector2(400, 100),
-           new Vector2(600, 225),
-           new Vector2(800, 700),
-           new Vector2(200, 550),
-           new Vector2(700, 350),
-           new Vector2(1000, 650),
-           new Vector2(1100, 300),
-        };
 
         //for testing
         private bool canPress = true;
 
+
         public void GenerateLevel()
         {
-
-            switch (_currentLevel)
+            portal.AddComponent(new Portal());
+            if (!_levelIsGenerated)
             {
-                case Level.Level_One:
-                    {
-                        if (!_levelIsGenerated)
-                        {
-                            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.ground, groundPosition));
-
-                            for (int i = 0; i < _level1Positions.Length; i++)
-                            {
-                                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grass, _level1Positions[i]));
-                            }
-
-                            _levelIsGenerated = true;
-                            Console.WriteLine("LEVEL 1");
-                        }
-                    }
-                    break;
-
-                case Level.Level_Two:
-                    {
-                        if (!_levelIsGenerated)
-                        {
-                            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.ground, groundPosition));
-                            for (int i = 0; i < _level2Positions.Length; i++)
-                            {
-                                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grass, _level2Positions[i]));
-                            }
-
-                            Console.WriteLine("LEVEL 2");
-                        }
-                        _levelIsGenerated = true;
-                    }
-                    break;
-
-                case Level.Level_Three:
-                    {
-                        if (!_levelIsGenerated)
-                        {
-                            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.ground, groundPosition));
-                            for (int i = 0; i < _level2Positions.Length; i++)
-                            {
-                                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grass, _level3Positions[i]));
-                            }
-
-                            Console.WriteLine("LEVEL 3");
-                        }
-                        _levelIsGenerated = true;
-                    }
-                    break;
+                if (_level < 6)
+                {
+                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.grass);
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
+                }
+                else if (_level == 6)
+                {
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
+                }
+                else if (_level > 6 && _level < 12)
+                {
+                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.dessert);
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.dessertGround));
+                }
+                else if (_level == 12)
+                {
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.dessertGround));
+                }
+                else if (_level > 12 && _level < 18)
+                {
+                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
+                }
+                else if (_level == 18)
+                {
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
+                }
+                else
+                {
+                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
+                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
+                }
+                IncrementLevel();
+                _levelIsGenerated = true;
             }
-
         }
+
 
         public void ChangeLevel()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.K) && _currentLevel == Level.Level_One && canPress)
+            if (_canChangeLevel == true)
             {
-                _currentLevel = Level.Level_Two;
                 _levelIsGenerated = false;
-                CleanLevel();
-                canPress = false;
+                IncrementLevel();
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.K) && _currentLevel == Level.Level_Two && canPress)
+        }
+
+
+        public void ChangeLevelDebug()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.K) && canPress)
             {
-                _currentLevel = Level.Level_Three;
                 _levelIsGenerated = false;
                 CleanLevel();
                 canPress = false;
@@ -155,6 +111,21 @@ namespace JumpNGun
                 }
             }
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
+        }
+
+        /// <summary>
+        /// Increments level and amount of platforms. 
+        /// </summary>
+        private void IncrementLevel()
+        {
+            _level++;
+            _platformAmount++;
+
+            //amount of platforms capped at 19, to avoid overcrowding screen and stackoverflow
+            if (_platformAmount > 19)
+            {
+                _platformAmount = 19;
+            }
         }
     }
 }

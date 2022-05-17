@@ -111,3 +111,14 @@ C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\Ju
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Bullet.xnb
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\dessert_ground.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\grass_ground.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard_ground.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_1.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_2.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_3.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_4.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_5.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_6.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_7.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_8.xnb
