@@ -61,6 +61,7 @@ namespace JumpNGun
             _gameObject.AddComponent(new SpriteRenderer());
             _gameObject.AddComponent(new Animator());
             _gameObject.AddComponent(new Collider());
+            
             _gameObject.Tag = "Player";
 
         }

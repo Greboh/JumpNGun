@@ -24,8 +24,6 @@ namespace JumpNGun
         private int _platformAmount = 4;
         private bool _canChangeLevel = false;
 
-        private GameObject portal = new GameObject();
-
 
         //for testing
         private bool canPress = true;
@@ -33,13 +31,13 @@ namespace JumpNGun
 
         public void GenerateLevel()
         {
-            portal.AddComponent(new Portal());
             if (!_levelIsGenerated)
             {
                 if (_level < 6)
                 {
                     LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.grass);
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
+                    GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1140, 700)));
                 }
                 else if (_level == 6)
                 {

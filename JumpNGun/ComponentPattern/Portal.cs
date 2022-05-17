@@ -5,19 +5,20 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public class Portal :  Component
+    public class Portal : Component
     {
         private Vector2 _position;
 
-        public Portal()
+
+        public Portal(Vector2 position)
         {
-            _position = new Vector2(1100, 760);
+            _position = position;
         }
 
 
         public override void Awake()
         {
-            
+            GameObject.Transform.Position = _position;
         }
 
         public override void Start()
@@ -29,19 +30,18 @@ namespace JumpNGun
             CheckCollision();
         }
 
-
-        private void BuildComponents()
-        {
-            
-        }
-
         private void CheckCollision()
         {
-            foreach (Collider collider in GameWorld.Instance.Colliders)
+            Collider _portalCollider = GameObject.GetComponent<Collider>() as Collider;
+
+            foreach (Collider otherCollider in GameWorld.Instance.Colliders)
             {
-                if (collider.GameObject.HasComponent<Player>() && collider.CollisionBox.Intersects(_portalCollider.CollisionBox))
+                if(otherCollider == _portalCollider) return; //Terminate if the collision is the portal itself
+
+
+                if(_portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "Player")
                 {
-                    LevelManager.Instance.CanChangeLevel = true;
+                    Console.WriteLine("colliding with player");
                 }
             }
         }

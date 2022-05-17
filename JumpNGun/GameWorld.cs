@@ -62,6 +62,7 @@ namespace JumpNGun
             
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             gameObjects.Add(playerDirector.Construct());
+            
             LevelManager.Instance.GenerateLevel();
             //Instantiate(new PlatformFactory().Create(PlatformType.ground));
 
