@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -75,9 +76,14 @@ namespace JumpNGun
             }
 
             Instantiate(PlatformFactory.Instance.Create(PlatformType.grass));
-            
 
+            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
+            for (int i = 0; i < 3; i++)
+            {
+                Instantiate(orbFactory.Create(ExperienceOrbType.Small));
+            }
+    
             base.Initialize();
         }
 
@@ -104,7 +110,6 @@ namespace JumpNGun
             }
             
             DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
 
 
             //call cleanup in every cycle

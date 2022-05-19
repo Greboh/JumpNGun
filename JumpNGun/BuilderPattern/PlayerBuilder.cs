@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.XAudio2.Fx;
 
 namespace JumpNGun
 {
@@ -55,14 +56,17 @@ namespace JumpNGun
                 case CharacterType.Soldier:
                     _gameObject.AddComponent(new Player(character));
                     break;
-            }
+            } 
             
             // Add all relevant components
             _gameObject.AddComponent(new SpriteRenderer());
             _gameObject.AddComponent(new Animator());
             _gameObject.AddComponent(new Input());
             _gameObject.AddComponent(new Collider());
+            _gameObject.AddComponent(new LevelSystem());
             _gameObject.Tag = "Player";
+            
+            
 
         }
 

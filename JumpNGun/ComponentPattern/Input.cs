@@ -90,7 +90,7 @@ namespace JumpNGun
                 {
                     if (_currentKeyState.IsKeyDown(keyCode.KeyboardBinding))
                     {
-                        Console.WriteLine(keyCode.KeyboardBinding);
+                        // Console.WriteLine(keyCode.KeyboardBinding);
                         _keybindings[keyCode].Execute(player);
                     }
                 }
@@ -98,7 +98,7 @@ namespace JumpNGun
                 {
                     if (keyCode.MouseBinding == GetMouseButtons())
                     {
-                        Console.WriteLine(keyCode.MouseBinding);
+                        // Console.WriteLine(keyCode.MouseBinding);
                         _keybindings[keyCode].Execute(player);
                     }
                 }

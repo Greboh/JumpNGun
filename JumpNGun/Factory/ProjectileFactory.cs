@@ -19,6 +19,8 @@ namespace JumpNGun
         {
             GameObject projectile = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)projectile.AddComponent(new SpriteRenderer());
+            projectile.AddComponent(new Collider());
+            projectile.Tag = "P_Projectile";
             
             switch (type)
             {
@@ -27,9 +29,6 @@ namespace JumpNGun
                     projectile.AddComponent(new Projectile());
                     break;
             }
-            
-            projectile.AddComponent(new Collider());
-            projectile.Tag = "P_Projectile";
             return projectile;
         }
     }

@@ -33,7 +33,7 @@ namespace JumpNGun
         public override void Awake()
         {
             SetVelocity();
-            EventManager.Instance.Subscribe("OnCollisionExit", OnCollisionExit);
+            EventManager.Instance.Subscribe("OnCollision", OnCollision);
         }
 
  
@@ -95,19 +95,19 @@ namespace JumpNGun
         /// Initiates falling of platforms when player jumps from startground
         /// </summary>
         /// <param name="ctx"></param>
-        private void OnCollisionExit(Dictionary<string, object> ctx)
+        private void OnCollision(Dictionary<string, object> ctx)
         {
-            GameObject lastCollision = (GameObject) ctx["lastCollision"];
-
-            //Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
-
-            if (lastCollision.Tag == "ground")
-            {
-                //_dropGround = true;
-
-                PlatformSpawner.Instance.StartSpawning = true;
-                //Console.WriteLine("Ground falling now!");
-            }
+            // Collider lastCollision = (Collider) ctx["collider"];
+            // Collider origin = (Collider) ctx["origin"];
+            //
+            // //Console.WriteLine($"CollisionExit with {lastCollision.Tag}");
+            //
+            // if (lastCollision.GameObject.Tag == "Player")
+            // {
+            //     //_dropGround = true;
+            //     PlatformSpawner.Instance.StartSpawning = true;
+            //     //Console.WriteLine("Ground falling now!");
+            // }
         }
 
     }
