@@ -42,14 +42,14 @@ namespace JumpNGun
                     {
                         gameObject.AddComponent(new Platform(_groundPosition));
                         sr.SetSprite("grass_ground");
-                        Console.WriteLine("grass ground created");
+
                     }
                     break;
                 case PlatformType.dessertGround:
                     {
                         gameObject.AddComponent(new Platform(_groundPosition));
                         sr.SetSprite("dessert_ground");
-                        Console.WriteLine("dessert ground created");
+
 
                     }
                     break;
@@ -57,7 +57,6 @@ namespace JumpNGun
                     {
                         gameObject.AddComponent(new Platform(_groundPosition));
                         sr.SetSprite("graveyard_ground");
-                        Console.WriteLine("graveyard ground created");
 
                     }
                     break;
@@ -87,12 +86,14 @@ namespace JumpNGun
                     {
                         gameObject.AddComponent(new Platform(position));
                         sr.SetSprite("Desert platform");
+                        Console.WriteLine("Platform position: " + position);
                     }
                     break;
                 case PlatformType.graveyard:
                     {
                         gameObject.AddComponent(new Platform( position));
                         sr.SetSprite("graveyard platform");
+                        Console.WriteLine("Platform position: " + position);
                     }
                     break;
 

@@ -38,46 +38,57 @@ namespace JumpNGun
         //List of all possible rectangle locations on map
         private Rectangle[] _locations = new Rectangle[]
 {
+            new Rectangle(0, 0, 222, 125),
+            new Rectangle(222, 0, 222, 125),
+            new Rectangle(444, 0, 222, 125),
+            new Rectangle(666, 0, 222, 125),
+            new Rectangle(888, 0, 222, 125),
+            new Rectangle(1110, 0, 222, 125),
 
-            new Rectangle(0, 0, 222, 200),
-            new Rectangle(222, 0, 222, 200),
-            new Rectangle(444, 0, 222, 200),
-            new Rectangle(666, 0, 222, 200),
-            new Rectangle(888, 0, 222, 200),
-            new Rectangle(1110, 0, 222, 200),
+            new Rectangle(0, 125, 222, 125),
+            new Rectangle(222, 125, 222, 125),
+            new Rectangle(444, 125, 222, 125),
+            new Rectangle(666, 125, 222, 125),
+            new Rectangle(888, 125, 222, 125),
+            new Rectangle(1110, 125, 222, 125),
 
-            new Rectangle(0, 200, 222, 200),
-            new Rectangle(222, 200, 222, 200),
-            new Rectangle(444, 200, 222, 200),
-            new Rectangle(666, 200, 222, 200),
-            new Rectangle(888, 200, 222, 200),
-            new Rectangle(1110, 200, 222, 200),
+            new Rectangle(0, 250, 222, 125),
+            new Rectangle(222, 250, 222, 125),
+            new Rectangle(444, 250, 222, 125),
+            new Rectangle(666, 250, 222, 125),
+            new Rectangle(888, 250, 222, 125),
+            new Rectangle(1110, 250, 222, 125),
 
-            new Rectangle(0, 400, 222, 200),
-            new Rectangle(222, 400, 222, 200),
-            new Rectangle(444, 400, 222, 200),
-            new Rectangle(666, 400, 222, 200),
-            new Rectangle(888, 400, 222, 200),
-            new Rectangle(1110, 400, 222, 200),
 
-            new Rectangle(0, 600, 222, 200),
-            new Rectangle(222, 600, 222, 200),
-            new Rectangle(444, 600, 222, 200),
-            new Rectangle(666, 600, 222, 200),
-            new Rectangle(888, 600, 222, 200),
-            new Rectangle(1110, 600, 222, 200),
+            new Rectangle(0, 375, 222, 125),
+            new Rectangle(222, 375, 222, 125),
+            new Rectangle(444, 375, 222, 125),
+            new Rectangle(666, 375, 222, 125),
+            new Rectangle(888, 375, 222, 125),
+            new Rectangle(1110, 375, 222, 125),
+
+            new Rectangle(0, 500, 222, 125),
+            new Rectangle(222, 500, 222, 125),
+            new Rectangle(444, 500, 222, 125),
+            new Rectangle(666, 500, 222, 125),
+            new Rectangle(888, 500, 222, 125),
+            new Rectangle(1110, 500, 222, 125),
+
+            new Rectangle(222, 625, 222, 125),
+            new Rectangle(444, 625, 222, 125),
+            new Rectangle(666, 625, 222, 125),
+            new Rectangle(888, 625, 222, 125)
 };
 
-        /*Valid distance for a rectangle's center to a vertical/diagonal or horizontal alligned rectangle.
-         Distances used to find viable spawn rectangles*/
-        private Point[] _viableDistances = new Point[]
+        //Valid distance for a rectangle's center to a vertical/diagonal or horizontal alligned rectangle
+        private Point[] _validDistances = new Point[]
         {
-            new Point(222, 200),
-            new Point(0, 200),
-            new Point(-222, 200),
+            new Point(222, 125),
+            new Point(0, 125),
+            new Point(-222, 125),
             new Point(222, 0),
-            new Point(222, -200),
-            new Point(-222, -200),
+            new Point(222, -125),
+            new Point(-222, -125),
             new Point(-222, 0),
         };
 
@@ -87,8 +98,12 @@ namespace JumpNGun
         //variable to store current rectangle in
         private Rectangle _currentRectangle;
 
+        private Rectangle _firstRectangle;
+
         //current position for platform spawn
         private Vector2 _spawnPosition;
+        private bool _hasAltered;
+
         public List<Rectangle> InvalidLocations { get => _invalidLocations; private set => _invalidLocations = value; }
 
 
@@ -122,6 +137,34 @@ namespace JumpNGun
 
         #endregion
 
+        /// <summary>
+        /// if true, double amount of all points in valid distances. if false return all points in valid distances to original. 
+        /// </summary>
+        /// <param name="change"></param>
+        private void AlterValidDistances(bool change)
+        {
+            for (int i = 0; i < _validDistances.Length; i++)
+            {
+                if (change)
+                {
+                    if (_validDistances[i].X > 0) _validDistances[i].X += 222;
+                    if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
+                    if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
+                    if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
+                    _hasAltered = true;
+                }
+                else
+                {
+                    if (_validDistances[i].X > 0) _validDistances[i].X = 222;
+                    if (_validDistances[i].X < 0) _validDistances[i].X = -222;
+                    if (_validDistances[i].Y > 0) _validDistances[i].Y = 125;
+                    if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
+
+                }
+                
+            }
+        }
+
 
         /// <summary>
         /// Spawns x-amount of platforms on map
@@ -129,11 +172,12 @@ namespace JumpNGun
         /// <param name="x"></param>
         public void GeneratePlatforms(int x, Enum type)
         {
-            _currentRectangle = SpawnGroundAndFirstPlatform(type);
+            _currentRectangle = SpawnFirstPlatform(type);
+            _firstRectangle = _currentRectangle;
             
             for (int i = 0; i < x; i++)
             {
-                Tuple<Vector2, Rectangle> positionData = GeneratePositionPath(_currentRectangle);
+                Tuple<Vector2, Rectangle> positionData = GeneratePositions(_currentRectangle);
 
                 //vector returned from GeneratePositionPath method
                 _spawnPosition = positionData.Item1;
@@ -151,9 +195,9 @@ namespace JumpNGun
         /// Instantiates ground platform and first platform on random position close to ground
         /// </summary>
         /// <returns>current rectangle</returns>
-        private Rectangle SpawnGroundAndFirstPlatform(Enum type)
+        private Rectangle SpawnFirstPlatform(Enum type)
         {
-            Rectangle rectangle = _locations[_random.Next(18, 23)];
+            Rectangle rectangle = _locations[_random.Next(30, 33)];
             Vector2 position = new Vector2(rectangle.Center.X, rectangle.Center.Y);
             GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, position));
             _invalidLocations.Add(rectangle);
@@ -165,7 +209,7 @@ namespace JumpNGun
         /// </summary>
         /// <param name="rectangle">current rectangle</param>
         /// <returns>position and new rectangle</returns>
-        private Tuple<Vector2, Rectangle> GeneratePositionPath(Rectangle rectangle)
+        private Tuple<Vector2, Rectangle> GeneratePositions(Rectangle rectangle)
         {
             //Loops through all rectangles in array
             for (int i = 0; i < _locations.Length; i++)
@@ -174,10 +218,10 @@ namespace JumpNGun
                 Point distance = _locations[i].Center - rectangle.Center;
 
                 //loops through all points in array
-                for (int j = 0; j < _viableDistances.Length; j++)
+                for (int j = 0; j < _validDistances.Length; j++)
                 {
                     //checks if distance is viable and if _locations[i] is a valid location then adds to list
-                    if (_viableDistances[j].Equals(distance) && !_invalidLocations.Contains(_locations[i]))
+                    if (_validDistances[j].Equals(distance) && !_invalidLocations.Contains(_locations[i]))
                     {
                         _validLocations.Add(_locations[i]);
                     }
@@ -188,11 +232,11 @@ namespace JumpNGun
             {
                 rectangle = _validLocations[_random.Next(0, _validLocations.Count)];
             }
-            //in case of no valid locations we generate a new random location rectangle. 
+            //in case of no valid locations we call method recursive with new points in _validDistances
             else
             {
-                //TODO Fix algorithm - find another solution to dead end location rectangles - NOT DONE
-                rectangle = GenerateRandomPosition(rectangle);
+                AlterValidDistances(true);
+                return GeneratePositions(rectangle);
             }
 
             //remove valid locations from list 
@@ -200,6 +244,14 @@ namespace JumpNGun
 
             //make rectangle invalid 
             _invalidLocations.Add(rectangle);
+
+            //return all valid distances to original. 
+            if (_hasAltered == true)
+            {
+                AlterValidDistances(false);
+                _hasAltered = false;
+            }
+            
 
             return Tuple.Create(new Vector2(rectangle.Center.X, rectangle.Center.Y), rectangle);
         }
@@ -212,7 +264,7 @@ namespace JumpNGun
         private Rectangle GenerateRandomPosition(Rectangle rectangle)
         {
             //generated random index for array
-            int index = _random.Next(0, 23);
+            int index = _random.Next(0, 33);
 
             //check if location rectangle contains platform
             if (!_invalidLocations.Contains(_locations[index]))

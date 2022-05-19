@@ -27,7 +27,6 @@ namespace JumpNGun
 
         private LevelManager()
         {
-            Console.WriteLine("Manager has subscribed");
             EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
         }
 
@@ -95,7 +94,7 @@ namespace JumpNGun
         {
             if (Keyboard.GetState().IsKeyDown(Keys.L) && canPressL)
             {
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1140, 700)));
+                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
                 canPressL = false;
             }
             if (Keyboard.GetState().IsKeyUp(Keys.L))
@@ -135,6 +134,7 @@ namespace JumpNGun
                 }
             }
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
+            Console.Clear();
         }
 
         /// <summary>

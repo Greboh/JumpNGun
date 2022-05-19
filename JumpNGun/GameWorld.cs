@@ -94,7 +94,6 @@ namespace JumpNGun
             LevelManager.Instance.GenerateLevel();
             LevelManager.Instance.CheckForClearedLevelDebug();
 
-            //Console.WriteLine(Mouse.GetState().Position);
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {

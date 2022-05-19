@@ -6,5 +6,6 @@ namespace JumpNGun
 {
     class Enemy : Component
     {
+
     }
 }

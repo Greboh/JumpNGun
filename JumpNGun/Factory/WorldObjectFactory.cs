@@ -39,7 +39,6 @@ namespace JumpNGun
                     {
                         gameObject.AddComponent(new Portal(position));
                         sr.SetSprite("portal_idle_1");
-                        Console.WriteLine("Portal added");
                         gameObject.Tag = "portal";
                     }
                     break;
