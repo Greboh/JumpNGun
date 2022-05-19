@@ -9,84 +9,19 @@ namespace JumpNGun
 {
     public class Platform : Component
     {
-        private int _speed; //speed of which the platform decends with
-        private float _timeBeforeFall;//time before the platform starts falling after being collided with
-
-        private Vector2 _velocity = new Vector2(0, 1); //direction of falling
         private Vector2 _position; //position of platform
-        private Vector2 _moveDirection;//caculated velocity
-        private string _tag;//tag correlates to type of ground 
 
-        private bool _dropGround = false;//used to initiate increment of platform y-position (falling)
+        //Property to gain acces to platform position
+        public Vector2 Position { get => _position; private set => _position = value; }
 
-        public Vector2 Position { get => _position; set => _position = value; }
-        public bool DropGround { get => _dropGround; set => _dropGround = value; }
-
-        public Platform(int speed, int timeBeforeFall, Vector2 position, string tag)
+        public Platform(Vector2 position)
         {
-            _speed = speed;
-            _timeBeforeFall = timeBeforeFall;
-            _tag = tag;
             _position = position;
         }
 
         public override void Awake()
         {
-            SetVelocity();
             GameObject.Transform.Position = _position;
         }
-
- 
-
-        public override void Start()
-        {
-            
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            DestroyGround();
-            Fall(gameTime);
-        }
-
-
-        /// <summary>
-        /// Moves platform and startground up the Y-axis (down in the game window)
-        /// </summary>
-        /// <param name="gameTime"></param>
-        private void Fall(GameTime gameTime)
-        {
-            if (_dropGround)
-            {
-                foreach (GameObject gameObject in GameWorld.Instance.GameObjects)
-                {
-                    if (gameObject.HasComponent<Platform>())
-                    {
-                        gameObject.Transform.Translate(_moveDirection * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Set velocity of platform
-        /// </summary>
-        private void SetVelocity()
-        {
-            _moveDirection = _velocity * _speed;
-        }
-
-        /// <summary>
-        /// Removes platform from game when position exceeds screen height
-        /// </summary>
-        private void DestroyGround()
-        {
-            if (_position.Y >= GameWorld.Instance.GraphicsDevice.Viewport.Height) 
-            {
-                GameWorld.Instance.Destroy(GameObject);
-                Console.WriteLine("Ground has been destroyed");
-            }
-        }
-
     }
 }

@@ -77,7 +77,7 @@ namespace JumpNGun
 
             _animator = GameObject.GetComponent<Animator>() as Animator;
 
-            GameObject.Transform.Position = new Vector2(600, 420);
+            GameObject.Transform.Position = new Vector2(40, 705);
             _gravityPull = _gravity;
         }
 
@@ -296,7 +296,7 @@ namespace JumpNGun
 
             foreach (Collider otherCollision in GameWorld.Instance.Colliders)
             {
-                if (otherCollision == p_Collider) return; // Return if the collision is the player itself
+              
                 
                 // If our CollisionBox collides with another CollisionBox
                 if (p_Collider.CollisionBox.Intersects(otherCollision.CollisionBox))

@@ -61,7 +61,7 @@ namespace JumpNGun
         {
             
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            gameObjects.Add(playerDirector.Construct());
+            newGameObjects.Add(playerDirector.Construct());
             
             LevelManager.Instance.GenerateLevel();
             //Instantiate(new PlatformFactory().Create(PlatformType.ground));
@@ -90,9 +90,10 @@ namespace JumpNGun
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
-            LevelManager.Instance.ChangeLevel();
             LevelManager.Instance.ChangeLevelDebug();
             LevelManager.Instance.GenerateLevel();
+            LevelManager.Instance.CheckForClearedLevelDebug();
+
             //Console.WriteLine(Mouse.GetState().Position);
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
@@ -101,10 +102,7 @@ namespace JumpNGun
                 
             }
            
-            
             DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-
 
             //call cleanup in every cycle
             CleanUp();

@@ -66,7 +66,6 @@ namespace JumpNGun
             new Rectangle(666, 600, 222, 200),
             new Rectangle(888, 600, 222, 200),
             new Rectangle(1110, 600, 222, 200),
-
 };
 
         /*Valid distance for a rectangle's center to a vertical/diagonal or horizontal alligned rectangle.
@@ -90,6 +89,7 @@ namespace JumpNGun
 
         //current position for platform spawn
         private Vector2 _spawnPosition;
+        public List<Rectangle> InvalidLocations { get => _invalidLocations; private set => _invalidLocations = value; }
 
 
         #region FOR DRAWING RECTANGLES
@@ -130,14 +130,18 @@ namespace JumpNGun
         public void GeneratePlatforms(int x, Enum type)
         {
             _currentRectangle = SpawnGroundAndFirstPlatform(type);
-
+            
             for (int i = 0; i < x; i++)
             {
                 Tuple<Vector2, Rectangle> positionData = GeneratePositionPath(_currentRectangle);
 
+                //vector returned from GeneratePositionPath method
                 _spawnPosition = positionData.Item1;
+
+                //rectangle returned from GeneratePositionPath method
                 _currentRectangle = positionData.Item2;
 
+                //Instantiate a platform at _spawnposition
                 GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, _spawnPosition));
             }
             _invalidLocations.Clear();
@@ -187,6 +191,7 @@ namespace JumpNGun
             //in case of no valid locations we generate a new random location rectangle. 
             else
             {
+                //TODO Fix algorithm - find another solution to dead end location rectangles - NOT DONE
                 rectangle = GenerateRandomPosition(rectangle);
             }
 
@@ -212,12 +217,10 @@ namespace JumpNGun
             //check if location rectangle contains platform
             if (!_invalidLocations.Contains(_locations[index]))
             {
-                return rectangle = _locations[index];
+                return  _locations[index];
             }
             //return method
             else return GenerateRandomPosition(rectangle);
         }
-
-        
     }
 }

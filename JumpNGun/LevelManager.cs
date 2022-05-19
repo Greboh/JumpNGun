@@ -17,27 +17,31 @@ namespace JumpNGun
             get { return _instance ??= new LevelManager(); }
         }
 
-        public bool CanChangeLevel { get => _canChangeLevel; set => _canChangeLevel = value; }
-
-        private bool _levelIsGenerated = false;
-        private int _level = 0;
-        private int _platformAmount = 4;
-        private bool _canChangeLevel = false;
-
+        private bool _levelIsGenerated = false; //bool to control level generation
+        private int _level = 0; // used to change level
+        private int _platformAmount = 4; // determines amount of platform pr. level
 
         //for testing
         private bool canPress = true;
+        private bool canPressL = true;
+
+        private LevelManager()
+        {
+            Console.WriteLine("Manager has subscribed");
+            EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
+        }
 
 
         public void GenerateLevel()
         {
             if (!_levelIsGenerated)
             {
+                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
+                //TODO Refactor - NOT DONE
                 if (_level < 6)
                 {
                     LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.grass);
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
-                    GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1140, 700)));
                 }
                 else if (_level == 6)
                 {
@@ -66,26 +70,48 @@ namespace JumpNGun
                     LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
                 }
-                IncrementLevel();
                 _levelIsGenerated = true;
             }
         }
 
-
-        public void ChangeLevel()
+        /// <summary>
+        /// Change level when event event message is recieved by calling relevant level change methods
+        /// </summary>
+        /// <param name="message"></param>
+        private void ChangeLevel(Dictionary<string, object> message)
         {
-            if (_canChangeLevel == true)
+            if (message.ContainsKey("NewLevel"))
             {
-                _levelIsGenerated = false;
                 IncrementLevel();
+                _levelIsGenerated = (bool)message["NewLevel"];
+                CleanLevel();
             }
         }
 
+        /// <summary>
+        /// Check for cleared level debugging
+        /// </summary>
+        public void CheckForClearedLevelDebug()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.L) && canPressL)
+            {
+                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1140, 700)));
+                canPressL = false;
+            }
+            if (Keyboard.GetState().IsKeyUp(Keys.L))
+            {
+                canPressL = true;
+            }
+        }
 
+        /// <summary>
+        /// Level change for debugging
+        /// </summary>
         public void ChangeLevelDebug()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.K) && canPress)
             {
+                IncrementLevel();
                 _levelIsGenerated = false;
                 CleanLevel();
                 canPress = false;
@@ -103,12 +129,27 @@ namespace JumpNGun
         {
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                if (go.HasComponent<Platform>())
+                if (go.HasComponent<Platform>() || go.HasComponent<Portal>())
                 {
                     GameWorld.Instance.Destroy(go);
                 }
             }
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
+        }
+
+        /// <summary>
+        /// Iterates through list of gameobjects to check if any enemies are left in game
+        /// or if the level is cleared
+        /// </summary>
+        public void CheckForClearedLevel()
+        {
+            foreach (GameObject go in GameWorld.Instance.GameObjects)
+            {
+                if (!go.HasComponent<Enemy>())
+                {
+                    
+                }
+            }
         }
 
         /// <summary>
@@ -119,7 +160,7 @@ namespace JumpNGun
             _level++;
             _platformAmount++;
 
-            //amount of platforms capped at 19, to avoid overcrowding screen and stackoverflow
+            //amount of platforms capped at 19, to avoid overcrowding screen and errors
             if (_platformAmount > 19)
             {
                 _platformAmount = 19;

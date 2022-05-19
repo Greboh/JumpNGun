@@ -29,8 +29,10 @@ namespace JumpNGun
             Animator animator = (Animator)gameObject.AddComponent(new Animator());
             gameObject.AddComponent(new Collider());
 
-            //animator.AddAnimation(BuildAnimations("open", new string[] { "" }));
-
+            animator.AddAnimation(BuildAnimations("idle", new string[] { "portal_idle_1", "portal_idle_2", "portal_idle_3", "portal_idle_4", "portal_idle_5", "portal_idle_6", "portal_idle_7", "portal_idle_8", }));
+            animator.AddAnimation(BuildAnimations("open", new string[] { "portal_open_1", "portal_open_2", "portal_open_3", "portal_open_4", "portal_open_5", "portal_open_6", "portal_open_7", "portal_open_8" }));
+            animator.AddAnimation(BuildAnimations("close", new string[] { "portal_open_8", "portal_open_7", "portal_open_6", "portal_open_5", "portal_open_4", "portal_open_3", "portal_open_2", "portal_open_1" }));
+           
             switch (type)
             {
                 case WorldObjectType.portal:
