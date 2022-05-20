@@ -11,6 +11,9 @@ namespace JumpNGun
         private CharacterType _character;
         private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
 
+        private float _maxHealth;
+        private float _currentHealth;
+        
         #region Component Fields
 
         private SpriteRenderer _sr; // Reference to the SpriteRenderer component
@@ -71,10 +74,11 @@ namespace JumpNGun
                     _dashCooldown = 0.5f;
                     _shootCooldown = 2f;
                     _maxJumpCount = 2;
+                    _maxHealth = 120;
+                    _currentHealth = _maxHealth;
                 }break;
 
             }
-
             _character = character;
         }
 
@@ -115,6 +119,14 @@ namespace JumpNGun
             CheckGrounded();
 
             HandleGravity();
+            
+            CheckDeath();
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.O))
+            {
+                _currentHealth--;
+                Console.WriteLine(_currentHealth);
+            }
         }
 
         #endregion
@@ -260,6 +272,10 @@ namespace JumpNGun
             // If there isn't any values that is true in movementKeys and we are grounded play idle
             if (!_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Idle");
         }
+        
+        /// <summary>
+        /// Check if we are grounded
+        /// </summary>
         private void CheckGrounded()
         {
             Collider pCollider = GameObject.GetComponent<Collider>() as Collider;
@@ -278,6 +294,22 @@ namespace JumpNGun
             {
                 _isGrounded = false;
                 _hasCollidedWithGround = false;
+            }
+        }
+        
+        /// <summary>
+        /// Checks if the player should die
+        /// </summary>
+        private void CheckDeath()
+        {
+            if(_currentHealth <= 0)
+            {
+                //TODO Play death animation
+                
+                if(_animator.IsAnimationDone)
+                {
+                    GameWorld.Instance.Destroy(this.GameObject);
+                }
             }
         }
 

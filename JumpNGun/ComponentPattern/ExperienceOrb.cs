@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
@@ -10,6 +11,7 @@ namespace JumpNGun
     {
         private float _xpAmount;
         private Vector2 _position;
+
 
         public ExperienceOrb(float xpAmount, Vector2 position)
         {
@@ -22,27 +24,26 @@ namespace JumpNGun
         public override void Awake()
         {
             EventManager.Instance.Subscribe("OnCollision", OnCollision);
-
-            //TODO Make Awake to OnEnable and make a OnDisable!
         }
-
-
-
+        
         public override void Start()
         {
             GameObject.Transform.Position = _position;
+            
+            (GameObject.GetComponent<Animator>() as Animator).PlayAnimation("Idle");
+            
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
         }
 
         public override void Update(GameTime gameTime)
         {
+            
         }
 
         #endregion
-        
-        private void Destroy()
-        {
-            GameWorld.Instance.Destroy(this.GameObject);
-        }
 
         #region Event methods
 

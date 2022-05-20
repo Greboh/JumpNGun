@@ -34,13 +34,13 @@ namespace JumpNGun
 
             Animator animator = (Animator) _gameObject.GetComponent<Animator>();
             
-            animator.AddAnimation(BuildAnimations("Idle", new string[] {"1_Soldier_idle", "2_Soldier_idle", 
+            animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Soldier_idle", "2_Soldier_idle", 
                                                                                                         "3_Soldier_idle", "4_Soldier_idle", "5_Soldier_idle"}));             
             
-            animator.AddAnimation(BuildAnimations("Run", new string[] {"1_Soldier_run", "2_Soldier_run", 
+            animator.AddAnimation(BuildAnimation("Run", new string[] {"1_Soldier_run", "2_Soldier_run", 
                 "3_Soldier_run", "4_Soldier_run", "5_Soldier_run", "6_Soldier_run"}));            
             
-            animator.AddAnimation(BuildAnimations("Jump", new string[] {"1_Soldier_jump", "2_Soldier_jump"}));
+            animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Soldier_jump", "2_Soldier_jump"}));
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace JumpNGun
         /// <param name="animationName">Name of the animation set</param>
         /// <param name="spriteNames">Name of the sprites in the animation set </param>
         /// <returns></returns>
-        private Animation BuildAnimations(string animationName, string[] spriteNames)
+        private Animation BuildAnimation(string animationName, string[] spriteNames)
         {
             Texture2D[] sprites = new Texture2D[spriteNames.Length];
 
