@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace JumpNGun
 {
@@ -24,8 +27,6 @@ namespace JumpNGun
             }
         }
 
-  
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -37,12 +38,13 @@ namespace JumpNGun
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
-        private int _screenWidth = 1200;
-        private int _screenHeight = 600;
+        private int _screenWidth = 1325;
+        private int _screenHeight = 800;
 
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
+        public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
 
         public GameWorld()
         {
@@ -58,28 +60,34 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
-            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            gameObjects.Add(playerDirector.Construct());
             
+            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
+            newGameObjects.Add(playerDirector.Construct());
+            
+            LevelManager.Instance.GenerateLevel();
+            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
+
             //call awake method on every active GameObject in list
             foreach (var go in gameObjects)
             {
                 go.Awake();
             }
-            for (int i = 0; i < 11; i++)
-            {
-                Instantiate(PlatformFactory.Instance.Create(PlatformType.ground));
-            }
 
-            
-            
+            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+
+
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Small));
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Large));
+
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            LevelGenerator.Instance.LoadContent();
             //call start method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -91,15 +99,24 @@ namespace JumpNGun
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
+            LevelManager.Instance.ChangeLevelDebug();
+            LevelManager.Instance.GenerateLevel();
+            LevelManager.Instance.CheckForClearedLevelDebug();
+
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small));
+            }
+            
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update(gameTime);
+                
             }
-            
+           
             DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-
 
             //call cleanup in every cycle
             CleanUp();
@@ -112,6 +129,7 @@ namespace JumpNGun
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+            LevelGenerator.Instance.Draw(_spriteBatch);
 
             //draw sprites of every active gameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
@@ -191,7 +209,28 @@ namespace JumpNGun
                 Colliders.Remove(col);
             }
         }
+        
+        /// <summary>
+        /// Find GameObjects with a specific component
+        /// </summary>
+        /// <typeparam name="T">The component to find</typeparam>
+        /// <returns>GameObject with the component</returns>
+        public Component FindObjectOfType<T>() where T : Component
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                Component c = gameObject.GetComponent<T>();
 
+                if (c != null)
+                {
+                    return c;
+                }
+            }
+
+            return null;
+
+         
+        }
 
     }
 }

@@ -10,6 +10,7 @@ namespace JumpNGun
     public class SpriteRenderer : Component
     {
         public int number = 0;
+        private bool _stopRendering = false; //decides whether we should render a sprite
 
         public Texture2D Sprite { get; set; } //texture for sprite
 
@@ -18,9 +19,13 @@ namespace JumpNGun
         public Color Color { get; set; }//color for sprite
 
         public SpriteEffects SpriteEffects { get; set; }//spriteeffects for sprite. flips, etc
+       
+        public bool StopRendering { get => _stopRendering; set => _stopRendering = value; } //property to change rendering
+
 
         public override void Start()
         {
+            Console.WriteLine(GameObject.Tag);
             Origin = new Vector2(Sprite.Width / 2, Sprite.Height / 2);
 
         }
@@ -41,7 +46,10 @@ namespace JumpNGun
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, GameObject.Transform.Position, null, Color.White, 0, Origin, 1, SpriteEffects, 1);
+            if (!_stopRendering)
+            {
+                spriteBatch.Draw(Sprite, GameObject.Transform.Position, null, Color.White, 0, Origin, 1, SpriteEffects, 1);
+            }
         }
     }
 }

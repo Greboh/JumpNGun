@@ -9,6 +9,8 @@ namespace JumpNGun
     public class Animator : Component
     {
         public int CurrentIndex { get; private set; } //used to determine current animation sprite
+        
+        public bool IsAnimationDone { get; private set; }
 
         private float timeElapsed = 0; //timeElapsed through animation
 
@@ -16,7 +18,8 @@ namespace JumpNGun
 
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>(); /// dictionary used for animations. string refers to animation
 
-        private Animation currentAnimation; //currently being animatied
+        private Animation currentAnimation; //currently being animated
+        
 
         public override void Start()
         {
@@ -38,7 +41,9 @@ namespace JumpNGun
                 {
                     timeElapsed = 0;
                     CurrentIndex = 0;
+                    IsAnimationDone = true;
                 }
+                else IsAnimationDone = false;
 
                 //set sprite to the current animation sprite
                 spriteRenderer.Sprite = currentAnimation.Sprites[CurrentIndex];
@@ -69,11 +74,13 @@ namespace JumpNGun
         {
             if (animationName != currentAnimation.Name)
             {
+                // Console.WriteLine($"Playing animationSet: {animationName}");
                 currentAnimation = animations[animationName];
                 timeElapsed = 0;
                 CurrentIndex = 0;
             }
         }
+        
     }
 }
 
