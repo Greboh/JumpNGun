@@ -18,7 +18,7 @@ namespace JumpNGun
         }
 
         private bool _levelIsGenerated = false; //bool to control level generation
-        private int _level = 0; // used to change level
+        private int _level = 18; // used to change level
         private int _platformAmount = 4; // determines amount of platform pr. level
 
         //for testing
@@ -63,6 +63,7 @@ namespace JumpNGun
                 else if (_level == 18)
                 {
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
+                    GameWorld.Instance.Instantiate(BossFactory.Instance.Create(BossType.DeathBoss, new Vector2(1200, 705)));
                 }
                 else
                 {

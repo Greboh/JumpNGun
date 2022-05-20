@@ -98,8 +98,6 @@ namespace JumpNGun
         //variable to store current rectangle in
         private Rectangle _currentRectangle;
 
-        private Rectangle _firstRectangle;
-
         //current position for platform spawn
         private Vector2 _spawnPosition;
         private bool _hasAltered;
@@ -165,17 +163,15 @@ namespace JumpNGun
             }
         }
 
-
         /// <summary>
         /// Spawns x-amount of platforms on map
         /// </summary>
-        /// <param name="x"></param>
-        public void GeneratePlatforms(int x, Enum type)
+        /// <param name="amountOfPlatforms"></param>
+        public void GeneratePlatforms(int amountOfPlatforms, PlatformType type)
         {
             _currentRectangle = SpawnFirstPlatform(type);
-            _firstRectangle = _currentRectangle;
             
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < amountOfPlatforms; i++)
             {
                 Tuple<Vector2, Rectangle> positionData = GeneratePositions(_currentRectangle);
 
@@ -195,7 +191,7 @@ namespace JumpNGun
         /// Instantiates ground platform and first platform on random position close to ground
         /// </summary>
         /// <returns>current rectangle</returns>
-        private Rectangle SpawnFirstPlatform(Enum type)
+        private Rectangle SpawnFirstPlatform(PlatformType type)
         {
             Rectangle rectangle = _locations[_random.Next(30, 33)];
             Vector2 position = new Vector2(rectangle.Center.X, rectangle.Center.Y);

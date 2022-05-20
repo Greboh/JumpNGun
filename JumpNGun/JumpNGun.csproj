@@ -12,6 +12,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\grim_idle1.png" />
+    <None Remove="Content\grim_idle2.png" />
+    <None Remove="Content\grim_idle3.png" />
+    <None Remove="Content\grim_idle4.png" />
+    <None Remove="Content\reaper1.png" />
+  </ItemGroup>
+  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>

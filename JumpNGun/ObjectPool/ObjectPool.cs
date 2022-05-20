@@ -6,6 +6,8 @@ namespace JumpNGun
 {
     public abstract class ObjectPool
     {
+        //TODO Objectpool platforms - NOT DONE
+
         protected List<GameObject> active = new List<GameObject>(); //gameobjects in game(active)
 
         protected Stack<GameObject> inactive = new Stack<GameObject>();//inactive gameobjects(does not exist in game)

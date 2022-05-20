@@ -106,6 +106,7 @@ namespace JumpNGun
             }
         }
 
+        //TODO move handleplayerrendering to Player collision method - NOT DONE
         /// <summary>
         /// Stops and starts player rendering
         /// </summary>

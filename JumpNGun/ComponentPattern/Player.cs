@@ -5,9 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace JumpNGun
 {
@@ -43,9 +40,13 @@ namespace JumpNGun
 
         private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
 
+        private Vector2 _position = new Vector2(40, 705);
         private Vector2 _moveDirection;
         private Rectangle _groundCollision = Rectangle.Empty;
         private bool _hasCollidedWithGround = false;
+
+        public Vector2 Position { get => _position; set => _position = value; }
+        public float Speed { get => _speed; private set => _speed = value; }
 
         public Player(CharacterType character)
         {
@@ -77,7 +78,7 @@ namespace JumpNGun
 
             _animator = GameObject.GetComponent<Animator>() as Animator;
 
-            GameObject.Transform.Position = new Vector2(40, 705);
+            GameObject.Transform.Position = _position;
             _gravityPull = _gravity;
         }
 
@@ -89,6 +90,7 @@ namespace JumpNGun
         {
             InputHandler.Intance.Execute(this);
 
+            UpdatePositionReference();
             HandleShootLogic();
             HandleDashLogic();
 
@@ -288,7 +290,13 @@ namespace JumpNGun
             }
         }
 
-     
+        /// <summary>
+        /// Updates _position to current position during gametime
+        /// </summary>
+        private void UpdatePositionReference()
+        {
+            _position = GameObject.Transform.Position;
+        }
 
         private void CheckCollision()
         {
