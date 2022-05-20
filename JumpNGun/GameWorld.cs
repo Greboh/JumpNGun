@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -72,6 +73,16 @@ namespace JumpNGun
                 go.Awake();
             }
 
+            Instantiate(PlatformFactory.Instance.Create(PlatformType.grass));
+
+            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+            
+         
+            Instantiate(orbFactory.Create(ExperienceOrbType.Small));
+            Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
+            Instantiate(orbFactory.Create(ExperienceOrbType.Large));
+            
+    
             base.Initialize();
         }
 
@@ -94,6 +105,12 @@ namespace JumpNGun
             LevelManager.Instance.GenerateLevel();
             LevelManager.Instance.CheckForClearedLevelDebug();
 
+            
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small));
+            }
+            
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
