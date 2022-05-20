@@ -57,12 +57,9 @@ namespace JumpNGun
         #region Collision Fields
 
         private Vector2 _position = new Vector2(40, 705);
-        private Vector2 _moveDirection;
         private Rectangle _groundCollision = Rectangle.Empty;
-        private bool _hasCollidedWithGround = false;
         private bool _isGrounded; // Is the player grounded
-        private Rectangle _groundCollision = Rectangle.Empty;
-        private bool _hasCollidedWithGround;
+        private bool _hasCollidedWithGround = false;
 
         public Vector2 Position { get => _position; set => _position = value; }
         public float Speed { get => _speed; private set => _speed = value; }

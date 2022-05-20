@@ -82,5 +82,10 @@ namespace JumpNGun
 
             return anim;
         }
+
+        public override GameObject Create(Enum type, Vector2 position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

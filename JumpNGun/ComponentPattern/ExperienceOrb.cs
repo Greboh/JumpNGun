@@ -30,7 +30,7 @@ namespace JumpNGun
         {
             GameObject.Transform.Position = _position;
             
-            (GameObject.GetComponent<Animator>() as Animator).PlayAnimation("Idle");
+            //(GameObject.GetComponent<Animator>() as Animator).PlayAnimation("Idle");
             
         }
 

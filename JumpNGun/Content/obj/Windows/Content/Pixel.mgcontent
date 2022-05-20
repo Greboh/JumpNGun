@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<<<<<<< HEAD
   <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/Pixel.png</SourceFile>
   <SourceTime>2022-05-06T11:52:19.9040609+02:00</SourceTime>
   <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/Pixel.xnb</DestFile>
-  <DestTime>2022-05-10T16:12:58.0641513+02:00</DestTime>
-=======
-  <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Pixel.png</SourceFile>
-  <SourceTime>2022-05-06T11:57:00.4789505+02:00</SourceTime>
-  <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/Pixel.xnb</DestFile>
-  <DestTime>2022-05-19T08:37:02.4395845+02:00</DestTime>
->>>>>>> Nichlas
+  <DestTime>2022-05-20T13:13:02.8721754+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

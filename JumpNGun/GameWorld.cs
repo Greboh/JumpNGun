@@ -73,16 +73,14 @@ namespace JumpNGun
                 go.Awake();
             }
 
-            Instantiate(PlatformFactory.Instance.Create(PlatformType.grass));
-
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-            
-         
-            Instantiate(orbFactory.Create(ExperienceOrbType.Small));
-            Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
-            Instantiate(orbFactory.Create(ExperienceOrbType.Large));
-            
-    
+
+
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Small));
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Large));
+
+
             base.Initialize();
         }
 

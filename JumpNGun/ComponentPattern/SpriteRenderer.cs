@@ -25,6 +25,7 @@ namespace JumpNGun
 
         public override void Start()
         {
+            Console.WriteLine(GameObject.Tag);
             Origin = new Vector2(Sprite.Width / 2, Sprite.Height / 2);
 
         }
