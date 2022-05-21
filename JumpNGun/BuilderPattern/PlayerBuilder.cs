@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.XAudio2.Fx;
 
 namespace JumpNGun
 {
@@ -8,9 +9,7 @@ namespace JumpNGun
     /// </summary>
     public enum CharacterType
     {
-        Soldier,
-        Ranger,
-        Wizard
+        Soldier
     }
 
     public class PlayerBuilder : IBuilder
@@ -34,50 +33,14 @@ namespace JumpNGun
             BuildComponents(_character);
 
             Animator animator = (Animator) _gameObject.GetComponent<Animator>();
-
-            SpriteRenderer sr = (SpriteRenderer) _gameObject.GetComponent<SpriteRenderer>();
-
-            switch (_character)
-            {
-                case CharacterType.Soldier:
-                {
-                    sr.SetSprite("1_Soldier_idle");
-                    animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Soldier_idle", "2_Soldier_idle", 
-                        "3_Soldier_idle", "4_Soldier_idle", "5_Soldier_idle"}));             
             
-                    animator.AddAnimation(BuildAnimation("Run", new string[] {"1_Soldier_run", "2_Soldier_run", 
-                        "3_Soldier_run", "4_Soldier_run", "5_Soldier_run", "6_Soldier_run"}));            
+            animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Soldier_idle", "2_Soldier_idle", 
+                                                                                                        "3_Soldier_idle", "4_Soldier_idle", "5_Soldier_idle"}));             
             
-                    animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Soldier_jump", "2_Soldier_jump"}));
-                    
-                    // animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", "3_Soldier_Death"}));
-                    
-                } break;
-                case CharacterType.Ranger:
-                {
-                    sr.SetSprite("1_Ranger_idle");
-                    
-                    // animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Ranger_idle", "2__Ranger_idle", 
-                    //     "3__Ranger_idle", "4_Ranger_idle", "5_Ranger_idle"}));             
-                    //
-                    // animator.AddAnimation(BuildAnimation("Run", new string[] {"1_Ranger_run", "2_Ranger_run", 
-                    //     "3_Ranger_run", "4_Ranger_run", "5_Ranger_run", "6_Ranger_run"}));            
-                    //
-                    // animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Ranger_jump", "2_Ranger_jump"}));
-                    
-                    // animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", "3_Soldier_Death"}));
-                    
-                } break;
-                
-                case CharacterType.Wizard:
-                {
-                    
-                } break;
-                
-
-            }
+            animator.AddAnimation(BuildAnimation("Run", new string[] {"1_Soldier_run", "2_Soldier_run", 
+                "3_Soldier_run", "4_Soldier_run", "5_Soldier_run", "6_Soldier_run"}));            
             
-
+            animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Soldier_jump", "2_Soldier_jump"}));
         }
 
         /// <summary>
@@ -86,9 +49,16 @@ namespace JumpNGun
         /// <param name="character">What Character the player is</param>
         private void BuildComponents(CharacterType character)
         {
-
+            // Switch depending on what character the player is
+            switch (character)
+            {
+                //TODO Add different character logic etc! - NICHLAS
+                case CharacterType.Soldier:
+                    _gameObject.AddComponent(new Player(character));
+                    break;
+            } 
+            
             // Add all relevant components
-            _gameObject.AddComponent(new Player(character));
             _gameObject.AddComponent(new SpriteRenderer());
             _gameObject.AddComponent(new Animator());
             _gameObject.AddComponent(new Input());
