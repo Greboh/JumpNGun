@@ -52,7 +52,7 @@ namespace JumpNGun
             // Switch depending on what character the player is
             switch (character)
             {
-                //TODO Add different character logic etc!
+                //TODO Add different character logic etc! - NICHLAS
                 case CharacterType.Soldier:
                     _gameObject.AddComponent(new Player(character));
                     break;

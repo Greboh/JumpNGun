@@ -6,7 +6,7 @@ namespace JumpNGun
 {
     public abstract class ObjectPool
     {
-        //TODO Objectpool platforms - NOT DONE
+        //TODO Objectpool platforms - KRISTIAN
 
         protected List<GameObject> active = new List<GameObject>(); //gameobjects in game(active)
 

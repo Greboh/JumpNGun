@@ -106,12 +106,13 @@ namespace JumpNGun
             }
         }
 
-        //TODO move handleplayerrendering to Player collision method - NOT DONE
+        
         /// <summary>
         /// Stops and starts player rendering
         /// </summary>
         private void HandlePlayerRendering()
         {
+            //TODO move handleplayerrendering to Player collision method - KRISTIAN
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
                 if (go.HasComponent<Player>() && !isStartPortal)
