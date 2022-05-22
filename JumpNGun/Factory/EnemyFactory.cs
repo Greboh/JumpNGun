@@ -6,7 +6,7 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public enum EnemyType {GrassBoss, SandBoss, DeathBoss, Mushroom}
+    public enum EnemyType {GrassBoss, SandBoss, DeathBoss }
     
     class EnemyFactory : Factory
     {
@@ -38,6 +38,8 @@ namespace JumpNGun
             gameObject.AddComponent(new Collider());
 
             _animator = (Animator)gameObject.AddComponent(new Animator());
+            CreateReaperAnimations();
+            CreateGolemAnimations();
 
 
 
@@ -45,7 +47,6 @@ namespace JumpNGun
             {
                 case EnemyType.GrassBoss:
                     {
-                        CreateGolemAnimations();
                     }
                     break;
                 case EnemyType.SandBoss:
@@ -55,18 +56,11 @@ namespace JumpNGun
                     break;
                 case EnemyType.DeathBoss:
                     {
-                        CreateReaperAnimations();
                         gameObject.AddComponent(new Reaper(position));
                         _sr.SetSprite("reaper_idle1");
                         _animator.PlayAnimation("reaper_idle");
                     }
                     break;
-                case EnemyType.Mushroom:
-                    {
-                        gameObject.AddComponent(new Mushroom(position));
-                        _sr.SetSprite("mushroom_idle1");
-                        gameObject.Tag = "E_Mushroom";
-                    }break;
             }
 
             return gameObject;
@@ -94,14 +88,6 @@ namespace JumpNGun
 
             _animator.AddAnimation(BuildAnimations("reaper_death", new string[] { "reaper_death1", "reaper_death2", "reaper_death3", "reaper_death4", "reaper_death5", "reaper_death6",
                          "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",}));
-        }
-
-        /// <summary>
-        /// Adds and builds all animations for Enemytype.Mushroom
-        /// </summary>
-        private void CreateMushroomAnimations()
-        {
-            //_animator.AddAnimation(BuildAnimations("mushroom_attack", new string[] { "mush_attack1", "mush_attack2", "mush_attack3", "mush_attack4", "mush_attack5", "mush_attack6", "mush_attack7", "mush_attack8", }));
         }
 
         private Animation BuildAnimations(string animationName, string[] spriteNames)

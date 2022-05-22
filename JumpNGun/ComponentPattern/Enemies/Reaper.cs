@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace JumpNGun
 {
@@ -11,7 +12,7 @@ namespace JumpNGun
         private int _spawnTimer = 20;
         private Thread _t1;
         private Reaper _reaper;
-        
+        private Thread _spawnerThread;
 
         public Reaper(Vector2 position)
         {
@@ -35,29 +36,31 @@ namespace JumpNGun
             _t1 = new Thread(FindPlayerObject);
             _t1.IsBackground = true;
             _t1.Start();
-            
         }
 
         public override void Update(GameTime gameTime)
         {
             _t1 = new Thread(ChasePlayer);
             _t1.Start();
+
             Move();
             Death();
             Flipsprite();
             UpdatePositionReference();
             HandleAnimations();
             CheckCollision();
-            
         }
 
+        /// <summary>
+        /// Handles damage to player logic 
+        /// </summary>
         public override void Attack()
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Chase Player 
+        /// Sets velocity to target player position
         /// </summary>
         public override void ChasePlayer()
         {
@@ -104,6 +107,11 @@ namespace JumpNGun
             {
                 animator.PlayAnimation("reaper_attack");
             }
+        }
+
+        private void SpawnGhosts()
+        {
+
         }
 
     }

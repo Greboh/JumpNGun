@@ -45,7 +45,7 @@ namespace JumpNGun
                 else if (_level == 6)
                 {
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
-                    GameWorld.Instance.Instantiate(BossFactory.Instance.Create(EnemyType.GrassBoss, new Vector2(1200, 705)));
+                    GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.GrassBoss, new Vector2(1200, 705)));
                 }
                 else if (_level > 6 && _level < 12)
                 {
@@ -65,8 +65,7 @@ namespace JumpNGun
                 {
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
                     LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
-                    GameWorld.Instance.Instantiate(BossFactory.Instance.Create(EnemyType.DeathBoss, new Vector2(1200, 705)));
-                    GameWorld.Instance.Instantiate(BossFactory.Instance.Create(EnemyType.Reaper, new Vector2(1200, 650)));
+                    GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.DeathBoss, new Vector2(1200, 650)));
 
                 }
                 else

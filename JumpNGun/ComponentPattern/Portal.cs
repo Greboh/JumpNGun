@@ -106,7 +106,6 @@ namespace JumpNGun
             }
         }
 
-        
         /// <summary>
         /// Stops and starts player rendering
         /// </summary>
