@@ -139,27 +139,15 @@ namespace JumpNGun
         /// if true, double amount of all points in valid distances. if false return all points in valid distances to original. 
         /// </summary>
         /// <param name="change"></param>
-        private void AlterValidDistances(bool change)
+        private void AlterValidDistances()
         {
             for (int i = 0; i < _validDistances.Length; i++)
             {
-                if (change)
-                {
-                    if (_validDistances[i].X > 0) _validDistances[i].X += 222;
-                    if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
-                    if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
-                    if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
-                    _hasAltered = true;
-                }
-                else
-                {
-                    if (_validDistances[i].X > 0) _validDistances[i].X = 222;
-                    if (_validDistances[i].X < 0) _validDistances[i].X = -222;
-                    if (_validDistances[i].Y > 0) _validDistances[i].Y = 125;
-                    if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
-
-                }
-                
+                if (_validDistances[i].X > 0) _validDistances[i].X += 222;
+                if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
+                if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
+                if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
+                _hasAltered = true;
             }
         }
 
@@ -231,7 +219,7 @@ namespace JumpNGun
             //in case of no valid locations we call method recursive with new points in _validDistances
             else
             {
-                AlterValidDistances(true);
+                AlterValidDistances();
                 return GeneratePositions(rectangle);
             }
 
@@ -244,10 +232,10 @@ namespace JumpNGun
             //return all valid distances to original. 
             if (_hasAltered == true)
             {
-                AlterValidDistances(false);
+                SetDistancesBack();
                 _hasAltered = false;
             }
-            
+
 
             return Tuple.Create(new Vector2(rectangle.Center.X, rectangle.Center.Y), rectangle);
         }
@@ -265,10 +253,26 @@ namespace JumpNGun
             //check if location rectangle contains platform
             if (!_invalidLocations.Contains(_locations[index]))
             {
-                return  _locations[index];
+                return _locations[index];
             }
             //return method
             else return GenerateRandomPosition(rectangle);
+        }
+
+        /// <summary>
+        /// Alters points back to original points.
+        /// </summary>
+        private void SetDistancesBack()
+        {
+            for (int i = 0; i < _validDistances.Length; i++)
+            {
+                if (_validDistances[i].X > 0) _validDistances[i].X = 222;
+                if (_validDistances[i].X < 0) _validDistances[i].X = -222;
+                if (_validDistances[i].Y > 0) _validDistances[i].Y = 125;
+                if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
+
+            }
+
         }
     }
 }

@@ -6,19 +6,19 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public enum EnemyType { DeathBoss, GrassBoss, SandBoss, Reaper }
+    public enum EnemyType {GrassBoss, SandBoss, DeathBoss }
     
-    class BossFactory : Factory
+    class EnemyFactory : Factory
     {
-        private static BossFactory _instance;
+        private static EnemyFactory _instance;
 
-        public static BossFactory Instance
+        public static EnemyFactory Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new BossFactory();
+                    _instance = new EnemyFactory();
                 }
                 return _instance;
             }
@@ -47,10 +47,6 @@ namespace JumpNGun
             {
                 case EnemyType.GrassBoss:
                     {
-                        gameObject.AddComponent(new Boss(EnemyType.GrassBoss, position));
-                        _sr.SetSprite("golem_idle1");
-                        _animator.PlayAnimation("golem_idle");
-
                     }
                     break;
                 case EnemyType.SandBoss:
@@ -59,14 +55,6 @@ namespace JumpNGun
                     }
                     break;
                 case EnemyType.DeathBoss:
-                    {
-
-                        gameObject.AddComponent(new Boss(EnemyType.DeathBoss, position));
-                        _sr.SetSprite("reaper_idle1");
-                        _animator.PlayAnimation("reaper_idle");
-                    }
-                    break;
-                case EnemyType.Reaper:
                     {
                         gameObject.AddComponent(new Reaper(position));
                         _sr.SetSprite("reaper_idle1");
@@ -78,13 +66,16 @@ namespace JumpNGun
             return gameObject;
         }
 
+        /// <summary>
+        /// Adds and builds all animations for EnemyType.GrassBoss
+        /// </summary>
         private void CreateGolemAnimations()
         {
             _animator.AddAnimation(BuildAnimations("golem_idle", new string[] {"golem_idle1", "golem_idle2", "golem_idle3", "golem_idle4"}));
         }
 
         /// <summary>
-        /// Adds and builds all animations for BossType.Reaper
+        /// Adds and builds all animations for BossType.DeathBoss
         /// </summary>
         private void CreateReaperAnimations()
         {
