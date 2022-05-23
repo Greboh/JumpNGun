@@ -17,8 +17,10 @@ namespace JumpNGun
             get { return _instance ??= new LevelManager(); }
         }
 
+        public bool LevelIsGenerated { get => _levelIsGenerated; set => _levelIsGenerated = value; }
+
         private bool _levelIsGenerated = false; //bool to control level generation
-        private int _level = 18; // used to change level
+        private int _level = 1; // used to change level
         private int _platformAmount = 4; // determines amount of platform pr. level
 
         //for testing
@@ -165,6 +167,12 @@ namespace JumpNGun
             {
                 _platformAmount = 19;
             }
+        }
+
+        public void ResetLevel() 
+        {
+            _level = 1;
+            _platformAmount = 4;
         }
     }
 }

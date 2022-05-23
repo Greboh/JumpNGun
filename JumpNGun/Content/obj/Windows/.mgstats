@@ -1,5 +1,47 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/reaper_idle1.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle1.xnb","TextureProcessor","Texture2DContent",593,40085,0,1254545
-"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/reaper_idle2.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle2.xnb","TextureProcessor","Texture2DContent",602,40085,0,0036754
-"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/reaper_idle3.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle3.xnb","TextureProcessor","Texture2DContent",592,40085,0,0042519
-"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/reaper_idle4.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle4.xnb","TextureProcessor","Texture2DContent",579,40085,0,0038594
+"A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/1_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5317,14421,0,163947
+"A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_jump.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/1_Soldier_jump.xnb","TextureProcessor","Texture2DContent",5077,13973,0,0075183
+"A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/1_Soldier_run.xnb","TextureProcessor","Texture2DContent",6296,20757,0,0106633
+"A:/Github/JumpNGun/JumpNGun/Content/2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2.xnb","TextureProcessor","Texture2DContent",9914,65621,0,013558
+"A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5323,14421,0,010358
+"A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_jump.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2_Soldier_jump.xnb","TextureProcessor","Texture2DContent",5307,15317,0,0042357
+"A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2_Soldier_run.xnb","TextureProcessor","Texture2DContent",6541,20805,0,0068977
+"A:/Github/JumpNGun/JumpNGun/Content/3_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/3_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5323,14421,0,009364
+"A:/Github/JumpNGun/JumpNGun/Content/3_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/3_Soldier_run.xnb","TextureProcessor","Texture2DContent",6384,20213,0,006224
+"A:/Github/JumpNGun/JumpNGun/Content/4_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/4_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5328,14421,0,0083055
+"A:/Github/JumpNGun/JumpNGun/Content/4_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/4_Soldier_run.xnb","TextureProcessor","Texture2DContent",6497,21845,0,0058648
+"A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/5_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5326,14421,0,0063867
+"A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/5_Soldier_run.xnb","TextureProcessor","Texture2DContent",6389,21301,0,0047974
+"A:/Github/JumpNGun/JumpNGun/Content/6_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/6_Soldier_run.xnb","TextureProcessor","Texture2DContent",6259,20213,0,0052839
+"A:/Github/JumpNGun/JumpNGun/Content/background_image.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/background_image.xnb","TextureProcessor","Texture2DContent",6467,4243285,0,1357449
+"A:/Github/JumpNGun/JumpNGun/Content/Bullet.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Bullet.xnb","TextureProcessor","Texture2DContent",208,8661,0,0097767
+"A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Desert platform.xnb","TextureProcessor","Texture2DContent",13659,48037,0,0080529
+"A:/Github/JumpNGun/JumpNGun/Content/dessert_ground.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/dessert_ground.xnb","TextureProcessor","Texture2DContent",10849,492985,0,0177257
+"A:/Github/JumpNGun/JumpNGun/Content/game_title.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/game_title.xnb","TextureProcessor","Texture2DContent",20948,274869,0,0134389
+"A:/Github/JumpNGun/JumpNGun/Content/Grass platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Grass platform.xnb","TextureProcessor","Texture2DContent",12328,48037,0,0094882
+"A:/Github/JumpNGun/JumpNGun/Content/grass_ground.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/grass_ground.xnb","TextureProcessor","Texture2DContent",9287,492985,0,0159517
+"A:/Github/JumpNGun/JumpNGun/Content/graveyard platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/graveyard platform.xnb","TextureProcessor","Texture2DContent",12641,48037,0,005613
+"A:/Github/JumpNGun/JumpNGun/Content/graveyard_ground.PNG","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/graveyard_ground.xnb","TextureProcessor","Texture2DContent",10902,492985,0,0404263
+"A:/Github/JumpNGun/JumpNGun/Content/ground_platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/ground_platform.xnb","TextureProcessor","Texture2DContent",9103,446485,0,039088
+"A:/Github/JumpNGun/JumpNGun/Content/highscore_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/highscore_button.xnb","TextureProcessor","Texture2DContent",8456,81917,0,0166884
+"A:/Github/JumpNGun/JumpNGun/Content/Pixel.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Pixel.xnb","TextureProcessor","Texture2DContent",2804,485,0,0122733
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_1.xnb","TextureProcessor","Texture2DContent",4663,24085,0,0059011
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_2.xnb","TextureProcessor","Texture2DContent",5059,24085,0,0047024
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_3.xnb","TextureProcessor","Texture2DContent",5508,24085,0,0082875
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_4.xnb","TextureProcessor","Texture2DContent",5749,24085,0,0109723
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_5.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_5.xnb","TextureProcessor","Texture2DContent",5281,24085,0,0072263
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_6.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_6.xnb","TextureProcessor","Texture2DContent",4768,24085,0,0137859
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_7.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_7.xnb","TextureProcessor","Texture2DContent",4864,24085,0,014186
+"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_8.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_8.xnb","TextureProcessor","Texture2DContent",5032,24085,0,0095391
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_1.xnb","TextureProcessor","Texture2DContent",1159,24085,0,0166174
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_2.xnb","TextureProcessor","Texture2DContent",1655,24085,0,0194724
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_3.xnb","TextureProcessor","Texture2DContent",2595,24085,0,0140506
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_4.xnb","TextureProcessor","Texture2DContent",3493,24085,0,0055265
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_5.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_5.xnb","TextureProcessor","Texture2DContent",4047,24085,0,0048674
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_6.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_6.xnb","TextureProcessor","Texture2DContent",4627,24085,0,0046814
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_7.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_7.xnb","TextureProcessor","Texture2DContent",4606,24085,0,014383
+"A:/Github/JumpNGun/JumpNGun/Content/portal_open_8.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_8.xnb","TextureProcessor","Texture2DContent",4545,24085,0,0108207
+"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle1.xnb","TextureProcessor","Texture2DContent",593,40085,0,0132268
+"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle2.xnb","TextureProcessor","Texture2DContent",602,40085,0,0204879
+"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle3.xnb","TextureProcessor","Texture2DContent",592,40085,0,0150253
+"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle4.xnb","TextureProcessor","Texture2DContent",579,40085,0,0088635

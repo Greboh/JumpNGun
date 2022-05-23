@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JumpNGun.StatePattern.GameStates
+namespace JumpNGun
 {
     public abstract class State
     {
@@ -13,6 +13,12 @@ namespace JumpNGun.StatePattern.GameStates
         protected ContentManager _content;
         protected GraphicsDevice _graphics;
         protected GameWorld _gameworld;
+
+
+
+        private bool isMenu = true;
+
+        public bool IsMenu { get => isMenu; set => isMenu = value; }
 
         public State(GameWorld gameworld, GraphicsDevice graphics, ContentManager content)
         {

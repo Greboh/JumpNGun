@@ -45,6 +45,9 @@ namespace JumpNGun
         private State _currentState;
         private State _nextState;
         private bool isRunning = false;
+
+        public MouseState myMouse { get; private set; }
+        public Vector2 MousePosition { get; private set; }
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
@@ -78,9 +81,7 @@ namespace JumpNGun
             //    go.Awake();
             //}
 
-            _currentState = new MainMenuState(this, GraphicsDevice, Content);
-            _nextState = null;
-            _currentState.Init();
+            
 
             //ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
@@ -104,9 +105,9 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
 
-            //_currentState = new MainMenuState(this, GraphicsDevice, Content);
+
+            _currentState = new MainMenuState(this, GraphicsDevice, Content);
             _currentState.LoadContent();
             _nextState = null;
         }
@@ -114,6 +115,10 @@ namespace JumpNGun
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+
+            myMouse = Mouse.GetState();
+            MousePosition = new Vector2(myMouse.X, myMouse.Y);
+            //Console.WriteLine("x:" + myMouse.X + "\n" + "y:" + myMouse.Y);
 
             {
                 if (_nextState != null)
@@ -124,10 +129,10 @@ namespace JumpNGun
                 }
                 _currentState.Update(gameTime);
             }
+            
 
 
-            
-            
+
             base.Update(gameTime);
         }
 

@@ -40,6 +40,8 @@ namespace JumpNGun
             Sprite = GameWorld.Instance.Content.Load<Texture2D>(spriteName);
         }
 
+
+
         /// <summary>
         /// Draw sprite
         /// </summary>
