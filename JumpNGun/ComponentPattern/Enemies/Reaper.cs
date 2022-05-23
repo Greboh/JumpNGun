@@ -20,7 +20,6 @@ namespace JumpNGun
             health = 100;
             damage = 20;
             speed = 40;
-            isColliding = false;
         }
 
         public override void Awake()
@@ -33,16 +32,12 @@ namespace JumpNGun
 
         public override void Start()
         {
-            _t1 = new Thread(FindPlayerObject);
-            _t1.IsBackground = true;
-            _t1.Start();
+            FindPlayerObject();
         }
 
         public override void Update(GameTime gameTime)
         {
-            _t1 = new Thread(ChasePlayer);
-            _t1.Start();
-
+            ChasePlayer();
             Move();
             Death();
             Flipsprite();

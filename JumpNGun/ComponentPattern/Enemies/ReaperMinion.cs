@@ -23,6 +23,8 @@ namespace JumpNGun.ComponentPattern.Enemies
         {
             sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             _reaper = GameObject.GetComponent<Reaper>() as Reaper;
+            enemyCollider = GameObject.GetComponent<Collider>() as Collider;
+            player = GameObject.GetComponent<Player>() as Player;
             
         }
 
@@ -33,12 +35,10 @@ namespace JumpNGun.ComponentPattern.Enemies
 
         public override void Update(GameTime gameTime)
         {
-
-
-
+            Move();
+            CheckCollision();
             UpdatePositionReference();
             Flipsprite();
-            Move();
         }
 
         public override void Attack()
@@ -53,7 +53,25 @@ namespace JumpNGun.ComponentPattern.Enemies
 
         public override void CheckCollision()
         {
-            throw new NotImplementedException();
+            foreach (Collider col in GameWorld.Instance.Colliders)
+            {
+                if (enemyCollider.CollisionBox.Intersects(col.CollisionBox))
+                {
+                    //deal damage to the player if reaperminion and player collides
+                    if (col.GameObject.HasComponent<Player>())
+                    {
+                        //get player component and attack player
+                        //destroy reaperminion
+                    }
+
+                    //Destroy platform and reaperminion if they collide
+                    if (col.GameObject.HasComponent<Platform>())
+                    {
+                        GameWorld.Instance.Destroy(col.GameObject);
+                        GameWorld.Instance.Destroy(this.GameObject);
+                    }
+                }
+            }
         }
 
         public override void FindPlayerObject()
