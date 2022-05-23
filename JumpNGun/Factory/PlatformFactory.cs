@@ -28,6 +28,11 @@ namespace JumpNGun
         //position for ground platform
         private Vector2 _groundPosition = new Vector2((GameWorld.Instance.GraphicsDevice.Viewport.Width /2), 795);
 
+        /// <summary>
+        /// Takes in 1 overload and creates ground
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public override GameObject Create(Enum type)
         {
             GameObject gameObject = new GameObject();
@@ -65,6 +70,12 @@ namespace JumpNGun
 
         }
 
+        /// <summary>
+        /// Takes in 2 overloads and creates floating platform
+        /// </summary>
+        /// <param name="type">type of platform</param>
+        /// <param name="position">position of platform</param>
+        /// <returns></returns>
         public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject gameObject = new GameObject();

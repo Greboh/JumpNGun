@@ -18,62 +18,54 @@ namespace JumpNGun
         }
 
         private bool _levelIsGenerated = false; //bool to control level generation
-        private int _level = 18; // used to change level
+        private int _level = 1; // used to change level
         private int _platformAmount = 4; // determines amount of platform pr. level
 
         //for testing
         private bool canPress = true;
         private bool canPressL = true;
+        private PlatformType _currentPlatformType = PlatformType.grass;
+        private PlatformType _currentGroundPlatform = PlatformType.grassGround;
 
         private LevelManager()
         {
             EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
         }
 
-
+        /// <summary>
+        /// Creates platforms and relevant Enviroment objects
+        /// </summary>
         public void GenerateLevel()
         {
             if (!_levelIsGenerated)
             {
                 GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
-                //TODO Refactor - KRISTIAN
-                if (_level < 6)
-                {
-                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.grass);
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
-                }
-                else if (_level == 6)
-                {
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
-                    GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.GrassBoss, new Vector2(1200, 705)));
-                }
-                else if (_level > 6 && _level < 12)
-                {
-                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.dessert);
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.dessertGround));
-                }
-                else if (_level == 12)
-                {
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.dessertGround));
-                }
-                else if (_level > 12 && _level < 18)
-                {
-                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
-                }
-                else if (_level == 18)
-                {
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
-                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
-                    GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.DeathBoss, new Vector2(1200, 650)));
-
-                }
-                else
-                {
-                    LevelGenerator.Instance.GeneratePlatforms(_platformAmount, PlatformType.graveyard);
-                    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
-                }
+                LevelGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
+                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
                 _levelIsGenerated = true;
+                ChangeEnviroment();
+            }
+        }
+
+        /// <summary>
+        /// Change platform sprites according to level
+        /// </summary>
+        public void ChangeEnviroment()
+        {
+            switch (_level)
+            {
+                case 7:
+                    {
+                        _currentPlatformType = PlatformType.dessert;
+                        _currentGroundPlatform = PlatformType.dessertGround;
+                    }
+                    break;
+                case 13:
+                    {
+                        _currentPlatformType = PlatformType.graveyard;
+                        _currentGroundPlatform = PlatformType.graveGround;
+                    }
+                    break;
             }
         }
 
@@ -151,7 +143,7 @@ namespace JumpNGun
             {
                 if (!go.HasComponent<Enemy>())
                 {
-                    
+                    //Level is cleared initiate portal spawn
                 }
             }
         }

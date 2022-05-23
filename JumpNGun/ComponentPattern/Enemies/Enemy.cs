@@ -16,7 +16,7 @@ namespace JumpNGun
         protected Vector2 position;
         protected Vector2 velocity;
 
-        protected bool isColliding;
+        protected bool isColliding = false;
 
         protected SpriteRenderer sr;
         protected Animator animator;
