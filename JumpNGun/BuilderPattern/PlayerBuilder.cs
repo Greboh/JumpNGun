@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.XAudio2.Fx;
 
 namespace JumpNGun
 {
