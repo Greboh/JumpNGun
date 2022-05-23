@@ -65,7 +65,6 @@ namespace JumpNGun
             newGameObjects.Add(playerDirector.Construct());
             
             LevelManager.Instance.GenerateLevel();
-            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
 
             //call awake method on every active GameObject in list
             foreach (var go in gameObjects)
@@ -74,11 +73,10 @@ namespace JumpNGun
             }
 
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-
-
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Small));
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Large));
+     
+            // Instantiate(orbFactory.Create(ExperienceOrbType.Small));
+            // Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
+            // Instantiate(orbFactory.Create(ExperienceOrbType.Large));
 
 
             base.Initialize();
@@ -88,6 +86,7 @@ namespace JumpNGun
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             LevelGenerator.Instance.LoadContent();
+            
             //call start method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {

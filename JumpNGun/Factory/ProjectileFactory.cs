@@ -26,9 +26,15 @@ namespace JumpNGun
             {
                 case CharacterType.Soldier:
                     sr.SetSprite("Bullet");
-                    projectile.AddComponent(new Projectile());
                     break;
+                case CharacterType.Ranger:
+                {
+                    sr.SetSprite("Arrow");
+                } break;
+                
             }
+
+            projectile.AddComponent(new Projectile());
             return projectile;
         }
 

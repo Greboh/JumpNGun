@@ -17,16 +17,13 @@ namespace JumpNGun
 
         #region FOR RECTANGLES
 
-
-
-        
-
         private Texture2D texture;
 
         public Rectangle TopLine { get; private set; }
         public Rectangle BottomLine { get; private set; }
         public Rectangle RightLine { get; private set; }
         public Rectangle LeftLine { get; private set; }
+
         #endregion
 
         //List of locations valid for spawn
@@ -37,7 +34,7 @@ namespace JumpNGun
 
         //List of all possible rectangle locations on map
         private Rectangle[] _locations = new Rectangle[]
-{
+        {
             new Rectangle(0, 0, 222, 125),
             new Rectangle(222, 0, 222, 125),
             new Rectangle(444, 0, 222, 125),
@@ -78,7 +75,7 @@ namespace JumpNGun
             new Rectangle(444, 625, 222, 125),
             new Rectangle(666, 625, 222, 125),
             new Rectangle(888, 625, 222, 125)
-};
+        };
 
         //Valid distance for a rectangle's center to a vertical/diagonal or horizontal alligned rectangle
         private Point[] _validDistances = new Point[]
@@ -102,10 +99,15 @@ namespace JumpNGun
         private Vector2 _spawnPosition;
         private bool _hasAltered;
 
-        public List<Rectangle> InvalidLocations { get => _invalidLocations; private set => _invalidLocations = value; }
+        public List<Rectangle> InvalidLocations
+        {
+            get => _invalidLocations;
+            private set => _invalidLocations = value;
+        }
 
 
         #region FOR DRAWING RECTANGLES
+
         public void Draw(SpriteBatch spritebatch)
         {
             for (int i = 0; i < _locations.Length; i++)
@@ -157,9 +159,7 @@ namespace JumpNGun
                     if (_validDistances[i].X < 0) _validDistances[i].X = -222;
                     if (_validDistances[i].Y > 0) _validDistances[i].Y = 125;
                     if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
-
                 }
-                
             }
         }
 
@@ -170,7 +170,7 @@ namespace JumpNGun
         public void GeneratePlatforms(int amountOfPlatforms, PlatformType type)
         {
             _currentRectangle = SpawnFirstPlatform(type);
-            
+
             for (int i = 0; i < amountOfPlatforms; i++)
             {
                 Tuple<Vector2, Rectangle> positionData = GeneratePositions(_currentRectangle);
@@ -184,6 +184,7 @@ namespace JumpNGun
                 //Instantiate a platform at _spawnposition
                 GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, _spawnPosition));
             }
+
             _invalidLocations.Clear();
         }
 
@@ -223,6 +224,7 @@ namespace JumpNGun
                     }
                 }
             }
+
             //if any valid locations exists we pick a random one(rectangle)
             if (_validLocations.Count > 0)
             {
@@ -247,7 +249,7 @@ namespace JumpNGun
                 AlterValidDistances(false);
                 _hasAltered = false;
             }
-            
+
 
             return Tuple.Create(new Vector2(rectangle.Center.X, rectangle.Center.Y), rectangle);
         }
@@ -265,7 +267,7 @@ namespace JumpNGun
             //check if location rectangle contains platform
             if (!_invalidLocations.Contains(_locations[index]))
             {
-                return  _locations[index];
+                return _locations[index];
             }
             //return method
             else return GenerateRandomPosition(rectangle);

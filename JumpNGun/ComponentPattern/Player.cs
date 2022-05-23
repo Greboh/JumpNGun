@@ -52,6 +52,8 @@ namespace JumpNGun
         private float _shootTime;
         private float _shootCooldown;
 
+        private float _projectileSpeed;
+
         #endregion
 
         #region Collision Fields
@@ -76,11 +78,29 @@ namespace JumpNGun
                     _jumpHeight = -100;
                     _dashStrength = 50;
                     _dashCooldown = 0.5f;
-                    _shootCooldown = 2f;
+                    _shootCooldown = 1f;
                     _maxJumpCount = 2;
                     _maxHealth = 120;
                     _currentHealth = _maxHealth;
+
+                    _projectileSpeed = 100;
+
                 }break;
+                case CharacterType.Ranger:
+                {
+                    _speed = 150;
+                    _jumpHeight = -120;
+                    _dashStrength = 75;
+                    _dashCooldown = 0.25f;
+                    _shootCooldown = 1.5f;
+                    _maxJumpCount = 2;
+                    _maxHealth = 80;
+                    _currentHealth = _maxHealth;
+
+                    _projectileSpeed = 50;
+
+
+                } break;
 
             }
             _character = character;
@@ -97,7 +117,6 @@ namespace JumpNGun
         public override void Start()
         {
             _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            _sr?.SetSprite("1_Soldier_idle");
 
             _input = GameObject.GetComponent<Input>() as Input;
 
@@ -132,6 +151,7 @@ namespace JumpNGun
                 _currentHealth--;
                 Console.WriteLine(_currentHealth);
             }
+            
         }
 
         #endregion
@@ -158,8 +178,6 @@ namespace JumpNGun
             GameObject.Transform.Translate(_moveDirection * GameWorld.DeltaTime);
 
             FlipSprite(_moveDirection);
-
-            _animator.PlayAnimation("Run");
         }
 
         /// <summary>
@@ -257,7 +275,7 @@ namespace JumpNGun
             Vector2 shootLeft = new Vector2(-1, 0);
 
             ((Projectile) projectile.GetComponent<Projectile>()).Velocity = _sr.SpriteEffects == SpriteEffects.None ? shootRight : shootLeft;
-            ((Projectile) projectile.GetComponent<Projectile>()).Speed = 100;
+            ((Projectile) projectile.GetComponent<Projectile>()).Speed = _projectileSpeed;
             GameWorld.Instance.Instantiate(projectile);
 
             _canShoot = false;
@@ -274,8 +292,11 @@ namespace JumpNGun
         {
             // If we are not grounded we are in the air and should play the jump animation
             if (!_isGrounded) _animator.PlayAnimation("Jump");
+            
             // If there isn't any values that is true in movementKeys and we are grounded play idle
             if (!_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Idle");
+            
+            if(_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Run");
         }
         
         /// <summary>
@@ -429,14 +450,24 @@ namespace JumpNGun
         /// <param name="ctx">The context from the trigger in InputHandler.cs</param>
         private void OnKeyPressed(Dictionary<string, object> ctx)
         {
-            // Check if any of the keys associated with a movement action is pressed
-            if ((Keys) ctx["key"] == Keys.A || (Keys) ctx["key"] == Keys.D || (Keys) ctx["key"] == Keys.LeftAlt)
+            // Get the current pressed key
+            Keys currentKey = (Keys) ctx["key"];
+            
+            // If the currentKey is either the same as  our MoveLeft or MoveRight KeyCode
+            if(currentKey == _input.MoveLeft.KeyboardBinding  ||
+               currentKey == _input.MoveRight.KeyboardBinding)
             {
-                _movementKeys[(Keys) ctx["key"]] = (bool) ctx["isKeyDown"];
+                _movementKeys[currentKey] = (bool) ctx["isKeyDown"];
             }
-        }
+            
+            // If the currentKey is the same as our Jump KeyCode
+            if(currentKey == _input.Jump.KeyboardBinding)
+            {
+                _isJumping = (bool)ctx["isKeyDown"];
 
-        private Collider test;
+            }
+
+        }
         private void OnCollision(Dictionary<string, object> ctx)
         {
             Collider pCollider = GameObject.GetComponent<Collider>() as Collider;
@@ -448,7 +479,7 @@ namespace JumpNGun
                 switch (collision.GameObject.Tag)
                 {
                     case "ground":
-                        Console.WriteLine("grounded");
+                        Console.WriteLine("hugubuku");
                         break;
                 }
             }
