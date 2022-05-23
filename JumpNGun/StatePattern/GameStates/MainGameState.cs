@@ -18,18 +18,11 @@ namespace JumpNGun.StatePattern.GameStates
 
         private bool isInitialized;
 
-        public static float DeltaTime { get; private set; }
 
-
-
-
-        public MainGameState(GameWorld gameworld, GraphicsDevice graphics, ContentManager content)
-            :base(gameworld,graphics,content)
+        public override void Init()
         {
-
+            
         }
-
-        
 
         public override void LoadContent()
         {
@@ -43,7 +36,7 @@ namespace JumpNGun.StatePattern.GameStates
             LevelGenerator.Instance.LoadContent();
 
             // asset content loading
-            _background_image = _content.Load<Texture2D>("background_image");
+            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
             
 
 
@@ -74,9 +67,7 @@ namespace JumpNGun.StatePattern.GameStates
             if (!isInitialized)
             {
                 Initialize();
-                isInitialized = true;
             }
-
 
 
             LevelManager.Instance.ChangeLevelDebug();
@@ -91,7 +82,7 @@ namespace JumpNGun.StatePattern.GameStates
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
-                _gameworld.ChangeState(new MainMenuState(_gameworld, _graphics, _content));
+                GameWorld.Instance.ChangeState(new MainMenuState());
                 ClearObjects();
 
 
@@ -103,9 +94,7 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Update(gameTime);
 
             }
-
-            DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            
             //call cleanup in every cycle
             GameWorld.Instance.CleanUp();
         }
@@ -125,11 +114,18 @@ namespace JumpNGun.StatePattern.GameStates
             }
             Console.WriteLine("Main game init");
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-        }
+            
+            isInitialized = true;
+            
+            foreach (GameObject go in GameWorld.Instance.gameObjects)
+            {
+                if (go.HasComponent<Button>())
+                {
+                    GameWorld.Instance.Destroy(go);
 
-        public override void Init()
-        {
-            throw new NotImplementedException();
+                }
+            }
+
         }
 
         private void ClearObjects()

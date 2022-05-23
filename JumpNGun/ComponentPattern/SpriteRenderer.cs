@@ -16,7 +16,7 @@ namespace JumpNGun
 
         public Vector2 Origin { get; set; } //origin for sprite
 
-        public Color Color { get; set; }//color for sprite
+        public Color Color { get; set; } = Color.White; //color for sprite
 
         public SpriteEffects SpriteEffects { get; set; }//spriteeffects for sprite. flips, etc
        
@@ -39,6 +39,16 @@ namespace JumpNGun
         {
             Sprite = GameWorld.Instance.Content.Load<Texture2D>(spriteName);
         }
+        
+        public void SetColor(Color newColor)
+        {
+            Color = newColor;
+        }
+        
+        public void SetOrigin(Vector2 newOrigin)
+        {
+            Origin = newOrigin;
+        }
 
 
 
@@ -50,7 +60,7 @@ namespace JumpNGun
         {
             if (!_stopRendering)
             {
-                spriteBatch.Draw(Sprite, GameObject.Transform.Position, null, Color.White, 0, Origin, 1, SpriteEffects, 1);
+                spriteBatch.Draw(Sprite, GameObject.Transform.Position, null, Color, 0, Origin, 1, SpriteEffects, 1);
             }
         }
     }

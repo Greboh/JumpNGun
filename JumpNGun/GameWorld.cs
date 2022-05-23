@@ -28,7 +28,7 @@ namespace JumpNGun
             }
         }
 
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager Graphics { get; private set; }
         private SpriteBatch _spriteBatch;
 
         public List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
@@ -56,14 +56,14 @@ namespace JumpNGun
 
         public GameWorld()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferWidth = _screenWidth;
-            _graphics.PreferredBackBufferHeight = _screenHeight;
+            Graphics.PreferredBackBufferWidth = _screenWidth;
+            Graphics.PreferredBackBufferHeight = _screenHeight;
             ScreenSize = new Vector2(_screenWidth, _screenHeight);
-            _graphics.ApplyChanges();
+            Graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -107,7 +107,7 @@ namespace JumpNGun
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            _currentState = new MainMenuState(this, GraphicsDevice, Content);
+            _currentState = new MainMenuState();
             _currentState.LoadContent();
             _nextState = null;
         }
@@ -118,21 +118,17 @@ namespace JumpNGun
 
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
-            //Console.WriteLine("x:" + myMouse.X + "\n" + "y:" + myMouse.Y);
 
-            {
-                if (_nextState != null)
-                {
-                    _currentState = _nextState;
-                    _currentState.LoadContent();
-                    _nextState = null;
-                }
-                _currentState.Update(gameTime);
-            }
+            DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             
-
-
-
+            if (_nextState != null)
+            {
+                _currentState = _nextState;
+                _currentState.LoadContent();
+                _nextState = null;
+            }
+            else _currentState.Update(gameTime);
+            
             base.Update(gameTime);
         }
 

@@ -17,6 +17,8 @@ namespace JumpNGun
         private Vector2 _highscoreButtonPosition = new Vector2(screenSizeX / 2, 505);
         private Vector2 _quitButtonPosition = new Vector2(screenSizeX / 2, 575);
 
+
+        private ButtonType _type;
         
 
 
@@ -40,17 +42,16 @@ namespace JumpNGun
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
 
-            switch (type)
+            _type = (ButtonType)type;
+            
+            switch (_type)
             {
                 case ButtonType.Start:
                     {
                         sr.SetSprite("start_button");
-                        Rectangle _buttonRectangle = sr.Sprite.Bounds;
+
+                        gameObject.AddComponent(new Button(_type));
                         
-
-
-                        gameObject.AddComponent(new Buttons(_startButtonPosition,new Rectangle(), "StartButton"));
-                        //gameObject.AddComponent(new Button(_startButtonPosition, new Rectangle((int)_startButtonPosition.X, (int)_startButtonPosition.Y, sr.Sprite.Width, sr.Sprite.Height), "StartButton"));
                         Console.WriteLine();
 
                     }
@@ -58,22 +59,27 @@ namespace JumpNGun
                 case ButtonType.Settings:
                     {
                         sr.SetSprite("settings_button");
-                        gameObject.AddComponent(new Buttons(_settingButtonPosition, new Rectangle((int)_startButtonPosition.X, (int)_startButtonPosition.Y, sr.Sprite.Width, sr.Sprite.Height), "SettingButton"));
+                        
+                        gameObject.AddComponent(new Button(_type));
+
 
                     }
                     break;
                 case ButtonType.Highscores:
                     {
                         sr.SetSprite("highscore_button");
-                        gameObject.AddComponent(new Buttons(_highscoreButtonPosition, new Rectangle((int)_startButtonPosition.X, (int)_startButtonPosition.Y, sr.Sprite.Width, sr.Sprite.Height), "HighscoreButton"));
+                        
+                        gameObject.AddComponent(new Button(_type));
+
 
                     }
                     break;
                 case ButtonType.Quit:
                     {
                         sr.SetSprite("quit_button");
-                        gameObject.AddComponent(new Buttons(_quitButtonPosition, new Rectangle((int)_startButtonPosition.X, (int)_startButtonPosition.Y, sr.Sprite.Width, sr.Sprite.Height), "QuitButton"));
-
+                        
+                        gameObject.AddComponent(new Button(_type));
+                        
                     }
                     break;
             }

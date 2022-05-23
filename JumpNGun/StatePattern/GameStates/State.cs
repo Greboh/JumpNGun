@@ -10,22 +10,13 @@ namespace JumpNGun
     public abstract class State
     {
 
-        protected ContentManager _content;
-        protected GraphicsDevice _graphics;
-        protected GameWorld _gameworld;
 
 
 
         private bool isMenu = true;
 
         public bool IsMenu { get => isMenu; set => isMenu = value; }
-
-        public State(GameWorld gameworld, GraphicsDevice graphics, ContentManager content)
-        {
-            _gameworld = gameworld;
-            _graphics = graphics;
-            _content = content;
-        }
+        
         public abstract void Init();
         public abstract void LoadContent();
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);

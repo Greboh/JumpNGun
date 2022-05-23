@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -24,12 +22,7 @@ namespace JumpNGun
         private Rectangle mouseRectangle;
         private bool isHovering = false;
         private bool isInitialized;
-
-        public MainMenuState(GameWorld gameworld, GraphicsDevice graphics, ContentManager content)
-            : base(gameworld, graphics, content)
-        {
-
-        }
+        
 
         public override void LoadContent()
         {
@@ -40,8 +33,8 @@ namespace JumpNGun
             }
 
             // asset content loading
-            _background_image = _content.Load<Texture2D>("background_image");
-            _game_title = _content.Load<Texture2D>("game_title");
+            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
+            _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -72,12 +65,11 @@ namespace JumpNGun
                 Initialize();
                 isInitialized = true;
             }
-            //DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                _gameworld.ChangeState(new MainGameState(_gameworld, _graphics, _content));
+                GameWorld.Instance.ChangeState(new MainGameState());
                 ClearObjects();
             }
 
@@ -106,6 +98,7 @@ namespace JumpNGun
             {
                 go.Awake();
             }
+            
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
@@ -125,29 +118,29 @@ namespace JumpNGun
 
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
-                if (go.HasComponent<Buttons>())
+                if (go.HasComponent<Button>())
                 {
-                    if (mouseRectangle.Intersects((go.GetComponent<Buttons>() as Buttons).Rectangle) && (go.GetComponent<Buttons>() as Buttons).Tag == "StartButton")
-                    {
-                        Console.WriteLine("test");
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed)
-                        {
-                            _gameworld.ChangeState(new MainGameState(_gameworld, _graphics, _content));
-                            ClearObjects();
-                            isInitialized = false;
-                        }
-
-                    }
-
-                    if (mouseRectangle.Intersects((go.GetComponent<Buttons>() as Buttons).Rectangle) && (go.GetComponent<Buttons>() as Buttons).Tag == "QuitButton")
-                    {
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed)
-                        {
-                            //GameWorld.Instance.Exit();
-                        }
-
-                    }
+                    // if (mouseRectangle.Intersects((go.GetComponent<Button>() as Button).Rectangle) && (go.GetComponent<Button>() as Button).Tag == "StartButton")
+                    // {
+                    //     Console.WriteLine("test");
+                    //     if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed)
+                    //     {
+                    //         _gameworld.ChangeState(new MainGameState(_gameworld, _graphics, _content));
+                    //         ClearObjects();
+                    //         isInitialized = false;
+                    //     }
+                    //
+                    // }
+                    //
+                    // if (mouseRectangle.Intersects((go.GetComponent<Button>() as Button).Rectangle) && (go.GetComponent<Button>() as Button).Tag == "QuitButton")
+                    // {
+                    //
+                    //     if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed)
+                    //     {
+                    //         //GameWorld.Instance.Exit();
+                    //     }
+                    //
+                    // }
                 }
             }
         }
@@ -156,7 +149,7 @@ namespace JumpNGun
         {
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
-                if (go.HasComponent<Buttons>())
+                if (go.HasComponent<Button>())
                 {
                     GameWorld.Instance.Destroy(go);
                     
