@@ -63,7 +63,6 @@ namespace JumpNGun
                 else if (_level == 18)
                 {
                     GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.graveGround));
-                    GameWorld.Instance.Instantiate(BossFactory.Instance.Create(BossType.DeathBoss, new Vector2(1200, 705)));
                 }
                 else
                 {

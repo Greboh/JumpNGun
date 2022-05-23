@@ -10,6 +10,8 @@ namespace JumpNGun.StatePattern.GameStates
 {
     public class MainGameState : State
     {
+        private bool isInitialized = false;
+
         public static float DeltaTime { get; private set; }
 
 
@@ -49,7 +51,15 @@ namespace JumpNGun.StatePattern.GameStates
         }
         public override void Update(GameTime gameTime)
         {
-            LevelManager.Instance.ChangeLevelDebug();
+            if (isInitialized)
+            {
+                Initialize();
+                isInitialized = true;
+            }
+
+
+
+                LevelManager.Instance.ChangeLevelDebug();
             LevelManager.Instance.GenerateLevel();
             LevelManager.Instance.CheckForClearedLevelDebug();
 
@@ -57,6 +67,12 @@ namespace JumpNGun.StatePattern.GameStates
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
                 GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small));
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
+                _gameworld.ChangeState(new MainMenuState(_gameworld, _graphics, _content));
+
             }
 
             //call update method on every active GameObject in list
@@ -72,8 +88,9 @@ namespace JumpNGun.StatePattern.GameStates
             GameWorld.Instance.CleanUp();
         }
 
-        public override void Init()
+        private void Initialize()
         {
+            
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
@@ -83,8 +100,18 @@ namespace JumpNGun.StatePattern.GameStates
             {
                 go.Awake();
             }
-
+            Console.WriteLine("Main game init");
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+        }
+
+        public override void Init()
+        {
+            //GameWorld.Instance.CleanUp();
+
+            
+
+
+            
         }
 
         

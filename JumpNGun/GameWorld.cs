@@ -65,21 +65,24 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
+
+
+            //Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
+            //newGameObjects.Add(playerDirector.Construct());
+
+
+
+
+            //foreach (var go in gameObjects)
+            //{
+            //    go.Awake();
+            //}
+
             _currentState = new MainMenuState(this, GraphicsDevice, Content);
             _nextState = null;
             _currentState.Init();
 
-            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            newGameObjects.Add(playerDirector.Construct());
-
-            LevelManager.Instance.GenerateLevel();
-
-            foreach (var go in gameObjects)
-            {
-                go.Awake();
-            }
-
-            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+            //ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
 
             //Instantiate(new PlatformFactory().Create(PlatformType.ground));
