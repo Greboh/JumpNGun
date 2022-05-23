@@ -10,7 +10,7 @@ namespace JumpNGun
     {
         private bool isInitialized;
 
-
+        //TODO: Remove previous buttons from drawing
         public override void LoadContent()
         {
             
