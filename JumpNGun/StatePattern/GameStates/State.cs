@@ -20,7 +20,7 @@ namespace JumpNGun.StatePattern.GameStates
             _graphics = graphics;
             _content = content;
         }
-
+        public abstract void Init();
         public abstract void LoadContent();
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);

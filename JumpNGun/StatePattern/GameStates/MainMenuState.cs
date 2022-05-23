@@ -11,6 +11,9 @@ namespace JumpNGun.StatePattern.GameStates
     public class MainMenuState : State
     {
 
+        
+
+
         public MainMenuState(GameWorld gameworld, GraphicsDevice graphics, ContentManager content)
             : base(gameworld, graphics, content)
         {
@@ -19,12 +22,13 @@ namespace JumpNGun.StatePattern.GameStates
 
         public override void LoadContent()
         {
-           
+            
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             GameWorld.Instance.GraphicsDevice.Clear(Color.Red);
 
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -32,7 +36,20 @@ namespace JumpNGun.StatePattern.GameStates
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 _gameworld.ChangeState(new MainGameState(_gameworld, _graphics, _content));
+                
             }
+
+            
+
         }
+
+        public override void Init()
+        {
+            
+        }
+
+
+       
+
     }
 }

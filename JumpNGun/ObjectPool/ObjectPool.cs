@@ -46,6 +46,7 @@ namespace JumpNGun
             //cleanup on gameobject
             CleanUp(gameObject);
 
+            
             GameWorld.Instance.Destroy(gameObject);
 
         }
