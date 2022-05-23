@@ -14,23 +14,21 @@ namespace JumpNGun
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
 
         private Texture2D _background_image;
-        private Vector2 _backgroundPosition = new Vector2(screenSizeX / 2, 190);
         private Texture2D _game_title;
 
 
         private Vector2 MousePosition;
         private Rectangle mouseRectangle;
-        private bool isHovering = false;
         private bool isInitialized;
         
 
         public override void LoadContent()
         {
             //call start method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
-            {
-                GameWorld.Instance.gameObjects[i].Start();
-            }
+            //for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            //{
+            //    GameWorld.Instance.gameObjects[i].Start();
+            //}
 
             // asset content loading
             _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
@@ -38,15 +36,15 @@ namespace JumpNGun
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            GameWorld.Instance.GraphicsDevice.Clear(Color.Red);
+
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White); // background texture
 
             
             spriteBatch.Draw(_game_title, new Rectangle(screenSizeY/2, 190, _game_title.Width,_game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
-
+            // draws active GameObjects in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
@@ -79,13 +77,7 @@ namespace JumpNGun
                 GameWorld.Instance.gameObjects[i].Update(gameTime);
 
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.T))
-            {
-
-            }
-
             
-            CheckButtonInput();
 
             GameWorld.Instance.CleanUp();
         }
@@ -99,51 +91,15 @@ namespace JumpNGun
                 go.Awake();
             }
             
+            
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit));
 
-
-            Console.WriteLine("Menu init");
-
         }
 
-        private void CheckButtonInput()
-        {
-
-            mouseRectangle = new Rectangle(GameWorld.Instance.myMouse.X, GameWorld.Instance.myMouse.Y, 10, 10);
-
-
-
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.HasComponent<Button>())
-                {
-                    // if (mouseRectangle.Intersects((go.GetComponent<Button>() as Button).Rectangle) && (go.GetComponent<Button>() as Button).Tag == "StartButton")
-                    // {
-                    //     Console.WriteLine("test");
-                    //     if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed)
-                    //     {
-                    //         _gameworld.ChangeState(new MainGameState(_gameworld, _graphics, _content));
-                    //         ClearObjects();
-                    //         isInitialized = false;
-                    //     }
-                    //
-                    // }
-                    //
-                    // if (mouseRectangle.Intersects((go.GetComponent<Button>() as Button).Rectangle) && (go.GetComponent<Button>() as Button).Tag == "QuitButton")
-                    // {
-                    //
-                    //     if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed)
-                    //     {
-                    //         //GameWorld.Instance.Exit();
-                    //     }
-                    //
-                    // }
-                }
-            }
-        }
+        
 
         private void ClearObjects()
         {

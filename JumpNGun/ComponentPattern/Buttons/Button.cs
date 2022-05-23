@@ -51,6 +51,12 @@ namespace JumpNGun
                 case ButtonType.Quit:
                     _position = _quitButtonPosition;
                     break;
+                case ButtonType.Audio:
+                    _position = _highscoreButtonPosition;
+                    break;
+                case ButtonType.Controls:
+                    _position = _quitButtonPosition;
+                    break;
             }
         }
 
@@ -76,24 +82,33 @@ namespace JumpNGun
                 {
                     case ButtonType.Start:
                         Console.WriteLine($"Intersects with {_type}");
-                        
-                        if(GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+
+                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
                         {
                             GameWorld.Instance.ChangeState(new MainGameState());
-                            
-                            
+
+
                             _canIntersect = false;
                         }
-                        else if(GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
                         {
                             _canIntersect = true;
                         }
-                            
-                        
-                        
                         break;
                     case ButtonType.Settings:
+                        Console.WriteLine($"Intersects with {_type}");
 
+                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+                        {
+                            GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+
+                            _canIntersect = false;
+                        }
+                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+                        {
+                            _canIntersect = true;
+                        }
                         break;
                     case ButtonType.Highscores:
 
@@ -103,6 +118,36 @@ namespace JumpNGun
                         {
 
                             GameWorld.Instance.Exit();
+
+                            _canIntersect = false;
+                        }
+                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+                        {
+                            _canIntersect = true;
+                        }
+                        break;
+                    case ButtonType.Audio:
+                        Console.WriteLine($"Intersects with {_type}");
+
+                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+                        {
+                            GameWorld.Instance.ChangeState(new AudioSettingsState());
+
+
+                            _canIntersect = false;
+                        }
+                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+                        {
+                            _canIntersect = true;
+                        }
+                        break;
+                    case ButtonType.Controls:
+                        Console.WriteLine($"Intersects with {_type}");
+
+                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+                        {
+                            GameWorld.Instance.ChangeState(new ControlSettingsState());
+
 
                             _canIntersect = false;
                         }

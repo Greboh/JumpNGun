@@ -18,8 +18,10 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_run.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/6_Soldier_run.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/audio_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/background_image.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Bullet.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/controls_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/dessert_ground.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/game_title.png</File>
@@ -52,6 +54,8 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle4.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
