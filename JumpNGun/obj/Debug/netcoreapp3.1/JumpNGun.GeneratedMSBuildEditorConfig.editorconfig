@@ -1,9 +1,3 @@
 is_global = true
-build_property.ApplicationManifest = app.manifest
-build_property.StartupObject = 
-build_property.ApplicationDefaultFont = 
-build_property.ApplicationHighDpiMode = 
-build_property.ApplicationUseCompatibleTextRendering = 
-build_property.ApplicationVisualStyles = 
 build_property.RootNamespace = JumpNGun
-build_property.ProjectDir = C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\
+build_property.ProjectDir = A:\Github\JumpNGun\JumpNGun\

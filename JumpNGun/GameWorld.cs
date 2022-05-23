@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using JumpNGun.StatePattern.GameStates;
 
 namespace JumpNGun
 {
@@ -41,6 +42,8 @@ namespace JumpNGun
         private int _screenWidth = 1325;
         private int _screenHeight = 800;
 
+        private State _currentState;
+        private State _nextState;
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
@@ -93,11 +96,26 @@ namespace JumpNGun
             {
                 gameObjects[i].Start();
             }
+
+            _currentState = new MainMenuState(this, GraphicsDevice, Content);
+            _currentState.LoadContent();
+            _nextState = null;
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+
+            {
+                if (_nextState != null)
+                {
+                    _currentState = _nextState;
+                    _currentState.LoadContent();
+                    _nextState = null;
+                }
+                _currentState.Update(gameTime);
+            }
+
 
             LevelManager.Instance.ChangeLevelDebug();
             LevelManager.Instance.GenerateLevel();
@@ -128,6 +146,8 @@ namespace JumpNGun
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _currentState.Draw(gameTime, _spriteBatch);
+
             _spriteBatch.Begin();
             LevelGenerator.Instance.Draw(_spriteBatch);
 
@@ -139,6 +159,11 @@ namespace JumpNGun
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void ChangeState(State state)
+        {
+            _nextState = state;
         }
 
         /// <summary>
