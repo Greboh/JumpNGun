@@ -20,14 +20,11 @@ namespace JumpNGun
 
         private bool _levelIsGenerated = false; //bool to control level generation
         private int _level = 1; // used to change level
-        private int _enemyStartAmount = 2;
-        private int _enemyCurrentAmount = 2;
+        private int _enemyAmount = 2;
         private int _platformAmount = 4; // determines amount of platform pr. level
 
-        public bool LevelIsGenerated { get; set; } = false;
-
         //for testing
-        private bool _canPress = true;
+        private bool canPress = true;
         private bool canPressL = true;
         private PlatformType _currentPlatformType;
         private PlatformType _currentGroundPlatform;
@@ -38,7 +35,6 @@ namespace JumpNGun
         private LevelManager()
         {
             EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
-            EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath); //TODO Fix another way
         }
 
         /// <summary>
@@ -50,7 +46,7 @@ namespace JumpNGun
             {
                 //Change all relevant enum types
                 ChangeEnviroment();
-
+                
                 //Create first portal
                 GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
 
@@ -60,23 +56,13 @@ namespace JumpNGun
                 UsedLocations = PlatformGenerator.Instance.GetLocations();
 
                 //Create all relevant enemies
-                EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, EnemyType.Mushroom, UsedLocations);
+                EnemyGenerator.Instance.GenerateEnemies(_enemyAmount, EnemyType.Mushroom, UsedLocations);
 
                 //Create ground
                 GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
 
                 //Stop genering level
                 _levelIsGenerated = true;
-            }
-        }
-
-        private void OnEnemyDeath(Dictionary<string, object> ctx)
-        {
-            _enemyCurrentAmount -= (int) ctx["enemyDeath"];
-
-            if (_enemyCurrentAmount <= 0)
-            {
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
             }
         }
 
@@ -88,23 +74,22 @@ namespace JumpNGun
             switch (_level)
             {
                 case 1:
-                {
-                    _currentPlatformType = PlatformType.grass;
-                    _currentGroundPlatform = PlatformType.grassGround;
-                    _currentEnemyType = EnemyType.Mushroom;
-                }
-                    break;
+                    {
+                        _currentPlatformType = PlatformType.grass;
+                        _currentGroundPlatform = PlatformType.grassGround;
+                        _currentEnemyType = EnemyType.Mushroom;
+                    }break;
                 case 7:
-                {
-                    _currentPlatformType = PlatformType.dessert;
-                    _currentGroundPlatform = PlatformType.dessertGround;
-                }
+                    {
+                        _currentPlatformType = PlatformType.dessert;
+                        _currentGroundPlatform = PlatformType.dessertGround;
+                    }
                     break;
                 case 13:
-                {
-                    _currentPlatformType = PlatformType.graveyard;
-                    _currentGroundPlatform = PlatformType.graveGround;
-                }
+                    {
+                        _currentPlatformType = PlatformType.graveyard;
+                        _currentGroundPlatform = PlatformType.graveGround;
+                    }
                     break;
             }
         }
@@ -118,7 +103,7 @@ namespace JumpNGun
             if (message.ContainsKey("NewLevel"))
             {
                 IncrementLevel();
-                _levelIsGenerated = (bool) message["NewLevel"];
+                _levelIsGenerated = (bool)message["NewLevel"];
                 CleanLevel();
             }
         }
@@ -136,8 +121,8 @@ namespace JumpNGun
                 }
             }
 
-            UsedLocations.Clear();
-
+            PlatformGenerator.Instance.UsedLocations.Clear();
+            
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
             Console.Clear();
         }
@@ -150,10 +135,10 @@ namespace JumpNGun
         {
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                // if(EnemyAmount <= 0 && _levelIsGenerated)
-                // {
-                //     GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
-                // }
+                if (!go.HasComponent<Enemy>())
+                {
+                    //Level is cleared initiate portal spawn
+                }
             }
         }
 
@@ -167,10 +152,8 @@ namespace JumpNGun
 
             if (_level % 2 != 0)
             {
-                _enemyStartAmount++;
+                _enemyAmount++;
             }
-
-            _enemyCurrentAmount = _enemyStartAmount;
 
             //amount of platforms capped at 19, to avoid overcrowding screen and errors
             if (_platformAmount > 19)
@@ -178,15 +161,8 @@ namespace JumpNGun
                 _platformAmount = 19;
             }
         }
-        
-        public void ResetLevel()
-        {
-            _level = 1;
-            _platformAmount = 4;
-        }
 
         #region Test Methods
-
         /// <summary>
         /// Check for cleared level debugging
         /// </summary>
@@ -197,7 +173,6 @@ namespace JumpNGun
                 GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
                 canPressL = false;
             }
-
             if (Keyboard.GetState().IsKeyUp(Keys.L))
             {
                 canPressL = true;
@@ -209,20 +184,16 @@ namespace JumpNGun
         /// </summary>
         public void ChangeLevelDebug()
         {
-            //TODO FIX THIS CALLING
-            CheckForClearedLevel();
-
-            if (Keyboard.GetState().IsKeyDown(Keys.K) && _canPress)
+            if (Keyboard.GetState().IsKeyDown(Keys.K) && canPress)
             {
                 IncrementLevel();
                 _levelIsGenerated = false;
                 CleanLevel();
-                _canPress = false;
+                canPress = false;
             }
-
             if (Keyboard.GetState().IsKeyUp(Keys.K))
             {
-                _canPress = true;
+                canPress = true;
             }
         }
 
@@ -245,7 +216,6 @@ namespace JumpNGun
         //    LevelGenerator.Instance.InvalidLocations.Add(testLevel[i]);
         //}
         //GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
-
         #endregion
     }
 }

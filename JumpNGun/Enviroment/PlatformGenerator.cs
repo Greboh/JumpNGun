@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
-    public class LevelGenerator
+    public class PlatformGenerator
     {
-        private static LevelGenerator _instance;
+        private static PlatformGenerator _instance;
 
-        public static LevelGenerator Instance
+        public static PlatformGenerator Instance
         {
-            get { return _instance ??= new LevelGenerator(); }
+            get { return _instance ??= new PlatformGenerator(); }
         }
 
         #region FOR RECTANGLES
@@ -33,7 +33,7 @@ namespace JumpNGun
         private List<Rectangle> _validLocations = new List<Rectangle>();
 
         //List of locations invalid for spawn
-        private List<Rectangle> _invalidLocations = new List<Rectangle>();
+        private List<Rectangle> _usedLocations = new List<Rectangle>();
 
         //List of all possible rectangle locations on map
         private Rectangle[] _locations = new Rectangle[]
@@ -101,9 +101,7 @@ namespace JumpNGun
         //current position for platform spawn
         private Vector2 _spawnPosition;
         private bool _hasAltered;
-
-        public List<Rectangle> InvalidLocations { get => _invalidLocations; private set => _invalidLocations = value; }
-
+        public List<Rectangle> UsedLocations { get => _usedLocations; private set => _usedLocations = value; }
 
         #region FOR DRAWING RECTANGLES
         public void Draw(SpriteBatch spritebatch)
@@ -135,21 +133,6 @@ namespace JumpNGun
 
         #endregion
 
-        /// <summary>
-        /// if true, double amount of all points in valid distances. if false return all points in valid distances to original. 
-        /// </summary>
-        /// <param name="change"></param>
-        private void AlterValidDistances()
-        {
-            for (int i = 0; i < _validDistances.Length; i++)
-            {
-                if (_validDistances[i].X > 0) _validDistances[i].X += 222;
-                if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
-                if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
-                if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
-                _hasAltered = true;
-            }
-        }
 
         /// <summary>
         /// Spawns x-amount of platforms on map
@@ -172,7 +155,6 @@ namespace JumpNGun
                 //Instantiate a platform at _spawnposition
                 GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, _spawnPosition));
             }
-            _invalidLocations.Clear();
         }
 
         /// <summary>
@@ -181,10 +163,19 @@ namespace JumpNGun
         /// <returns>current rectangle</returns>
         private Rectangle SpawnFirstPlatform(PlatformType type)
         {
+            //Choose the first location rectangle
             Rectangle rectangle = _locations[_random.Next(30, 33)];
+
+            //Create a vector position in the center of first location rectangle
             Vector2 position = new Vector2(rectangle.Center.X, rectangle.Center.Y);
+
+            //Instantiate platform in our first location;
             GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, position));
-            _invalidLocations.Add(rectangle);
+
+            //make rectangle invalid for platform spawn
+            _usedLocations.Add(rectangle);
+
+            //return the first location rectangle
             return rectangle;
         }
 
@@ -205,7 +196,7 @@ namespace JumpNGun
                 for (int j = 0; j < _validDistances.Length; j++)
                 {
                     //checks if distance is viable and if _locations[i] is a valid location then adds to list
-                    if (_validDistances[j].Equals(distance) && !_invalidLocations.Contains(_locations[i]))
+                    if (_validDistances[j].Equals(distance) && !_usedLocations.Contains(_locations[i]))
                     {
                         _validLocations.Add(_locations[i]);
                     }
@@ -219,7 +210,7 @@ namespace JumpNGun
             //in case of no valid locations we call method recursive with new points in _validDistances
             else
             {
-                AlterValidDistances();
+                SetDistancesUp();
                 return GeneratePositions(rectangle);
             }
 
@@ -227,7 +218,7 @@ namespace JumpNGun
             _validLocations.Clear();
 
             //make rectangle invalid 
-            _invalidLocations.Add(rectangle);
+            _usedLocations.Add(rectangle);
 
             //return all valid distances to original. 
             if (_hasAltered == true)
@@ -251,12 +242,28 @@ namespace JumpNGun
             int index = _random.Next(0, 33);
 
             //check if location rectangle contains platform
-            if (!_invalidLocations.Contains(_locations[index]))
+            if (!_usedLocations.Contains(_locations[index]))
             {
                 return _locations[index];
             }
             //return method
             else return GenerateRandomPosition(rectangle);
+        }
+
+        /// <summary>
+        /// Adds the value of every point in validDistances to itself. 
+        /// </summary>
+        /// <param name="change"></param>
+        private void SetDistancesUp()
+        {
+            for (int i = 0; i < _validDistances.Length; i++)
+            {
+                if (_validDistances[i].X > 0) _validDistances[i].X += 222;
+                if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
+                if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
+                if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
+                _hasAltered = true;
+            }
         }
 
         /// <summary>
@@ -274,5 +281,11 @@ namespace JumpNGun
             }
 
         }
+
+        public List<Rectangle> GetLocations()
+        {
+            return _usedLocations;
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-
+using System.Threading;
 
 namespace JumpNGun
 {
@@ -27,28 +27,20 @@ namespace JumpNGun
             }
         }
 
-        public GraphicsDeviceManager Graphics { get; private set; }
-        public SpriteBatch SpriteBatch { get; private set; }
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
 
-        public List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
+        private List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
 
-        public List<GameObject> newGameObjects = new List<GameObject>();//List of newly added/instatiated GameObjects
+        private List<GameObject> newGameObjects = new List<GameObject>();//List of newly added/instatiated GameObjects
 
-        public List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
+        private List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
-        
+
         private int _screenWidth = 1325;
         private int _screenHeight = 800;
 
-        public bool IsPaused { get; set; }
-
-        private Background _background;
-
-        private bool _isRunning = false;
-
-        public MouseState MyMouse { get; private set; }
-        public Vector2 MousePosition { get; private set; }
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
@@ -56,63 +48,97 @@ namespace JumpNGun
 
         public GameWorld()
         {
-            Graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Graphics.PreferredBackBufferWidth = _screenWidth;
-            Graphics.PreferredBackBufferHeight = _screenHeight;
+            _graphics.PreferredBackBufferWidth = _screenWidth;
+            _graphics.PreferredBackBufferHeight = _screenHeight;
             ScreenSize = new Vector2(_screenWidth, _screenHeight);
-            Graphics.ApplyChanges();
+            _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
             
-            SoundManager.Instance.InitDictionary();
-            MenuStateHandler.Instance.Initialize();
+            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
+            newGameObjects.Add(playerDirector.Construct());
             
-            _background = new Background();
-            
-            MenuStateHandler.Instance.ChangeState(new LandingScreen());
+            LevelManager.Instance.GenerateLevel();
+            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
+
+            //call awake method on every active GameObject in list
+            foreach (var go in gameObjects)
+            {
+                go.Awake();
+            }
+
+            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+
+
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Small));
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
+            //Instantiate(orbFactory.Create(ExperienceOrbType.Large));
+
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
-            _background.LoadContent();
-            MenuStateHandler.Instance.LoadContent();
-
-            
-            base.LoadContent();
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            PlatformGenerator.Instance.LoadContent();
+            //call start method on every active GameObject in list
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Start();
+            }
         }
 
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+
+            LevelManager.Instance.ChangeLevelDebug();
+            LevelManager.Instance.GenerateLevel();
+            LevelManager.Instance.CheckForClearedLevelDebug();
+
             
-            _background.Update(gameTime);
-
-
-            MyMouse = Mouse.GetState();
-            MousePosition = new Vector2(MyMouse.X, MyMouse.Y);
-
-            DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small));
+            }
             
-            MenuStateHandler.Instance.Update(gameTime);
+            //call update method on every active GameObject in list
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Update(gameTime);
+                
+            }
+           
+            DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            //call cleanup in every cycle
+            CleanUp();
+            
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            _background.Draw(SpriteBatch);
-            
-            MenuStateHandler.Instance.Draw(SpriteBatch);
-            
-            base.Draw(gameTime);
 
+            _spriteBatch.Begin();
+            PlatformGenerator.Instance.Draw(_spriteBatch);
+
+            //draw sprites of every active gameObject in list
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                gameObjects[i].Draw(_spriteBatch);
+            }
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
         }
 
         /// <summary>
@@ -136,7 +162,7 @@ namespace JumpNGun
         /// <summary>
         /// Removes, adds, and activates relevant GameObjects and components from game
         /// </summary>
-        public void CleanUpGameObjects()
+        private void CleanUp()
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
@@ -183,7 +209,7 @@ namespace JumpNGun
                 Colliders.Remove(col);
             }
         }
-
+        
         /// <summary>
         /// Find GameObjects with a specific component
         /// </summary>
@@ -203,9 +229,8 @@ namespace JumpNGun
 
             return null;
 
-
+         
         }
-
 
     }
 }

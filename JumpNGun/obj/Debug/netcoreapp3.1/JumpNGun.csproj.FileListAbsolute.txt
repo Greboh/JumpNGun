@@ -189,6 +189,7 @@ C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\Ju
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_idle1.xnb
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.AssemblyReference.cache
 >>>>>>> Kristian
 C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Large_Orb.xnb

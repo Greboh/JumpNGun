@@ -325,6 +325,18 @@
 /processorParam:TextureFormat=Color
 /build:ground_platform.png
 
+#begin mushroom_idle1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mushroom_idle1.png
+
 #begin Pixel.png
 /importer:TextureImporter
 /processor:TextureProcessor

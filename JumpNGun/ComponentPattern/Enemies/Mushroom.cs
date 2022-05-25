@@ -22,13 +22,13 @@ namespace JumpNGun
         private bool _locationRectangleFound;
         private bool _collidingWithPlayer;
         private bool _canRangeAttack;
-        // private bool _isAttacking;
+        private bool _isAttacking;
         private int rangeDammage;
 
         public Mushroom(Vector2 position)
         {
             this.position = position;
-            health = 20;
+            health = 60;
             speed = 40;
             damage = 20;
             rangeDammage = 15;
@@ -37,39 +37,36 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            base.Awake();
-            
+            animator = GameObject.GetComponent<Animator>() as Animator;
+            sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            enemyCollider = GameObject.GetComponent<Collider>() as Collider;
             GameObject.Transform.Position = position;
         }
 
         public override void Start()
         {
-            base.Start();
-            
+            FindPlayerObject();
             GetLocations();
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-            
-            
             if (_isGrounded)
             {
                 SetLocationRectangle();
             }
             ChasePlayer();
-            SetVelocity();
-            if (isAttacking)
+            MovementBounds();
+            if (!_isAttacking)
             {
-                // Move();
+                Move();
             }
             UpdatePositionReference();
-            // FlipSprite();
+            Flipsprite();
             HandleGravity();
             CheckCollision();
             Attack();
-
+            Death();
         }
 
         #region Movement Methods
@@ -85,7 +82,7 @@ namespace JumpNGun
                 {
                     _currentRectangle = location;
                     _locationRectangleFound = true;
-                    UpdateFieldOfView(_currentRectangle);
+                    UpdateFieldofView(_currentRectangle);
                 }
             }
         }
@@ -93,7 +90,7 @@ namespace JumpNGun
         /// <summary>
         /// Sets velocity according to position in rectangle and calls find location methods
         /// </summary>
-        private void SetVelocity()
+        private void MovementBounds()
         {
             if (position.X >= (_currentRectangle.Right - sr.Sprite.Width))
             {
@@ -118,7 +115,7 @@ namespace JumpNGun
                 if (_currentRectangle.X + 222 == locations[i].X && _currentRectangle.Y == locations[i].Y)
                 {
                     _currentRectangle = locations[i];
-                    UpdateFieldOfView(_currentRectangle);
+                    UpdateFieldofView(_currentRectangle);
                 }
             }
         }
@@ -134,7 +131,7 @@ namespace JumpNGun
                 {
                     _currentRectangle = locations[i];
 
-                    UpdateFieldOfView(_currentRectangle);
+                    UpdateFieldofView(_currentRectangle);
                    
                 }
             }
@@ -179,15 +176,31 @@ namespace JumpNGun
             {
                 if (col.GameObject.HasComponent<Platform>())
                 {
-                    if (col.CollisionBox.Intersects(collider.CollisionBox))
+                    if (col.CollisionBox.Intersects(enemyCollider.CollisionBox))
                     {
                         _isGrounded = true;
                         _groundCollision = col.CollisionBox;
                     }
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
+                if (_isGrounded && !enemyCollider.CollisionBox.Intersects(_groundCollision))
                 {
                     _isGrounded = false;
+                }
+                else if (col.GameObject.HasComponent<Player>())
+                {
+                    if (col.CollisionBox.Intersects(enemyCollider.CollisionBox))
+                    {
+                        _collidingWithPlayer = true;
+                    }
+                    else _collidingWithPlayer = false;
+                }
+                if (col.GameObject.HasComponent<Projectile>())
+                {
+                    if (col.CollisionBox.Intersects(enemyCollider.CollisionBox))
+                    {
+                        health -= 30;
+                        GameWorld.Instance.Destroy(col.GameObject);
+                    }
                 }
             }
         }
@@ -227,14 +240,27 @@ namespace JumpNGun
         /// </summary>
         public override void Attack()
         {
-            isAttacking = _canRangeAttack;
+            if (_collidingWithPlayer)
+            {
+                Console.WriteLine("physical attack");
+                _isAttacking = true;
+            }
+            else if (_canRangeAttack)
+            {
+                Console.WriteLine("range attack");
+                _isAttacking = true;
+            }
+            if (!_canRangeAttack && !_collidingWithPlayer)
+            {
+                _isAttacking = false;
+            }
         }
 
         /// <summary>
         /// Add view to fieldOfView list, if it doesn't contain it
         /// </summary>
         /// <param name="view">rectangle to be added</param>
-        private void UpdateFieldOfView(Rectangle view)
+        private void UpdateFieldofView(Rectangle view)
         {
             if (!_fieldOfView.Contains(view))
             {
@@ -243,26 +269,25 @@ namespace JumpNGun
         }
 
         /// <summary>
+        /// Set reference to player component
+        /// </summary>
+        public override void FindPlayerObject()
+        {
+            foreach (GameObject go in GameWorld.Instance.GameObjects)
+            {
+                if (go.HasComponent<Player>())
+                {
+                    player = go.GetComponent<Player>() as Player;
+                }
+            }
+        }
+
+        /// <summary>
         /// Play relevant animation
         /// </summary>
         public override void HandleAnimations()
         {
-            if (_collidingWithPlayer)
-            {
-                //play close attack animation
-                animator.PlayAnimation("");
-            }
-            if (_canRangeAttack)
-            {
-                //play range attack animation
-                animator.PlayAnimation("");
-            }
-            if (health <= 0)
-            {
-                //play death animation
-                animator.PlayAnimation("");
-            }
-
+            throw new NotImplementedException();
         }
 
     }
