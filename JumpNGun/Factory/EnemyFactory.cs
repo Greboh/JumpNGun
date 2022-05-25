@@ -6,7 +6,7 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public enum EnemyType {GrassBoss, SandBoss, DeathBoss }
+    public enum EnemyType {GrassBoss, SandBoss, DeathBoss, Mushroom}
     
     class EnemyFactory : Factory
     {
@@ -38,8 +38,6 @@ namespace JumpNGun
             gameObject.AddComponent(new Collider());
 
             _animator = (Animator)gameObject.AddComponent(new Animator());
-            CreateReaperAnimations();
-            CreateGolemAnimations();
 
 
 
@@ -47,6 +45,8 @@ namespace JumpNGun
             {
                 case EnemyType.GrassBoss:
                     {
+                        CreateGolemAnimations();
+
                     }
                     break;
                 case EnemyType.SandBoss:
@@ -56,11 +56,17 @@ namespace JumpNGun
                     break;
                 case EnemyType.DeathBoss:
                     {
+                        CreateReaperAnimations();
                         gameObject.AddComponent(new Reaper(position));
                         _sr.SetSprite("reaper_idle1");
                         _animator.PlayAnimation("reaper_idle");
                     }
                     break;
+                case EnemyType.Mushroom:
+                    {
+                        gameObject.AddComponent(new Mushroom(position));
+                        _sr.SetSprite("mushroom_idle1");
+                    }break;
             }
 
             return gameObject;

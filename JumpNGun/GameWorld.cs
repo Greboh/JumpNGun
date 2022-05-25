@@ -87,7 +87,7 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            LevelGenerator.Instance.LoadContent();
+            PlatformGenerator.Instance.LoadContent();
             //call start method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -129,7 +129,7 @@ namespace JumpNGun
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            LevelGenerator.Instance.Draw(_spriteBatch);
+            PlatformGenerator.Instance.Draw(_spriteBatch);
 
             //draw sprites of every active gameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
