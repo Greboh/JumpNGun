@@ -6,7 +6,7 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public enum ButtonType { Start,Settings,Highscores,Quit,Audio,Controls}
+    public enum ButtonType { Start,Settings,Highscores,Quit,Audio,Controls,Music,Sfx,Back}
     class ButtonFactory : Factory
     {
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
@@ -93,6 +93,30 @@ namespace JumpNGun
                 case ButtonType.Controls:
                     {
                         sr.SetSprite("controls_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Music:
+                    {
+                        sr.SetSprite("music");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Sfx:
+                    {
+                        sr.SetSprite("sfx");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Back:
+                    {
+                        sr.SetSprite("back_button");
 
                         gameObject.AddComponent(new Button(_type));
 

@@ -17,7 +17,7 @@ namespace JumpNGun
 
         public bool IsMenu { get => isMenu; set => isMenu = value; }
         
-        public abstract void Init();
+        public abstract void Initialize();
         public abstract void LoadContent();
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);

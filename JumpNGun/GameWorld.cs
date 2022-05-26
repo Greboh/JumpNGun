@@ -44,6 +44,8 @@ namespace JumpNGun
 
         private State _currentState;
         private State _nextState;
+        public State _previousState;
+
         private bool isRunning = false;
 
         public MouseState myMouse { get; private set; }
@@ -68,37 +70,8 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
-
-
-            //Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            //newGameObjects.Add(playerDirector.Construct());
-
-
-
-
-            //foreach (var go in gameObjects)
-            //{
-            //    go.Awake();
-            //}
-
+            SoundManager.Instance.InitDictionary();
             
-
-            //ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-
-
-            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
-
-            //call awake method on every active GameObject in list
-
-
-
-
-
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Small));
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Large));
-
-
             base.Initialize();
         }
 
@@ -107,14 +80,20 @@ namespace JumpNGun
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            _currentState = new MainMenuState();
-            _currentState.LoadContent();
-            _nextState = null;
+            _currentState = new MainMenuState(); // sets first state to show on startup
+            _currentState.LoadContent(); // loads state content into GameWorld content
+            _nextState = null; // makes sure next state is empty on startup
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+            //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
+            //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
+            
+
+
+
 
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
@@ -145,9 +124,19 @@ namespace JumpNGun
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// // sets nextState with state recived from Button.cs
+        /// </summary>
+        /// <param name="state"></param>
         public void ChangeState(State state)
         {
-            _nextState = state;
+            _previousState = _currentState;
+            _nextState = state; 
+        }
+
+        public void ReturnToState()
+        {
+            _nextState = _previousState;
         }
 
         /// <summary>

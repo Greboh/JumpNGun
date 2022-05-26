@@ -8,17 +8,36 @@ namespace JumpNGun
 {
     public class SettingsMenuState : State
     {
+        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
+        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
+        private Texture2D _background_image;
+        private Texture2D _game_title;
+        
+
         private bool isInitialized;
 
         //TODO: Remove previous buttons from drawing
         public override void LoadContent()
         {
+
+
+            // asset content loading
+            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
+            _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+            
             
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //GameWorld.Instance.GraphicsDevice.Clear(Color.Red);
             spriteBatch.Begin();
+
+            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
+
+            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 190, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+            
+             
+
             // draws active GameObjects in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
@@ -35,13 +54,21 @@ namespace JumpNGun
                 isInitialized = true;
             }
 
+            //call update method on every active GameObject in list
+            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            {
+                GameWorld.Instance.gameObjects[i].Update(gameTime);
+
+            }
+
+
+            GameWorld.Instance.CleanUp();
 
         }
 
         //Initialize is used similar to initialize in GameWorld
-        private void Initialize()
+        public override void Initialize()
         {
-
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
@@ -50,14 +77,10 @@ namespace JumpNGun
             ClearObjects();
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls));
-            
-
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
         }
 
-        public override void Init()
-        {
-            
-        }
+
 
         private void ClearObjects()
         {
@@ -71,6 +94,6 @@ namespace JumpNGun
             }
         }
 
-
+        
     }
 }

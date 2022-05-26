@@ -12,14 +12,14 @@ namespace JumpNGun
 
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-
         private Texture2D _background_image;
         private Texture2D _game_title;
+        private bool isInitialized;
 
 
         private Vector2 MousePosition;
         private Rectangle mouseRectangle;
-        private bool isInitialized;
+        
         
 
         public override void LoadContent()
@@ -83,23 +83,24 @@ namespace JumpNGun
         }
 
         //Initialize is used similar to initialize in GameWorld
-        private void Initialize()
+        public override void Initialize()
         {
-            
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
             }
-            
-            
+
+
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit));
 
+
+            SoundManager.Instance.PlayClip("soundtrack_2");
         }
 
-        
+
 
         private void ClearObjects()
         {
@@ -108,14 +109,11 @@ namespace JumpNGun
                 if (go.HasComponent<Button>())
                 {
                     GameWorld.Instance.Destroy(go);
-                    
+
                 }
             }
         }
 
-        public override void Init()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

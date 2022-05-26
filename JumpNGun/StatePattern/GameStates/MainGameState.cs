@@ -19,10 +19,7 @@ namespace JumpNGun.StatePattern.GameStates
         private bool isInitialized;
 
 
-        public override void Init()
-        {
-            
-        }
+        
 
         public override void LoadContent()
         {
@@ -82,7 +79,10 @@ namespace JumpNGun.StatePattern.GameStates
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
+                //TODO: [for testing only] - Remove this and implement back button states
                 GameWorld.Instance.ChangeState(new MainMenuState());
+                SoundManager.Instance.StopClip("soundtrack_1");
+
                 ClearObjects();
 
 
@@ -100,8 +100,11 @@ namespace JumpNGun.StatePattern.GameStates
         }
 
         //Initialize is used similar to initialize in GameWorld
-        private void Initialize()
+        public override void Initialize()
         {
+            SoundManager.Instance.StopClip("soundtrack_2");
+            SoundManager.Instance.PlayClip("soundtrack_1");
+
 
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
@@ -114,9 +117,9 @@ namespace JumpNGun.StatePattern.GameStates
             }
             Console.WriteLine("Main game init");
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-            
+
             isInitialized = true;
-            
+
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
                 if (go.HasComponent<Button>())
@@ -125,7 +128,6 @@ namespace JumpNGun.StatePattern.GameStates
 
                 }
             }
-
         }
 
         private void ClearObjects()
@@ -140,5 +142,7 @@ namespace JumpNGun.StatePattern.GameStates
                 }
             }
         }
+
+        
     }
 }
