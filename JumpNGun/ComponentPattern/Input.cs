@@ -19,7 +19,7 @@ namespace JumpNGun
         public MouseButton MouseBinding { get; set; }
 
         public string ActionName { get; set; }
-
+        
         /// <summary>
         /// Whether to use keyboard or mouse on this keybind
         /// </summary>
@@ -49,26 +49,43 @@ namespace JumpNGun
         #endregion
     }
 
+
+
     public class Input : Component
     {
         private KeyboardState _currentKeyState;
         private MouseState _currentMouseState;
         private Dictionary<KeyCode, ICommand> _keybindings = new Dictionary<KeyCode, ICommand>();
+        
+        #region KeyCodes
+
+        // Used when rebinding the key and used in Player.cs to handle logic according to the key
+        public KeyCode MoveLeft { get; private set; } = new KeyCode(Keys.A, "move_left");
+        public KeyCode MoveRight { get; private set; } = new KeyCode(Keys.D, "move_right");
+        public KeyCode Jump { get; private set; } = new KeyCode(Keys.W, "jump");
+        public KeyCode Fall { get; private set; } = new KeyCode(Keys.S, "fall");
+
+        
+        // Properties to get in the Player.cs
+        
+
+        #endregion
 
         public override void Start()
         {
 
-            BindKey(new KeyCode(Keys.W, "jump"), new JumpCommand());
-            BindKey(new KeyCode(Keys.A,"move_left"),new MoveCommand(new Vector2(-1, 0)));
-            BindKey(new KeyCode(Keys.D, "move_right"), new MoveCommand(new Vector2(1, 0)));
+            BindKey(MoveLeft,new MoveCommand(new Vector2(-1, 0)));
+            BindKey(MoveRight, new MoveCommand(new Vector2(1, 0)));
+            BindKey(Jump, new JumpCommand());
+            
+            
             BindKey(new KeyCode(Keys.LeftAlt, "Dash"), new DashCommand());
-            
-            
+
             BindKey(new KeyCode(MouseButton.Mouse0,"shoot"), new ShootCommand());
             
             PrintAllKeybindings();
 
-            RebindKey(new KeyCode(MouseButton.Mouse1, "shoot"), new ShootCommand());
+            RebindKey(new KeyCode(Keys.Space, "shoot"), new ShootCommand());
             
             
             // PrintKeybindings();
@@ -87,10 +104,32 @@ namespace JumpNGun
             {
                 if (keyCode.PreferKeyboard)
                 {
-                    if (_currentKeyState.IsKeyDown(keyCode.KeyboardBinding))
+                    // Reference to our current pressed key
+                    Keys currentKey = keyCode.KeyboardBinding;
+
+                    // If that key is pressed
+                    if (_currentKeyState.IsKeyDown(currentKey))
                     {
                         // Console.WriteLine(keyCode.KeyboardBinding);
                         _keybindings[keyCode].Execute(player);
+                        
+                        // Trigger event sending the key and that it's pressed down
+                        EventManager.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
+                        {
+                            {"key", keyCode.KeyboardBinding},
+                            {"isKeyDown", true}
+                        });
+                        
+                    }
+                    // Check if currentKey is no longer pressed down
+                    else if (_currentKeyState.IsKeyUp(currentKey) && currentKey != Keys.None)
+                    {
+                        // Trigger event sending the pressed key and that it's no longer pressed down
+                        EventManager.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
+                        {
+                            {"key", keyCode.KeyboardBinding},
+                            {"isKeyDown", false}
+                        });
                     }
                 }
                 else
@@ -99,6 +138,7 @@ namespace JumpNGun
                     {
                         // Console.WriteLine(keyCode.MouseBinding);
                         _keybindings[keyCode].Execute(player);
+                        
                     }
                 }
             }
@@ -127,6 +167,21 @@ namespace JumpNGun
                     PrintKeybinding(keybinding.Key);
                     
                     _keybindings.Remove(keybinding.Key);
+
+                    // Change our KeyCode variables so they are updated to the new key
+                    switch (keybinding.Key.ActionName)
+                    {
+                        case "move_left":
+                            MoveLeft = newKey;
+                            break;
+                        case "move_right":
+                            MoveRight = newKey;
+                            break;
+                        case "jump":
+                            Jump = newKey;
+                            break;
+                    }
+                    
                 }
             }
 

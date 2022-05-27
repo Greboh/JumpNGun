@@ -83,13 +83,13 @@ namespace JumpNGun
         {
             foreach (Collider otherCollision in GameWorld.Instance.Colliders)
             {
-                if (otherCollision.CollisionBox.Intersects(this.CollisionBox) && otherCollision != this)
+                if (this.CollisionBox.Intersects(otherCollision.CollisionBox) && otherCollision != this)
                 {
-                    if(otherCollision.GameObject.Tag == "ground")
+                    if (otherCollision.GameObject != this.GameObject)
                     {
                         EventManager.Instance.TriggerEvent("OnCollision", new Dictionary<string, object>()
                             {
-                                {"collider", this },
+                                {"collider", otherCollision.GameObject },
                             }
                         );
                     }

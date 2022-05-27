@@ -6,7 +6,6 @@ namespace JumpNGun
 {
     public abstract class ObjectPool
     {
-        //TODO Objectpool platforms - NOT DONE
 
         protected List<GameObject> active = new List<GameObject>(); //gameobjects in game(active)
 
@@ -46,6 +45,7 @@ namespace JumpNGun
             //cleanup on gameobject
             CleanUp(gameObject);
 
+            
             GameWorld.Instance.Destroy(gameObject);
 
         }
