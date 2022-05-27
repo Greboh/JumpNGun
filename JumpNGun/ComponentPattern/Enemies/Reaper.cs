@@ -10,7 +10,6 @@ namespace JumpNGun
     class Reaper : Enemy
     {
         private int _spawnTimer = 20;
-        private Thread _t1;
         private Reaper _reaper;
         private Thread _spawnerThread;
 
@@ -39,7 +38,6 @@ namespace JumpNGun
         {
             ChasePlayer();
             Move();
-            Death();
             Flipsprite();
             UpdatePositionReference();
             HandleAnimations();

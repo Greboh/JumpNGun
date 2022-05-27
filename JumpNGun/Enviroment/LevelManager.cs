@@ -17,15 +17,20 @@ namespace JumpNGun
             get { return _instance ??= new LevelManager(); }
         }
 
+
         private bool _levelIsGenerated = false; //bool to control level generation
         private int _level = 1; // used to change level
+        private int _enemyAmount = 2;
         private int _platformAmount = 4; // determines amount of platform pr. level
 
         //for testing
         private bool canPress = true;
         private bool canPressL = true;
-        private PlatformType _currentPlatformType = PlatformType.grass;
-        private PlatformType _currentGroundPlatform = PlatformType.grassGround;
+        private PlatformType _currentPlatformType;
+        private PlatformType _currentGroundPlatform;
+        private EnemyType _currentEnemyType;
+
+        public List<Rectangle> UsedLocations { get; private set; }
 
         private LevelManager()
         {
@@ -39,11 +44,25 @@ namespace JumpNGun
         {
             if (!_levelIsGenerated)
             {
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
-                LevelGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
-                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
-                _levelIsGenerated = true;
+                //Change all relevant enum types
                 ChangeEnviroment();
+                
+                //Create first portal
+                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
+
+                //Create all relevant platforms
+                PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
+
+                UsedLocations = PlatformGenerator.Instance.GetLocations();
+
+                //Create all relevant enemies
+                EnemyGenerator.Instance.GenerateEnemies(_enemyAmount, EnemyType.Mushroom, UsedLocations);
+
+                //Create ground
+                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
+
+                //Stop genering level
+                _levelIsGenerated = true;
             }
         }
 
@@ -54,6 +73,12 @@ namespace JumpNGun
         {
             switch (_level)
             {
+                case 1:
+                    {
+                        _currentPlatformType = PlatformType.grass;
+                        _currentGroundPlatform = PlatformType.grassGround;
+                        _currentEnemyType = EnemyType.Mushroom;
+                    }break;
                 case 7:
                     {
                         _currentPlatformType = PlatformType.dessert;
@@ -83,6 +108,61 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Removes all current objects from game and resets player position
+        /// </summary>
+        private void CleanLevel()
+        {
+            foreach (GameObject go in GameWorld.Instance.GameObjects)
+            {
+                if (!go.HasComponent<Player>())
+                {
+                    GameWorld.Instance.Destroy(go);
+                }
+            }
+
+            UsedLocations.Clear();
+            
+            (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
+            Console.Clear();
+        }
+
+        /// <summary>
+        /// Iterates through list of gameobjects to check if any enemies are left in game
+        /// or if the level is cleared
+        /// </summary>
+        public void CheckForClearedLevel()
+        {
+            foreach (GameObject go in GameWorld.Instance.GameObjects)
+            {
+                if (!go.HasComponent<Enemy>())
+                {
+                    //Level is cleared initiate portal spawn
+                }
+            }
+        }
+
+        /// <summary>
+        /// Increments level and amount of platforms. 
+        /// </summary>
+        private void IncrementLevel()
+        {
+            _level++;
+            _platformAmount++;
+
+            if (_level % 2 != 0)
+            {
+                _enemyAmount++;
+            }
+
+            //amount of platforms capped at 19, to avoid overcrowding screen and errors
+            if (_platformAmount > 19)
+            {
+                _platformAmount = 19;
+            }
+        }
+
+        #region Test Methods
         /// <summary>
         /// Check for cleared level debugging
         /// </summary>
@@ -117,50 +197,25 @@ namespace JumpNGun
             }
         }
 
-        /// <summary>
-        /// Removes all current objects from game and resets player position
-        /// </summary>
-        private void CleanLevel()
-        {
-            foreach (GameObject go in GameWorld.Instance.GameObjects)
-            {
-                if (go.HasComponent<Platform>() || go.HasComponent<Portal>())
-                {
-                    GameWorld.Instance.Destroy(go);
-                }
-            }
-            (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
-            Console.Clear();
-        }
+        //TEST LEVEL FOR GENERATE LEVEL METHOD
 
-        /// <summary>
-        /// Iterates through list of gameobjects to check if any enemies are left in game
-        /// or if the level is cleared
-        /// </summary>
-        public void CheckForClearedLevel()
-        {
-            foreach (GameObject go in GameWorld.Instance.GameObjects)
-            {
-                if (!go.HasComponent<Enemy>())
-                {
-                    //Level is cleared initiate portal spawn
-                }
-            }
-        }
+        //private Rectangle[] testLevel = new Rectangle[]
+        //{
+        //    new Rectangle(0, 500, 222, 125),
+        //    new Rectangle(222, 500, 222, 125),
+        //    new Rectangle(444, 500, 222, 125),
+        //    new Rectangle(666, 500, 222, 125),
+        //    new Rectangle(888, 500, 222, 125),
+        //    new Rectangle(1110, 500, 222, 125),
+        //};
 
-        /// <summary>
-        /// Increments level and amount of platforms. 
-        /// </summary>
-        private void IncrementLevel()
-        {
-            _level++;
-            _platformAmount++;
-
-            //amount of platforms capped at 19, to avoid overcrowding screen and errors
-            if (_platformAmount > 19)
-            {
-                _platformAmount = 19;
-            }
-        }
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.Mushroom, new Vector2(600, 0)));
+        //    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grass, new Vector2(testLevel[i].Center.X, testLevel[i].Center.Y)));
+        //    LevelGenerator.Instance.InvalidLocations.Add(testLevel[i]);
+        //}
+        //GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
+        #endregion
     }
 }

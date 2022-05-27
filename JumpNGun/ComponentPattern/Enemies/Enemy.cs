@@ -65,16 +65,5 @@ namespace JumpNGun
                 sr.SpriteEffects = SpriteEffects.None;
             }
         }
-
-        /// <summary>
-        /// Removes Enemy from game when health goes below zero
-        /// </summary>
-        protected void Death()
-        {
-            if (health <= 0)
-            {
-                GameWorld.Instance.Destroy(this.GameObject);
-            }
-        }
     }
 }
