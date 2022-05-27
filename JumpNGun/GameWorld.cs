@@ -85,8 +85,8 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            //_background = new Background(); 
-            //_background.LoadContent();
+            _background = new Background();
+            _background.LoadContent();
 
             _currentState = new MainMenuState(); // sets first state to show on startup
             _currentState.LoadContent(); // loads state content into GameWorld content
@@ -99,7 +99,7 @@ namespace JumpNGun
             //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
             //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
 
-            //_background.Update(gameTime);
+            _background.Update(gameTime);
 
 
 
@@ -122,7 +122,7 @@ namespace JumpNGun
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //_background.Draw(_spriteBatch);
+            _background.Draw(_spriteBatch);
 
             _currentState.Draw(gameTime, _spriteBatch);
 

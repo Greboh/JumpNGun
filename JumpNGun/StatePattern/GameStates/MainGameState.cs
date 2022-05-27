@@ -44,7 +44,7 @@ namespace JumpNGun.StatePattern.GameStates
             spriteBatch.Begin();
 
 
-            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
+            //spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
 
 
             LevelGenerator.Instance.Draw(spriteBatch);
