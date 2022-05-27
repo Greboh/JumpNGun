@@ -14,6 +14,10 @@ namespace JumpNGun
         //Property to gain acces to platform position
         public Vector2 Position { get => _position; private set => _position = value; }
 
+        /// <summary>
+        /// Constrocter takes a position in for platform sprite
+        /// </summary>
+        /// <param name="position"></param>
         public Platform(Vector2 position)
         {
             _position = position;

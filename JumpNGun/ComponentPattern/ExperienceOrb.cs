@@ -11,6 +11,7 @@ namespace JumpNGun
     {
         private float _xpAmount;
         private Vector2 _position;
+        private bool _hasCollided = false;
 
 
         public ExperienceOrb(float xpAmount, Vector2 position)
@@ -49,23 +50,31 @@ namespace JumpNGun
 
         private void OnCollision(Dictionary<string, object> ctx)
         {
-            Collider orbCollider = GameObject.GetComponent<Collider>() as Collider;
-
-            Collider collision = (Collider) ctx["collider"];
+            Collider collider = GameObject.GetComponent<Collider>() as Collider;
             
-            if (orbCollider.CollisionBox.Intersects(collision.CollisionBox) && GameWorld.Instance.GameObjects.Contains(this.GameObject))
+            GameObject collision = (GameObject) ctx["collider"];
+            Rectangle collisonBox = (collision.GetComponent<Collider>() as Collider).CollisionBox;
+
+            
+            if (collider.CollisionBox.Intersects((collision.GetComponent<Collider>() as Collider).CollisionBox) && 
+                                                GameWorld.Instance.GameObjects.Contains(this.GameObject) && 
+                                                collisonBox.Intersects(collider.CollisionBox)
+                                                && !_hasCollided) //TODO HeLP FIX ThIS
             {
-                switch (collision.GameObject.Tag)
+                switch (collision.Tag)
                 {
                     case "Player":
                     {
+                        _hasCollided = true;
                         EventManager.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
                             {
                                 {"xpAmount", _xpAmount}
                             }
                         );
                         
-                    GameWorld.Instance.Destroy(orbCollider.GameObject);
+                        Console.WriteLine("orb col");
+                        
+                        GameWorld.Instance.Destroy(collider.GameObject);
                     }break;
                     
                     

@@ -30,7 +30,7 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Start();
             }
 
-            LevelGenerator.Instance.LoadContent();
+            PlatformGenerator.Instance.LoadContent();
 
             // asset content loading
             _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
@@ -44,10 +44,10 @@ namespace JumpNGun.StatePattern.GameStates
             spriteBatch.Begin();
 
 
-            //spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
 
 
-            LevelGenerator.Instance.Draw(spriteBatch);
+            PlatformGenerator.Instance.Draw(spriteBatch);
 
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)

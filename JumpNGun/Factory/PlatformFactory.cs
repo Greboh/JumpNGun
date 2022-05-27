@@ -28,11 +28,17 @@ namespace JumpNGun
         //position for ground platform
         private Vector2 _groundPosition = new Vector2((GameWorld.Instance.GraphicsDevice.Viewport.Width /2), 795);
 
+        /// <summary>
+        /// Takes in 1 overload and creates ground
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public override GameObject Create(Enum type)
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
             gameObject.Tag = "ground";
+
 
             gameObject.AddComponent(new Collider());
 
@@ -61,15 +67,22 @@ namespace JumpNGun
                     }
                     break;
             }
+            
             return gameObject;
 
         }
 
+        /// <summary>
+        /// Takes in 2 overloads and creates floating platform
+        /// </summary>
+        /// <param name="type">type of platform</param>
+        /// <param name="position">position of platform</param>
+        /// <returns></returns>
         public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
-            gameObject.Tag = "ground";
+            gameObject.Tag = "platform";
 
             gameObject.AddComponent(new Collider());
 
@@ -79,21 +92,18 @@ namespace JumpNGun
                     {
                         gameObject.AddComponent(new Platform(position));
                         sr.SetSprite("Grass platform");
-                        Console.WriteLine("Platform position: " + position);
                     }
                     break;
                 case PlatformType.dessert:
                     {
                         gameObject.AddComponent(new Platform(position));
                         sr.SetSprite("Desert platform");
-                        Console.WriteLine("Platform position: " + position);
                     }
                     break;
                 case PlatformType.graveyard:
                     {
                         gameObject.AddComponent(new Platform( position));
                         sr.SetSprite("graveyard platform");
-                        Console.WriteLine("Platform position: " + position);
                     }
                     break;
 

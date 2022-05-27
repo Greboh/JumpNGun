@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<<<<<<< HEAD
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/graveyard_ground.PNG</SourceFile>
   <SourceTime>2022-05-23T10:46:26.2846788+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/graveyard_ground.xnb</DestFile>
   <DestTime>2022-05-27T12:01:07.2754392+02:00</DestTime>
+=======
+  <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/graveyard_ground.PNG</SourceFile>
+  <SourceTime>2022-05-23T10:44:31.4016707+02:00</SourceTime>
+  <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/graveyard_ground.xnb</DestFile>
+  <DestTime>2022-05-23T12:29:08.7481701+02:00</DestTime>
+>>>>>>> main
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

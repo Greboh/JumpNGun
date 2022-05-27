@@ -26,41 +26,7 @@ namespace JumpNGun
 
         public override GameObject Create(Enum type)
         {
-            GameObject orb = new GameObject();
-            SpriteRenderer sr = (SpriteRenderer)orb.AddComponent(new SpriteRenderer());
-            orb.AddComponent(new Collider());
-            Animator animator = (Animator) orb.AddComponent(new Animator());
-            orb.Tag = "Experience_Orb";
-
-            switch (type)
-            {
-                case ExperienceOrbType.Small:
-                {
-                    sr.SetSprite("1_Small_Orb");
-                    animator.AddAnimation(BuildAnimation("Idle", new []{"1_Small_Orb", "2_Small_Orb", "3_Small_Orb", "4_Small_Orb"}));
-                    orb.AddComponent(new ExperienceOrb(100, new Vector2(400, 700)));
-
-                }break;
-                
-                case ExperienceOrbType.Medium:
-                {
-                    sr.SetSprite("1_Medium_Orb");
-                    animator.AddAnimation(BuildAnimation("Idle", new []{"1_Medium_Orb", "2_Medium_Orb", "3_Medium_Orb", "4_Medium_Orb"}));
-                    orb.AddComponent(new ExperienceOrb(500, new Vector2(500, 700)));
-
-                }break;
-
-                case ExperienceOrbType.Large:
-                {
-                    sr.SetSprite("1_Large_Orb");
-                    animator.AddAnimation(BuildAnimation("Idle", new []{"1_Large_Orb", "2_Large_Orb", "3_Large_Orb", "4_Large_Orb"}));
-                    orb.AddComponent(new ExperienceOrb(1000, new Vector2(600, 700)));
-
-                }break;
-                    
-            }
-            
-            return orb;
+            return null;
         }
         
         /// <summary>
@@ -85,7 +51,43 @@ namespace JumpNGun
 
         public override GameObject Create(Enum type, Vector2 position)
         {
-            throw new NotImplementedException();
+            GameObject orb = new GameObject();
+            SpriteRenderer sr = (SpriteRenderer)orb.AddComponent(new SpriteRenderer());
+            orb.AddComponent(new Collider());
+            Animator animator = (Animator) orb.AddComponent(new Animator());
+            orb.Tag = "Experience_Orb";
+
+            switch (type)
+            {
+                case ExperienceOrbType.Small:
+                {
+                    sr.SetSprite("1_Small_Orb");
+                    animator.AddAnimation(BuildAnimation("Idle", new []{"1_Small_Orb", "2_Small_Orb", "3_Small_Orb", "4_Small_Orb"}));
+                    orb.AddComponent(new ExperienceOrb(100, position));
+
+                }break;
+                
+                case ExperienceOrbType.Medium:
+                {
+                    sr.SetSprite("1_Medium_Orb");
+                    animator.AddAnimation(BuildAnimation("Idle", new []{"1_Medium_Orb", "2_Medium_Orb", "3_Medium_Orb", "4_Medium_Orb"}));
+                    orb.AddComponent(new ExperienceOrb(500, position));
+
+                }break;
+
+                case ExperienceOrbType.Large:
+                {
+                    sr.SetSprite("1_Large_Orb");
+                    animator.AddAnimation(BuildAnimation("Idle", new []{"1_Large_Orb", "2_Large_Orb", "3_Large_Orb", "4_Large_Orb"}));
+                    orb.AddComponent(new ExperienceOrb(1000, position));
+
+                }break;
+                    
+            }
+            
+            Console.WriteLine("Created orb");
+            
+            return orb;
         }
     }
 }

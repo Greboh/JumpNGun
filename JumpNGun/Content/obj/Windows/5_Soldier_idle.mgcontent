@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<<<<<<< HEAD
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</SourceFile>
   <SourceTime>2022-05-09T13:57:28.3994679+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/5_Soldier_idle.xnb</DestFile>
   <DestTime>2022-05-27T12:01:06.4872453+02:00</DestTime>
+=======
+  <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</SourceFile>
+  <SourceTime>2022-05-06T11:57:00.4734492+02:00</SourceTime>
+  <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/5_Soldier_idle.xnb</DestFile>
+  <DestTime>2022-05-23T12:29:08.6706703+02:00</DestTime>
+>>>>>>> main
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
