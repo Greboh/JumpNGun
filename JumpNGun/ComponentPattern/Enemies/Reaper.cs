@@ -21,24 +21,9 @@ namespace JumpNGun
             speed = 40;
         }
 
-        public override void Awake()
-        {
-            sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            _reaper = GameObject.GetComponent<Reaper>() as Reaper;
-            enemyCollider = GameObject.GetComponent<Collider>() as Collider;
-            animator = GameObject.GetComponent<Animator>() as Animator;
-        }
-
-        public override void Start()
-        {
-            FindPlayerObject();
-        }
-
         public override void Update(GameTime gameTime)
         {
             ChasePlayer();
-            Move();
-            Flipsprite();
             UpdatePositionReference();
             HandleAnimations();
             CheckCollision();
@@ -57,7 +42,7 @@ namespace JumpNGun
         /// </summary>
         public override void ChasePlayer()
         {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, _reaper.position);
+            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
             sourceToTarget.Normalize();
             sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
 
@@ -68,27 +53,17 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "Player" && enemyCollider.CollisionBox.Intersects(col.CollisionBox))
+                if (col.GameObject.Tag == "Player" && collider.CollisionBox.Intersects(col.CollisionBox))
                 {
                     isColliding = true;
                 }
-                if (col.GameObject.Tag == "Player" && !enemyCollider.CollisionBox.Intersects(col.CollisionBox))
+                if (col.GameObject.Tag == "Player" && !collider.CollisionBox.Intersects(col.CollisionBox))
                 {
                     isColliding = false;
                 }
             }
         }
 
-        public override void FindPlayerObject()
-        {
-            foreach (GameObject go in GameWorld.Instance.GameObjects)
-            {
-                if (go.HasComponent<Player>())
-                {
-                    player =  go.GetComponent<Player>() as Player;
-                }
-            }
-        }
 
         public override void HandleAnimations()
         {

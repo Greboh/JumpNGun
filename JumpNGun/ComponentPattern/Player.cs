@@ -87,7 +87,7 @@ namespace JumpNGun
                     _maxHealth = 120;
                     _currentHealth = _maxHealth;
 
-                    _projectileSpeed = 100;
+                    _projectileSpeed = 350;
 
                 }break;
                 case CharacterType.Ranger:
@@ -101,7 +101,7 @@ namespace JumpNGun
                     _maxHealth = 80;
                     _currentHealth = _maxHealth;
 
-                    _projectileSpeed = 50;
+                    _projectileSpeed = 250;
 
 
                 } break;
@@ -477,17 +477,17 @@ namespace JumpNGun
         {
             Collider pCollider = GameObject.GetComponent<Collider>() as Collider;
             
-            Collider collision = (Collider) ctx["collider"];
-
-            if (pCollider.CollisionBox.Intersects(collision.CollisionBox))
-            {
-                switch (collision.GameObject.Tag)
-                {
-                    case "ground":
-                        Console.WriteLine("hugubuku");
-                        break;
-                }
-            }
+            // Collider collision = (Collider) ctx["collider"];
+            //
+            // if (pCollider.CollisionBox.Intersects(collision.CollisionBox))
+            // {
+            //     switch (collision.GameObject.Tag)
+            //     {
+            //         case "ground":
+            //             // Console.WriteLine("hugubuku");
+            //             break;
+            //     }
+            // }
                 
         }
 

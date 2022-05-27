@@ -22,13 +22,13 @@ namespace JumpNGun
         private bool _locationRectangleFound;
         private bool _collidingWithPlayer;
         private bool _canRangeAttack;
-        private bool _isAttacking;
+        // private bool _isAttacking;
         private int rangeDammage;
 
         public Mushroom(Vector2 position)
         {
             this.position = position;
-            health = 60;
+            health = 20;
             speed = 40;
             damage = 20;
             rangeDammage = 15;
@@ -37,32 +37,35 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            animator = GameObject.GetComponent<Animator>() as Animator;
-            sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            enemyCollider = GameObject.GetComponent<Collider>() as Collider;
+            base.Awake();
+            
             GameObject.Transform.Position = position;
         }
 
         public override void Start()
         {
-            FindPlayerObject();
+            base.Start();
+            
             GetLocations();
         }
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+            
+            
             if (_isGrounded)
             {
                 SetLocationRectangle();
             }
             ChasePlayer();
             SetVelocity();
-            if (!_isAttacking)
+            if (isAttacking)
             {
-                Move();
+                // Move();
             }
             UpdatePositionReference();
-            Flipsprite();
+            // FlipSprite();
             HandleGravity();
             CheckCollision();
             Attack();
@@ -82,7 +85,7 @@ namespace JumpNGun
                 {
                     _currentRectangle = location;
                     _locationRectangleFound = true;
-                    UpdateFieldofView(_currentRectangle);
+                    UpdateFieldOfView(_currentRectangle);
                 }
             }
         }
@@ -115,7 +118,7 @@ namespace JumpNGun
                 if (_currentRectangle.X + 222 == locations[i].X && _currentRectangle.Y == locations[i].Y)
                 {
                     _currentRectangle = locations[i];
-                    UpdateFieldofView(_currentRectangle);
+                    UpdateFieldOfView(_currentRectangle);
                 }
             }
         }
@@ -131,7 +134,7 @@ namespace JumpNGun
                 {
                     _currentRectangle = locations[i];
 
-                    UpdateFieldofView(_currentRectangle);
+                    UpdateFieldOfView(_currentRectangle);
                    
                 }
             }
@@ -176,31 +179,15 @@ namespace JumpNGun
             {
                 if (col.GameObject.HasComponent<Platform>())
                 {
-                    if (col.CollisionBox.Intersects(enemyCollider.CollisionBox))
+                    if (col.CollisionBox.Intersects(collider.CollisionBox))
                     {
                         _isGrounded = true;
                         _groundCollision = col.CollisionBox;
                     }
                 }
-                if (_isGrounded && !enemyCollider.CollisionBox.Intersects(_groundCollision))
+                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
                 {
                     _isGrounded = false;
-                }
-                else if (col.GameObject.HasComponent<Player>())
-                {
-                    if (col.CollisionBox.Intersects(enemyCollider.CollisionBox))
-                    {
-                        _collidingWithPlayer = true;
-                    }
-                    else _collidingWithPlayer = false;
-                }
-                if (col.GameObject.HasComponent<Projectile>())
-                {
-                    if (col.CollisionBox.Intersects(enemyCollider.CollisionBox))
-                    {
-                        health -= 30;
-                        GameWorld.Instance.Destroy(col.GameObject);
-                    }
                 }
             }
         }
@@ -240,45 +227,18 @@ namespace JumpNGun
         /// </summary>
         public override void Attack()
         {
-            if (_collidingWithPlayer)
-            {
-                Console.WriteLine("physical attack");
-                _isAttacking = true;
-            }
-            else if (_canRangeAttack)
-            {
-                Console.WriteLine("range attack");
-                _isAttacking = true;
-            }
-            if (!_canRangeAttack && !_collidingWithPlayer)
-            {
-                _isAttacking = false;
-            }
+            isAttacking = _canRangeAttack;
         }
 
         /// <summary>
         /// Add view to fieldOfView list, if it doesn't contain it
         /// </summary>
         /// <param name="view">rectangle to be added</param>
-        private void UpdateFieldofView(Rectangle view)
+        private void UpdateFieldOfView(Rectangle view)
         {
             if (!_fieldOfView.Contains(view))
             {
                 _fieldOfView.Add(_currentRectangle);
-            }
-        }
-
-        /// <summary>
-        /// Set reference to player component
-        /// </summary>
-        public override void FindPlayerObject()
-        {
-            foreach (GameObject go in GameWorld.Instance.GameObjects)
-            {
-                if (go.HasComponent<Player>())
-                {
-                    player = go.GetComponent<Player>() as Player;
-                }
             }
         }
 

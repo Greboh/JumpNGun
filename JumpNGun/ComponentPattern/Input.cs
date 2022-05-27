@@ -85,7 +85,7 @@ namespace JumpNGun
             
             PrintAllKeybindings();
 
-            // RebindKey(new KeyCode(Keys.Q, "move_left"), new MoveCommand(new Vector2(-1, 0)));
+            RebindKey(new KeyCode(Keys.Space, "shoot"), new ShootCommand());
             
             
             // PrintKeybindings();
