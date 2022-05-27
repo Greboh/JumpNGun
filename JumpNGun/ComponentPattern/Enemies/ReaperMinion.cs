@@ -7,7 +7,7 @@ namespace JumpNGun.ComponentPattern.Enemies
 {
     class ReaperMinion : Enemy
     {
-        private Reaper _reaper;
+        private Reaper _parentReaper;
         private ReaperMinion _reaperMinion;
 
         public ReaperMinion(Vector2 position)
@@ -18,27 +18,18 @@ namespace JumpNGun.ComponentPattern.Enemies
             damage = 10;
             isColliding = false;
         }
-
-        public override void Awake()
-        {
-            sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            _reaper = GameObject.GetComponent<Reaper>() as Reaper;
-            enemyCollider = GameObject.GetComponent<Collider>() as Collider;
-            player = GameObject.GetComponent<Player>() as Player;
-            
-        }
-
+        
         public override void Start()
         {
-            
+            base.Start();
+
+            _parentReaper = GameObject.GetComponent<Reaper>() as Reaper;
         }
 
         public override void Update(GameTime gameTime)
         {
-            Move();
             CheckCollision();
             UpdatePositionReference();
-            Flipsprite();
         }
 
         public override void Attack()
@@ -55,7 +46,7 @@ namespace JumpNGun.ComponentPattern.Enemies
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (enemyCollider.CollisionBox.Intersects(col.CollisionBox))
+                if (collider.CollisionBox.Intersects(col.CollisionBox))
                 {
                     //deal damage to the player if reaperminion and player collides
                     if (col.GameObject.HasComponent<Player>())
@@ -72,11 +63,6 @@ namespace JumpNGun.ComponentPattern.Enemies
                     }
                 }
             }
-        }
-
-        public override void FindPlayerObject()
-        {
-            throw new NotImplementedException();
         }
 
         public override void HandleAnimations()

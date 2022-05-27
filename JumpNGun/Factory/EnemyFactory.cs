@@ -46,7 +46,6 @@ namespace JumpNGun
                 case EnemyType.GrassBoss:
                     {
                         CreateGolemAnimations();
-
                     }
                     break;
                 case EnemyType.SandBoss:
@@ -66,6 +65,7 @@ namespace JumpNGun
                     {
                         gameObject.AddComponent(new Mushroom(position));
                         _sr.SetSprite("mushroom_idle1");
+                        gameObject.Tag = "E_Mushroom";
                     }break;
             }
 

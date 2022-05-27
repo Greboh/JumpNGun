@@ -103,11 +103,7 @@ namespace JumpNGun
             LevelManager.Instance.CheckForClearedLevelDebug();
 
             
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
-            {
-                Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small));
-            }
-            
+      
             //call update method on every active GameObject in list
             for (int i = 0; i < gameObjects.Count; i++)
             {
