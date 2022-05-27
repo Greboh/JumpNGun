@@ -13,7 +13,7 @@ namespace JumpNGun
 
         //Property to gain acces to platform position
         public Vector2 Position { get => _position; private set => _position = value; }
-
+        
         public Platform(Vector2 position)
         {
             _position = position;

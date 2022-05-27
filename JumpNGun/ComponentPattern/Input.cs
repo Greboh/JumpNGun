@@ -60,36 +60,23 @@ namespace JumpNGun
         #region KeyCodes
 
         // Used when rebinding the key and used in Player.cs to handle logic according to the key
-        private KeyCode _moveLeft = new KeyCode(Keys.A, "move_left");
-        private KeyCode _moveRight = new KeyCode(Keys.D, "move_right");
-        private KeyCode _jump = new KeyCode(Keys.W, "jump");
+        public KeyCode MoveLeft { get; private set; } = new KeyCode(Keys.A, "move_left");
+        public KeyCode MoveRight { get; private set; } = new KeyCode(Keys.D, "move_right");
+        public KeyCode Jump { get; private set; } = new KeyCode(Keys.W, "jump");
+        public KeyCode Fall { get; private set; } = new KeyCode(Keys.S, "fall");
 
         
         // Properties to get in the Player.cs
-        public KeyCode MoveLeft
-        {
-            get => _moveLeft;
-            set => _moveLeft = value;
-        }
-        public KeyCode MoveRight
-        {
-            get => _moveRight;
-            set => _moveRight = value;
-        }
-        public KeyCode Jump
-        {
-            get => _jump;
-            set => _jump = value;
-        }
+        
 
         #endregion
 
         public override void Start()
         {
 
-            BindKey(_moveLeft,new MoveCommand(new Vector2(-1, 0)));
-            BindKey(_moveRight, new MoveCommand(new Vector2(1, 0)));
-            BindKey(_jump, new JumpCommand());
+            BindKey(MoveLeft,new MoveCommand(new Vector2(-1, 0)));
+            BindKey(MoveRight, new MoveCommand(new Vector2(1, 0)));
+            BindKey(Jump, new JumpCommand());
             
             
             BindKey(new KeyCode(Keys.LeftAlt, "Dash"), new DashCommand());

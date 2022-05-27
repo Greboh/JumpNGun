@@ -34,6 +34,7 @@ namespace JumpNGun
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
             gameObject.Tag = "ground";
 
+
             gameObject.AddComponent(new Collider());
 
             switch (type)
@@ -61,6 +62,7 @@ namespace JumpNGun
                     }
                     break;
             }
+            
             return gameObject;
 
         }
@@ -69,7 +71,7 @@ namespace JumpNGun
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
-            gameObject.Tag = "ground";
+            gameObject.Tag = "platform";
 
             gameObject.AddComponent(new Collider());
 
