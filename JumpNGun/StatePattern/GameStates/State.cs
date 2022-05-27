@@ -7,7 +7,7 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public abstract class State
+    public abstract class State 
     {
 
 

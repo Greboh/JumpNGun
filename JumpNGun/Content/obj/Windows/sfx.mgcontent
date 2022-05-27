@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/sfx.png</SourceFile>
-  <SourceTime>2022-05-25T11:17:27.152569+02:00</SourceTime>
+  <SourceTime>2022-05-26T04:06:34.1830326+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/sfx.xnb</DestFile>
-  <DestTime>2022-05-25T15:21:04.6176223+02:00</DestTime>
+  <DestTime>2022-05-27T12:01:19.7462755+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

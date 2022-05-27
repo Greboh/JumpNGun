@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JumpNGun.ComponentPattern;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -34,9 +35,10 @@ namespace JumpNGun
 
             spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
 
-            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 190, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-            
-             
+            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+
+
+
 
             // draws active GameObjects in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
@@ -78,6 +80,8 @@ namespace JumpNGun
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+
+            
         }
 
 

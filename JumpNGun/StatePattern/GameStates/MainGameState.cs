@@ -140,6 +140,11 @@ namespace JumpNGun.StatePattern.GameStates
                     LevelManager.Instance.LevelIsGenerated = false;
                     LevelManager.Instance.ResetLevel();
                 }
+                if (go.HasComponent<Button>())
+                {
+                    GameWorld.Instance.Destroy(go);
+
+                }
             }
         }
 

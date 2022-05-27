@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</SourceFile>
-  <SourceTime>2022-05-25T15:12:17.7162472+02:00</SourceTime>
+  <SourceTime>2022-05-26T04:06:34.2969355+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/soundtrack_2.xnb</DestFile>
-  <DestTime>2022-05-25T15:13:12.5854555+02:00</DestTime>
+  <DestTime>2022-05-26T04:07:00.9281873+02:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

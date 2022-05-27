@@ -23,6 +23,11 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/background_image.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Bullet.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/checkmark.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/cloud_1.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/cloud_2.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/cloud_3.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/cloud_4.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/cloud_5.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/controls_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/crossedout.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png</File>
@@ -66,6 +71,11 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

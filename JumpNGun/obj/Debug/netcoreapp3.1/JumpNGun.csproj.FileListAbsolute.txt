@@ -222,3 +222,8 @@ A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.wma
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_2.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\back_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_5.xnb

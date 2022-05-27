@@ -259,8 +259,43 @@ namespace JumpNGun
 
                         if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
                         {
-                            
-                            GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+
+
+                            //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
+                            //{
+                            //    GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                            //}
+                            if (GameWorld.Instance._currentState is SettingsMenuState) // return to Main menu from settings
+                            {
+                                GameWorld.Instance.ChangeState(new MainMenuState());
+
+                            }
+                            else if (GameWorld.Instance._currentState is AudioSettingsState) // return to main settings menu from audio settings
+                            {
+                                GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                            }
+                            else if (GameWorld.Instance._currentState is ControlSettingsState) // return to main settings menu from control settings
+                            {
+                                GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                            }
+
+
+                            //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(SettingsMenuState)))
+                            //{
+                            //    GameWorld.Instance.ChangeState(new MainMenuState());
+                            //}
+                            //else if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
+                            //{
+                            //    GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                            //}
+
+
+
 
                             _mouseCooldown += 0;
 

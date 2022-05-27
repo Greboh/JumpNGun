@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using JumpNGun.StatePattern.GameStates;
+using System.Linq;
+using JumpNGun.ComponentPattern;
 
 namespace JumpNGun
 {
@@ -39,12 +41,16 @@ namespace JumpNGun
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
 
+        public LinkedList<State> PreviousStates = new LinkedList<State>();
+
         private int _screenWidth = 1325;
         private int _screenHeight = 800;
 
-        private State _currentState;
+        public State _currentState;
         private State _nextState;
         public State _previousState;
+
+        private Background _background;
 
         private bool isRunning = false;
 
@@ -72,13 +78,15 @@ namespace JumpNGun
         {
             SoundManager.Instance.InitDictionary();
             
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            //_background = new Background(); 
+            //_background.LoadContent();
 
             _currentState = new MainMenuState(); // sets first state to show on startup
             _currentState.LoadContent(); // loads state content into GameWorld content
@@ -90,8 +98,8 @@ namespace JumpNGun
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
             //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
-            
 
+            //_background.Update(gameTime);
 
 
 
@@ -114,11 +122,12 @@ namespace JumpNGun
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            //_background.Draw(_spriteBatch);
 
             _currentState.Draw(gameTime, _spriteBatch);
 
             //_spriteBatch.Begin();
-            
+
             //_spriteBatch.End();
 
             base.Draw(gameTime);
@@ -134,10 +143,12 @@ namespace JumpNGun
             _nextState = state; 
         }
 
-        public void ReturnToState()
+        public State GetCurrentState()
         {
-            _nextState = _previousState;
+            return _currentState;
         }
+
+        
 
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects

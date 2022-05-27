@@ -41,8 +41,9 @@ namespace JumpNGun
 
             spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White); // background texture
 
-            
-            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY/2, 190, _game_title.Width,_game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+
+            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+
 
             // draws active GameObjects in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
@@ -90,7 +91,7 @@ namespace JumpNGun
                 go.Awake();
             }
 
-
+            ClearObjects();
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
