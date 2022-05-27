@@ -100,8 +100,9 @@ namespace JumpNGun
 
         //current position for platform spawn
         private Vector2 _spawnPosition;
+
+        //used to check if values in _validDistances has been changed
         private bool _hasAltered;
-        public List<Rectangle> UsedLocations { get => _usedLocations; private set => _usedLocations = value; }
 
         #region FOR DRAWING RECTANGLES
         public void Draw(SpriteBatch spritebatch)
@@ -232,25 +233,6 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Generates a new valid location rectangle
-        /// </summary>
-        /// <param name="rectangle">current location rectangle</param>
-        /// <returns>valid location rectangle or recursive</returns>
-        private Rectangle GenerateRandomPosition(Rectangle rectangle)
-        {
-            //generated random index for array
-            int index = _random.Next(0, 33);
-
-            //check if location rectangle contains platform
-            if (!_usedLocations.Contains(_locations[index]))
-            {
-                return _locations[index];
-            }
-            //return method
-            else return GenerateRandomPosition(rectangle);
-        }
-
-        /// <summary>
         /// Adds the value of every point in validDistances to itself. 
         /// </summary>
         /// <param name="change"></param>
@@ -282,6 +264,10 @@ namespace JumpNGun
 
         }
 
+        /// <summary>
+        /// Returns list of rectangles that contain a platform
+        /// </summary>
+        /// <returns></returns>
         public List<Rectangle> GetLocations()
         {
             return _usedLocations;

@@ -96,6 +96,14 @@ namespace JumpNGun
                          "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",}));
         }
 
+        /// <summary>
+        /// Adds and builds all animations for Enemytype.Mushroom
+        /// </summary>
+        private void CreateMushroomAnimations()
+        {
+            //_animator.AddAnimation(BuildAnimations("mushroom_attack", new string[] { "mush_attack1", "mush_attack2", "mush_attack3", "mush_attack4", "mush_attack5", "mush_attack6", "mush_attack7", "mush_attack8", }));
+        }
+
         private Animation BuildAnimations(string animationName, string[] spriteNames)
         {
             Texture2D[] sprites = new Texture2D[spriteNames.Length];
