@@ -19,6 +19,12 @@ namespace JumpNGun
         private List<Rectangle> _hasEnemy = new List<Rectangle>();
 
 
+        /// <summary>
+        /// Generates X amount of enemies based on inputs
+        /// </summary>
+        /// <param name="amountOfEnemies">amount of enemies to be instantiated</param>
+        /// <param name="type">type of enemy to be instantieated</param>
+        /// <param name="locations">location rectangle for enemey</param>
         public void GenerateEnemies(int amountOfEnemies, EnemyType type, List<Rectangle> locations)
         {
             for (int i = 0; i < amountOfEnemies; i++)
@@ -30,18 +36,24 @@ namespace JumpNGun
             }
         }
 
-
+        /// <summary>
+        /// Creates and returns a random Vector2 that lies within a rectangle from list
+        /// </summary>
+        /// <param name="locations"></param>
+        /// <returns></returns>
         private Vector2 GeneratePosition(List<Rectangle> locations)
         {
-
+            //chose random rectangle from list
             Rectangle rect = locations[_random.Next(0, locations.Count)];
 
-            if (_hasEnemy.Contains(rect)) return new Vector2(rect.Center.X + 50, rect.Center.Y - 50);
+            //if a vector2 already has been made within rectangle, return new in same rectangle with added X-value
+            if (_hasEnemy.Contains(rect)) return new Vector2(rect.Center.X + 50, rect.Center.Y - 70);
 
+            //add rectangle to list 
             _hasEnemy.Add(rect);
 
-
-            return new Vector2(rect.Center.X, rect.Center.Y - 50);
+            //return Vector2 that lies within rect. 
+            return new Vector2(rect.Center.X, rect.Center.Y - 70);
         }
 
 

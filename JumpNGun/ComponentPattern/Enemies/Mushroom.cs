@@ -56,7 +56,7 @@ namespace JumpNGun
                 SetLocationRectangle();
             }
             ChasePlayer();
-            MovementBounds();
+            SetVelocity();
             if (!_isAttacking)
             {
                 Move();
@@ -66,7 +66,7 @@ namespace JumpNGun
             HandleGravity();
             CheckCollision();
             Attack();
-            Death();
+
         }
 
         #region Movement Methods
@@ -90,7 +90,7 @@ namespace JumpNGun
         /// <summary>
         /// Sets velocity according to position in rectangle and calls find location methods
         /// </summary>
-        private void MovementBounds()
+        private void SetVelocity()
         {
             if (position.X >= (_currentRectangle.Right - sr.Sprite.Width))
             {
@@ -287,7 +287,22 @@ namespace JumpNGun
         /// </summary>
         public override void HandleAnimations()
         {
-            throw new NotImplementedException();
+            if (_collidingWithPlayer)
+            {
+                //play close attack animation
+                animator.PlayAnimation("");
+            }
+            if (_canRangeAttack)
+            {
+                //play range attack animation
+                animator.PlayAnimation("");
+            }
+            if (health <= 0)
+            {
+                //play death animation
+                animator.PlayAnimation("");
+            }
+
         }
 
     }

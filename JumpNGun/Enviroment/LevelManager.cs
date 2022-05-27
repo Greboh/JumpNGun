@@ -121,7 +121,7 @@ namespace JumpNGun
                 }
             }
 
-            PlatformGenerator.Instance.UsedLocations.Clear();
+            UsedLocations.Clear();
             
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
             Console.Clear();
