@@ -338,7 +338,7 @@ namespace JumpNGun
         {
             if(_currentHealth <= 0)
             {
-                //TODO Play death animation
+                //TODO Play death animation - NICHLAS
                 
                 if(_animator.IsAnimationDone)
                 {
