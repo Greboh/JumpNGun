@@ -24,6 +24,8 @@ namespace JumpNGun
         private int _enemyCurrentAmount = 2;
         private int _platformAmount = 4; // determines amount of platform pr. level
 
+        public bool LevelIsGenerated { get; set; } = false;
+
         //for testing
         private bool _canPress = true;
         private bool canPressL = true;
@@ -175,6 +177,12 @@ namespace JumpNGun
             {
                 _platformAmount = 19;
             }
+        }
+        
+        public void ResetLevel()
+        {
+            _level = 1;
+            _platformAmount = 4;
         }
 
         #region Test Methods

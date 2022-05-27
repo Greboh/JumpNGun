@@ -192,11 +192,16 @@ namespace JumpNGun
         /// </summary>
         public void Jump()
         {
+            
+
             // Check if we are above or at our maxJumpCount
             _canJump = _jumpCount <= _maxJumpCount;
 
             // Guard clause
             if (!_canJump || _isJumping) return;
+
+            // Sound effect
+            SoundManager.Instance.PlayClip("jump");
 
             // Add to our jump count
             _jumpCount++;

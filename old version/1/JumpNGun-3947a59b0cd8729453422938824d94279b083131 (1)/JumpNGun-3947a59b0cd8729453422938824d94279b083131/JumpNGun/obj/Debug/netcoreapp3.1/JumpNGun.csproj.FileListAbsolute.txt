@@ -1,0 +1,140 @@
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfoInputs.cache
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfo.cs
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CoreCompileInputs.cache
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.exe
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.deps.json
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.json
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.dev.json
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.pdb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.VisualBasic.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct2D1.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D11.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D9.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.DXGI.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Mathematics.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.MediaFoundation.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XAudio2.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XInput.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\debian-x64\native\libuv.so
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\fedora-x64\native\libuv.so
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\opensuse-x64\native\libuv.so
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\osx\native\libuv.dylib
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\rhel-x64\native\libuv.so
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-arm\native\libuv.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\libuv.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x86\native\libuv.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Pixel.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Desert platform.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Grass platform.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard platform.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_idle.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_idle.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_idle.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_idle.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_idle.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_idle.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_idle.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_idle.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_idle.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_idle.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Desert platform.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Grass platform.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard platform.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Pixel.xnb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.exe
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.deps.json
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.json
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.dev.json
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.pdb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.VisualBasic.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct2D1.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D11.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D9.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.DXGI.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Mathematics.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.MediaFoundation.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XAudio2.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XInput.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\debian-x64\native\libuv.so
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\fedora-x64\native\libuv.so
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\opensuse-x64\native\libuv.so
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\osx\native\libuv.dylib
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\rhel-x64\native\libuv.so
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-arm\native\libuv.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\libuv.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x86\native\libuv.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.AssemblyReference.cache
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfoInputs.cache
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfo.cs
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CoreCompileInputs.cache
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CopyComplete
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
+C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CopyComplete
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_idle.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\2.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_idle.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_idle.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_idle.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_idle.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\Desert platform.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\Grass platform.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard platform.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Content\Pixel.xnb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.exe
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.deps.json
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.json
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.dev.json
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.pdb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.VisualBasic.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.VisualBasic.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct2D1.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D11.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D9.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.DXGI.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Mathematics.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.MediaFoundation.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XAudio2.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XInput.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\debian-x64\native\libuv.so
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\fedora-x64\native\libuv.so
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\opensuse-x64\native\libuv.so
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\osx\native\libuv.dylib
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\rhel-x64\native\libuv.so
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-arm\native\libuv.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\libuv.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x86\native\libuv.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csprojAssemblyReference.cache
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.GeneratedMSBuildEditorConfig.editorconfig
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfoInputs.cache
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfo.cs
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CoreCompileInputs.cache
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CopyComplete
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
+A:\Github\JumpNGun\old version\JumpNGun-3947a59b0cd8729453422938824d94279b083131 (1)\JumpNGun-3947a59b0cd8729453422938824d94279b083131\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
