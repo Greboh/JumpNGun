@@ -15,10 +15,9 @@ namespace JumpNGun
             get { return _instance ??= new EnemyGenerator(); }
         }
 
-        private Random _random  = new Random();
+        private Random _random = new Random();
         private Vector2 _spawnPosition;
         private List<Rectangle> _hasEnemy = new List<Rectangle>();
-
 
         /// <summary>
         /// Generates X amount of enemies based on inputs
@@ -28,6 +27,7 @@ namespace JumpNGun
         /// <param name="locations">location rectangle for enemey</param>
         public void GenerateEnemies(int amountOfEnemies, EnemyType type, List<Rectangle> locations)
         {
+
             for (int i = 0; i < amountOfEnemies; i++)
             {
                 _spawnPosition = GeneratePosition(locations);
@@ -57,6 +57,9 @@ namespace JumpNGun
             return new Vector2(rect.Center.X, rect.Center.Y - 70);
         }
 
-
+        public void GenerateBoss(EnemyType type)
+        {
+            GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type));
+        }
     }
 }

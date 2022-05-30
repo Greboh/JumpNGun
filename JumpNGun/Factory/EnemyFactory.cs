@@ -49,8 +49,8 @@ namespace JumpNGun
                 case EnemyType.DeathBoss:
                     {
                         gameObject.AddComponent(new Reaper());
-                        sr.SetSprite("reaper_idle1");
                         CreateReaperAnimations();
+                        sr.SetSprite("reaper_idle1");
                         _animator.PlayAnimation("reaper_idle");
                     }
                     break;
@@ -72,6 +72,9 @@ namespace JumpNGun
             {
                 case EnemyType.ReaperMinion:
                     {
+                        gameObject.AddComponent(new ReaperMinion(position));
+                        _sr.SetSprite("ghost_idle1");
+                        CreateReaperMinionAnimations();
 
                     }break;
                 case EnemyType.Mushroom:
@@ -113,7 +116,16 @@ namespace JumpNGun
             _animator.AddAnimation(BuildAnimations("reaper_summon", new string[] { "reaper_summon1", "reaper_summon2", "reaper_summon3", "reaper_summon4", "reaper_summon5", },10));
 
             _animator.AddAnimation(BuildAnimations("reaper_death", new string[] { "reaper_death1", "reaper_death2", "reaper_death3", "reaper_death4", "reaper_death5", "reaper_death6",
-                         "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",},10));
+                         "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",},15));
+
+            _animator.AddAnimation(BuildAnimations("reaper_spawn", new string[] { "reaper_death18", "reaper_death17", "reaper_death16", "reaper_death15", "reaper_death14", "reaper_death13",
+                         "reaper_death12", "reaper_death11", "reaper_death10", "reaper_death9","reaper_death8","reaper_death7","reaper_death6","reaper_death5","reaper_death4","reaper_death3","reaper_death2","reaper_death1",}, 15));
+        }
+
+        private void CreateReaperMinionAnimations()
+        {
+            _animator.AddAnimation(BuildAnimations("minion_idle", new string[] {"ghost_idle1", "ghost_idle2", "ghost_idle3", "ghost_idle4", }, 5));
+            _animator.AddAnimation(BuildAnimations("minion_spawn", new string[] { "ghost_spawn1", "ghost_spawn2", "ghost_spawn3", "ghost_spawn4", "ghost_spawn5", "ghost_spawn6"}, 5));
         }
 
         /// <summary>

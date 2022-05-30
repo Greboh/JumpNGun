@@ -432,3 +432,13 @@ C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGu
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_gethit2.xnb
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_gethit3.xnb
 C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_gethit4.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_idle1.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_idle2.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_idle3.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_idle4.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_spawn1.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_spawn2.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_spawn3.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_spawn4.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_spawn5.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ghost_spawn6.xnb

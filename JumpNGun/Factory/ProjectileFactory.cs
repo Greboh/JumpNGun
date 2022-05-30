@@ -41,7 +41,7 @@ namespace JumpNGun
                 case EnemyType.Mushroom:
                     {
                         sr.SetSprite("mush_projectile");
-                        projectile.Tag = "M_Projectile";
+                        projectile.Tag = "E_Projectile";
                     }
                     break;
                 case EnemyType.Worm:
@@ -50,7 +50,7 @@ namespace JumpNGun
                         sr.SetSprite("fireball1");
                         CreateFireBallAnimations();
                         _animator.PlayAnimation("fireball");
-                        projectile.Tag = "M_Projectile";
+                        projectile.Tag = "E_Projectile";
                     }break;
             }
 

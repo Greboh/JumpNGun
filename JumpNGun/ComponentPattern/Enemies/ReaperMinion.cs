@@ -3,32 +3,35 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JumpNGun.ComponentPattern.Enemies
+namespace JumpNGun
 {
     class ReaperMinion : Enemy
     {
-        private Reaper _parentReaper;
-        private ReaperMinion _reaperMinion;
-
         public ReaperMinion(Vector2 position)
         {
             this.position = position;
             health = 10;
-            speed = 60;
+            speed = 1;
             damage = 10;
-            isColliding = false;
         }
-        
+
+        public override void Awake()
+        {
+            GameObject.Transform.Position = position;
+            base.Awake();
+        }
+
         public override void Start()
         {
             base.Start();
-
-            _parentReaper = GameObject.GetComponent<Reaper>() as Reaper;
         }
 
         public override void Update(GameTime gameTime)
         {
+            ChasePlayer();
             CheckCollision();
+            HandleAnimations();
+            base.Update(gameTime);
         }
 
         public override void Attack()
@@ -38,7 +41,10 @@ namespace JumpNGun.ComponentPattern.Enemies
 
         public override void ChasePlayer()
         {
-            throw new NotImplementedException();
+            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
+            sourceToTarget.Normalize();
+            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+            velocity = sourceToTarget;
         }
 
         public override void CheckCollision()
@@ -51,14 +57,14 @@ namespace JumpNGun.ComponentPattern.Enemies
                     if (col.GameObject.HasComponent<Player>())
                     {
                         //get player component and attack player
-                        //destroy reaperminion
+                        GameWorld.Instance.Destroy(GameObject);
                     }
 
                     //Destroy platform and reaperminion if they collide
                     if (col.GameObject.HasComponent<Platform>())
                     {
                         GameWorld.Instance.Destroy(col.GameObject);
-                        GameWorld.Instance.Destroy(this.GameObject);
+                        GameWorld.Instance.Destroy(GameObject);
                     }
                 }
             }
@@ -66,7 +72,7 @@ namespace JumpNGun.ComponentPattern.Enemies
 
         public override void HandleAnimations()
         {
-            throw new NotImplementedException();
+            animator.PlayAnimation("minion_idle");
         }
     }
 }
