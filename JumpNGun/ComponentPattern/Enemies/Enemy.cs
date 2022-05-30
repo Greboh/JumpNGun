@@ -24,7 +24,8 @@ namespace JumpNGun
         protected Player player;
 
         protected bool canAttack;
-        protected bool isAttacking;
+        protected bool isAttacking = false;
+        private bool canMove = true;
 
         public abstract void Attack();
 
@@ -36,7 +37,7 @@ namespace JumpNGun
 
         public override void Awake()
         {
-
+            EventManager.Instance.Subscribe("Freeze", FreezeMovement);
         }
 
         public override void Start()
@@ -62,7 +63,7 @@ namespace JumpNGun
         /// </summary>
         private void Move()
         {
-            if (isAttacking) return;
+            if (isAttacking || !canMove) return;
             GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
         }
 
@@ -118,6 +119,12 @@ namespace JumpNGun
                 else if (!col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "Player") canAttack = false;
             }
         }
+
+        private void FreezeMovement(Dictionary<string, object> ctx)
+        {
+            canMove = (bool)ctx["freeze"];
+        }
+
 
         private void Die()
         {
