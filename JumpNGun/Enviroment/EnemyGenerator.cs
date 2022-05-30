@@ -7,6 +7,7 @@ namespace JumpNGun
 {
     class EnemyGenerator
     {
+        //TODO - fix enemy spawning
         private static EnemyGenerator _instance;
 
         public static EnemyGenerator Instance

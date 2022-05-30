@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/portal_idle_3.png</SourceFile>
-  <SourceTime>2022-05-20T13:38:43.8696843+02:00</SourceTime>
-  <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/2. Semestereksamen/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_3.xnb</DestFile>
-  <DestTime>2022-05-20T15:19:06.561604+02:00</DestTime>
+  <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/portal_idle_3.png</SourceFile>
+  <SourceTime>2022-05-27T13:50:02.6649632+02:00</SourceTime>
+  <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_3.xnb</DestFile>
+  <DestTime>2022-05-27T17:46:33.0140389+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

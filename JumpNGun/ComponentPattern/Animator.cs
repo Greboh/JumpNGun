@@ -80,7 +80,20 @@ namespace JumpNGun
                 CurrentIndex = 0;
             }
         }
-        
+        //public Animation BuildAnimations(string animationName, string[] spriteNames)
+        //{
+        //    Texture2D[] sprites = new Texture2D[spriteNames.Length];
+
+        //    for (int i = 0; i < sprites.Length; i++)
+        //    {
+        //        sprites[i] = GameWorld.Instance.Content.Load<Texture2D>(spriteNames[i]);
+        //    }
+
+        //    Animation anim = new Animation(animationName, sprites, 5);
+
+        //    return anim;
+        //}
+
     }
 }
 

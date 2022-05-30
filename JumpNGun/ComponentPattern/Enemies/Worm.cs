@@ -78,6 +78,7 @@ namespace JumpNGun
         /// </summary>
         private void CreateMovementArea()
         {
+            //TODO - make an algorithm that run once. - KRISTIAN
             for (int i = 0; i < locations.Count; i++)
             {
                 if (_currentRectangle.Right == locations[i].Left && _currentRectangle.Y == locations[i].Y)
@@ -170,9 +171,9 @@ namespace JumpNGun
             if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
             {
                 Shoot();
-                canAttack = true;
+                isAttacking = true;
             }
-            else canAttack = false;
+            else isAttacking = false;
         }
 
         /// <summary>
@@ -216,15 +217,24 @@ namespace JumpNGun
             _canShoot = false;
         }
 
+
         public override void HandleAnimations()
         {
-            if (!canAttack && health > 0) animator.PlayAnimation("worm_walk");
-            if (canAttack && health > 0) animator.PlayAnimation("worm_attack");
+            if (!isAttacking && health > 0) animator.PlayAnimation("worm_walk");
+            if (isAttacking && health > 0) animator.PlayAnimation("worm_attack");
             if (health <= 0)
             {
                 speed = 0;
                 animator.PlayAnimation("worm_death");
             }
         }
+
+
+        public override void ChasePlayer()
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

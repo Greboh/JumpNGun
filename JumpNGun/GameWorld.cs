@@ -2,8 +2,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Threading;
+using JumpNGun.StatePattern.GameStates;
+using System.Linq;
+using JumpNGun.ComponentPattern;
 
 namespace JumpNGun
 {
@@ -25,60 +29,55 @@ namespace JumpNGun
                 return instance;
             }
         }
-
-        private GraphicsDeviceManager _graphics;
+       
+        public GraphicsDeviceManager Graphics { get; private set; }
         private SpriteBatch _spriteBatch;
 
-        private List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
+        public List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
 
-        private List<GameObject> newGameObjects = new List<GameObject>();//List of newly added/instatiated GameObjects
+        public List<GameObject> newGameObjects = new List<GameObject>();//List of newly added/instatiated GameObjects
 
-        private List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
+        public List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
+
+        public LinkedList<State> PreviousStates = new LinkedList<State>();
 
         private int _screenWidth = 1325;
         private int _screenHeight = 800;
 
+        public State _currentState;
+        private State _nextState;
+        public State _previousState;
+
+        private Background _background;
+
+        private bool isRunning = false;
+
+        public MouseState myMouse { get; private set; }
+        public Vector2 MousePosition { get; private set; }
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
         public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
+        public bool IsRunning { get => isRunning; set => isRunning = value; }
 
         public GameWorld()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferWidth = _screenWidth;
-            _graphics.PreferredBackBufferHeight = _screenHeight;
+            Graphics.PreferredBackBufferWidth = _screenWidth;
+            Graphics.PreferredBackBufferHeight = _screenHeight;
             ScreenSize = new Vector2(_screenWidth, _screenHeight);
-            _graphics.ApplyChanges();
+            Graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
+            SoundManager.Instance.InitDictionary();
             
-            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            newGameObjects.Add(playerDirector.Construct());
-            
-            LevelManager.Instance.GenerateLevel();
-            //Instantiate(new PlatformFactory().Create(PlatformType.ground));
-
-            //call awake method on every active GameObject in list
-            foreach (var go in gameObjects)
-            {
-                go.Awake();
-            }
-
-            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-
-
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Small));
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Medium));
-            //Instantiate(orbFactory.Create(ExperienceOrbType.Large));
-
 
             base.Initialize();
         }
@@ -86,35 +85,34 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            PlatformGenerator.Instance.LoadContent();
-            //call start method on every active GameObject in list
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                gameObjects[i].Start();
-            }
+            //_background = new Background(); 
+            //_background.LoadContent();
+
+            _currentState = new MainMenuState(); // sets first state to show on startup
+            _currentState.LoadContent(); // loads state content into GameWorld content
+            _nextState = null; // makes sure next state is empty on startup
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+            //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
+            //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
 
-            LevelManager.Instance.ChangeLevelDebug();
-            LevelManager.Instance.GenerateLevel();
-            LevelManager.Instance.CheckForClearedLevelDebug();
+            //_background.Update(gameTime);
 
+            myMouse = Mouse.GetState();
+            MousePosition = new Vector2(myMouse.X, myMouse.Y);
+
+            DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             
-      
-            //call update method on every active GameObject in list
-            for (int i = 0; i < gameObjects.Count; i++)
+            if (_nextState != null)
             {
-                gameObjects[i].Update(gameTime);
-                
+                _currentState = _nextState;
+                _currentState.LoadContent();
+                _nextState = null;
             }
-           
-            DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //call cleanup in every cycle
-            CleanUp();
+            else _currentState.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -122,19 +120,33 @@ namespace JumpNGun
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            //_background.Draw(_spriteBatch);
 
-            _spriteBatch.Begin();
-            PlatformGenerator.Instance.Draw(_spriteBatch);
+            _currentState.Draw(gameTime, _spriteBatch);
 
-            //draw sprites of every active gameObject in list
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                gameObjects[i].Draw(_spriteBatch);
-            }
-            _spriteBatch.End();
+            //_spriteBatch.Begin();
+
+            //_spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
+        /// <summary>
+        /// // sets nextState with state recived from Button.cs
+        /// </summary>
+        /// <param name="state"></param>
+        public void ChangeState(State state)
+        {
+            _previousState = _currentState;
+            _nextState = state; 
+        }
+
+        public State GetCurrentState()
+        {
+            return _currentState;
+        }
+
+        
 
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
@@ -157,22 +169,20 @@ namespace JumpNGun
         /// <summary>
         /// Removes, adds, and activates relevant GameObjects and components from game
         /// </summary>
-        private void CleanUp()
+        public void CleanUp()
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
+                AddCollider(newGameObjects[i]);
                 gameObjects.Add(newGameObjects[i]);
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
-                AddCollider(newGameObjects[i]);
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
-                gameObjects.Remove(destroyedGameObjects[i]);
-
                 RemoveCollider(destroyedGameObjects[i]);
-
+                gameObjects.Remove(destroyedGameObjects[i]);
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();
@@ -204,7 +214,7 @@ namespace JumpNGun
                 Colliders.Remove(col);
             }
         }
-        
+
         /// <summary>
         /// Find GameObjects with a specific component
         /// </summary>
@@ -224,8 +234,9 @@ namespace JumpNGun
 
             return null;
 
-         
+
         }
+
 
     }
 }

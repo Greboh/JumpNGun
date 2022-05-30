@@ -23,46 +23,38 @@ namespace JumpNGun
         protected Collider collider;
         protected Player player;
 
+        protected bool canAttack;
         protected bool isAttacking;
 
         public abstract void Attack();
 
         public abstract void CheckCollision();
-        
+
         public abstract void ChasePlayer();
 
         public abstract void HandleAnimations();
 
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("OnCollision", OnCollision);
+
         }
-
-
-
 
         public override void Start()
         {
             sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             animator = GameObject.GetComponent<Animator>() as Animator;
             collider = GameObject.GetComponent<Collider>() as Collider;
-            player =  GameWorld.Instance.FindObjectOfType<Player>() as Player;
+            player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
         }
 
 
         public override void Update(GameTime gameTime)
         {
             FlipSprite();
-            
-            if (!isAttacking)
-            {
-                Move();
-            }
-            
+            Move();
+            Collision();
             Die();
-            
-            
-            
+            UpdatePositionReference();
         }
 
         /// <summary>
@@ -70,13 +62,14 @@ namespace JumpNGun
         /// </summary>
         private void Move()
         {
-            GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
+            if (isAttacking) return;
+            GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
         }
 
         /// <summary>
         /// Updates position during gametime
         /// </summary>
-        protected void UpdatePositionReference()
+        private void UpdatePositionReference()
         {
             position = GameObject.Transform.Position;
         }
@@ -106,32 +99,41 @@ namespace JumpNGun
                     sr.SpriteEffects = SpriteEffects.None;
             }
         }
-        
-        private void OnCollision(Dictionary<string, object> ctx)
+
+        private void Collision()
         {
-            GameObject collision = (GameObject) ctx["collider"];
-            Rectangle collisonBox = (collision.GetComponent<Collider>() as Collider).CollisionBox;
-            
-            
-            if( collision.Tag == "P_Projectile" && collisonBox.Intersects(collider.CollisionBox))
+            foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                health -= 20;
-                GameWorld.Instance.Destroy(collision);
+                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "P_Projectile")
+                {
+
+                    health -= 20;
+                    GameWorld.Instance.Destroy(col.GameObject);
+
+                }
+                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "Player")
+                {
+                    canAttack = true;
+                }
+                else if (!col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "Player") canAttack = false;
             }
         }
+
         private void Die()
         {
-            if(health <= 0)
+            if (health <= 0)
             {
-                EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
+                if (animator.IsAnimationDone)
                 {
+                    EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
+                    {
                     {"enemyDeath", 1}
-                });
-
-                ScoreHandler.Instance.AddToScore(20);
-                ScoreHandler.Instance.PrintScore();
-                GameWorld.Instance.Destroy(this.GameObject);
-                GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
+                     });
+                    ScoreHandler.Instance.AddToScore(20);
+                    ScoreHandler.Instance.PrintScore();
+                    GameWorld.Instance.Destroy(this.GameObject);
+                    GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
+                }
             }
         }
     }

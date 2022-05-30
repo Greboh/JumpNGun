@@ -29,7 +29,6 @@ namespace JumpNGun.ComponentPattern.Enemies
         public override void Update(GameTime gameTime)
         {
             CheckCollision();
-            UpdatePositionReference();
         }
 
         public override void Attack()

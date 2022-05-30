@@ -14,6 +14,7 @@ namespace JumpNGun
         private Rectangle _groundCollision = Rectangle.Empty;
         private Rectangle _currentRectangle = Rectangle.Empty;
         private bool _locationFound;
+        private float _originalSpeed;
 
         public Skeleton(Vector2 position)
         {
@@ -21,7 +22,7 @@ namespace JumpNGun
             health = 100;
             damage = 20;
             speed = 50;
-            originalspeed = speed;
+            _originalSpeed = speed;
         }
 
         public override void Awake()
@@ -70,6 +71,7 @@ namespace JumpNGun
 
         private void CreateMovementArea()
         {
+            //TODO - make an algorithm that run once. - KRISTIAN
             for (int i = 0; i < locations.Count; i++)
             {
                 if (_currentRectangle.Right == locations[i].Left && _currentRectangle.Y == locations[i].Y)
@@ -131,32 +133,31 @@ namespace JumpNGun
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
 
-        /// <summary>
-        /// Check if object collides with player or ground
-        /// </summary>
         public override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.HasComponent<Platform>())
                 {
-                    _isGrounded = true;
-                    _groundCollision = col.CollisionBox;
+                    if (col.CollisionBox.Intersects(collider.CollisionBox))
+                    {
+                        _isGrounded = true;
+                        _groundCollision = col.CollisionBox;
+                    }
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
-
-                if (col.GameObject.Tag == "Player" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
                 {
-                    canAttack = true;
-                    Attack();
+                    _isGrounded = false;
                 }
-                else if (col.GameObject.Tag == "Player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
             }
         }
 
         public override void Attack()
         {
-            //trigger event to deal player damage
+            if (canAttack)
+            {
+                //trigger event to deal player damage. 
+            }
         }
 
         public override void ChasePlayer()
@@ -177,7 +178,7 @@ namespace JumpNGun
                     velocity = new Vector2(1, 0);
                 }
             }
-            else speed = originalspeed;
+            else speed = _originalSpeed;
         }
 
         public override void HandleAnimations()

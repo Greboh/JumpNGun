@@ -7,6 +7,7 @@ namespace JumpNGun.ComponentPattern.Enemies
 {
     class Necromancer : Enemy
     {
+        private bool _isImmune = true;
 
         public Necromancer(Vector2 position)
         {
@@ -31,6 +32,11 @@ namespace JumpNGun.ComponentPattern.Enemies
         }
 
         public override void Attack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ChasePlayer()
         {
             throw new NotImplementedException();
         }
