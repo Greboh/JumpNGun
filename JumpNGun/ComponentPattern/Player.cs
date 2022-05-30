@@ -150,7 +150,6 @@ namespace JumpNGun
             CheckGrounded();
 
             HandleGravity();
-            
             CheckDeath();
             
             if (Keyboard.GetState().IsKeyDown(Keys.O))

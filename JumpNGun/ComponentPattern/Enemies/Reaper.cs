@@ -10,12 +10,12 @@ namespace JumpNGun
     class Reaper : Enemy
     {
         private int _spawnTimer = 20;
-        private Reaper _reaper;
         private Thread _spawnerThread;
+        private int _miniomAmount = 1;
 
-        public Reaper(Vector2 position)
+        public Reaper()
         {
-            this.position = position;
+            this.position = new Vector2();
             health = 100;
             damage = 20;
             speed = 40;
@@ -24,18 +24,10 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             ChasePlayer();
-            UpdatePositionReference();
             HandleAnimations();
             CheckCollision();
         }
 
-        /// <summary>
-        /// Handles damage to player logic 
-        /// </summary>
-        public override void Attack()
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Sets velocity to target player position
@@ -51,35 +43,32 @@ namespace JumpNGun
 
         public override void CheckCollision()
         {
-            foreach (Collider col in GameWorld.Instance.Colliders)
-            {
-                if (col.GameObject.Tag == "Player" && collider.CollisionBox.Intersects(col.CollisionBox))
-                {
-                    isColliding = true;
-                }
-                if (col.GameObject.Tag == "Player" && !collider.CollisionBox.Intersects(col.CollisionBox))
-                {
-                    isColliding = false;
-                }
-            }
+
         }
 
 
         public override void HandleAnimations()
         {
-            if (!isColliding)
-            {
-                animator.PlayAnimation("reaper_idle");
-            }
-            if (isColliding)
-            {
-                animator.PlayAnimation("reaper_attack");
-            }
+            if (!canAttack) animator.PlayAnimation("reaper_idle");
+            if (canAttack) animator.PlayAnimation("reaper_attack");
+
         }
 
         private void SpawnGhosts()
         {
+            for (int i = 0; i < _miniomAmount; i++)
+            {
+                
+            }
+        }
 
+
+        /// <summary>
+        /// Handles damage to player logic 
+        /// </summary>
+        public override void Attack()
+        {
+            throw new NotImplementedException();
         }
 
     }

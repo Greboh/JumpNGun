@@ -29,7 +29,7 @@ namespace JumpNGun
                 return instance;
             }
         }
-
+       
         public GraphicsDeviceManager Graphics { get; private set; }
         private SpriteBatch _spriteBatch;
 
@@ -100,8 +100,6 @@ namespace JumpNGun
             //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
 
             //_background.Update(gameTime);
-
-
 
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
@@ -175,18 +173,16 @@ namespace JumpNGun
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
+                AddCollider(newGameObjects[i]);
                 gameObjects.Add(newGameObjects[i]);
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
-                AddCollider(newGameObjects[i]);
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
-                gameObjects.Remove(destroyedGameObjects[i]);
-
                 RemoveCollider(destroyedGameObjects[i]);
-
+                gameObjects.Remove(destroyedGameObjects[i]);
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();

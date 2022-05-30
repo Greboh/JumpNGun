@@ -8,7 +8,7 @@ namespace JumpNGun
 {
     class Mushroom : Enemy
     {
-        //TODO Refactor this whole mess - KRISTIAN;
+        //TODO - Add comments for methods and fields - KRISTIAN
 
         private float _gravityPull; // How strong the force of gravity is
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
@@ -17,13 +17,12 @@ namespace JumpNGun
         private List<Rectangle> locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
         private Rectangle _currentRectangle = Rectangle.Empty;
-        private List<Rectangle> _fieldOfView = new List<Rectangle>();
 
         private bool _locationRectangleFound;
-        private bool _collidingWithPlayer;
-        private bool _canRangeAttack;
-        // private bool _isAttacking;
-        private int rangeDammage;
+        private bool _canShoot = true;
+        private float _projectileSpeed = 150;
+        private float _shootTime;
+        private float _shootCooldown = 1f;
 
         public Mushroom(Vector2 position)
         {
@@ -31,112 +30,83 @@ namespace JumpNGun
             health = 20;
             speed = 40;
             damage = 20;
-            rangeDammage = 15;
-            //TODO - Maybe make speed an overload for constructor - KRISTIAN
         }
 
         public override void Awake()
         {
             base.Awake();
-            
             GameObject.Transform.Position = position;
         }
 
         public override void Start()
         {
             base.Start();
-            
             GetLocations();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
-            
-            if (_isGrounded)
-            {
-                SetLocationRectangle();
-            }
-            ChasePlayer();
+            SetLocationRectangle();
+            CreateMovementArea();
             SetVelocity();
-            if (isAttacking)
-            {
-                // Move();
-            }
-            UpdatePositionReference();
-            // FlipSprite();
             HandleGravity();
             CheckCollision();
+            HandleAnimations();
+            HandleShootLogic();
             Attack();
-
         }
 
         #region Movement Methods
+
 
         /// <summary>
         /// Find and reference the rectangle containing mushroom object position
         /// </summary>
         private void SetLocationRectangle()
         {
+            if (!_isGrounded) return;
+
             foreach (Rectangle location in locations)
             {
                 if (location.Contains(position) && !_locationRectangleFound)
                 {
                     _currentRectangle = location;
                     _locationRectangleFound = true;
-                    UpdateFieldOfView(_currentRectangle);
+                }
+            }
+        }
+
+        private void CreateMovementArea()
+        {
+            //TODO - make an algorithm that run once. - KRISTIAN
+            for (int i = 0; i < locations.Count; i++)
+            {
+                if (_currentRectangle.Right == locations[i].Left && _currentRectangle.Y == locations[i].Y)
+                {
+                    _currentRectangle = Rectangle.Union(_currentRectangle, locations[i]);
+                }
+                if (_currentRectangle.Left == locations[i].Right && _currentRectangle.Y == locations[i].Y)
+                {
+                    _currentRectangle = Rectangle.Union(_currentRectangle, locations[i]);
                 }
             }
         }
 
         /// <summary>
-        /// Sets velocity according to position in rectangle and calls find location methods
+        /// Set direction of movement according to position on platform
         /// </summary>
         private void SetVelocity()
         {
-            if (position.X >= (_currentRectangle.Right - sr.Sprite.Width))
+            //if position is close to right, move left
+            if (position.X >= _currentRectangle.Right - sr.Sprite.Width)
             {
-                velocity = new Vector2(-50, 0);
-
-                FindLocationLeft();
+                velocity = new Vector2(-1, 0);
             }
-            if (position.X <= (_currentRectangle.Left + sr.Sprite.Width))
+            //if position is close to left, move right
+            if (position.X <= _currentRectangle.Left + sr.Sprite.Width)
             {
-                velocity = new Vector2(50, 0);
-                FindLocationRight();
-            }
-        }
-
-        /// <summary>
-        /// Set current location to right rectangle if it contains a platform
-        /// </summary>
-        private void FindLocationRight()
-        {
-            for (int i = 0; i < locations.Count; i++)
-            {
-                if (_currentRectangle.X + 222 == locations[i].X && _currentRectangle.Y == locations[i].Y)
-                {
-                    _currentRectangle = locations[i];
-                    UpdateFieldOfView(_currentRectangle);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Set current location to left rectangle if it contains a platform
-        /// </summary>
-        private void FindLocationLeft()
-        {
-            for (int i = 0; i < locations.Count; i++)
-            {
-                if (_currentRectangle.X - 222 == locations[i].X && _currentRectangle.Y == locations[i].Y)
-                {
-                    _currentRectangle = locations[i];
-
-                    UpdateFieldOfView(_currentRectangle);
-                   
-                }
+                velocity = new Vector2(1, 0);
             }
         }
 
@@ -150,6 +120,36 @@ namespace JumpNGun
 
         #endregion
 
+
+        /// <summary>
+        /// Attacks by calling shoot method and changing relevant bool
+        /// </summary>
+        public override void Attack()
+        {
+            Collider playerCol = (player.GameObject.GetComponent<Collider>() as Collider);
+
+            if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
+            {
+                Shoot();
+                isAttacking = true;
+            }
+            else isAttacking = false;
+        }
+
+        /// <summary>
+        /// Play relevant animation
+        /// </summary>
+        public override void HandleAnimations()
+        {
+            if (!isAttacking && health >0) animator.PlayAnimation("mushroom_run");
+            if (isAttacking && health >0) animator.PlayAnimation("mushroom_attack");
+            if (health <= 0)
+            {
+                speed = 0;
+                //TODO - make enemy stop shooting when death animation playing - KRISTIAN
+                animator.PlayAnimation("mushroom_death");
+            }
+        }
 
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
@@ -174,7 +174,6 @@ namespace JumpNGun
         /// </summary>
         public override void CheckCollision()
         {
-            //TODO - Refactor this - KRISTIAN
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
                 if (col.GameObject.HasComponent<Platform>())
@@ -193,77 +192,49 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Locate player within fieldOfview rectangles and set rangeAttack to either true or false
+        /// Instantiate relevant projectile with velocity set according to player position
         /// </summary>
+        private void Shoot()
+        {
+            if (!_canShoot) return;
+
+            GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom);
+
+            projectile.Transform.Position = GameObject.Transform.Position;
+
+            if (player.Position.X < position.X)
+            {
+                ((Projectile)projectile.GetComponent<Projectile>()).Velocity = new Vector2(-1, 0);
+            }
+            else
+            {
+                ((Projectile)projectile.GetComponent<Projectile>()).Velocity = new Vector2(1, 0);
+            }
+
+            ((Projectile)projectile.GetComponent<Projectile>()).Speed = _projectileSpeed;
+            GameWorld.Instance.Instantiate(projectile);
+            _canShoot = false;
+        }
+
+        /// <summary>
+        /// Reset ability to shoot after cooldown
+        /// </summary>
+        private void HandleShootLogic()
+        {
+            if (_canShoot) return;
+
+            _shootTime += GameWorld.DeltaTime;
+
+            if (_shootTime > _shootCooldown)
+            {
+                _canShoot = true;
+                _shootTime = 0;
+            }
+        }
+
         public override void ChasePlayer()
         {
-            Rectangle playerCol = (player.GameObject.GetComponent<Collider>() as Collider).CollisionBox;
-            int outOfView = 0;
-
-            for (int i = 0; i < _fieldOfView.Count; i++)
-            {
-                //if player intersects with any of one _fieldofview and is above center, set range attack to true;
-                if (playerCol.Intersects(_fieldOfView[i]) && playerCol.Bottom < _fieldOfView[i].Center.Y)
-                {
-                    Console.WriteLine("player in sight");
-                    _canRangeAttack = true;
-                }
-
-                //If no _fieldofView intersects with player collisionbox, set range attacck to false;
-                if (!playerCol.Intersects(_fieldOfView[i]))
-                {
-                    outOfView++;
-                }
-                if (outOfView == _fieldOfView.Count)
-                {
-                    _canRangeAttack = false;
-                }
-
-            }
+            throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Initiate attack depending on relevant bool
-        /// </summary>
-        public override void Attack()
-        {
-            isAttacking = _canRangeAttack;
-        }
-
-        /// <summary>
-        /// Add view to fieldOfView list, if it doesn't contain it
-        /// </summary>
-        /// <param name="view">rectangle to be added</param>
-        private void UpdateFieldOfView(Rectangle view)
-        {
-            if (!_fieldOfView.Contains(view))
-            {
-                _fieldOfView.Add(_currentRectangle);
-            }
-        }
-
-        /// <summary>
-        /// Play relevant animation
-        /// </summary>
-        public override void HandleAnimations()
-        {
-            if (_collidingWithPlayer)
-            {
-                //play close attack animation
-                animator.PlayAnimation("");
-            }
-            if (_canRangeAttack)
-            {
-                //play range attack animation
-                animator.PlayAnimation("");
-            }
-            if (health <= 0)
-            {
-                //play death animation
-                animator.PlayAnimation("");
-            }
-
-        }
-
     }
 }

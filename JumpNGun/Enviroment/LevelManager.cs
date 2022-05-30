@@ -60,7 +60,7 @@ namespace JumpNGun
                 UsedLocations = PlatformGenerator.Instance.GetLocations();
 
                 //Create all relevant enemies
-                EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, EnemyType.Mushroom, UsedLocations);
+                EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
 
                 //Create ground
                 GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
@@ -88,23 +88,25 @@ namespace JumpNGun
             switch (_level)
             {
                 case 1:
-                {
-                    _currentPlatformType = PlatformType.grass;
-                    _currentGroundPlatform = PlatformType.grassGround;
-                    _currentEnemyType = EnemyType.Mushroom;
-                }
+                    {
+                        _currentPlatformType = PlatformType.grass;
+                        _currentGroundPlatform = PlatformType.grassGround;
+                        _currentEnemyType = EnemyType.Mushroom;
+                    }
                     break;
                 case 7:
-                {
-                    _currentPlatformType = PlatformType.dessert;
-                    _currentGroundPlatform = PlatformType.dessertGround;
-                }
+                    {
+                        _currentPlatformType = PlatformType.dessert;
+                        _currentGroundPlatform = PlatformType.dessertGround;
+                        _currentEnemyType = EnemyType.Worm;
+                    }
                     break;
                 case 13:
-                {
-                    _currentPlatformType = PlatformType.graveyard;
-                    _currentGroundPlatform = PlatformType.graveGround;
-                }
+                    {
+                        _currentEnemyType = EnemyType.Skeleton;
+                        _currentPlatformType = PlatformType.graveyard;
+                        _currentGroundPlatform = PlatformType.graveGround;
+                    }
                     break;
             }
         }
