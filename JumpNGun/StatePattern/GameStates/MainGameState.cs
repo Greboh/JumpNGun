@@ -8,18 +8,26 @@ using System.Text;
 
 namespace JumpNGun.StatePattern.GameStates
 {
+    public enum PauseState
+    {
+        unpaused,
+        paused,
+    }
+
     public class MainGameState : State
     {
-        private Texture2D _background_image;
-
+        private Texture2D _pausedOverlay;
 
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
 
         private bool isInitialized;
+        private bool isPaused;
 
+        private PauseState currentPauseState = PauseState.unpaused;
 
-        
+        private float _keypressCooldown; // mouse click cooldown used for avoiding unwanted menu button navigation
+
 
         public override void LoadContent()
         {
@@ -30,11 +38,10 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Start();
             }
 
-            PlatformGenerator.Instance.LoadContent();
 
             // asset content loading
-            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
-            
+            _pausedOverlay = GameWorld.Instance.Content.Load<Texture2D>("paused_overlay");
+
 
 
         }
@@ -43,17 +50,28 @@ namespace JumpNGun.StatePattern.GameStates
 
             spriteBatch.Begin();
 
-
-            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
-
-
-            PlatformGenerator.Instance.Draw(spriteBatch);
-
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
+
+            switch (currentPauseState)
+            {
+                case PauseState.unpaused:
+                
+                    break;
+                case PauseState.paused:
+                    GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain));
+
+                    spriteBatch.Draw(_pausedOverlay, new Vector2(0, 0), Color.White);
+
+
+                    break;
+                default:
+                    break;
+            }
+
 
             spriteBatch.End();
 
@@ -66,16 +84,33 @@ namespace JumpNGun.StatePattern.GameStates
                 Initialize();
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.unpaused)
+            {
+                currentPauseState = PauseState.paused;
+
+            }else if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.paused)
+            {
+                currentPauseState = PauseState.unpaused;
+
+            }
+
+            if (Button._returnedToMenu == true)
+            {
+                returnToMenu();
+                Button._returnedToMenu = false;
+            }
+
+
+
+
+
 
             LevelManager.Instance.ChangeLevelDebug();
             LevelManager.Instance.GenerateLevel();
             LevelManager.Instance.CheckForClearedLevelDebug();
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
-            {
-                GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small));
-            }
+            
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
@@ -110,6 +145,7 @@ namespace JumpNGun.StatePattern.GameStates
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
             LevelManager.Instance.GenerateLevel();
+            
 
             foreach (var go in GameWorld.Instance.gameObjects)
             {
@@ -118,7 +154,6 @@ namespace JumpNGun.StatePattern.GameStates
             Console.WriteLine("Main game init");
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
-            isInitialized = true;
 
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
@@ -128,13 +163,28 @@ namespace JumpNGun.StatePattern.GameStates
 
                 }
             }
+
+            isInitialized = true;
+
+            
         }
 
+        public void returnToMenu()
+        {
+            GameWorld.Instance.ChangeState(new MainMenuState());
+            SoundManager.Instance.StopClip("soundtrack_1");
+
+            ClearObjects();
+        }
+
+        /// <summary>
+        /// Destroys all relevant gameObjects from world
+        /// </summary>
         private void ClearObjects()
         {
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
-                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>())
+                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<Mushroom>() || go.HasComponent<ExperienceOrb>())
                 {
                     GameWorld.Instance.Destroy(go);
                     LevelManager.Instance.LevelIsGenerated = false;
@@ -148,6 +198,6 @@ namespace JumpNGun.StatePattern.GameStates
             }
         }
 
-        
+
     }
 }

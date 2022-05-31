@@ -4,7 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-<<<<<<< HEAD
     <File>A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_idle.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_jump.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_run.png</File>
@@ -46,6 +45,8 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/menu_hover_2.wav</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/menu_hover_3.wav</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/music.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/paused_button.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/paused_overlay.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Pixel.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_2.png</File>
@@ -63,6 +64,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_open_6.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_open_7.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_open_8.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/quit_to_menu_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle2.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle3.png</File>
@@ -70,53 +72,6 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/sfx.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_1.mp3</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</File>
-=======
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/1_Ranger_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/1_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/1_Soldier_jump.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/1_Soldier_run.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/2.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/2_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/2_Soldier_jump.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/2_Soldier_run.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/3_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/3_Soldier_run.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/4_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/4_Soldier_run.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/5_Soldier_run.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/6_Soldier_run.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Arrow.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Bullet.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Desert platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/dessert_ground.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Grass platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/grass_ground.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/graveyard platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/graveyard_ground.PNG</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/ground_platform.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/Pixel.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_1.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_2.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_3.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_4.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_5.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_6.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_7.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_idle_8.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_1.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_2.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_3.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_4.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_5.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_6.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_7.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/portal_open_8.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/reaper_idle1.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/reaper_idle2.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/reaper_idle3.png</File>
-    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/reaper_idle4.png</File>
->>>>>>> main
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
@@ -164,7 +119,6 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
-<<<<<<< HEAD
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
@@ -185,7 +139,8 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
-=======
->>>>>>> main
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

@@ -45,6 +45,8 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/menu_hover_2.wav</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/menu_hover_3.wav</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/music.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/paused_button.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/paused_overlay.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Pixel.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_2.png</File>
@@ -62,6 +64,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_open_6.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_open_7.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_open_8.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/quit_to_menu_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle2.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle3.png</File>
@@ -71,6 +74,9 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

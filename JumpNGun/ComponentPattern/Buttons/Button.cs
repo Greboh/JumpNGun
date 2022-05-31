@@ -8,7 +8,7 @@ using SharpDX.Direct3D9;
 
 namespace JumpNGun
 {
-    class Button : Component
+    public class Button : Component
     {
         /*
             [Discription]
@@ -30,6 +30,8 @@ namespace JumpNGun
         private Vector2 _musicButtonPosition = new Vector2(553, 375);
         private Vector2 _sfxButtonPosition = new Vector2(614, 443);
         private Vector2 _backButtonPosition = new Vector2(583,639);
+        private Vector2 _quitToMainButtonPosition = new Vector2(487, 700);
+
 
         private bool fireOnce = true; // bool used for insuring sound doesn't fire more than once when hovering
 
@@ -44,6 +46,7 @@ namespace JumpNGun
 
         // TODO REMOVE THIS
         private bool _canIntersect = true;
+        public static bool _returnedToMenu = false;
         #endregion
 
         #region Constructor
@@ -87,6 +90,9 @@ namespace JumpNGun
                 case ButtonType.Back:
                     _position = _backButtonPosition;
                     break;
+                case ButtonType.QuitToMain:
+                    _position = _quitToMainButtonPosition;
+                    break;
             }
         }
 
@@ -119,193 +125,40 @@ namespace JumpNGun
                 switch (_type)
                 {
                     case ButtonType.Start:
-                        //Console.WriteLine($"Intersects with {_type}");
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
-                        {
-                            GameWorld.Instance.ChangeState(new MainGameState());
-
-
-                            _canIntersect = false;
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            _canIntersect = true;
-                        }
+                        StartGame();
                         break;
                     case ButtonType.Settings:
-                        //Console.WriteLine($"Intersects with {_type}");
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
-                        {
-                            GameWorld.Instance.ChangeState(new SettingsMenuState());
-
-                            _mouseCooldown += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                            _canIntersect = false;
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            _canIntersect = true;
-                        }
+                        Settings(gameTime);
                         break;
                     case ButtonType.Highscores:
 
                         break;
                     case ButtonType.Quit:
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
-                        {
-
-                            GameWorld.Instance.Exit();
-
-                            _canIntersect = false;
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            _canIntersect = true;
-                        }
+                        Quit();
                         break;
+
                     case ButtonType.Audio:
-                        //Console.WriteLine($"Intersects with {_type}");
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
-                        {
-                            GameWorld.Instance.ChangeState(new AudioSettingsState());
-
-                            _mouseCooldown += 0;
-                            _canIntersect = false;
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect )
-                        {
-                            _canIntersect = true;
-                        }
+                        MainAudioMenu();
                         break;
+
                     case ButtonType.Controls:
-                        //Console.WriteLine($"Intersects with {_type}");
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
-                        {
-                            GameWorld.Instance.ChangeState(new ControlSettingsState());
-
-                            _mouseCooldown += 0;
-                            
-
-                            _canIntersect = false;
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            _canIntersect = true;
-                        }
+                        ControlsMenu();
                         break;
+
                     case ButtonType.Music:
-                        Console.WriteLine($"Intersects with {_type}");
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
-                        {
-                            _mouseCooldown += 0;
-                            _canIntersect = false;
-                            if (SoundManager.Instance._musicDisabled == true)
-                            {
-                                SoundManager.Instance._musicDisabled = false;
-                                SoundManager.Instance.toggleSoundtrackOn();
-
-                            }
-                            else
-                            {
-                                SoundManager.Instance._musicDisabled = true;
-                                SoundManager.Instance.toggleSoundtrackOff();
-
-
-                            }
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            SoundManager.Instance.PlayClip("menu_click");
-
-                            _canIntersect = true;
-                        }
+                        MusicMenu();
                         break;
+
                     case ButtonType.Sfx:
-                        Console.WriteLine($"Intersects with {_type}");
-
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
-                        {
-                            
-
-
-                            _mouseCooldown += 0;
-                            _canIntersect = false;
-                            if (SoundManager.Instance._sfxDisabled == true)
-                            {
-                                SoundManager.Instance._sfxDisabled = false;
-                                SoundManager.Instance.toggleSFXOn();
-                            }
-                            else
-                            {
-                                SoundManager.Instance._sfxDisabled = true;
-                                SoundManager.Instance.toggleSFXOff();
-
-                            }
-
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            SoundManager.Instance.PlayClip("menu_click");
-                            
-                            _canIntersect = true;
-                        }
+                        SoundEffectsMenu();
                         break;
+
                     case ButtonType.Back:
-                        //Console.WriteLine($"Intersects with {_type}");
+                        BackButton();
+                        break;
 
-                        if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
-                        {
-
-
-
-                            //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
-                            //{
-                            //    GameWorld.Instance.ChangeState(new SettingsMenuState());
-
-                            //}
-                            if (GameWorld.Instance._currentState is SettingsMenuState) // return to Main menu from settings
-                            {
-                                GameWorld.Instance.ChangeState(new MainMenuState());
-
-                            }
-                            else if (GameWorld.Instance._currentState is AudioSettingsState) // return to main settings menu from audio settings
-                            {
-                                GameWorld.Instance.ChangeState(new SettingsMenuState());
-
-                            }
-                            else if (GameWorld.Instance._currentState is ControlSettingsState) // return to main settings menu from control settings
-                            {
-                                GameWorld.Instance.ChangeState(new SettingsMenuState());
-
-                            }
-
-
-                            //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(SettingsMenuState)))
-                            //{
-                            //    GameWorld.Instance.ChangeState(new MainMenuState());
-                            //}
-                            //else if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
-                            //{
-                            //    GameWorld.Instance.ChangeState(new SettingsMenuState());
-
-                            //}
-
-
-
-
-                            _mouseCooldown += 0;
-
-
-                            _canIntersect = false;
-                        }
-                        else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
-                        {
-                            _canIntersect = true;
-                        }
+                    case ButtonType.QuitToMain:
+                        QuitToMain();
                         break;
                 }
             }
@@ -314,6 +167,240 @@ namespace JumpNGun
                 _sr.SetColor(Color.White); // resets hover color
                 fireOnce = true;
 
+            }
+        }
+
+        /// <summary>
+        /// Start Game logic button
+        /// </summary>
+        private void StartGame()
+        {
+            //Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+                GameWorld.Instance.ChangeState(new MainGameState());
+
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Main settings menu button 
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void Settings(GameTime gameTime)
+        {
+            //Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+                GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                _mouseCooldown += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Quit button logic
+        /// </summary>
+        private void Quit()
+        {
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+
+                GameWorld.Instance.Exit();
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Main audio menu button logic
+        /// </summary>
+        private void MainAudioMenu()
+        {
+            //Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                GameWorld.Instance.ChangeState(new AudioSettingsState());
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Controls menu button logic
+        /// </summary>
+        private void ControlsMenu()
+        {
+            //Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                GameWorld.Instance.ChangeState(new ControlSettingsState());
+
+                _mouseCooldown += 0;
+
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Music menu settings button logic
+        /// </summary>
+        private void MusicMenu()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                _mouseCooldown += 0;
+                _canIntersect = false;
+                if (SoundManager.Instance._musicDisabled == true)
+                {
+                    SoundManager.Instance._musicDisabled = false;
+                    SoundManager.Instance.toggleSoundtrackOn();
+
+                }
+                else
+                {
+                    SoundManager.Instance._musicDisabled = true;
+                    SoundManager.Instance.toggleSoundtrackOff();
+
+
+                }
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                SoundManager.Instance.PlayClip("menu_click");
+
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// SFX button logic
+        /// </summary>
+        private void SoundEffectsMenu()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+                if (SoundManager.Instance._sfxDisabled == true)
+                {
+                    SoundManager.Instance._sfxDisabled = false;
+                    SoundManager.Instance.toggleSFXOn();
+                }
+                else
+                {
+                    SoundManager.Instance._sfxDisabled = true;
+                    SoundManager.Instance.toggleSFXOff();
+
+                }
+
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                SoundManager.Instance.PlayClip("menu_click");
+
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Back button logic
+        /// </summary>
+        private void BackButton()
+        {
+            //Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+
+
+
+                //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
+                //{
+                //    GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                //}
+                if (GameWorld.Instance._currentState is SettingsMenuState) // return to Main menu from settings
+                {
+                    GameWorld.Instance.ChangeState(new MainMenuState());
+
+                }
+                else if (GameWorld.Instance._currentState is AudioSettingsState) // return to main settings menu from audio settings
+                {
+                    GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                }
+                else if (GameWorld.Instance._currentState is ControlSettingsState) // return to main settings menu from control settings
+                {
+                    GameWorld.Instance.ChangeState(new SettingsMenuState());
+
+                }
+
+                _mouseCooldown += 0;
+
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Quit to main button logic
+        /// </summary>
+        private void QuitToMain()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 1f)
+            {
+                _returnedToMenu = true;
+
+                _mouseCooldown += 0;
+
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
             }
         }
         #endregion

@@ -475,6 +475,30 @@
 /processorParam:TextureFormat=Color
 /build:music.png
 
+#begin paused_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:paused_button.png
+
+#begin paused_overlay.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:paused_overlay.png
+
 #begin Pixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -678,6 +702,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:portal_open_8.png
+
+#begin quit_to_menu_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:quit_to_menu_button.png
 
 #begin reaper_idle1.png
 /importer:TextureImporter

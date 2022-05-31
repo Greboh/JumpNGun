@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Large_Orb.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Medium_Orb.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Ranger_idle.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Small_Orb.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_idle.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_jump.xnb
@@ -25,16 +25,58 @@ A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_run.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_idle.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_run.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Arrow.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\audio_button.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\background_image.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\back_button.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Bullet.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\checkmark.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_5.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\controls_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\crossedout.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Desert platform.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\dessert_ground.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ExperienceBar.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\game_title.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle4.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Grass platform.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\grass_ground.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard platform.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard_ground.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_score.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\jump.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_click.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Menu_selection.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack5.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack6.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack7.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack8.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_idle1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack5.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack6.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack7.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack8.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\music.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Pixel.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_1.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_2.xnb
@@ -52,14 +94,56 @@ A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_5.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_6.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_7.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_8.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\quit_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack10.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack11.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack12.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack13.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack5.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack6.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack7.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack8.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack9.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death10.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death11.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death12.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death13.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death14.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death15.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death16.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death17.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death18.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death5.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death6.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death7.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death8.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death9.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle1.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle2.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle3.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon3.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon5.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\settings_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\sfx.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_1.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_2.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_3.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_4.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.wma
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_2.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\start_button.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.exe
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.deps.json
@@ -98,317 +182,6 @@ A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csprojAssemblyReference.cache
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_score.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\quit_button.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\settings_button.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\game_title.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_button.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.AssemblyReference.cache
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfoInputs.cache
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfo.cs
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CoreCompileInputs.cache
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Large_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Medium_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Small_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Large_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Medium_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Small_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Large_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Medium_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Small_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Large_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Medium_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Small_Orb.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ExperienceBar.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_score.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\quit_button.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\settings_button.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_1.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_2.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_3.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_4.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\start_button.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_idle.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_jump.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_run.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_idle.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_jump.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_run.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_idle.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_run.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_idle.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_run.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_idle.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_run.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\background_image.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Bullet.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Desert platform.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\dessert_ground.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\game_title.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Grass platform.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\grass_ground.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard platform.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard_ground.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_button.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Pixel.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_1.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_2.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_3.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_4.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_5.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_6.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_7.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_8.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_1.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_2.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_3.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_4.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_5.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_6.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_7.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_8.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle1.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle2.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle3.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle4.xnb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.exe
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.deps.json
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.json
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.dev.json
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.pdb
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.VisualBasic.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct2D1.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D11.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D9.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.DXGI.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Mathematics.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.MediaFoundation.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XAudio2.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XInput.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\debian-x64\native\libuv.so
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\fedora-x64\native\libuv.so
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\opensuse-x64\native\libuv.so
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\osx\native\libuv.dylib
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\rhel-x64\native\libuv.so
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-arm\native\libuv.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\libuv.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x86\native\libuv.dll
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CopyComplete
-C:\Users\sthob\Desktop\Skole\Opgaver\Eksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\audio_button.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\controls_button.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\jump.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Menu_selection.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_1.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_2.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_3.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\checkmark.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\crossedout.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\music.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\sfx.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_click.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.wma
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_2.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\back_button.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_1.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_2.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_3.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_4.xnb
-A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_5.xnb
-=======
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Large_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Medium_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Ranger_idle.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Small_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_idle.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_jump.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_run.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Large_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Medium_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Small_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_idle.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_jump.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_run.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Large_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Medium_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Small_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_idle.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_run.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Large_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Medium_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Small_Orb.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_idle.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_run.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_idle.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_run.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_run.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Arrow.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\audio_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\background_image.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\back_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Bullet.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\checkmark.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cloud_5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\controls_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\crossedout.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Desert platform.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\dessert_ground.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ExperienceBar.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\game_title.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\golem_idle4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Grass platform.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\grass_ground.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard platform.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveyard_ground.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\ground_platform.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscore_score.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\jump.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_click.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\menu_hover_3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Menu_selection.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack6.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack7.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_attack8.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mushroom_idle1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack6.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack7.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\mush_attack8.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\music.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\Pixel.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_6.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_7.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_idle_8.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_6.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_7.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\portal_open_8.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\quit_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack10.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack11.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack12.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack13.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack6.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack7.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack8.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_attack9.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death10.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death11.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death12.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death13.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death14.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death15.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death16.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death17.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death18.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death6.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death7.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death8.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_death9.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_idle4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\reaper_summon5.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\settings_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\sfx.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_3.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\slug_idle_4.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.wma
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_1.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\soundtrack_2.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\start_button.xnb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.exe
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.deps.json
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.json
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.runtimeconfig.dev.json
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\JumpNGun.pdb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Microsoft.VisualBasic.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct2D1.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D11.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Direct3D9.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.DXGI.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.Mathematics.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.MediaFoundation.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XAudio2.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\SharpDX.XInput.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\debian-x64\native\libuv.so
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\fedora-x64\native\libuv.so
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\opensuse-x64\native\libuv.so
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\osx\native\libuv.dylib
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\rhel-x64\native\libuv.so
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-arm\native\libuv.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x64\native\libuv.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\runtimes\win7-x86\native\libuv.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfoInputs.cache
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.AssemblyInfo.cs
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CoreCompileInputs.cache
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
-C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\2. Semestereksamen\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
->>>>>>> main
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\paused_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\paused_overlay.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\quit_to_menu_button.xnb

@@ -95,7 +95,7 @@ namespace JumpNGun
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+            //if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
             //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
             //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
 
