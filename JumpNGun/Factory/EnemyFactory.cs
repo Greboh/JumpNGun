@@ -113,13 +113,13 @@ namespace JumpNGun
             _animator.AddAnimation(BuildAnimations("reaper_attack", new string[] {"reaper_attack1", "reaper_attack2", "reaper_attack3", "reaper_attack4", "reaper_attack5", "reaper_attack6", "reaper_attack7", "reaper_attack8",
                         "reaper_attack9","reaper_attack10","reaper_attack11","reaper_attack12","reaper_attack13"},10));
 
-            _animator.AddAnimation(BuildAnimations("reaper_summon", new string[] { "reaper_summon1", "reaper_summon2", "reaper_summon3", "reaper_summon4", "reaper_summon5", },10));
+            _animator.AddAnimation(BuildAnimations("reaper_summon", new string[] { "reaper_summon1", "reaper_summon2", "reaper_summon3", "reaper_summon4", "reaper_summon5", },5));
 
             _animator.AddAnimation(BuildAnimations("reaper_death", new string[] { "reaper_death1", "reaper_death2", "reaper_death3", "reaper_death4", "reaper_death5", "reaper_death6",
-                         "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",},15));
+                         "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",},20));
 
             _animator.AddAnimation(BuildAnimations("reaper_spawn", new string[] { "reaper_death18", "reaper_death17", "reaper_death16", "reaper_death15", "reaper_death14", "reaper_death13",
-                         "reaper_death12", "reaper_death11", "reaper_death10", "reaper_death9","reaper_death8","reaper_death7","reaper_death6","reaper_death5","reaper_death4","reaper_death3","reaper_death2","reaper_death1",}, 15));
+                         "reaper_death12", "reaper_death11", "reaper_death10", "reaper_death9","reaper_death8","reaper_death7","reaper_death6","reaper_death5","reaper_death4","reaper_death3","reaper_death2","reaper_death1",}, 20));
         }
 
         private void CreateReaperMinionAnimations()

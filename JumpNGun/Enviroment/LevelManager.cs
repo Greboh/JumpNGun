@@ -120,6 +120,7 @@ namespace JumpNGun
                     break;
                 case 13:
                     {
+                        _isBossLevel = false;
                         _currentEnemyType = EnemyType.Skeleton;
                         _currentPlatformType = PlatformType.graveyard;
                         _currentGroundPlatform = PlatformType.graveGround;

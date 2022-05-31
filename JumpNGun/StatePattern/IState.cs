@@ -11,18 +11,18 @@ namespace JumpNGun
         /// Method called when entering new state
         /// </summary>
         /// <param name="parent"></param>
-        void Enter(GameObject parent);
+        public void Enter(Enemy parent);
 
         /// <summary>
         /// Logic to execute when in specific state
         /// </summary>
         /// <param name="gameTime"></param>
-        void Execute(GameTime gameTime);
+        public void Execute(Enemy gameTime);
 
         /// <summary>
         /// Logic to execute before/as leaving state
         /// </summary>
-        void Exit();
+        public void Exit();
 
     }
 }

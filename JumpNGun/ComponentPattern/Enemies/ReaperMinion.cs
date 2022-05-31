@@ -7,18 +7,23 @@ namespace JumpNGun
 {
     class ReaperMinion : Enemy
     {
+        private bool _spawningDone;
+        private float liveTime = 10;
+        private float timer;
+
         public ReaperMinion(Vector2 position)
         {
             this.position = position;
             health = 10;
-            speed = 1;
+            Speed = 1f;
             damage = 10;
+            isAttacking = true;
         }
 
         public override void Awake()
         {
-            GameObject.Transform.Position = position;
             base.Awake();
+            GameObject.Transform.Position = position;
         }
 
         public override void Start()
@@ -28,6 +33,7 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
+            Death();
             ChasePlayer();
             CheckCollision();
             HandleAnimations();
@@ -59,20 +65,29 @@ namespace JumpNGun
                         //get player component and attack player
                         GameWorld.Instance.Destroy(GameObject);
                     }
-
-                    //Destroy platform and reaperminion if they collide
-                    if (col.GameObject.HasComponent<Platform>())
-                    {
-                        GameWorld.Instance.Destroy(col.GameObject);
-                        GameWorld.Instance.Destroy(GameObject);
-                    }
                 }
+            }
+        }
+
+        private void Death()
+        {
+            timer += GameWorld.DeltaTime;
+            if (liveTime < GameWorld.DeltaTime)
+            {
+                GameWorld.Instance.Destroy(GameObject);
             }
         }
 
         public override void HandleAnimations()
         {
-            animator.PlayAnimation("minion_idle");
+            if(!_spawningDone)animator.PlayAnimation("minion_spawn");
+
+            if (animator.IsAnimationDone && !_spawningDone)
+            {
+                _spawningDone = true;
+                isAttacking = false;
+                animator.PlayAnimation("minion_idle");
+            }
         }
     }
 }
