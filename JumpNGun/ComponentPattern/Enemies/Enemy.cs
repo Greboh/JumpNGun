@@ -12,31 +12,33 @@ namespace JumpNGun
         protected int damage;
 
         protected float speed;
+        protected float originalspeed;
 
         protected Vector2 position;
         protected Vector2 velocity;
-
-        protected bool isColliding = false;
 
         protected SpriteRenderer sr;
         protected Animator animator;
         protected Collider collider;
         protected Player player;
 
-
-        protected IState _currentState;
-
+        protected bool isImmune;
         protected bool canAttack;
-        protected bool isAttacking = false;
         private bool canMove = true;
 
-        public float Speed { get => speed; set => speed = value; }
 
         public abstract void Attack();
 
         public abstract void CheckCollision();
 
-        public abstract void ChasePlayer();
+        public virtual void ChasePlayer()
+        {
+            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
+            sourceToTarget.Normalize();
+            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+
+            velocity = sourceToTarget;
+        }
 
         public abstract void HandleAnimations();
 
@@ -58,9 +60,9 @@ namespace JumpNGun
         {
             FlipSprite();
             Move();
-            Collision();
-            Die();
+            TakeDamage();
             UpdatePositionReference();
+            Die();
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace JumpNGun
         /// </summary>
         private void Move()
         {
-            if (isAttacking || !canMove) return;
+            if (canAttack || !canMove) return;
             GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
         }
 
@@ -85,7 +87,7 @@ namespace JumpNGun
         /// </summary>
         private void FlipSprite()
         {
-            if (!isAttacking)
+            if (!canAttack)
             {
                 // If we are moving left, flip the sprite
                 if (velocity.X < 0)
@@ -106,22 +108,15 @@ namespace JumpNGun
             }
         }
 
-        private void Collision()
+        private void TakeDamage()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
                 if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "P_Projectile")
                 {
-
                     health -= 20;
                     GameWorld.Instance.Destroy(col.GameObject);
-
                 }
-                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "Player")
-                {
-                    canAttack = true;
-                }
-                else if (!col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "Player") canAttack = false;
             }
         }
 
@@ -129,7 +124,6 @@ namespace JumpNGun
         {
             canMove = (bool)ctx["freeze"];
         }
-
 
         private void Die()
         {

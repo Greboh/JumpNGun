@@ -28,7 +28,7 @@ namespace JumpNGun
         {
             this.position = position;
             health = 20;
-            Speed = 40;
+            speed = 40;
             damage = 20;
         }
 
@@ -59,7 +59,6 @@ namespace JumpNGun
 
         #region Movement Methods
 
-
         /// <summary>
         /// Find and reference the rectangle containing mushroom object position
         /// </summary>
@@ -77,6 +76,9 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Create a rectangle that consist of all rectangles containing platforms and are alligned
+        /// </summary>
         private void CreateMovementArea()
         {
             //TODO - make an algorithm that run once. - KRISTIAN
@@ -110,6 +112,9 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Get all rectangles that contain a platform
+        /// </summary>
         private void GetLocations()
         {
             for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
@@ -119,7 +124,6 @@ namespace JumpNGun
         }
 
         #endregion
-
 
         /// <summary>
         /// Attacks by calling shoot method and changing relevant bool
@@ -131,9 +135,9 @@ namespace JumpNGun
             if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
             {
                 Shoot();
-                isAttacking = true;
+                canAttack = true;
             }
-            else isAttacking = false;
+            else canAttack = false;
         }
 
         /// <summary>
@@ -141,11 +145,11 @@ namespace JumpNGun
         /// </summary>
         public override void HandleAnimations()
         {
-            if (!isAttacking && health >0) animator.PlayAnimation("mushroom_run");
-            if (isAttacking && health >0) animator.PlayAnimation("mushroom_attack");
+            if (!canAttack && health >0) animator.PlayAnimation("mushroom_run");
+            if (canAttack && health >0) animator.PlayAnimation("mushroom_attack");
             if (health <= 0)
             {
-                Speed = 0;
+                speed = 0;
                 //TODO - make enemy stop shooting when death animation playing - KRISTIAN
                 animator.PlayAnimation("mushroom_death");
             }
@@ -176,13 +180,10 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.HasComponent<Platform>())
+                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(collider.CollisionBox))
                 {
-                    if (col.CollisionBox.Intersects(collider.CollisionBox))
-                    {
-                        _isGrounded = true;
-                        _groundCollision = col.CollisionBox;
-                    }
+                    _isGrounded = true;
+                    _groundCollision = col.CollisionBox;
                 }
                 if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
                 {
@@ -232,9 +233,5 @@ namespace JumpNGun
             }
         }
 
-        public override void ChasePlayer()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
