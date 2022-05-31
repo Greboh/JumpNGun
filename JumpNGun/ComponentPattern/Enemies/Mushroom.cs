@@ -28,7 +28,7 @@ namespace JumpNGun
         {
             this.position = position;
             health = 20;
-            speed = 40;
+            Speed = 40;
             damage = 20;
         }
 
@@ -145,7 +145,7 @@ namespace JumpNGun
             if (isAttacking && health >0) animator.PlayAnimation("mushroom_attack");
             if (health <= 0)
             {
-                speed = 0;
+                Speed = 0;
                 //TODO - make enemy stop shooting when death animation playing - KRISTIAN
                 animator.PlayAnimation("mushroom_death");
             }

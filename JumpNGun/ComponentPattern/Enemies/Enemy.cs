@@ -10,7 +10,7 @@ namespace JumpNGun
     {
         protected int health;
         protected int damage;
-        
+
         protected float speed;
 
         protected Vector2 position;
@@ -23,9 +23,14 @@ namespace JumpNGun
         protected Collider collider;
         protected Player player;
 
+
+        protected IState _currentState;
+
         protected bool canAttack;
         protected bool isAttacking = false;
         private bool canMove = true;
+
+        public float Speed { get => speed; set => speed = value; }
 
         public abstract void Attack();
 

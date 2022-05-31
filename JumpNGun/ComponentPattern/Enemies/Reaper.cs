@@ -7,52 +7,52 @@ using System.Threading.Tasks;
 
 namespace JumpNGun
 {
-    class Reaper : Enemy
+    public class Reaper : Enemy
     {
-        private List<Rectangle> spawnLocations = new List<Rectangle>();
         private int _miniomAmount = 1;
         private bool _canSpawn;
         private bool _canTeleport;
-        private bool _teleportFinished;
-        private bool _isSpawning;
-
-        private Random _rand = new Random();
+        
 
         private float _spawnTime;
-        private float _spawnCooldown = 5;
+        private float _spawnCooldown = 20;
         private float _teleportTime;
         private float _teleportCooldown = 5;
-        private float originalSpeed;
+        private Vector2[] minionPositions;
+        private IState _currentState;
 
+        public float OriginalSpeed { get; private set; }
 
         public Reaper()
         {
             this.position = new Vector2(662, 400);
-            health = 100;
+            health = 200;
             damage = 20;
-            speed = 0.7f;
-            originalSpeed = speed;
+            Speed = 0.7f;
+            OriginalSpeed = Speed;
         }
         public override void Awake()
         {
+            
             base.Awake();
         }
 
         public override void Start()
         {
-            GetLocations();
+            GameObject.Transform.Position = position;
+            ChangeState(new MoveState());
             base.Start();
         }
 
         public override void Update(GameTime gameTime)
         {
+            _currentState.Execute(gameTime);
             ChasePlayer();
             HandleAnimations();
             CheckCollision();
-            //SpawnGhosts();
-            //HandleGhostSpawnLogic();
             Teleport();
             HandleTeleportLogic();
+            IncreaseDifficulty();
             base.Update(gameTime);
         }
 
@@ -75,54 +75,47 @@ namespace JumpNGun
         }
 
 
+        /// <summary>
+        /// Handle all relevant animation for Reaper
+        /// </summary>
         public override void HandleAnimations()
         {
-            //TODO refactor this
-            if (!canAttack && !_canTeleport) animator.PlayAnimation("reaper_idle");
-            else if (canAttack && !_canTeleport) animator.PlayAnimation("reaper_attack");
-            else if (_canTeleport && !_teleportFinished)
-            {
-                animator.PlayAnimation("reaper_death");
-            }
-            else if (_teleportFinished && _canTeleport)
-            {
-                animator.PlayAnimation("reaper_spawn");
-                if (animator.IsAnimationDone)
-                {
-                    _canTeleport = false;
-                    _teleportFinished = false;
-                    speed = originalSpeed;
-                }
-            }
+            //if (!isAttacking) animator.PlayAnimation("reaper_idle");
+            //if (health <= 0) animator.PlayAnimation("reaper_death");
+            //if (isAttacking) animator.PlayAnimation("reaper_attack");
         }
 
         #region ABILITIES
+
+
+        /// <summary>
+        /// Teleports Reaper close to player object if conditions are met
+        /// </summary>
         private void Teleport()
         {
-            if (!_canTeleport || !CalculateDistanceToEnemy()) return;
+            if (!_canTeleport || !CalculateDistanceToEnemy() && health >= 50) return;
+            
+            ChangeState(new TeleportState(new Vector2 (player.Position.X + sr.Sprite.Width, player.Position.Y)));
 
-            speed = 0;
-
-            if (animator.IsAnimationDone)
-            {
-                GameObject.Transform.Position = new Vector2(player.Position.X + _rand.Next(-100, 100), player.Position.Y);
-                _teleportFinished = true;
-            }
+            _canTeleport = false;
         }
 
+
+        /// <summary>
+        /// Returns true/false depending on this object's distance to player
+        /// </summary>
+        /// <returns></returns>
         private bool CalculateDistanceToEnemy()
         {
-            if (this.position.X - player.Position.X > 150 || this.position.X - player.Position.X < -150)
-            {
-                return true;
-            }
-            if (this.position.Y - player.Position.Y > 150 || this.position.Y - player.Position.Y < -150)
-            {
-                return true;
-            }
+            if (this.position.X - player.Position.X > 200 || this.position.X - player.Position.X < -200) return true;
+            if (this.position.Y - player.Position.Y > 200 || this.position.Y - player.Position.Y < -200) return true;
             else return false;
         }
 
+
+        /// <summary>
+        /// Resets ability to teleport after cooldown
+        /// </summary>
         private void HandleTeleportLogic()
         {
             if (_canTeleport) return;
@@ -134,31 +127,34 @@ namespace JumpNGun
                 _canTeleport = true;
                 _teleportTime = 0;
             }
-
         }
+        
 
-
-        private void SpawnGhosts()
+        /// <summary>
+        /// Spawn Reaperminions around Reaper if conditions are met
+        /// </summary>
+        private void SummonMinions()
         {
             if (!_canSpawn) return;
 
-            speed = 0;
 
+            _spawningFinished = true;
+
+            CreateMinionPositions();
 
             for (int i = 0; i < _miniomAmount; i++)
             {
-                GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.ReaperMinion, this.position));
-            }
-
-            if (animator.IsAnimationDone)
-            {
-                speed = originalSpeed;
+                GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.ReaperMinion, minionPositions[i]));
             }
 
             _canSpawn = false;
         }
 
-        private void HandleGhostSpawnLogic()
+
+        /// <summary>
+        /// Resets ability to spawn ReaperMinions 
+        /// </summary>
+        private void HandleSummonMinionLogic()
         {
             if (_canSpawn) return;
 
@@ -169,21 +165,54 @@ namespace JumpNGun
                 _canSpawn = true;
                 _spawnTime = 0;
             }
-
         }
 
 
+        /// <summary>
+        /// Creates an array holding 4 positions around reaper object
+        /// </summary>
+        private void CreateMinionPositions()
+        {
+            minionPositions = new Vector2[]
+            {
+                new Vector2(position.X + 75, position.Y),
+                new Vector2(position.X, position.Y + 75),
+                new Vector2(position.X-75, position.Y),
+                new Vector2(position.X, position.Y - 75)
+            };
+        }
 
         #endregion
-
-        /// <summary>
-        /// Get all rectangles that contain platforms
-        /// </summary>
-        private void GetLocations()
+        public void ChangeState(IState newState)
         {
-            for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
+            _currentState = newState;
+            _currentState.Enter(this);
+        }
+
+        //TODO - TEST THIS - Kristian
+        private void IncreaseDifficulty()
+        {
+            switch (health)
             {
-                spawnLocations.Add(LevelManager.Instance.UsedLocations[i]);
+                case 250:
+                    {
+                        _miniomAmount = 2;
+                    }
+                    break;
+                case 200:
+                    {
+                        _miniomAmount = 3;
+                    }
+                    break;
+                case 150:
+                    {
+                        _miniomAmount = 4;
+                    }break;
+                case 50:
+                    {
+                        _spawnCooldown = 2;
+                        _canTeleport = false;
+                    }break;
             }
         }
 
