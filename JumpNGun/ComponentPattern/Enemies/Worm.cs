@@ -171,9 +171,9 @@ namespace JumpNGun
             if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
             {
                 Shoot();
-                isAttacking = true;
+                canAttack = true;
             }
-            else isAttacking = false;
+            else canAttack = false;
         }
 
         /// <summary>
@@ -217,24 +217,15 @@ namespace JumpNGun
             _canShoot = false;
         }
 
-
         public override void HandleAnimations()
         {
-            if (!isAttacking && health > 0) animator.PlayAnimation("worm_walk");
-            if (isAttacking && health > 0) animator.PlayAnimation("worm_attack");
+            if (!canAttack && health > 0) animator.PlayAnimation("worm_walk");
+            if (canAttack && health > 0) animator.PlayAnimation("worm_attack");
             if (health <= 0)
             {
                 speed = 0;
                 animator.PlayAnimation("worm_death");
             }
         }
-
-
-        public override void ChasePlayer()
-        {
-            throw new NotImplementedException();
-        }
-
-
     }
 }

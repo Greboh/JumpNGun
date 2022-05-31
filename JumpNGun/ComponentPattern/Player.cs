@@ -320,7 +320,7 @@ namespace JumpNGun
                 // If our CollisionBox collides with another CollisionBox and it's tag is ground and we haven't collided with ground yet
                 if (_pCollider.CollisionBox.Intersects(otherCollision.CollisionBox) && !_hasCollidedWithGround)
                 {
-                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
+                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "Platform")
                     {
                         _isGrounded = CalculateCollisionLineIntersection( otherCollision);
                     }

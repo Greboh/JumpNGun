@@ -82,7 +82,7 @@ namespace JumpNGun
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
-            gameObject.Tag = "platform";
+            gameObject.Tag = "Platform";
 
             gameObject.AddComponent(new Collider());
 

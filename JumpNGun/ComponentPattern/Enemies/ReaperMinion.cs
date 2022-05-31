@@ -15,9 +15,9 @@ namespace JumpNGun
         {
             this.position = position;
             health = 10;
-            Speed = 1f;
+            speed = 1f;
             damage = 10;
-            isAttacking = true;
+            canAttack = true;
         }
 
         public override void Awake()
@@ -85,7 +85,7 @@ namespace JumpNGun
             if (animator.IsAnimationDone && !_spawningDone)
             {
                 _spawningDone = true;
-                isAttacking = false;
+                canAttack = false;
                 animator.PlayAnimation("minion_idle");
             }
         }

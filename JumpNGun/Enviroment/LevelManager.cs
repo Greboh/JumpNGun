@@ -20,7 +20,7 @@ namespace JumpNGun
 
         private bool _levelIsGenerated = false; //bool to control level generation
         private bool _isBossLevel = false;
-        private int _level = 12; // used to change level
+        private int _level = 1; // used to change level
         private int _enemyStartAmount = 2;// initial amount of enemies at start of game
         private int _enemyCurrentAmount = 2; // current amount of enemies through game
         private int _platformAmount = 4; // determines amount of platform pr. level

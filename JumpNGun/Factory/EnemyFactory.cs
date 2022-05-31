@@ -118,8 +118,11 @@ namespace JumpNGun
             _animator.AddAnimation(BuildAnimations("reaper_death", new string[] { "reaper_death1", "reaper_death2", "reaper_death3", "reaper_death4", "reaper_death5", "reaper_death6",
                          "reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10","reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",},20));
 
-            _animator.AddAnimation(BuildAnimations("reaper_spawn", new string[] { "reaper_death18", "reaper_death17", "reaper_death16", "reaper_death15", "reaper_death14", "reaper_death13",
-                         "reaper_death12", "reaper_death11", "reaper_death10", "reaper_death9","reaper_death8","reaper_death7","reaper_death6","reaper_death5","reaper_death4","reaper_death3","reaper_death2","reaper_death1",}, 20));
+            _animator.AddAnimation(BuildAnimations("reaper_teleport", new string[] { "reaper_death1", "reaper_death2", "reaper_death3", "reaper_death4", "reaper_death5", "reaper_death6","reaper_death7", "reaper_death8", "reaper_death9", "reaper_death10",
+                "reaper_death11","reaper_death12","reaper_death13","reaper_death14","reaper_death15","reaper_death16","reaper_death17","reaper_death18",
+                "reaper_death18", "reaper_death17", "reaper_death16", "reaper_death15", "reaper_death14", "reaper_death13",
+                "reaper_death12", "reaper_death11", "reaper_death10", "reaper_death9","reaper_death8","reaper_death7",
+                "reaper_death6","reaper_death5","reaper_death4","reaper_death3","reaper_death2","reaper_death1",}, 30));
         }
 
         private void CreateReaperMinionAnimations()
