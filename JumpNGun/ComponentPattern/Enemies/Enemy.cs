@@ -26,22 +26,6 @@ namespace JumpNGun
         protected bool canAttack;
         private bool canMove = true;
 
-
-        public abstract void Attack();
-
-        public abstract void CheckCollision();
-
-        public virtual void ChasePlayer()
-        {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
-            sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
-
-            velocity = sourceToTarget;
-        }
-
-        public abstract void HandleAnimations();
-
         public override void Awake()
         {
             EventManager.Instance.Subscribe("Freeze", FreezeMovement);
@@ -55,7 +39,6 @@ namespace JumpNGun
             player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
         }
 
-
         public override void Update(GameTime gameTime)
         {
             FlipSprite();
@@ -64,6 +47,22 @@ namespace JumpNGun
             UpdatePositionReference();
             Die();
         }
+
+        public abstract void Attack();
+
+        public abstract void CheckCollision();
+        
+        public abstract void HandleAnimations();
+
+        public virtual void ChasePlayer()
+        {
+            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
+            sourceToTarget.Normalize();
+            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+
+            velocity = sourceToTarget;
+        }
+
 
         /// <summary>
         /// Initiates movement of object
@@ -108,6 +107,9 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Deal damage to Enemy when colliding with Player projectile
+        /// </summary>
         private void TakeDamage()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
@@ -120,11 +122,18 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Freeze movement when event triggered
+        /// </summary>
+        /// <param name="ctx"></param>
         private void FreezeMovement(Dictionary<string, object> ctx)
         {
             canMove = (bool)ctx["freeze"];
         }
 
+        /// <summary>
+        /// Trigger event, add to score, and destroy this gameobject when health goes below or equal to 0
+        /// </summary>
         private void Die()
         {
             if (health <= 0)

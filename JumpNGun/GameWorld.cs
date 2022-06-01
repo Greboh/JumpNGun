@@ -77,7 +77,6 @@ namespace JumpNGun
         protected override void Initialize()
         {
             SoundManager.Instance.InitDictionary();
-            
 
             base.Initialize();
         }
@@ -146,8 +145,6 @@ namespace JumpNGun
             return _currentState;
         }
 
-        
-
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
         /// </summary>
@@ -158,7 +155,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Destroy and remove active GameObject from game by adding them to list of destroyedGameObjects
+        /// Remove active GameObject from game by adding them to list of destroyedGameObjects
         /// </summary>
         /// <param name="go">GameObject to be destoyed</param>
         public void Destroy(GameObject go)
@@ -231,12 +228,7 @@ namespace JumpNGun
                     return c;
                 }
             }
-
             return null;
-
-
         }
-
-
     }
 }

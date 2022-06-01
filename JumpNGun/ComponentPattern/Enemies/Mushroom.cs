@@ -17,7 +17,7 @@ namespace JumpNGun
         private List<Rectangle> locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
         private Rectangle _currentRectangle = Rectangle.Empty;
-
+        private bool _locationMade;
         private bool _locationRectangleFound;
         private bool _canShoot = true;
         private float _projectileSpeed = 150;
@@ -81,7 +81,6 @@ namespace JumpNGun
         /// </summary>
         private void CreateMovementArea()
         {
-            //TODO - make an algorithm that run once. - KRISTIAN
             for (int i = 0; i < locations.Count; i++)
             {
                 if (_currentRectangle.Right == locations[i].Left && _currentRectangle.Y == locations[i].Y)
@@ -94,6 +93,7 @@ namespace JumpNGun
                 }
             }
         }
+
 
         /// <summary>
         /// Set direction of movement according to position on platform

@@ -47,8 +47,8 @@ namespace JumpNGun
             //chose random rectangle from list
             Rectangle rect = locations[_random.Next(0, locations.Count)];
 
-            //if a vector2 already has been made within rectangle, return new in same rectangle with added X-value
-            if (_hasEnemy.Contains(rect)) return new Vector2(rect.Center.X + 50, rect.Center.Y - 70);
+            //if a vector2 already has been made within rectangle, return new in same rectangle with added X - value
+            if (_hasEnemy.Contains(rect)) return new Vector2(rect.Center.X -20, rect.Center.Y - 70);
 
             //add rectangle to list 
             _hasEnemy.Add(rect);
@@ -57,6 +57,10 @@ namespace JumpNGun
             return new Vector2(rect.Center.X, rect.Center.Y - 70);
         }
 
+        /// <summary>
+        /// Instantiate boss by type
+        /// </summary>
+        /// <param name="type">type of boss to be instantiated</param>
         public void GenerateBoss(EnemyType type)
         {
             GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type));
