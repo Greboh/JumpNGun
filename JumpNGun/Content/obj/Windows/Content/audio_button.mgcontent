@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<<<<<<<< HEAD:JumpNGun/Content/obj/Windows/Content/audio_button.mgcontent
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/audio_button.png</SourceFile>
   <SourceTime>2022-05-26T04:06:31.08377+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/audio_button.xnb</DestFile>
   <DestTime>2022-05-26T04:06:39.5768176+02:00</DestTime>
+========
+  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/background_image.png</SourceFile>
+  <SourceTime>2022-05-26T04:06:31.0917614+02:00</SourceTime>
+  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/background_image.xnb</DestFile>
+  <DestTime>2022-05-26T04:06:39.938448+02:00</DestTime>
+>>>>>>>> KristianV3:JumpNGun/Content/obj/Windows/Content/background_image.mgcontent
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

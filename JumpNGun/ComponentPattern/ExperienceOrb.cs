@@ -12,7 +12,7 @@ namespace JumpNGun
         private float _xpAmount;
         private Vector2 _position;
         private bool _hasCollided = false;
-
+       
 
         public ExperienceOrb(float xpAmount, Vector2 position)
         {

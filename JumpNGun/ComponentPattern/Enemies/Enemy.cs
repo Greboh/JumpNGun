@@ -10,73 +10,73 @@ namespace JumpNGun
     {
         protected int health;
         protected int damage;
-        
+
         protected float speed;
+        protected float originalspeed;
 
         protected Vector2 position;
         protected Vector2 velocity;
-
-        protected bool isColliding = false;
 
         protected SpriteRenderer sr;
         protected Animator animator;
         protected Collider collider;
         protected Player player;
 
-        protected bool isAttacking;
-
-        public abstract void Attack();
-
-        public abstract void CheckCollision();
-        
-        public abstract void ChasePlayer();
-
-        public abstract void HandleAnimations();
+        protected bool isImmune;
+        protected bool canAttack;
+        private bool canMove = true;
 
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("OnCollision", OnCollision);
+            EventManager.Instance.Subscribe("Freeze", FreezeMovement);
         }
-
-
-
 
         public override void Start()
         {
             sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             animator = GameObject.GetComponent<Animator>() as Animator;
             collider = GameObject.GetComponent<Collider>() as Collider;
-            player =  GameWorld.Instance.FindObjectOfType<Player>() as Player;
+            player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
         }
-
 
         public override void Update(GameTime gameTime)
         {
             FlipSprite();
-            
-            if (!isAttacking)
-            {
-                Move();
-            }
-            
+            Move();
+            TakeDamage();
+            UpdatePositionReference();
             Die();
-            
-            
-            
         }
+
+        public abstract void Attack();
+
+        public abstract void CheckCollision();
+        
+        public abstract void HandleAnimations();
+
+        public virtual void ChasePlayer()
+        {
+            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
+            sourceToTarget.Normalize();
+            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+
+            velocity = sourceToTarget;
+        }
+
 
         /// <summary>
         /// Initiates movement of object
         /// </summary>
         private void Move()
         {
-            GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
+            if (canAttack || !canMove) return;
+            GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
         }
 
         /// <summary>
         /// Updates position during gametime
         /// </summary>
-        protected void UpdatePositionReference()
+        private void UpdatePositionReference()
         {
             position = GameObject.Transform.Position;
         }
@@ -86,7 +86,7 @@ namespace JumpNGun
         /// </summary>
         private void FlipSprite()
         {
-            if (!isAttacking)
+            if (!canAttack)
             {
                 // If we are moving left, flip the sprite
                 if (velocity.X < 0)
@@ -106,32 +106,49 @@ namespace JumpNGun
                     sr.SpriteEffects = SpriteEffects.None;
             }
         }
-        
-        private void OnCollision(Dictionary<string, object> ctx)
+
+        /// <summary>
+        /// Deal damage to Enemy when colliding with Player projectile
+        /// </summary>
+        private void TakeDamage()
         {
-            GameObject collision = (GameObject) ctx["collider"];
-            Rectangle collisonBox = (collision.GetComponent<Collider>() as Collider).CollisionBox;
-            
-            
-            if( collision.Tag == "P_Projectile" && collisonBox.Intersects(collider.CollisionBox))
+            foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                health -= 20;
-                GameWorld.Instance.Destroy(collision);
+                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "P_Projectile")
+                {
+                    health -= 20;
+                    GameWorld.Instance.Destroy(col.GameObject);
+                }
             }
         }
+
+        /// <summary>
+        /// Freeze movement when event triggered
+        /// </summary>
+        /// <param name="ctx"></param>
+        private void FreezeMovement(Dictionary<string, object> ctx)
+        {
+            canMove = (bool)ctx["freeze"];
+        }
+
+        /// <summary>
+        /// Trigger event, add to score, and destroy this gameobject when health goes below or equal to 0
+        /// </summary>
         private void Die()
         {
-            if(health <= 0)
+            if (health <= 0)
             {
-                EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
+                if (animator.IsAnimationDone)
                 {
+                    EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
+                    {
                     {"enemyDeath", 1}
-                });
-
-                ScoreHandler.Instance.AddToScore(20);
-                ScoreHandler.Instance.PrintScore();
-                GameWorld.Instance.Destroy(this.GameObject);
-                GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
+                     });
+                    ScoreHandler.Instance.AddToScore(20);
+                    ScoreHandler.Instance.PrintScore();
+                    GameWorld.Instance.Destroy(this.GameObject);
+                    GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
+                }
             }
         }
     }

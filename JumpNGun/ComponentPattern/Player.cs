@@ -150,7 +150,6 @@ namespace JumpNGun
             CheckGrounded();
 
             HandleGravity();
-            
             CheckDeath();
             
             if (Keyboard.GetState().IsKeyDown(Keys.O))
@@ -322,6 +321,12 @@ namespace JumpNGun
                 if (_pCollider.CollisionBox.Intersects(otherCollision.CollisionBox) && !_hasCollidedWithGround)
                 {
                     if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
+                    {
+                        _isGrounded = CalculateCollisionLineIntersection( otherCollision);
+
+                    }
+                        
+                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "Platform")
                     {
                         _isGrounded = CalculateCollisionLineIntersection( otherCollision);
                     }

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JumpNGun.StatePattern.GameStates
+namespace JumpNGun
 {
     public class AudioSettingsState : State
     {

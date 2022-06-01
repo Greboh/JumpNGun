@@ -1,13 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Threading;
-using JumpNGun.StatePattern.GameStates;
-using System.Linq;
-using JumpNGun.ComponentPattern;
+
 
 namespace JumpNGun
 {
@@ -77,7 +72,6 @@ namespace JumpNGun
         protected override void Initialize()
         {
             SoundManager.Instance.InitDictionary();
-            
 
             base.Initialize();
         }
@@ -100,9 +94,7 @@ namespace JumpNGun
             //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
 
             //_background.Update(gameTime);
-
-
-
+            
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
 
@@ -147,9 +139,7 @@ namespace JumpNGun
         {
             return _currentState;
         }
-
         
-
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
         /// </summary>
@@ -160,7 +150,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Destroy and remove active GameObject from game by adding them to list of destroyedGameObjects
+        /// Remove active GameObject from game by adding them to list of destroyedGameObjects
         /// </summary>
         /// <param name="go">GameObject to be destoyed</param>
         public void Destroy(GameObject go)
@@ -175,18 +165,16 @@ namespace JumpNGun
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
+                AddCollider(newGameObjects[i]);
                 gameObjects.Add(newGameObjects[i]);
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
-                AddCollider(newGameObjects[i]);
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
-                gameObjects.Remove(destroyedGameObjects[i]);
-
                 RemoveCollider(destroyedGameObjects[i]);
-
+                gameObjects.Remove(destroyedGameObjects[i]);
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();
@@ -235,12 +223,7 @@ namespace JumpNGun
                     return c;
                 }
             }
-
             return null;
-
-
         }
-
-
     }
 }

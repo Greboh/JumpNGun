@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using JumpNGun.StatePattern.GameStates;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
 
 namespace JumpNGun
 {
