@@ -9,6 +9,8 @@ namespace JumpNGun.ComponentPattern
 {
     class Background
     {
+
+        #region fields
         private Texture2D _backgroundimage;
 
         private Texture2D _cloud1;
@@ -23,13 +25,9 @@ namespace JumpNGun.ComponentPattern
         private Texture2D _cloud4;
         private Vector2 _position4;
 
+        #endregion
 
-        public Background()
-        {
-        }
-
-        
-
+        #region Methods
         public void LoadContent()
         {
             _backgroundimage = GameWorld.Instance.Content.Load<Texture2D>("background_image");
@@ -67,6 +65,8 @@ namespace JumpNGun.ComponentPattern
             Clouds();
         }
 
+
+        // handles cloud movement 
         private void Clouds()
         {
             _position1.X += 1f;
@@ -96,5 +96,7 @@ namespace JumpNGun.ComponentPattern
                 _position4.X = GameWorld.Instance.ScreenSize.X;
             }
         }
+        #endregion
+
     }
 }

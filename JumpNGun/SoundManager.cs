@@ -12,6 +12,12 @@ namespace JumpNGun
 {
     public class SoundManager
     {
+        /*
+           [Description]
+           Manager for loading, handling and playback of soundclips
+           uses dictionaries to couple a string to a SoundEffectInstance to be used in other classes
+       */
+
         protected Random myRandom = new Random();
 
         #region SoundEffects
@@ -37,8 +43,8 @@ namespace JumpNGun
 
         #endregion
 
-        public bool _sfxDisabled = false;
-        public bool _musicDisabled = false;
+        public bool _sfxDisabled = false; // bool for controlling sfx output
+        public bool _musicDisabled = false; // bool for controlling music output
 
 
 
@@ -76,8 +82,8 @@ namespace JumpNGun
         public void InitDictionary()
         {
 
-            _soundEffects ??= new Dictionary<string, SoundEffectInstance>();
-            _soundtracks ??= new Dictionary<string, SoundEffectInstance>();
+            _soundEffects ??= new Dictionary<string, SoundEffectInstance>();    // SFX
+            _soundtracks ??= new Dictionary<string, SoundEffectInstance>();     // MUSIC
 
 
 
@@ -88,7 +94,6 @@ namespace JumpNGun
         /// </summary>
         public void InitClips()
         {
-            //soundtrack = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack").CreateInstance;
             jump = GameWorld.Instance.Content.Load<SoundEffect>("jump").CreateInstance();
             menu_hover_1 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_1").CreateInstance();
             menu_hover_2 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_2").CreateInstance();
@@ -114,8 +119,8 @@ namespace JumpNGun
             _soundEffects.Add("menu_hover_3", menu_hover_3);
             _soundEffects.Add("menu_click", menu_click);
 
-            _soundtracks.Add("soundtrack_1", soundtrack_1);
-            _soundtracks.Add("soundtrack_2", soundtrack_2);
+            _soundtracks.Add("soundtrack_1", soundtrack_1); // Main game soundtrack
+            _soundtracks.Add("soundtrack_2", soundtrack_2); // Menu soundtrack
 
 
 
@@ -163,7 +168,6 @@ namespace JumpNGun
         {
             int rdm = myRandom.Next(1, 4);
 
-            //TODO: Fix this garbage
             if (rdm == 1)
             {
                 menu_hover_1.Play();

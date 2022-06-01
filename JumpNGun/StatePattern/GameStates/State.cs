@@ -9,7 +9,10 @@ namespace JumpNGun
 {
     public abstract class State 
     {
-
+        /*
+            [Description]
+            Abstract class for menu state methods to be used in GameWorld.
+        */
 
 
 

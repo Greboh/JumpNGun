@@ -8,6 +8,7 @@ using System.Text;
 
 namespace JumpNGun.StatePattern.GameStates
 {
+
     public enum PauseState
     {
         unpaused,
@@ -72,9 +73,11 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
 
+            //Handles draws when pause menu is open / closed
             switch (currentPauseState)
             {
                 case PauseState.unpaused:
+                    //removes buttons instansitated in pause menu
                     foreach (GameObject go in GameWorld.Instance.gameObjects)
                     {
                         if (go.HasComponent<Button>())

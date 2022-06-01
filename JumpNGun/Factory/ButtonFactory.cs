@@ -6,17 +6,12 @@ using System.Text;
 
 namespace JumpNGun
 {
+    // enums of buttons used
     public enum ButtonType { Start,Settings,Highscores,Quit,Audio,Controls,Music,Sfx,Back,QuitToMain,SfxPause,MusicPause}
     class ButtonFactory : Factory
     {
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-
-        private Vector2 _startButtonPosition = new Vector2(screenSizeX / 2, 365);
-        private Vector2 _settingButtonPosition = new Vector2(screenSizeX / 2, 437);
-        private Vector2 _highscoreButtonPosition = new Vector2(screenSizeX / 2, 505);
-        private Vector2 _quitButtonPosition = new Vector2(screenSizeX / 2, 575);
-
 
         private ButtonType _type;
         
@@ -37,6 +32,7 @@ namespace JumpNGun
             }
         }
 
+        // Uses factory pattern to create a gameObject with the corresponding button enum and sprite
         public override GameObject Create(Enum type)
         {
             GameObject gameObject = new GameObject();

@@ -11,7 +11,7 @@ namespace JumpNGun
     public class Button : Component
     {
         /*
-            [Discription]
+            [Description]
             This class handles buttons position as well as mouse and button sprite interactions.
             The class is otherwise used for changing GameStates corresponding to clicked the button context
         */
@@ -62,8 +62,8 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            
-            switch (_type) // Sets position for the button sprite
+            // Sets position for the button sprite
+            switch (_type) 
             {
                 case ButtonType.Start:
                     _position = _startButtonPosition;
@@ -420,7 +420,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// SFX button logic
+        /// SFX pause menu button logic
         /// </summary>
         private void SoundEffectsPauseToggleButton()
         {
@@ -454,7 +454,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Music menu settings button logic
+        /// Music pause menu settings button logic
         /// </summary>
         private void MusicPauseToggleButton()
         {
