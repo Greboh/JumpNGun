@@ -127,8 +127,7 @@ namespace JumpNGun
                 {
                     {"enemyDeath", 1}
                 });
-                
-                
+
                 ScoreHandler.Instance.AddToScore(20);
                 ScoreHandler.Instance.PrintScore();
                 GameWorld.Instance.Destroy(this.GameObject);
