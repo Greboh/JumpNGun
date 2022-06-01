@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/reaper_death9.png</SourceFile>
-  <SourceTime>2022-05-27T12:21:26.2712769+02:00</SourceTime>
+  <SourceTime>2022-05-27T13:54:04.6626518+02:00</SourceTime>
   <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/reaper_death9.xnb</DestFile>
-  <DestTime>2022-05-27T12:26:19.8579148+02:00</DestTime>
+  <DestTime>2022-05-30T10:39:24.8641211+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
