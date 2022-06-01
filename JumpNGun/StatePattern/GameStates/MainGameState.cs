@@ -73,8 +73,6 @@ namespace JumpNGun
 
 
                     break;
-                default:
-                    break;
             }
 
 
