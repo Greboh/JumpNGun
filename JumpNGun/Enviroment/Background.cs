@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace JumpNGun.ComponentPattern
 {
@@ -25,8 +26,9 @@ namespace JumpNGun.ComponentPattern
 
         public Background()
         {
-            
         }
+
+        
 
         public void LoadContent()
         {
@@ -62,6 +64,11 @@ namespace JumpNGun.ComponentPattern
 
         public void Update(GameTime gameTime)
         {
+            Clouds();
+        }
+
+        private void Clouds()
+        {
             _position1.X += 1f;
 
             if (_position1.X > GameWorld.Instance.ScreenSize.X) // set position to right side again
@@ -88,9 +95,6 @@ namespace JumpNGun.ComponentPattern
                 Console.WriteLine("hit edge");
                 _position4.X = GameWorld.Instance.ScreenSize.X;
             }
-
-
-
         }
     }
 }

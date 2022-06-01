@@ -24,6 +24,7 @@ namespace JumpNGun
         protected Player player;
 
         protected bool isAttacking;
+        //private bool isFrozen = true;
 
         public abstract void Attack();
 
@@ -36,6 +37,8 @@ namespace JumpNGun
         public override void Awake()
         {
             EventManager.Instance.Subscribe("OnCollision", OnCollision);
+            //EventManager.Instance.Subscribe("Freeze", FreezeMovement);
+
         }
 
 
@@ -53,11 +56,9 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             FlipSprite();
-            
-            if (!isAttacking)
-            {
-                Move();
-            }
+
+            Move();
+
             
             Die();
             
@@ -70,6 +71,9 @@ namespace JumpNGun
         /// </summary>
         private void Move()
         {
+            if (!isAttacking) return;
+            
+
             GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
         }
 
@@ -135,5 +139,10 @@ namespace JumpNGun
                 GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
             }
         }
+
+        //private void FreezeMovement(Dictionary<string, object> ctx)
+        //{
+        //    isFrozen = (bool)ctx["freeze"];
+        //}
     }
 }

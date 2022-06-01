@@ -31,6 +31,9 @@ namespace JumpNGun
         private Vector2 _sfxButtonPosition = new Vector2(614, 443);
         private Vector2 _backButtonPosition = new Vector2(583,639);
         private Vector2 _quitToMainButtonPosition = new Vector2(487, 700);
+        private Vector2 _sfxPauseButtonPosition = new Vector2(1168, 88);
+        private Vector2 _musicPauseButtonPosition = new Vector2(1109, 20);
+
 
 
         private bool fireOnce = true; // bool used for insuring sound doesn't fire more than once when hovering
@@ -46,7 +49,6 @@ namespace JumpNGun
 
         // TODO REMOVE THIS
         private bool _canIntersect = true;
-        public static bool _returnedToMenu = false;
         #endregion
 
         #region Constructor
@@ -93,6 +95,12 @@ namespace JumpNGun
                 case ButtonType.QuitToMain:
                     _position = _quitToMainButtonPosition;
                     break;
+                case ButtonType.SfxPause:
+                    _position = _sfxPauseButtonPosition;
+                    break;
+                case ButtonType.MusicPause:
+                    _position = _musicPauseButtonPosition;
+                    break;
             }
         }
 
@@ -138,19 +146,19 @@ namespace JumpNGun
                         break;
 
                     case ButtonType.Audio:
-                        MainAudioMenu();
+                        AudioButton();
                         break;
 
                     case ButtonType.Controls:
-                        ControlsMenu();
+                        ControlsButton();
                         break;
 
                     case ButtonType.Music:
-                        MusicMenu();
+                        MusicToggleButton();
                         break;
 
                     case ButtonType.Sfx:
-                        SoundEffectsMenu();
+                        SoundEffectsToggleButton();
                         break;
 
                     case ButtonType.Back:
@@ -159,6 +167,13 @@ namespace JumpNGun
 
                     case ButtonType.QuitToMain:
                         QuitToMain();
+                        break;
+                    case ButtonType.SfxPause:
+                        SoundEffectsPauseToggleButton();
+                        break;
+                    case ButtonType.MusicPause:
+                        MusicPauseToggleButton();
+
                         break;
                 }
             }
@@ -232,7 +247,7 @@ namespace JumpNGun
         /// <summary>
         /// Main audio menu button logic
         /// </summary>
-        private void MainAudioMenu()
+        private void AudioButton()
         {
             //Console.WriteLine($"Intersects with {_type}");
 
@@ -252,7 +267,7 @@ namespace JumpNGun
         /// <summary>
         /// Controls menu button logic
         /// </summary>
-        private void ControlsMenu()
+        private void ControlsButton()
         {
             //Console.WriteLine($"Intersects with {_type}");
 
@@ -274,7 +289,7 @@ namespace JumpNGun
         /// <summary>
         /// Music menu settings button logic
         /// </summary>
-        private void MusicMenu()
+        private void MusicToggleButton()
         {
             Console.WriteLine($"Intersects with {_type}");
 
@@ -307,7 +322,7 @@ namespace JumpNGun
         /// <summary>
         /// SFX button logic
         /// </summary>
-        private void SoundEffectsMenu()
+        private void SoundEffectsToggleButton()
         {
             Console.WriteLine($"Intersects with {_type}");
 
@@ -389,9 +404,9 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 1f)
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                _returnedToMenu = true;
+                GameWorld.Instance.ChangeState(new MainMenuState());
 
                 _mouseCooldown += 0;
 
@@ -400,6 +415,73 @@ namespace JumpNGun
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// SFX button logic
+        /// </summary>
+        private void SoundEffectsPauseToggleButton()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+                if (SoundManager.Instance._sfxDisabled == true)
+                {
+                    SoundManager.Instance._sfxDisabled = false;
+                    SoundManager.Instance.toggleSFXOn();
+                }
+                else
+                {
+                    SoundManager.Instance._sfxDisabled = true;
+                    SoundManager.Instance.toggleSFXOff();
+
+                }
+
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                SoundManager.Instance.PlayClip("menu_click");
+
+                _canIntersect = true;
+            }
+        }
+
+        /// <summary>
+        /// Music menu settings button logic
+        /// </summary>
+        private void MusicPauseToggleButton()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                _mouseCooldown += 0;
+                _canIntersect = false;
+                if (SoundManager.Instance._musicDisabled == true)
+                {
+                    SoundManager.Instance._musicDisabled = false;
+                    SoundManager.Instance.toggleSoundtrackOn();
+
+                }
+                else
+                {
+                    SoundManager.Instance._musicDisabled = true;
+                    SoundManager.Instance.toggleSoundtrackOff();
+
+
+                }
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                SoundManager.Instance.PlayClip("menu_click");
+
                 _canIntersect = true;
             }
         }

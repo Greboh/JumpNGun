@@ -97,7 +97,7 @@ namespace JumpNGun
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit));
 
-
+            SoundManager.Instance.StopClip("soundtrack_1");
             SoundManager.Instance.PlayClip("soundtrack_2");
         }
 
@@ -111,6 +111,13 @@ namespace JumpNGun
                 {
                     GameWorld.Instance.Destroy(go);
 
+                }
+
+                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<Mushroom>() || go.HasComponent<ExperienceOrb>())
+                {
+                    GameWorld.Instance.Destroy(go);
+                    LevelManager.Instance.LevelIsGenerated = false;
+                    LevelManager.Instance.ResetLevel();
                 }
             }
         }

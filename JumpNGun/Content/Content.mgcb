@@ -193,6 +193,18 @@
 /processorParam:TextureFormat=Color
 /build:audio_button.png
 
+#begin avatar_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:avatar_1.png
+
 #begin back_button.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -349,6 +361,13 @@
 /processorParam:TextureFormat=Color
 /build:dessert_ground.png
 
+#begin font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:font.spritefont
+
 #begin game_title.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -498,6 +517,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:paused_overlay.png
+
+#begin paused_overlay_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:paused_overlay_2.png
 
 #begin Pixel.png
 /importer:TextureImporter

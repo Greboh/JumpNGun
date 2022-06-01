@@ -77,15 +77,20 @@ namespace JumpNGun
         protected override void Initialize()
         {
             SoundManager.Instance.InitDictionary();
+            _background = new Background();
             
 
+
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Instantiate(CloudFactory.Instance.Create(cloudType.c1));
+            //}
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _background = new Background();
             _background.LoadContent();
 
             _currentState = new MainMenuState(); // sets first state to show on startup
@@ -95,12 +100,8 @@ namespace JumpNGun
 
         protected override void Update(GameTime gameTime)
         {
-            //if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
-            //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
-
+           
             _background.Update(gameTime);
-
 
 
             myMouse = Mouse.GetState();
@@ -126,9 +127,6 @@ namespace JumpNGun
 
             _currentState.Draw(gameTime, _spriteBatch);
 
-            //_spriteBatch.Begin();
-
-            //_spriteBatch.End();
 
             base.Draw(gameTime);
         }

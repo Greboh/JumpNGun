@@ -185,3 +185,6 @@ A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csprojAssemblyRefer
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\paused_button.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\paused_overlay.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\quit_to_menu_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\paused_overlay_2.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\avatar_1.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\font.xnb

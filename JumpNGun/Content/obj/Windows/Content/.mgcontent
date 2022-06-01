@@ -19,6 +19,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_run.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/6_Soldier_run.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/audio_button.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/avatar_1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/back_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/background_image.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Bullet.png</File>
@@ -32,6 +33,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/crossedout.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/dessert_ground.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/font.spritefont</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/game_title.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Grass platform.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/grass_ground.png</File>
@@ -47,6 +49,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/music.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/paused_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/paused_overlay.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/paused_overlay_2.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Pixel.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_2.png</File>
@@ -74,6 +77,9 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

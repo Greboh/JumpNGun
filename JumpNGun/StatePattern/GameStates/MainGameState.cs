@@ -17,6 +17,13 @@ namespace JumpNGun.StatePattern.GameStates
     public class MainGameState : State
     {
         private Texture2D _pausedOverlay;
+        private Texture2D _avatar_1; // temporary
+        private Texture2D _enabled;
+        private Texture2D _disabled;
+        private Texture2D _musicStatus;
+        private Texture2D _sfxStatus;
+
+        private SpriteFont _scoreFont;
 
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
@@ -24,9 +31,11 @@ namespace JumpNGun.StatePattern.GameStates
         private bool isInitialized;
         private bool isPaused;
 
+        private bool pauseKeyPressed;
+
         private PauseState currentPauseState = PauseState.unpaused;
 
-        private float _keypressCooldown; // mouse click cooldown used for avoiding unwanted menu button navigation
+       
 
 
         public override void LoadContent()
@@ -41,7 +50,14 @@ namespace JumpNGun.StatePattern.GameStates
 
             // asset content loading
             _pausedOverlay = GameWorld.Instance.Content.Load<Texture2D>("paused_overlay");
+            _avatar_1 = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
+            _enabled = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
+            _disabled = GameWorld.Instance.Content.Load<Texture2D>("crossedout");
 
+            _musicStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
+            _sfxStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
+
+            _scoreFont = GameWorld.Instance.Content.Load<SpriteFont>("font");
 
 
         }
@@ -59,16 +75,36 @@ namespace JumpNGun.StatePattern.GameStates
             switch (currentPauseState)
             {
                 case PauseState.unpaused:
-                
+                    foreach (GameObject go in GameWorld.Instance.gameObjects)
+                    {
+                        if (go.HasComponent<Button>())
+                        {
+                            GameWorld.Instance.Destroy(go);
+                        }
+                    }
+
+                    isPaused = false;
                     break;
                 case PauseState.paused:
-                    GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain));
+                  
+                    spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+                    spriteBatch.Draw(_avatar_1, new Rectangle(401, 325, _avatar_1.Width, _avatar_1.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+                    spriteBatch.DrawString(_scoreFont, "Score : " + 500, new Vector2(401, 515), Color.White);
+                    spriteBatch.DrawString(_scoreFont, "Level : " + 8, new Vector2(401, 535), Color.White);
 
-                    spriteBatch.Draw(_pausedOverlay, new Vector2(0, 0), Color.White);
+                    spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+                    spriteBatch.Draw(_sfxStatus, new Rectangle(1269, 88, _disabled.Width, _disabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+                    if (!isPaused)
+                    {
+                        
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.MusicPause));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.SfxPause));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain));
+                        
+                        isPaused = true;
+                    }
+                    
 
-
-                    break;
-                default:
                     break;
             }
 
@@ -78,31 +114,47 @@ namespace JumpNGun.StatePattern.GameStates
         }
         public override void Update(GameTime gameTime)
         {
+
             // checking if Initialize() has run if it has then skip
             if (!isInitialized)
             {
                 Initialize();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.unpaused)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.unpaused && pauseKeyPressed == false)
             {
                 currentPauseState = PauseState.paused;
+                pauseKeyPressed = true;
 
-            }else if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.paused)
+
+
+            }
+            else if (Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
+                pauseKeyPressed = false;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.paused && pauseKeyPressed == false)
+            {
+                //_keypressCooldown = GameWorld.DeltaTime;
                 currentPauseState = PauseState.unpaused;
+                pauseKeyPressed = true;
 
             }
-
-            if (Button._returnedToMenu == true)
+            else if (Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
-                returnToMenu();
-                Button._returnedToMenu = false;
+                pauseKeyPressed = false;
             }
 
+            MusicToggleStatus();
 
-
-
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                EventManager.Instance.TriggerEvent("Freeze", new Dictionary<string, object>()
+                {
+                    {"freeze", false}
+                });
+            }
 
 
             LevelManager.Instance.ChangeLevelDebug();
@@ -110,11 +162,10 @@ namespace JumpNGun.StatePattern.GameStates
             LevelManager.Instance.CheckForClearedLevelDebug();
 
 
-            
-
+            //TODO: [for testing only] - Remove this and implement back button states
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
             {
-                //TODO: [for testing only] - Remove this and implement back button states
+
                 GameWorld.Instance.ChangeState(new MainMenuState());
                 SoundManager.Instance.StopClip("soundtrack_1");
 
@@ -129,9 +180,30 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Update(gameTime);
 
             }
-            
+
             //call cleanup in every cycle
             GameWorld.Instance.CleanUp();
+        }
+
+        private void MusicToggleStatus()
+        {
+            if (SoundManager.Instance._musicDisabled == true)
+            {
+                _musicStatus = _disabled;
+            }
+            else
+            {
+                _musicStatus = _enabled;
+            }
+
+            if (SoundManager.Instance._sfxDisabled == true)
+            {
+                _sfxStatus = _disabled;
+            }
+            else
+            {
+                _sfxStatus = _enabled;
+            }
         }
 
         //Initialize is used similar to initialize in GameWorld
@@ -151,7 +223,7 @@ namespace JumpNGun.StatePattern.GameStates
             {
                 go.Awake();
             }
-            Console.WriteLine("Main game init");
+        
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
 
@@ -169,13 +241,7 @@ namespace JumpNGun.StatePattern.GameStates
             
         }
 
-        public void returnToMenu()
-        {
-            GameWorld.Instance.ChangeState(new MainMenuState());
-            SoundManager.Instance.StopClip("soundtrack_1");
-
-            ClearObjects();
-        }
+        
 
         /// <summary>
         /// Destroys all relevant gameObjects from world

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/paused_overlay.png</SourceFile>
-  <SourceTime>2022-05-31T11:13:50.7667374+02:00</SourceTime>
+  <SourceTime>2022-06-01T12:05:52.7538509+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/paused_overlay.xnb</DestFile>
-  <DestTime>2022-05-31T11:15:12.6096486+02:00</DestTime>
+  <DestTime>2022-06-01T13:17:31.337753+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
