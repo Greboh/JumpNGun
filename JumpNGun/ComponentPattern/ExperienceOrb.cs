@@ -73,7 +73,7 @@ namespace JumpNGun
                         );
                         
                         Console.WriteLine("orb col");
-                        
+                        SoundManager.Instance.PlayClip("pickup");
                         GameWorld.Instance.Destroy(collider.GameObject);
                     }break;
                     

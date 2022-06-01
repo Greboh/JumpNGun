@@ -361,12 +361,48 @@
 /processorParam:TextureFormat=Color
 /build:dessert_ground.png
 
+#begin enter.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:enter.wav
+
+#begin exit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:exit.wav
+
 #begin font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
+
+#begin footstep_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:footstep_1.wav
+
+#begin footstep_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:footstep_2.wav
+
+#begin footstep_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:footstep_3.wav
+
+#begin footstep_4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:footstep_4.wav
 
 #begin game_title.png
 /importer:TextureImporter
@@ -458,6 +494,18 @@
 /processorParam:Quality=Best
 /build:jump.mp3
 
+#begin jump_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:jump_1.wav
+
+#begin jump_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:jump_2.wav
+
 #begin menu_click.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -529,6 +577,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:paused_overlay_2.png
+
+#begin pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pickup.wav
 
 #begin Pixel.png
 /importer:TextureImporter

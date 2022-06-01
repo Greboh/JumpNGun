@@ -17,6 +17,8 @@ namespace JumpNGun
         
         private Texture2D _xpBarTexture2D;
 
+        public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
+
         public override void Awake()
         {
             EventManager.Instance.Subscribe("OnExperienceGain", OnExperienceGain);
@@ -40,11 +42,11 @@ namespace JumpNGun
 
         private void LevelUp()
         {
-            _currentLevel++;
+            CurrentLevel++;
             _currentXPAmount -= _experienceRequierment;
             _experienceRequierment += 500;
             Console.WriteLine($"Player gained a level!");
-            Console.WriteLine($"Player is now level: {_currentLevel}");
+            Console.WriteLine($"Player is now level: {CurrentLevel}");
             Console.WriteLine($"Player's experience is now {_currentXPAmount}");
         }
         

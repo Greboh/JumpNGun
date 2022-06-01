@@ -46,7 +46,7 @@ namespace JumpNGun
         private bool _canDash = true;
         private float _dashTimer;
         private float _dashCooldown;
-
+        private float _footstepCooldown;
         #endregion
 
         #region Action Fields
@@ -150,15 +150,33 @@ namespace JumpNGun
             CheckGrounded();
 
             HandleGravity();
-            
+
             CheckDeath();
-            
+
             if (Keyboard.GetState().IsKeyDown(Keys.O))
             {
                 _currentHealth--;
                 Console.WriteLine(_currentHealth);
             }
-            
+
+            WalkingSoundEffects();
+
+        }
+
+        /// <summary>
+        /// Plays random footstep out of 4 diffent if player is moving with A or D and is on ground
+        /// </summary>
+        private void WalkingSoundEffects()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && _isGrounded || Keyboard.GetState().IsKeyDown(Keys.D) && _isGrounded)
+            {
+                _footstepCooldown += GameWorld.DeltaTime;
+                if (_footstepCooldown > 0.3f)
+                {
+                    SoundManager.Instance.PlayRandomFootstep();
+                    _footstepCooldown = 0;
+                }
+            }
         }
 
         #endregion
@@ -201,7 +219,7 @@ namespace JumpNGun
             if (!_canJump || _isJumping) return;
 
             // Sound effect
-            SoundManager.Instance.PlayClip("jump");
+            SoundManager.Instance.PlayRandomJump();
 
             // Add to our jump count
             _jumpCount++;
@@ -464,6 +482,7 @@ namespace JumpNGun
                currentKey == _input.MoveRight.KeyboardBinding)
             {
                 _movementKeys[currentKey] = (bool) ctx["isKeyDown"];
+                
             }
             
             // If the currentKey is the same as our Jump KeyCode

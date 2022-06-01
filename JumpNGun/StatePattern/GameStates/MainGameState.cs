@@ -92,7 +92,7 @@ namespace JumpNGun.StatePattern.GameStates
                   
                     spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
                     spriteBatch.Draw(_avatar_1, new Rectangle(401, 325, _avatar_1.Width, _avatar_1.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-                    spriteBatch.DrawString(_scoreFont, "Score : " + 500, new Vector2(401, 515), Color.White);
+                    spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White); ;
                     spriteBatch.DrawString(_scoreFont, "Level : " + 8, new Vector2(401, 535), Color.White);
 
                     spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
