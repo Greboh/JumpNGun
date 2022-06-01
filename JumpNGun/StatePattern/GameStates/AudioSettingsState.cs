@@ -35,7 +35,6 @@ namespace JumpNGun
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
             spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
 

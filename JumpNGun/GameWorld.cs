@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
 
 namespace JumpNGun
 {
@@ -79,8 +79,8 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            //_background = new Background(); 
-            //_background.LoadContent();
+            _background = new Background();
+            _background.LoadContent();
 
             _currentState = new MainMenuState(); // sets first state to show on startup
             _currentState.LoadContent(); // loads state content into GameWorld content
@@ -93,7 +93,7 @@ namespace JumpNGun
             //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
             //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
 
-            //_background.Update(gameTime);
+            _background.Update(gameTime);
             
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
@@ -114,7 +114,7 @@ namespace JumpNGun
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //_background.Draw(_spriteBatch);
+            _background.Draw(_spriteBatch);
 
             _currentState.Draw(gameTime, _spriteBatch);
 
@@ -139,7 +139,9 @@ namespace JumpNGun
         {
             return _currentState;
         }
+
         
+
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
         /// </summary>
@@ -150,7 +152,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Remove active GameObject from game by adding them to list of destroyedGameObjects
+        /// Destroy and remove active GameObject from game by adding them to list of destroyedGameObjects
         /// </summary>
         /// <param name="go">GameObject to be destoyed</param>
         public void Destroy(GameObject go)
@@ -165,16 +167,18 @@ namespace JumpNGun
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
-                AddCollider(newGameObjects[i]);
                 gameObjects.Add(newGameObjects[i]);
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
+                AddCollider(newGameObjects[i]);
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
-                RemoveCollider(destroyedGameObjects[i]);
                 gameObjects.Remove(destroyedGameObjects[i]);
+
+                RemoveCollider(destroyedGameObjects[i]);
+
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();
