@@ -134,7 +134,6 @@ namespace JumpNGun
 
         #endregion
 
-
         /// <summary>
         /// Spawns x-amount of platforms on map
         /// </summary>
@@ -222,11 +221,7 @@ namespace JumpNGun
             _usedLocations.Add(rectangle);
 
             //return all valid distances to original. 
-            if (_hasAltered == true)
-            {
-                SetDistancesBack();
-                _hasAltered = false;
-            }
+            SetDistancesBack();
 
 
             return Tuple.Create(new Vector2(rectangle.Center.X, rectangle.Center.Y), rectangle);
@@ -244,8 +239,8 @@ namespace JumpNGun
                 if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
                 if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
                 if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
-                _hasAltered = true;
             }
+            _hasAltered = true;
         }
 
         /// <summary>
@@ -253,15 +248,16 @@ namespace JumpNGun
         /// </summary>
         private void SetDistancesBack()
         {
+            if (!_hasAltered) return;
+
             for (int i = 0; i < _validDistances.Length; i++)
             {
                 if (_validDistances[i].X > 0) _validDistances[i].X = 222;
                 if (_validDistances[i].X < 0) _validDistances[i].X = -222;
                 if (_validDistances[i].Y > 0) _validDistances[i].Y = 125;
                 if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
-
             }
-
+            _hasAltered = false;
         }
 
         /// <summary>

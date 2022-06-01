@@ -31,9 +31,9 @@ namespace JumpNGun
         private bool canPressL = true;
         #endregion
 
-        private PlatformType _currentPlatformType;
-        private PlatformType _currentGroundPlatform;
-        private EnemyType _currentEnemyType;
+        private PlatformType _currentPlatformType; // current platform used in game
+        private PlatformType _currentGroundPlatform; // currennt ground platform being used in game
+        private EnemyType _currentEnemyType; // current enemy being used in gamge
 
         public List<Rectangle> UsedLocations { get; private set; } //List for storing rectangles that contain a platform
 
@@ -89,7 +89,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Change platform sprites according to level
+        /// Change enemies, platforms and bosses
         /// </summary>
         public void ChangeEnviroment()
         {
@@ -155,18 +155,20 @@ namespace JumpNGun
         /// </summary>
         private void CleanLevel()
         {
+            //Destroy all objects besides player
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                if (!go.HasComponent<Player>())
+                if (go.Tag != "Player")
                 {
                     GameWorld.Instance.Destroy(go);
                 }
             }
 
+            //Clear lists containing rectangles with platforms
             UsedLocations.Clear();
 
+            //Set position of player to left corner of screen
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
-            Console.Clear();
         }
 
         /// <summary>
@@ -177,6 +179,7 @@ namespace JumpNGun
             _level++;
             _platformAmount++;
 
+            //if level is odd increment amount of enemies
             if (_level % 2 != 0)
             {
                 _enemyStartAmount++;

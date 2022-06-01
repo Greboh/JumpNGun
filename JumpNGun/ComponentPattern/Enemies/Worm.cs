@@ -78,7 +78,6 @@ namespace JumpNGun
         /// </summary>
         private void CreateMovementArea()
         {
-            //TODO - make an algorithm that run once. - KRISTIAN
             for (int i = 0; i < locations.Count; i++)
             {
                 if (_currentRectangle.Right == locations[i].Left && _currentRectangle.Y == locations[i].Y)
