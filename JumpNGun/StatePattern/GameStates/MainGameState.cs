@@ -27,6 +27,40 @@ namespace JumpNGun
         private PauseState currentPauseState = PauseState.unpaused;
         private float _keypressCooldown; // mouse click cooldown used for avoiding unwanted menu button navigation
 
+        public override void Initialize()
+        {
+            SoundManager.Instance.StopClip("soundtrack_2");
+            SoundManager.Instance.PlayClip("soundtrack_1");
+
+
+            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
+            GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
+
+            LevelManager.Instance.ExecuteLevelGeneration();
+
+            foreach (var go in GameWorld.Instance.gameObjects)
+            {
+                go.Awake();
+            }
+            Console.WriteLine("Main game init");
+            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+
+            isInitialized = true;
+
+            foreach (GameObject go in GameWorld.Instance.gameObjects)
+            {
+                if (go.HasComponent<Button>())
+                {
+                    GameWorld.Instance.Destroy(go);
+
+                }
+            }
+
+            isInitialized = true;
+
+            
+        }
+
         public override void LoadContent()
         {
             
@@ -35,14 +69,7 @@ namespace JumpNGun
             {
                 GameWorld.Instance.gameObjects[i].Start();
             }
-
-// <<<<<<<<< Temporary merge branch 1
-//             LevelGenerator.Instance.LoadContent();
-// =========
-//             PlatformGenerator.Instance.LoadContent();
-// >>>>>>>>> Temporary merge branch 2
-
-
+            
 
             // asset content loading
             _pausedOverlay = GameWorld.Instance.Content.Load<Texture2D>("paused_overlay");
@@ -50,6 +77,7 @@ namespace JumpNGun
 
 
         }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
@@ -79,6 +107,7 @@ namespace JumpNGun
             spriteBatch.End();
 
         }
+
         public override void Update(GameTime gameTime)
         {
             // checking if Initialize() has run if it has then skip
@@ -109,7 +138,6 @@ namespace JumpNGun
 
 
             LevelManager.Instance.ChangeLevelDebug();
-            LevelManager.Instance.GenerateLevel();
             LevelManager.Instance.CheckForClearedLevelDebug();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
@@ -135,39 +163,6 @@ namespace JumpNGun
         }
 
         //Initialize is used similar to initialize in GameWorld
-        public override void Initialize()
-        {
-            SoundManager.Instance.StopClip("soundtrack_2");
-            SoundManager.Instance.PlayClip("soundtrack_1");
-
-
-            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
-
-            LevelManager.Instance.GenerateLevel();
-
-            foreach (var go in GameWorld.Instance.gameObjects)
-            {
-                go.Awake();
-            }
-            Console.WriteLine("Main game init");
-            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-
-            isInitialized = true;
-
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
-
-                }
-            }
-
-            isInitialized = true;
-
-            
-        }
 
         public void returnToMenu()
         {

@@ -72,42 +72,17 @@ namespace JumpNGun
 
         #endregion
 
-        public Player(CharacterType character)
+        public Player(CharacterType character, float speed, float jumpHeight, float dashStrength, float dashCooldown, float shootCooldown, int maxJumpCount, float maxHealth, float projectileSpeed)
         {
-            switch (character)
-            {
-                case CharacterType.Soldier:
-                {
-                    _speed = 100;
-                    _jumpHeight = -100;
-                    _dashStrength = 50;
-                    _dashCooldown = 0.5f;
-                    _shootCooldown = 1f;
-                    _maxJumpCount = 2;
-                    _maxHealth = 120;
-                    _currentHealth = _maxHealth;
-
-                    _projectileSpeed = 350;
-
-                }break;
-                case CharacterType.Ranger:
-                {
-                    _speed = 150;
-                    _jumpHeight = -120;
-                    _dashStrength = 75;
-                    _dashCooldown = 0.25f;
-                    _shootCooldown = 1.5f;
-                    _maxJumpCount = 2;
-                    _maxHealth = 80;
-                    _currentHealth = _maxHealth;
-
-                    _projectileSpeed = 250;
-
-
-                } break;
-
-            }
             _character = character;
+            _speed = speed;
+            _jumpHeight = jumpHeight;
+            _dashStrength = dashStrength;
+            _maxJumpCount = maxJumpCount;
+            _dashCooldown = dashCooldown;
+            _shootCooldown = shootCooldown;
+            _maxHealth = maxHealth;
+            _projectileSpeed = projectileSpeed;
         }
 
         #region Component Methods
@@ -115,7 +90,6 @@ namespace JumpNGun
         public override void Awake()
         {
             EventManager.Instance.Subscribe("OnKeyPress", OnKeyPressed);
-            EventManager.Instance.Subscribe("OnCollision", OnCollision);
         }
         
         public override void Start()
@@ -131,6 +105,7 @@ namespace JumpNGun
 
             GameObject.Transform.Position = _position;
             _gravityPull = _gravity;
+            _currentHealth = _maxHealth;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -144,20 +119,10 @@ namespace JumpNGun
             UpdatePositionReference();
             HandleShootLogic();
             HandleDashLogic();
-
             HandleAnimations();
-
             CheckGrounded();
-
             HandleGravity();
             CheckDeath();
-            
-            if (Keyboard.GetState().IsKeyDown(Keys.O))
-            {
-                _currentHealth--;
-                Console.WriteLine(_currentHealth);
-            }
-            
         }
 
         #endregion
@@ -320,9 +285,10 @@ namespace JumpNGun
                 // If our CollisionBox collides with another CollisionBox and it's tag is ground and we haven't collided with ground yet
                 if (_pCollider.CollisionBox.Intersects(otherCollision.CollisionBox) && !_hasCollidedWithGround)
                 {
-                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "Platform")
+                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
                     {
                         _isGrounded = CalculateCollisionLineIntersection( otherCollision);
+
                     }
                 }
             }
@@ -340,14 +306,15 @@ namespace JumpNGun
         /// </summary>
         private void CheckDeath()
         {
-            if(_currentHealth <= 0)
-            {
-                //TODO Play death animation - NICHLAS
+            if (!(_currentHealth <= 0)) return; // Guard clause
+            
+            //TODO Play death animation - NICHLAS
                 
-                if(_animator.IsAnimationDone)
-                {
-                    GameWorld.Instance.Destroy(this.GameObject);
-                }
+            // Check if the death animation is done
+            if(_animator.IsAnimationDone)
+            {
+                // Destroy player object
+                GameWorld.Instance.Destroy(this.GameObject);
             }
         }
 
@@ -367,16 +334,7 @@ namespace JumpNGun
         /// </summary>
         private void FlipSprite(Vector2 moveDirection)
         {
-            // If we are moving left, flip the sprite
-            if (moveDirection.X < 0)
-            {
-                _sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-            }
-            // If we are moving right, unflip the sprite
-            else if (moveDirection.X > 0)
-            {
-                _sr.SpriteEffects = SpriteEffects.None;
-            }
+            _sr.SpriteEffects = moveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
         /// <summary>
@@ -384,11 +342,10 @@ namespace JumpNGun
         /// </summary>
         private void HandleShootLogic()
         {
-            // Guard clause
-            if (_canShoot) return;
-
-            // Add to our shootTime
-            _shootTime += GameWorld.DeltaTime;
+            
+            if (_canShoot) return; // Guard clause
+            
+            _shootTime += GameWorld.DeltaTime; // Add to our shootTime
 
             // Check if its bigger than the cooldown
             if (_shootTime > _shootCooldown)
@@ -419,17 +376,11 @@ namespace JumpNGun
                     
                 }
             }
-            else if (_pCollider.CollisionBox.Intersects(collisionCollider.BottomLine))
-            {
-                // Console.WriteLine("Push To top!");
-                return false;
-            }
+
 
             // If the player hits the ground CollisionBox from either the left or the right side
             else if (_pCollider.CollisionBox.Intersects(collisionCollider.LeftLine))
             {
-                // _isGrounded = false; // We are not grounded then 
-                // Console.WriteLine("Collided with LeftLine!");
                 GameObject.Transform.Translate(new Vector2(-1, 0) * 10); // Create a small push back
                 return false;
             }
@@ -477,27 +428,6 @@ namespace JumpNGun
             }
 
         }
-        private void OnCollision(Dictionary<string, object> ctx)
-        {
-            Collider pCollider = GameObject.GetComponent<Collider>() as Collider;
-            
-            // Collider collision = (Collider) ctx["collider"];
-            //
-            // if (pCollider.CollisionBox.Intersects(collision.CollisionBox))
-            // {
-            //     switch (collision.GameObject.Tag)
-            //     {
-            //         case "ground":
-            //             // Console.WriteLine("hugubuku");
-            //             break;
-            //     }
-            // }
-                
-        }
-
-
- 
-
         #endregion
     }
 }

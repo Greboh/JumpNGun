@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace JumpNGun
 {
@@ -23,6 +25,7 @@ namespace JumpNGun
         private float _projectileSpeed = 150;
         private float _shootTime;
         private float _shootCooldown = 1f;
+        
 
         public Mushroom(Vector2 position)
         {
@@ -49,7 +52,9 @@ namespace JumpNGun
             base.Update(gameTime);
             SetLocationRectangle();
             CreateMovementArea();
-            SetVelocity();
+            CalculateMovementDirection();
+            
+            
             HandleGravity();
             CheckCollision();
             HandleAnimations();
@@ -98,7 +103,7 @@ namespace JumpNGun
         /// <summary>
         /// Set direction of movement according to position on platform
         /// </summary>
-        private void SetVelocity()
+        private void CalculateMovementDirection()
         {
             //if position is close to right, move left
             if (position.X >= _currentRectangle.Right - sr.Sprite.Width)
@@ -145,14 +150,24 @@ namespace JumpNGun
         /// </summary>
         public override void HandleAnimations()
         {
-            if (!canAttack && health >0) animator.PlayAnimation("mushroom_run");
-            if (canAttack && health >0) animator.PlayAnimation("mushroom_attack");
             if (health <= 0)
             {
+                canAttack = false;
+                isDead = true;
                 speed = 0;
                 //TODO - make enemy stop shooting when death animation playing - KRISTIAN
                 animator.PlayAnimation("mushroom_death");
             }
+            
+            if(isDead) return;
+
+            string currentAnimationName = canAttack ? "mushroom_attack" : "mushroom_run";
+            
+            animator.PlayAnimation(currentAnimationName);
+            
+            if (!canAttack && health >0) animator.PlayAnimation("mushroom_run");
+            if (canAttack && health >0) animator.PlayAnimation("mushroom_attack");
+
         }
 
         /// <summary>
@@ -172,6 +187,22 @@ namespace JumpNGun
 
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
+        
+          /// <summary>
+        /// Reset ability to shoot after cooldown
+        /// </summary>
+        private void HandleShootLogic()
+        {
+            if (_canShoot) return;
+
+            _shootTime += GameWorld.DeltaTime;
+
+            if (_shootTime > _shootCooldown)
+            {
+                _canShoot = true;
+                _shootTime = 0;
+            }
+        }
 
         /// <summary>
         /// Checks for relevant collision with this object
@@ -180,7 +211,7 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "platform" && col.CollisionBox.Intersects(collider.CollisionBox))
                 {
                     _isGrounded = true;
                     _groundCollision = col.CollisionBox;
@@ -188,6 +219,12 @@ namespace JumpNGun
                 if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
                 {
                     _isGrounded = false;
+                }
+                
+                if(col.GameObject.Tag == "p_Projectile" && col.CollisionBox.Intersects(collider.CollisionBox))
+                {
+                    health -= 20;
+                    GameWorld.Instance.Destroy(col.GameObject);
                 }
             }
         }
@@ -197,7 +234,7 @@ namespace JumpNGun
         /// </summary>
         private void Shoot()
         {
-            if (!_canShoot) return;
+            if (!_canShoot || isDead) return;
 
             GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom);
 
@@ -217,21 +254,7 @@ namespace JumpNGun
             _canShoot = false;
         }
 
-        /// <summary>
-        /// Reset ability to shoot after cooldown
-        /// </summary>
-        private void HandleShootLogic()
-        {
-            if (_canShoot) return;
-
-            _shootTime += GameWorld.DeltaTime;
-
-            if (_shootTime > _shootCooldown)
-            {
-                _canShoot = true;
-                _shootTime = 0;
-            }
-        }
+      
 
     }
 }

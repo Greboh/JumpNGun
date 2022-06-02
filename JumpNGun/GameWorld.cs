@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Threading;
-using JumpNGun.StatePattern.GameStates;
 using System.Linq;
-using JumpNGun.ComponentPattern;
+using System.Threading;
 
 namespace JumpNGun
 {
@@ -29,7 +27,7 @@ namespace JumpNGun
                 return instance;
             }
         }
-       
+
         public GraphicsDeviceManager Graphics { get; private set; }
         private SpriteBatch _spriteBatch;
 
@@ -40,7 +38,7 @@ namespace JumpNGun
         public List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
-
+        
         public LinkedList<State> PreviousStates = new LinkedList<State>();
 
         private int _screenWidth = 1325;
@@ -62,6 +60,8 @@ namespace JumpNGun
         public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
         public bool IsRunning { get => isRunning; set => isRunning = value; }
 
+
+
         public GameWorld()
         {
             Graphics = new GraphicsDeviceManager(this);
@@ -77,6 +77,11 @@ namespace JumpNGun
         protected override void Initialize()
         {
             SoundManager.Instance.InitDictionary();
+            _background = new Background();
+
+            _currentState = new MainMenuState(); // sets first state to show on startup
+            _currentState.LoadContent(); // loads state content into GameWorld content
+            _nextState = null; // makes sure next state is empty on startup
 
             base.Initialize();
         }
@@ -84,22 +89,12 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            //_background = new Background(); 
-            //_background.LoadContent();
-
-            _currentState = new MainMenuState(); // sets first state to show on startup
-            _currentState.LoadContent(); // loads state content into GameWorld content
-            _nextState = null; // makes sure next state is empty on startup
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
-            //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
-
-            //_background.Update(gameTime);
-
+            
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
 
@@ -112,14 +107,16 @@ namespace JumpNGun
                 _nextState = null;
             }
             else _currentState.Update(gameTime);
-            
+
+            _background.Update();
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //_background.Draw(_spriteBatch);
+            _background.Draw(_spriteBatch);
 
             _currentState.Draw(gameTime, _spriteBatch);
 
@@ -145,6 +142,8 @@ namespace JumpNGun
             return _currentState;
         }
 
+        
+
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
         /// </summary>
@@ -155,7 +154,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Remove active GameObject from game by adding them to list of destroyedGameObjects
+        /// Destroy and remove active GameObject from game by adding them to list of destroyedGameObjects
         /// </summary>
         /// <param name="go">GameObject to be destoyed</param>
         public void Destroy(GameObject go)
@@ -170,16 +169,18 @@ namespace JumpNGun
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
-                AddCollider(newGameObjects[i]);
                 gameObjects.Add(newGameObjects[i]);
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
+                AddCollider(newGameObjects[i]);
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
-                RemoveCollider(destroyedGameObjects[i]);
                 gameObjects.Remove(destroyedGameObjects[i]);
+
+                RemoveCollider(destroyedGameObjects[i]);
+
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();

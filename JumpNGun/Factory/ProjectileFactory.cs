@@ -29,7 +29,7 @@ namespace JumpNGun
                 case CharacterType.Soldier:
                     {
                         sr.SetSprite("Bullet");
-                        projectile.Tag = "P_Projectile";
+                        projectile.Tag = "p_Projectile";
                     }
                     break;
                 case CharacterType.Ranger:

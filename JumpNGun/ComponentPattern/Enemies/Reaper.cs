@@ -57,7 +57,7 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "Player" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "player" && col.CollisionBox.Intersects(collider.CollisionBox))
                 {
                     Attack();
                 }

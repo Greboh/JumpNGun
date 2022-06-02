@@ -43,14 +43,19 @@ namespace JumpNGun
             EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath); //TODO Fix another way
         }
 
+        
+        public void ExecuteLevelGeneration()
+        {
+            new Thread(GenerateLevel) { IsBackground = true }.Start();
+        }
+        
+        
         /// <summary>
         /// Creates platforms and relevant Enviroment objects
         /// </summary>
-        public void GenerateLevel()
+        private void GenerateLevel()
         {
-            if (!_levelIsGenerated)
-            {
-                //Change all relevant enum types
+            //Change all relevant enum types
                 ChangeEnviroment();
 
                 //Create first portal
@@ -68,10 +73,8 @@ namespace JumpNGun
 
                 //Create ground
                 GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
-
-                //Stop generating level
-                _levelIsGenerated = true;
-            }
+                
+            
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace JumpNGun
         /// <summary>
         /// Change enemies, platforms and bosses
         /// </summary>
-        public void ChangeEnviroment()
+        private void ChangeEnviroment()
         {
             switch (_level)
             {
@@ -145,8 +148,8 @@ namespace JumpNGun
             if (message.ContainsKey("NewLevel"))
             {
                 IncrementLevel();
-                _levelIsGenerated = (bool) message["NewLevel"];
                 CleanLevel();
+                ExecuteLevelGeneration();
             }
         }
 
@@ -158,7 +161,7 @@ namespace JumpNGun
             //Destroy all objects besides player
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                if (go.Tag != "Player")
+                if (go.Tag != "player")
                 {
                     GameWorld.Instance.Destroy(go);
                 }

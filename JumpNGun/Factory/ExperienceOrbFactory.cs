@@ -55,7 +55,7 @@ namespace JumpNGun
             SpriteRenderer sr = (SpriteRenderer)orb.AddComponent(new SpriteRenderer());
             orb.AddComponent(new Collider());
             Animator animator = (Animator) orb.AddComponent(new Animator());
-            orb.Tag = "Experience_Orb";
+            orb.Tag = "xpOrb";
 
             switch (type)
             {
