@@ -14,18 +14,33 @@ namespace JumpNGun
         protected float speed;
         protected float originalspeed;
 
-        protected Vector2 position;
-        protected Vector2 velocity;
+        public float ProjectileSpeed { get; set; }
 
-        protected SpriteRenderer sr;
-        protected Animator animator;
+        public float AttackCooldown { get; set; }
+
+        public float Attacktimer { get; set; }
+
+
+        protected Vector2 position;
+        public Vector2 Velocity { get; set; }
+
+        public SpriteRenderer sr { get; private set; }
+        public Animator Animator { get; private set; }
         protected Collider collider;
-        protected Player player;
+        public Player Player  { get; private set; }
 
         protected bool isImmune;
-        protected bool canAttack;
-        private bool canMove = true;
+
+        private bool _canMove = true;
         protected bool isDead;
+        
+        public Rectangle PlatformRectangle { get;  set; } = Rectangle.Empty;
+
+
+        protected IState currentState;
+        protected IState attackState;
+        protected IState moveState;
+        protected IState deathState;
 
         public override void Awake()
         {
@@ -35,9 +50,20 @@ namespace JumpNGun
         public override void Start()
         {
             sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            animator = GameObject.GetComponent<Animator>() as Animator;
+            Animator = GameObject.GetComponent<Animator>() as Animator;
             collider = GameObject.GetComponent<Collider>() as Collider;
-            player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
+            Player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
+            
+            InitializeStates();
+            
+            ChangeState(moveState);
+        }
+        
+        private void InitializeStates()
+        {
+            moveState = new MoveState();
+            attackState = new AttackState();
+            // deathState = new AttackState();
         }
 
         public override void Update(GameTime gameTime)
@@ -47,21 +73,23 @@ namespace JumpNGun
             TakeDamage();
             UpdatePositionReference();
             Die();
+            
+            currentState?.Execute();
         }
 
         public abstract void Attack();
 
         public abstract void CheckCollision();
-        
+
         public abstract void HandleAnimations();
 
-        public virtual void ChasePlayer()
+        protected virtual void ChasePlayer()
         {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
+            Vector2 sourceToTarget = Vector2.Subtract(Player.Position, GameObject.Transform.Position);
             sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+            sourceToTarget = Vector2.Multiply(sourceToTarget, Player.Speed);
 
-            velocity = sourceToTarget;
+            Velocity = sourceToTarget;
         }
 
 
@@ -70,8 +98,7 @@ namespace JumpNGun
         /// </summary>
         private void Move()
         {
-            if (canAttack || !canMove || isDead) return;
-            GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
+            GameObject.Transform.Translate(Velocity * speed * GameWorld.DeltaTime);
         }
 
         /// <summary>
@@ -87,14 +114,14 @@ namespace JumpNGun
         /// </summary>
         private void FlipSprite()
         {
-            if (!canAttack)
-            {
-                sr.SpriteEffects = velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
-            else
-            {
-                sr.SpriteEffects = player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            }
+            // if (!canAttack)
+            // {
+            //     sr.SpriteEffects = Velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            // }
+            // else
+            // {
+            //     sr.SpriteEffects = player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            // }
         }
 
         /// <summary>
@@ -118,7 +145,7 @@ namespace JumpNGun
         /// <param name="ctx"></param>
         private void FreezeMovement(Dictionary<string, object> ctx)
         {
-            canMove = (bool)ctx["freeze"];
+            _canMove = (bool) ctx["freeze"];
         }
 
         /// <summary>
@@ -128,11 +155,11 @@ namespace JumpNGun
         {
             if (health <= 0)
             {
-                if (animator.IsAnimationDone)
+                if (Animator.IsAnimationDone)
                 {
                     EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
-                    { {"enemyDeath", 1} });
-                    
+                        {{"enemyDeath", 1}});
+
                     ScoreHandler.Instance.AddToScore(20);
                     ScoreHandler.Instance.PrintScore();
                     GameWorld.Instance.Destroy(this.GameObject);
@@ -140,5 +167,20 @@ namespace JumpNGun
                 }
             }
         }
+
+        #region State Methods
+
+        protected void ChangeState(IState newState)
+        {
+            if (newState == currentState) return;
+            
+            Console.WriteLine(newState.GetType().Name);
+            currentState?.Exit();
+
+            currentState = newState;
+            currentState.Enter(this);
+        }
+
+        #endregion
     }
 }

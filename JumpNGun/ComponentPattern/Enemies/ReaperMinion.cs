@@ -17,7 +17,6 @@ namespace JumpNGun
             health = 10;
             speed = 1f;
             damage = 10;
-            canAttack = true;
         }
 
         public override void Awake()
@@ -45,12 +44,12 @@ namespace JumpNGun
             throw new NotImplementedException();
         }
 
-        public override void ChasePlayer()
+        protected override void ChasePlayer()
         {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
+            Vector2 sourceToTarget = Vector2.Subtract(Player.Position, GameObject.Transform.Position);
             sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
-            velocity = sourceToTarget;
+            sourceToTarget = Vector2.Multiply(sourceToTarget, Player.Speed);
+            Velocity = sourceToTarget;
         }
 
         public override void CheckCollision()
@@ -80,13 +79,12 @@ namespace JumpNGun
 
         public override void HandleAnimations()
         {
-            if(!_spawningDone)animator.PlayAnimation("minion_spawn");
+            if(!_spawningDone)Animator.PlayAnimation("minion_spawn");
 
-            if (animator.IsAnimationDone && !_spawningDone)
+            if (Animator.IsAnimationDone && !_spawningDone)
             {
                 _spawningDone = true;
-                canAttack = false;
-                animator.PlayAnimation("minion_idle");
+                Animator.PlayAnimation("minion_idle");
             }
         }
     }

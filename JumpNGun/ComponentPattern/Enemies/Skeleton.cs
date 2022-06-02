@@ -91,12 +91,12 @@ namespace JumpNGun
             //if position is close to right, move left
             if (position.X >= _currentRectangle.Right - sr.Sprite.Width)
             {
-                velocity = new Vector2(-1, 0);
+                Velocity = new Vector2(-1, 0);
             }
             //if position is close to left, move right
             if (position.X <= _currentRectangle.Left + sr.Sprite.Width)
             {
-                velocity = new Vector2(1, 0);
+                Velocity = new Vector2(1, 0);
             }
         }
 
@@ -147,10 +147,9 @@ namespace JumpNGun
 
                 if (col.GameObject.Tag == "player" && col.CollisionBox.Intersects(collider.CollisionBox))
                 {
-                    canAttack = true;
                     Attack();
                 }
-                else if (col.GameObject.Tag == "player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
+                // else if (col.GameObject.Tag == "player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
             }
         }
 
@@ -159,22 +158,22 @@ namespace JumpNGun
             //trigger event to deal player damage
         }
 
-        public override void ChasePlayer()
+        protected override void ChasePlayer()
         {
-            Collider playerCol = (player.GameObject.GetComponent<Collider>() as Collider);
+            Collider playerCol = (Player.GameObject.GetComponent<Collider>() as Collider);
 
             if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
             {
                 speed = 100;
 
-                if (player.Position.X < position.X)
+                if (Player.Position.X < position.X)
                 {
-                    velocity = new Vector2(-1, 0);
+                    Velocity = new Vector2(-1, 0);
                 }
-                else if (player.Position.X > position.X)
+                else if (Player.Position.X > position.X)
                 {
 
-                    velocity = new Vector2(1, 0);
+                    Velocity = new Vector2(1, 0);
                 }
             }
             else speed = originalspeed;
@@ -182,8 +181,8 @@ namespace JumpNGun
 
         public override void HandleAnimations()
         {
-            if (!canAttack) animator.PlayAnimation("skeleton_walk");
-            if (canAttack) animator.PlayAnimation("skeleton_attack");
+            // if (!canAttack) animator.PlayAnimation("skeleton_walk");
+            // if (canAttack) animator.PlayAnimation("skeleton_attack");
         }
 
     }

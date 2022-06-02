@@ -70,10 +70,12 @@ namespace JumpNGun
         /// </summary>
         public override void HandleAnimations()
         {
-            if (!canAttack && !_canTeleport) animator.PlayAnimation("reaper_idle");
-            if (canAttack && !_canTeleport) animator.PlayAnimation("reaper_attack");
-            if (health <= 0) animator.PlayAnimation("reaper_death");
-            if (_canTeleport) animator.PlayAnimation("reaper_teleport");
+            if (!_canTeleport) 
+                Animator.PlayAnimation("reaper_idle");
+            if (!_canTeleport) 
+                Animator.PlayAnimation("reaper_attack");
+            if (health <= 0) Animator.PlayAnimation("reaper_death");
+            if (_canTeleport) Animator.PlayAnimation("reaper_teleport");
         }
 
         #region ABILITIES
@@ -87,11 +89,11 @@ namespace JumpNGun
 
             speed = 0; 
             
-            if (animator.CurrentIndex >= 17)
+            if (Animator.CurrentIndex >= 17)
             {
-                GameObject.Transform.Position = new Vector2(player.Position.X + sr.Sprite.Width, player.Position.Y);
+                GameObject.Transform.Position = new Vector2(Player.Position.X + sr.Sprite.Width, Player.Position.Y);
             }
-            if (animator.IsAnimationDone)
+            if (Animator.IsAnimationDone)
             {
                 _canTeleport = false;
                 speed = originalspeed;
@@ -104,8 +106,8 @@ namespace JumpNGun
         /// <returns></returns>
         private bool CalculateDistanceToEnemy()
         {
-            if (this.position.X - player.Position.X > 200 || this.position.X - player.Position.X < -200) return true;
-            if (this.position.Y - player.Position.Y > 200 || this.position.Y - player.Position.Y < -200) return true;
+            if (this.position.X - Player.Position.X > 200 || this.position.X - Player.Position.X < -200) return true;
+            if (this.position.Y - Player.Position.Y > 200 || this.position.Y - Player.Position.Y < -200) return true;
             else return false;
         }
 
