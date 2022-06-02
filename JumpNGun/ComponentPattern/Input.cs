@@ -23,7 +23,7 @@ namespace JumpNGun
         /// <summary>
         /// Whether to use keyboard or mouse on this keybind
         /// </summary>
-        public bool PreferKeyboard { get; set; }
+        public bool IsKeyboardBinding { get; private set; }
         
         #region Constructors
 
@@ -33,7 +33,7 @@ namespace JumpNGun
             MouseBinding = MouseButton.None;
             ActionName = actionName;
 
-            PreferKeyboard = true;
+            IsKeyboardBinding = true;
         }
 
 
@@ -43,7 +43,7 @@ namespace JumpNGun
             MouseBinding = mouse;
             ActionName = actionName;
 
-            PreferKeyboard = false;
+            IsKeyboardBinding = false;
         }
 
         #endregion
@@ -86,9 +86,6 @@ namespace JumpNGun
             PrintAllKeybindings();
 
             RebindKey(new KeyCode(Keys.Space, "shoot"), new ShootCommand());
-            
-            
-            // PrintKeybindings();
         }
 
 
@@ -102,7 +99,7 @@ namespace JumpNGun
         {
             foreach (KeyCode keyCode in _keybindings.Keys)
             {
-                if (keyCode.PreferKeyboard)
+                if (keyCode.IsKeyboardBinding)
                 {
                     // Reference to our current pressed key
                     Keys currentKey = keyCode.KeyboardBinding;

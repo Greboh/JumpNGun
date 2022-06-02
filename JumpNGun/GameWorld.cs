@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace JumpNGun
 {
@@ -35,7 +38,7 @@ namespace JumpNGun
         public List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
-
+        
         public LinkedList<State> PreviousStates = new LinkedList<State>();
 
         private int _screenWidth = 1325;
@@ -57,6 +60,8 @@ namespace JumpNGun
         public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
         public bool IsRunning { get => isRunning; set => isRunning = value; }
 
+
+
         public GameWorld()
         {
             Graphics = new GraphicsDeviceManager(this);
@@ -72,6 +77,11 @@ namespace JumpNGun
         protected override void Initialize()
         {
             SoundManager.Instance.InitDictionary();
+            _background = new Background();
+
+            _currentState = new MainMenuState(); // sets first state to show on startup
+            _currentState.LoadContent(); // loads state content into GameWorld content
+            _nextState = null; // makes sure next state is empty on startup
 
             base.Initialize();
         }
@@ -79,21 +89,11 @@ namespace JumpNGun
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _background = new Background();
-            _background.LoadContent();
-
-            _currentState = new MainMenuState(); // sets first state to show on startup
-            _currentState.LoadContent(); // loads state content into GameWorld content
-            _nextState = null; // makes sure next state is empty on startup
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
-            //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
-
-            _background.Update(gameTime);
             
             myMouse = Mouse.GetState();
             MousePosition = new Vector2(myMouse.X, myMouse.Y);
@@ -107,7 +107,9 @@ namespace JumpNGun
                 _nextState = null;
             }
             else _currentState.Update(gameTime);
-            
+
+            _background.Update();
+
             base.Update(gameTime);
         }
 

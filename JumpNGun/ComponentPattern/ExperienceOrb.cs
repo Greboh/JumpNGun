@@ -24,7 +24,6 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("OnCollision", OnCollision);
         }
         
         public override void Start()
@@ -41,43 +40,36 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            
+            OnCollision();
         }
 
         #endregion
 
         #region Event methods
 
-        private void OnCollision(Dictionary<string, object> ctx)
+        private void OnCollision()
         {
             Collider collider = GameObject.GetComponent<Collider>() as Collider;
             
-            GameObject collision = (GameObject) ctx["collider"];
-            Rectangle collisonBox = (collision.GetComponent<Collider>() as Collider).CollisionBox;
+            Collider goCollider = GameObject.GetComponent<Collider>() as Collider;
 
-            
-            if (collider.CollisionBox.Intersects((collision.GetComponent<Collider>() as Collider).CollisionBox) && 
-                                                GameWorld.Instance.GameObjects.Contains(this.GameObject) && 
-                                                collisonBox.Intersects(collider.CollisionBox)
-                                                && !_hasCollided) //TODO HeLP FIX ThIS
+            foreach (Collider otherCollision in GameWorld.Instance.Colliders)
             {
-                switch (collision.Tag)
+                if (goCollider.CollisionBox.Intersects(otherCollision.CollisionBox))
                 {
-                    case "Player":
+                    if (otherCollision.GameObject.Tag == "player" )
                     {
-                        _hasCollided = true;
+                        Console.WriteLine($"this {GameObject.Tag} collided with {otherCollision.GameObject.Tag}");
+                        
+                        GameWorld.Instance.Destroy(collider.GameObject);
+                        
                         EventManager.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
                             {
                                 {"xpAmount", _xpAmount}
                             }
                         );
-                        
-                        Console.WriteLine("orb col");
-                        
-                        GameWorld.Instance.Destroy(collider.GameObject);
-                    }break;
-                    
-                    
+
+                    }
                 }
             }
         }

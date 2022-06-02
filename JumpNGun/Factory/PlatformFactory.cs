@@ -84,8 +84,7 @@ namespace JumpNGun
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
 
             gameObject.Tag = "platform";
-            gameObject.Tag = "Platform";
-
+            
             gameObject.AddComponent(new Collider());
 
             switch (type)

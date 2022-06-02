@@ -25,6 +25,7 @@ namespace JumpNGun
         protected bool isImmune;
         protected bool canAttack;
         private bool canMove = true;
+        protected bool isDead;
 
         public override void Awake()
         {
@@ -69,7 +70,7 @@ namespace JumpNGun
         /// </summary>
         private void Move()
         {
-            if (canAttack || !canMove) return;
+            if (canAttack || !canMove || isDead) return;
             GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
         }
 
@@ -88,22 +89,11 @@ namespace JumpNGun
         {
             if (!canAttack)
             {
-                // If we are moving left, flip the sprite
-                if (velocity.X < 0)
-                    sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-                
-                // If we are moving right, unflip the sprite
-                else if (velocity.X > 0)
-                    sr.SpriteEffects = SpriteEffects.None;
-                
+                sr.SpriteEffects = velocity.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
             else
             {
-                if (player.GameObject.Transform.Position.X < this.GameObject.Transform.Position.X)
-                    sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-                
-                else if (player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X)
-                    sr.SpriteEffects = SpriteEffects.None;
+                sr.SpriteEffects = player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             }
         }
 

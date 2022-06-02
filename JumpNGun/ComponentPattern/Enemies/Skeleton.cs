@@ -145,12 +145,12 @@ namespace JumpNGun
                 }
                 if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
 
-                if (col.GameObject.Tag == "Player" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "player" && col.CollisionBox.Intersects(collider.CollisionBox))
                 {
                     canAttack = true;
                     Attack();
                 }
-                else if (col.GameObject.Tag == "Player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
+                else if (col.GameObject.Tag == "player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
             }
         }
 

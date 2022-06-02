@@ -25,10 +25,10 @@ namespace JumpNGun
 
         public Background()
         {
-            
+            LoadContent();
         }
 
-        public void LoadContent()
+        private void LoadContent()
         {
             _backgroundimage = GameWorld.Instance.Content.Load<Texture2D>("background_image");
 
@@ -60,7 +60,7 @@ namespace JumpNGun
             spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             _position1.X += 1f;
 
