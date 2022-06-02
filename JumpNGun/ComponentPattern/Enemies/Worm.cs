@@ -99,12 +99,12 @@ namespace JumpNGun
             //if position is close to right, move left
             if (position.X >= _currentRectangle.Right - sr.Sprite.Width)
             {
-                velocity = new Vector2(-1, 0);
+                Velocity = new Vector2(-1, 0);
             }
             //if position is close to left, move right
             if (position.X <= _currentRectangle.Left + sr.Sprite.Width)
             {
-                velocity = new Vector2(1, 0);
+                Velocity = new Vector2(1, 0);
             }
         }
 
@@ -165,14 +165,12 @@ namespace JumpNGun
         /// </summary>
         public override void Attack()
         {
-            Collider playerCol = (player.GameObject.GetComponent<Collider>() as Collider);
+            Collider playerCol = (Player.GameObject.GetComponent<Collider>() as Collider);
 
             if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
             {
                 Shoot();
-                canAttack = true;
             }
-            else canAttack = false;
         }
 
         /// <summary>
@@ -202,7 +200,7 @@ namespace JumpNGun
 
             projectile.Transform.Position = GameObject.Transform.Position;
 
-            if (player.Position.X < position.X)
+            if (Player.Position.X < position.X)
             {
                 ((Projectile)projectile.GetComponent<Projectile>()).Velocity = new Vector2(-1, 0);
             }
@@ -218,12 +216,12 @@ namespace JumpNGun
 
         public override void HandleAnimations()
         {
-            if (!canAttack && health > 0) animator.PlayAnimation("worm_walk");
-            if (canAttack && health > 0) animator.PlayAnimation("worm_attack");
+            // if (!canAttack && health > 0) animator.PlayAnimation("worm_walk");
+            // if (canAttack && health > 0) animator.PlayAnimation("worm_attack");
             if (health <= 0)
             {
                 speed = 0;
-                animator.PlayAnimation("worm_death");
+                Animator.PlayAnimation("worm_death");
             }
         }
     }
