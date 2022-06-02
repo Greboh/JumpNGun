@@ -131,9 +131,8 @@ namespace JumpNGun
                 if (animator.IsAnimationDone)
                 {
                     EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
-                    {
-                    {"enemyDeath", 1}
-                     });
+                    { {"enemyDeath", 1} });
+                    
                     ScoreHandler.Instance.AddToScore(20);
                     ScoreHandler.Instance.PrintScore();
                     GameWorld.Instance.Destroy(this.GameObject);

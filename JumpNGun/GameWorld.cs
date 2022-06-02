@@ -83,6 +83,9 @@ namespace JumpNGun
             _currentState.LoadContent(); // loads state content into GameWorld content
             _nextState = null; // makes sure next state is empty on startup
 
+            Database.Instance.AddScore("Hoberg", 5000);
+            Database.Instance.PrintScore();
+
             base.Initialize();
         }
 
