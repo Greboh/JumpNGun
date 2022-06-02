@@ -21,12 +21,6 @@ namespace JumpNGun
 
         public override void LoadContent()
         {
-            //call start method on every active GameObject in list
-            //for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
-            //{
-            //    GameWorld.Instance.gameObjects[i].Start();
-            //}
-
             // asset content loading
             _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
             _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
@@ -75,7 +69,6 @@ namespace JumpNGun
                 GameWorld.Instance.gameObjects[i].Update(gameTime);
 
             }
-            
 
             GameWorld.Instance.CleanUp();
         }
