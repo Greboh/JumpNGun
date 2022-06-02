@@ -182,7 +182,6 @@ namespace JumpNGun
                 if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<Mushroom>() || go.HasComponent<ExperienceOrb>())
                 {
                     GameWorld.Instance.Destroy(go);
-                    LevelManager.Instance.LevelIsGenerated = false;
                     LevelManager.Instance.ResetLevel();
                 }
                 if (go.HasComponent<Button>())

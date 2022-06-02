@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -18,13 +15,11 @@ namespace JumpNGun
         }
 
 
-        private bool _levelIsGenerated = false; //bool to control level generation
         private bool _isBossLevel = false;
         private int _level = 1; // used to change level
         private int _enemyStartAmount = 2;// initial amount of enemies at start of game
         private int _enemyCurrentAmount = 2; // current amount of enemies through game
         private int _platformAmount = 4; // determines amount of platform pr. level
-        public bool LevelIsGenerated { get; set; } = false; //property to control level generation logic
 
         #region DEBUG BUTTONS
         private bool _canPress = true;
@@ -56,25 +51,23 @@ namespace JumpNGun
         private void GenerateLevel()
         {
             //Change all relevant enum types
-                ChangeEnviroment();
+            ChangeEnviroment();
 
-                //Create first portal
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
+            //Create first portal
+            GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
 
-                //Create all relevant platforms
-                PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
+            //Create all relevant platforms
+            PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
 
-                //Get all rectangles that contain platforms 
-                UsedLocations = PlatformGenerator.Instance.GetLocations();
+            //Get all rectangles that contain platforms 
+            UsedLocations = PlatformGenerator.Instance.GetLocations();
 
-                //Create relevant boss or all relevant enemies 
-                if (_isBossLevel) EnemyGenerator.Instance.GenerateBoss(_currentEnemyType);
-                else EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
+            //Create relevant boss or all relevant enemies 
+            if (_isBossLevel) EnemyGenerator.Instance.GenerateBoss(_currentEnemyType);
+            else EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
 
-                //Create ground
-                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
-                
-            
+            //Create ground
+            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
         }
 
         /// <summary>
@@ -236,9 +229,9 @@ namespace JumpNGun
             if (Keyboard.GetState().IsKeyDown(Keys.K) && _canPress)
             {
                 IncrementLevel();
-                _levelIsGenerated = false;
                 CleanLevel();
                 _canPress = false;
+                ExecuteLevelGeneration();
             }
 
             if (Keyboard.GetState().IsKeyUp(Keys.K))
