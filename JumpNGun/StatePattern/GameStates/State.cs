@@ -14,6 +14,9 @@ namespace JumpNGun
             Abstract class for menu state methods to be used in GameWorld.
         */
 
+        protected static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
+        protected static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
+
         private bool isInitialized;
 
 

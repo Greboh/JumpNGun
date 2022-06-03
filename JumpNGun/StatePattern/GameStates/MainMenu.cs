@@ -10,13 +10,28 @@ namespace JumpNGun
     public class MainMenu : State
     {
 
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
+        
 
         private Texture2D _game_title;
 
-        
-        
+        //Initialize is used similar to initialize in GameWorld
+        public override void Initialize()
+        {
+            ComponentCleanUp();
+
+            foreach (var go in GameWorld.Instance.gameObjects)
+            {
+                go.Awake();
+            }
+
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit));
+
+            SoundManager.Instance.StopClip("soundtrack_1");
+            SoundManager.Instance.PlayClip("soundtrack_2");
+        }
 
         public override void LoadContent()
         {
@@ -60,24 +75,7 @@ namespace JumpNGun
             GameWorld.Instance.CleanUp();
         }
 
-        //Initialize is used similar to initialize in GameWorld
-        public override void Initialize()
-        {
-            ComponentCleanUp();
-
-            foreach (var go in GameWorld.Instance.gameObjects)
-            {
-                go.Awake();
-            }
-
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit));
-
-            SoundManager.Instance.StopClip("soundtrack_1");
-            SoundManager.Instance.PlayClip("soundtrack_2");
-        }
+        
 
 
 

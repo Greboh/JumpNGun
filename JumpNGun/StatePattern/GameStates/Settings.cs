@@ -9,11 +9,27 @@ namespace JumpNGun
 {
     public class Settings : State
     {
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
+
 
         private Texture2D _game_title;
-        
+
+        //Initialize is used similar to initialize in GameWorld
+        public override void Initialize()
+        {
+            ComponentCleanUp();
+
+            foreach (var go in GameWorld.Instance.gameObjects)
+            {
+                go.Awake();
+            }
+
+
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+
+
+        }
 
         //TODO: Remove previous buttons from drawing
         public override void LoadContent()
@@ -57,23 +73,7 @@ namespace JumpNGun
 
         }
 
-        //Initialize is used similar to initialize in GameWorld
-        public override void Initialize()
-        {
-            ComponentCleanUp();
-
-            foreach (var go in GameWorld.Instance.gameObjects)
-            {
-                go.Awake();
-            }
-
-            
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
-
-            
-        }
+        
 
 
 

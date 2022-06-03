@@ -8,8 +8,7 @@ namespace JumpNGun.StatePattern.GameStates
 {
     public class Audio : State
     {
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
+
 
         private Texture2D _game_title;
         private Texture2D _enabled;
@@ -17,7 +16,24 @@ namespace JumpNGun.StatePattern.GameStates
         private Texture2D _musicStatus;
         private Texture2D _sfxStatus;
 
-        
+        //Initialize is used similar to initialize in GameWorld
+        public override void Initialize()
+        {
+            ComponentCleanUp();
+
+            foreach (var go in GameWorld.Instance.gameObjects)
+            {
+                go.Awake();
+            }
+
+
+
+            //instansiates buttons used in state
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Music));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Sfx));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+        }
+
         public override void LoadContent()
         {
 
@@ -92,23 +108,7 @@ namespace JumpNGun.StatePattern.GameStates
             }
         }
 
-        //Initialize is used similar to initialize in GameWorld
-        public override void Initialize()
-        {
-            ComponentCleanUp();
-
-            foreach (var go in GameWorld.Instance.gameObjects)
-            {
-                go.Awake();
-            }
-
-            
-
-            //instansiates buttons used in state
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Music));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Sfx));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
-        }
+        
 
 
 

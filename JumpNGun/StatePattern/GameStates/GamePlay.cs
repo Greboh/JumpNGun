@@ -26,17 +26,42 @@ namespace JumpNGun.StatePattern.GameStates
 
         private SpriteFont _scoreFont;
 
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-
         private bool isPaused;
 
         private bool pauseKeyPressed;
 
         private PauseState currentPauseState = PauseState.unpaused;
 
-       
 
+        //Initialize is used similar to initialize in GameWorld
+        public override void Initialize()
+        {
+            ComponentCleanUp();
+
+
+            SoundManager.Instance.StopClip("soundtrack_2");
+            SoundManager.Instance.PlayClip("soundtrack_1");
+
+
+            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
+            GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
+
+            LevelManager.Instance.GenerateLevel();
+
+
+            foreach (var go in GameWorld.Instance.gameObjects)
+            {
+                go.Awake();
+            }
+
+            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
+
+
+
+
+
+
+        }
 
         public override void LoadContent()
         {
@@ -191,35 +216,7 @@ namespace JumpNGun.StatePattern.GameStates
             }
         }
 
-        //Initialize is used similar to initialize in GameWorld
-        public override void Initialize()
-        {
-            ComponentCleanUp();
-
-
-            SoundManager.Instance.StopClip("soundtrack_2");
-            SoundManager.Instance.PlayClip("soundtrack_1");
-
-
-            Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
-            GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
-
-            LevelManager.Instance.GenerateLevel();
-            
-
-            foreach (var go in GameWorld.Instance.gameObjects)
-            {
-                go.Awake();
-            }
         
-            ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
-
-
-            
-
-
-            
-        }
 
       
 

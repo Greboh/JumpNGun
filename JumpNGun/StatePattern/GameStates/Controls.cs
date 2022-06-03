@@ -8,11 +8,23 @@ namespace JumpNGun
 {
     public class Controls : State
     {
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
 
         private Texture2D _game_title;
 
+        //Initialize is used similar to initialize in GameWorld
+        public override void Initialize()
+        {
+            ComponentCleanUp();
+
+            foreach (var go in GameWorld.Instance.gameObjects)
+            {
+                go.Awake();
+            }
+
+
+            //instansiates buttons used in state
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+        }
 
         public override void LoadContent()
         {
@@ -54,20 +66,7 @@ namespace JumpNGun
 
         }
 
-        //Initialize is used similar to initialize in GameWorld
-        public override void Initialize()
-        {
-            ComponentCleanUp();
-
-            foreach (var go in GameWorld.Instance.gameObjects)
-            {
-                go.Awake();
-            }
-
-
-            //instansiates buttons used in state
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
-        }
+        
 
         
 
