@@ -194,7 +194,7 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                GameWorld.Instance.ChangeState(new MainGameState());
+                GameWorld.Instance.ChangeState(new StatePattern.GameStates.GamePlay());
 
 
                 _canIntersect = false;
@@ -215,7 +215,7 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                GameWorld.Instance.ChangeState(new SettingsMenuState());
+                GameWorld.Instance.ChangeState(new Settings());
 
                 _mouseCooldown += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 _canIntersect = false;
@@ -253,7 +253,7 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                GameWorld.Instance.ChangeState(new AudioSettingsState());
+                GameWorld.Instance.ChangeState(new Audio());
 
                 _mouseCooldown += 0;
                 _canIntersect = false;
@@ -273,7 +273,7 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                GameWorld.Instance.ChangeState(new ControlSettingsState());
+                GameWorld.Instance.ChangeState(new Controls());
 
                 _mouseCooldown += 0;
 
@@ -370,19 +370,19 @@ namespace JumpNGun
                 //    GameWorld.Instance.ChangeState(new SettingsMenuState());
 
                 //}
-                if (GameWorld.Instance._currentState is SettingsMenuState) // return to Main menu from settings
+                if (GameWorld.Instance._currentState is Settings) // return to Main menu from settings
                 {
-                    GameWorld.Instance.ChangeState(new MainMenuState());
+                    GameWorld.Instance.ChangeState(new MainMenu());
 
                 }
-                else if (GameWorld.Instance._currentState is AudioSettingsState) // return to main settings menu from audio settings
+                else if (GameWorld.Instance._currentState is Audio) // return to main settings menu from audio settings
                 {
-                    GameWorld.Instance.ChangeState(new SettingsMenuState());
+                    GameWorld.Instance.ChangeState(new Settings());
 
                 }
-                else if (GameWorld.Instance._currentState is ControlSettingsState) // return to main settings menu from control settings
+                else if (GameWorld.Instance._currentState is Controls) // return to main settings menu from control settings
                 {
-                    GameWorld.Instance.ChangeState(new SettingsMenuState());
+                    GameWorld.Instance.ChangeState(new Settings());
 
                 }
 
@@ -406,7 +406,7 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                GameWorld.Instance.ChangeState(new MainMenuState());
+                GameWorld.Instance.ChangeState(new MainMenu());
 
                 _mouseCooldown += 0;
 

@@ -6,18 +6,17 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public class ControlSettingsState : State
+    public class Controls : State
     {
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-        private Texture2D _background_image;
+
         private Texture2D _game_title;
-        private bool isInitialized;
+
 
         public override void LoadContent()
         {
             // asset content loading
-            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
             _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -72,17 +71,7 @@ namespace JumpNGun
 
         
 
-        private void ClearObjects()
-        {
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
-
-                }
-            }
-        }
+        
 
         
     }

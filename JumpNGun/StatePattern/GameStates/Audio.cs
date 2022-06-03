@@ -6,23 +6,22 @@ using System.Text;
 
 namespace JumpNGun.StatePattern.GameStates
 {
-    public class AudioSettingsState : State
+    public class Audio : State
     {
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-        private Texture2D _background_image;
+
         private Texture2D _game_title;
         private Texture2D _enabled;
         private Texture2D _disabled;
         private Texture2D _musicStatus;
         private Texture2D _sfxStatus;
-        private bool isInitialized;
+
         
         public override void LoadContent()
         {
 
             // asset content loading
-            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
             _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
             _enabled = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _disabled = GameWorld.Instance.Content.Load<Texture2D>("crossedout");
@@ -113,17 +112,7 @@ namespace JumpNGun.StatePattern.GameStates
 
 
 
-        private void ClearObjects()
-        {
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
-
-                }
-            }
-        }
+        
 
         
     }

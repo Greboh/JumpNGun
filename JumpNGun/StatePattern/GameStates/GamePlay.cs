@@ -15,7 +15,7 @@ namespace JumpNGun.StatePattern.GameStates
         paused,
     }
 
-    public class MainGameState : State
+    public class GamePlay : State
     {
         private Texture2D _pausedOverlay;
         private Texture2D _avatar_1; // temporary
@@ -123,16 +123,31 @@ namespace JumpNGun.StatePattern.GameStates
         public override void Update(GameTime gameTime)
         {
             InitializeCheck();
+            PauseMenuHandling();
+            SetAudioStatusIcons();
+
+            LevelManager.Instance.ChangeLevelDebug();
+            LevelManager.Instance.GenerateLevel();
+            LevelManager.Instance.CheckForClearedLevelDebug();
 
 
+            //call update method on every active GameObject in list
+            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            {
+                GameWorld.Instance.gameObjects[i].Update(gameTime);
 
+            }
+
+            //call cleanup in every cycle
+            GameWorld.Instance.CleanUp();
+        }
+
+        private void PauseMenuHandling()
+        {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.unpaused && pauseKeyPressed == false)
             {
                 currentPauseState = PauseState.paused;
                 pauseKeyPressed = true;
-
-
-
             }
             else if (Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
@@ -150,41 +165,6 @@ namespace JumpNGun.StatePattern.GameStates
             {
                 pauseKeyPressed = false;
             }
-
-            SetAudioStatusIcons();
-
-            if (Keyboard.GetState().IsKeyDown(Keys.P))
-            {
-                EventManager.Instance.TriggerEvent("Freeze", new Dictionary<string, object>()
-                {
-                    {"freeze", false}
-                });
-            }
-
-
-            LevelManager.Instance.ChangeLevelDebug();
-            LevelManager.Instance.GenerateLevel();
-            LevelManager.Instance.CheckForClearedLevelDebug();
-
-
-            //TODO: [for testing only] - Remove this and implement back button states
-            if (Keyboard.GetState().IsKeyDown(Keys.Q))
-            {
-
-                GameWorld.Instance.ChangeState(new MainMenuState());
-                SoundManager.Instance.StopClip("soundtrack_1");
-
-            }
-
-            //call update method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
-            {
-                GameWorld.Instance.gameObjects[i].Update(gameTime);
-
-            }
-
-            //call cleanup in every cycle
-            GameWorld.Instance.CleanUp();
         }
 
         /// <summary>
@@ -241,29 +221,7 @@ namespace JumpNGun.StatePattern.GameStates
             
         }
 
-        
-
-        /// <summary>
-        /// Destroys all relevant gameObjects from world
-        /// </summary>
-        private void ClearObjects()
-        {
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<Mushroom>() || go.HasComponent<ExperienceOrb>())
-                {
-                    GameWorld.Instance.Destroy(go);
-                    LevelManager.Instance.LevelIsGenerated = false;
-                    LevelManager.Instance.ResetLevel();
-                }
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
-
-                }
-            }
-        }
-
+      
 
     }
 }
