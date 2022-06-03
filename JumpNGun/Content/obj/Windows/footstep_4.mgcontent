@@ -3,7 +3,7 @@
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/footstep_4.wav</SourceFile>
   <SourceTime>2022-06-01T21:20:49.7500699+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/footstep_4.xnb</DestFile>
-  <DestTime>2022-06-01T22:30:32.4865713+02:00</DestTime>
+  <DestTime>2022-06-03T05:15:11.8209136+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -81,11 +81,13 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle2.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle3.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/reaper_idle4.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/resume_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/sfx.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_1.mp3</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

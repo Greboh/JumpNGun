@@ -848,6 +848,18 @@
 /processorParam:TextureFormat=Color
 /build:reaper_idle4.png
 
+#begin resume_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:resume_button.png
+
 #begin sfx.png
 /importer:TextureImporter
 /processor:TextureProcessor

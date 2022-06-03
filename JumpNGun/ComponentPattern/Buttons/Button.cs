@@ -31,6 +31,7 @@ namespace JumpNGun
         private Vector2 _sfxButtonPosition = new Vector2(614, 443);
         private Vector2 _backButtonPosition = new Vector2(583,639);
         private Vector2 _quitToMainButtonPosition = new Vector2(487, 700);
+        private Vector2 _ResumeButtonPosition = new Vector2(556, 631);
         private Vector2 _sfxPauseButtonPosition = new Vector2(1168, 88);
         private Vector2 _musicPauseButtonPosition = new Vector2(1109, 20);
 
@@ -95,6 +96,9 @@ namespace JumpNGun
                 case ButtonType.QuitToMain:
                     _position = _quitToMainButtonPosition;
                     break;
+                case ButtonType.Resume:
+                    _position = _ResumeButtonPosition;
+                    break;
                 case ButtonType.SfxPause:
                     _position = _sfxPauseButtonPosition;
                     break;
@@ -136,7 +140,7 @@ namespace JumpNGun
                         StartGame();
                         break;
                     case ButtonType.Settings:
-                        Settings(gameTime);
+                        Settings(gameTime); // gametime is used for preventing unwanted mouse press inputs after the initial mouse press input with a deltatime cooldown
                         break;
                     case ButtonType.Highscores:
 
@@ -168,6 +172,9 @@ namespace JumpNGun
                     case ButtonType.QuitToMain:
                         QuitToMain();
                         break;
+                    case ButtonType.Resume:
+                        Resume();
+                        break;
                     case ButtonType.SfxPause:
                         SoundEffectsPauseToggleButton();
                         break;
@@ -184,6 +191,8 @@ namespace JumpNGun
 
             }
         }
+
+       
 
         /// <summary>
         /// Start Game logic button
@@ -409,6 +418,23 @@ namespace JumpNGun
                 GameWorld.Instance.ChangeState(new MainMenu());
 
                 _mouseCooldown += 0;
+
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        private void Resume()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                GameWorld.Instance.IsPaused = false;
 
 
                 _canIntersect = false;

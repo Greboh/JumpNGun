@@ -197,3 +197,4 @@ A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\jump_2.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\pickup.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\enter.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\exit.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\resume_button.xnb

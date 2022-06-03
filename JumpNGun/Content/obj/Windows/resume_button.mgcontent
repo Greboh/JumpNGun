@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/portal_idle_3.png</SourceFile>
-  <SourceTime>2022-05-23T10:46:26.3596025+02:00</SourceTime>
-  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_3.xnb</DestFile>
-  <DestTime>2022-06-03T05:15:31.1384553+02:00</DestTime>
+  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/resume_button.png</SourceFile>
+  <SourceTime>2022-06-03T05:08:19.3973692+02:00</SourceTime>
+  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/resume_button.xnb</DestFile>
+  <DestTime>2022-06-03T05:15:31.3549318+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

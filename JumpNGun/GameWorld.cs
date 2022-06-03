@@ -50,6 +50,10 @@ namespace JumpNGun
         private State _nextState;
         public State _previousState;
 
+        private bool isPaused;
+
+        public bool IsPaused { get => isPaused; set => isPaused = value; }
+
         private Background _background;
 
         private bool isRunning = false;

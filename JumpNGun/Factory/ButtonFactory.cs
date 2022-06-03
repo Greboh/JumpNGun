@@ -22,6 +22,7 @@ namespace JumpNGun
                             Sfx,
                             Back,
                             QuitToMain,
+                            Resume,
                             SfxPause,
                             MusicPause
                            }
@@ -134,6 +135,14 @@ namespace JumpNGun
                 case ButtonType.QuitToMain:
                     {
                         sr.SetSprite("quit_to_menu_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Resume:
+                    {
+                        sr.SetSprite("resume_button");
 
                         gameObject.AddComponent(new Button(_type));
 

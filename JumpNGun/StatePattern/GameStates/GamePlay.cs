@@ -32,7 +32,7 @@ namespace JumpNGun.StatePattern.GameStates
 
         private PauseState currentPauseState = PauseState.unpaused;
 
-
+       
         //Initialize is used similar to initialize in GameWorld
         public override void Initialize()
         {
@@ -47,20 +47,20 @@ namespace JumpNGun.StatePattern.GameStates
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
             LevelManager.Instance.GenerateLevel();
-
+            
 
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
             }
-
+        
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
 
+            
 
 
-
-
+            
         }
 
         public override void LoadContent()
