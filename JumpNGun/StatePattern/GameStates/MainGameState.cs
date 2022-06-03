@@ -29,7 +29,6 @@ namespace JumpNGun.StatePattern.GameStates
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
 
-        private bool isInitialized;
         private bool isPaused;
 
         private bool pauseKeyPressed;
@@ -67,6 +66,7 @@ namespace JumpNGun.StatePattern.GameStates
 
             spriteBatch.Begin();
 
+            #region SpriteBatch Draws
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
@@ -88,6 +88,7 @@ namespace JumpNGun.StatePattern.GameStates
 
                     isPaused = false;
                     break;
+
                 case PauseState.paused:
                   
                     spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
@@ -97,6 +98,8 @@ namespace JumpNGun.StatePattern.GameStates
 
                     spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
                     spriteBatch.Draw(_sfxStatus, new Rectangle(1269, 88, _disabled.Width, _disabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+
+                    //instansiates buttons used if paused
                     if (!isPaused)
                     {
                         
@@ -107,22 +110,21 @@ namespace JumpNGun.StatePattern.GameStates
                         isPaused = true;
                     }
                     
-
                     break;
             }
 
+            #endregion
 
             spriteBatch.End();
 
         }
+
+
         public override void Update(GameTime gameTime)
         {
+            InitializeCheck();
 
-            // checking if Initialize() has run if it has then skip
-            if (!isInitialized)
-            {
-                Initialize();
-            }
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.unpaused && pauseKeyPressed == false)
             {
@@ -149,7 +151,7 @@ namespace JumpNGun.StatePattern.GameStates
                 pauseKeyPressed = false;
             }
 
-            MusicToggleStatus();
+            SetAudioStatusIcons();
 
             if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
@@ -172,9 +174,6 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.ChangeState(new MainMenuState());
                 SoundManager.Instance.StopClip("soundtrack_1");
 
-                ClearObjects();
-
-
             }
 
             //call update method on every active GameObject in list
@@ -188,7 +187,10 @@ namespace JumpNGun.StatePattern.GameStates
             GameWorld.Instance.CleanUp();
         }
 
-        private void MusicToggleStatus()
+        /// <summary>
+        /// Sets music/sfx status icons
+        /// </summary>
+        private void SetAudioStatusIcons()
         {
             if (SoundManager.Instance._musicDisabled == true)
             {
@@ -212,6 +214,9 @@ namespace JumpNGun.StatePattern.GameStates
         //Initialize is used similar to initialize in GameWorld
         public override void Initialize()
         {
+            ComponentCleanUp();
+
+
             SoundManager.Instance.StopClip("soundtrack_2");
             SoundManager.Instance.PlayClip("soundtrack_1");
 
@@ -230,16 +235,8 @@ namespace JumpNGun.StatePattern.GameStates
             ExperienceOrbFactory orbFactory = new ExperienceOrbFactory();
 
 
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
-            {
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
+            
 
-                }
-            }
-
-            isInitialized = true;
 
             
         }

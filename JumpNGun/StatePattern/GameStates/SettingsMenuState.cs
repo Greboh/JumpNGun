@@ -30,31 +30,26 @@ namespace JumpNGun
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //GameWorld.Instance.GraphicsDevice.Clear(Color.Red);
             spriteBatch.Begin();
 
-            //spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White);
-
+            #region SpriteBatch Draws
             spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-
-
-
 
             // draws active GameObjects in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
+
+            #endregion
+
             spriteBatch.End();
 
         }
         public override void Update(GameTime gameTime)
         {
-            if (!isInitialized)
-            {
-                Initialize();
-                isInitialized = true;
-            }
+            InitializeCheck();
+
 
             //call update method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
@@ -71,12 +66,14 @@ namespace JumpNGun
         //Initialize is used similar to initialize in GameWorld
         public override void Initialize()
         {
+            ComponentCleanUp();
+
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
             }
 
-            ClearObjects();
+            
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));

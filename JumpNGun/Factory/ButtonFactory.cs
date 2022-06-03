@@ -6,14 +6,30 @@ using System.Text;
 
 namespace JumpNGun
 {
-    // enums of buttons used
-    public enum ButtonType { Start,Settings,Highscores,Quit,Audio,Controls,Music,Sfx,Back,QuitToMain,SfxPause,MusicPause}
+
+
+
+    // enums of buttons used in Button.cs
+    // 
+    public enum ButtonType {
+                            Start,
+                            Settings,
+                            Highscores,
+                            Quit,
+                            Audio,
+                            Controls,
+                            Music,
+                            Sfx,
+                            Back,
+                            QuitToMain,
+                            SfxPause,
+                            MusicPause
+                           }
     class ButtonFactory : Factory
     {
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
+       
 
-        private ButtonType _type;
+        private ButtonType _type; // determines which button to create.
         
 
 
@@ -40,6 +56,7 @@ namespace JumpNGun
 
             _type = (ButtonType)type;
             
+            // adding sprites to buttons
             switch (_type)
             {
                 case ButtonType.Start:
@@ -47,8 +64,6 @@ namespace JumpNGun
                         sr.SetSprite("start_button");
 
                         gameObject.AddComponent(new Button(_type));
-                        
-                        Console.WriteLine();
 
                     }
                     break;

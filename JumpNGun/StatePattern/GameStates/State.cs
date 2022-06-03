@@ -14,6 +14,7 @@ namespace JumpNGun
             Abstract class for menu state methods to be used in GameWorld.
         */
 
+        private bool isInitialized;
 
 
         private bool isMenu = true;
@@ -24,6 +25,33 @@ namespace JumpNGun
         public abstract void LoadContent();
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
+
+        /// <summary>
+        /// Makes sure Initialize only runs once in child state class update method with a bool check
+        /// </summary>
+        public void InitializeCheck()
+        {
+            if (!isInitialized) Initialize();
+            isInitialized = true;
+        }
+
+        public void ComponentCleanUp()
+        {
+            foreach (GameObject go in GameWorld.Instance.gameObjects)
+            {
+                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<ExperienceOrb>() || go.HasComponent<Button>() || go.HasComponent<Mushroom>())
+                {
+                    GameWorld.Instance.Destroy(go);
+                    LevelManager.Instance.LevelIsGenerated = false;
+                    LevelManager.Instance.ResetLevel();
+                }
+                if (go.HasComponent<Button>())
+                {
+                    GameWorld.Instance.Destroy(go);
+
+                }
+            }
+        }
 
 
     }

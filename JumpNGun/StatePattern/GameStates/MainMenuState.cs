@@ -39,9 +39,7 @@ namespace JumpNGun
 
             spriteBatch.Begin();
 
-            //spriteBatch.Draw(_background_image, new Vector2(0, 0), Color.White); // background texture
-
-
+            #region SpriteBatch Draws
             spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
 
@@ -51,6 +49,7 @@ namespace JumpNGun
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
 
+            #endregion
 
             spriteBatch.End();
 
@@ -58,18 +57,13 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            // checking if Initialize() has run if it has then skip
-            if (!isInitialized)
-            {
-                Initialize();
-                isInitialized = true;
-            }
+            InitializeCheck();
 
 
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 GameWorld.Instance.ChangeState(new MainGameState());
-                ClearObjects();
+                
             }
 
             //call update method on every active GameObject in list
@@ -86,12 +80,13 @@ namespace JumpNGun
         //Initialize is used similar to initialize in GameWorld
         public override void Initialize()
         {
+            ComponentCleanUp();
+
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
             }
 
-            ClearObjects();
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
@@ -110,7 +105,6 @@ namespace JumpNGun
                 if (go.HasComponent<Button>())
                 {
                     GameWorld.Instance.Destroy(go);
-
                 }
 
                 if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<Mushroom>() || go.HasComponent<ExperienceOrb>())

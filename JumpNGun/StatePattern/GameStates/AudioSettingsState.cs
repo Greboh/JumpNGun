@@ -35,32 +35,26 @@ namespace JumpNGun.StatePattern.GameStates
         {
             spriteBatch.Begin();
 
+            #region SpriteBatch draws
             spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-
-
             spriteBatch.Draw(_musicStatus, new Rectangle(715, 373, _enabled.Width, _enabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
             spriteBatch.Draw(_sfxStatus, new Rectangle(715, 442, _disabled.Width, _disabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-
-
-
-
 
             // draws active GameObjects in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
+
+            #endregion
+
             spriteBatch.End();
 
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!isInitialized)
-            {
-                Initialize();
-                isInitialized = true;
-            }
+            InitializeCheck();
 
             //call update method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
@@ -69,10 +63,17 @@ namespace JumpNGun.StatePattern.GameStates
 
             }
 
-
+            SetAudioStatusIcons();
             GameWorld.Instance.CleanUp();
+            
 
+        }
 
+        /// <summary>
+        /// Sets music/sfx status icons
+        /// </summary>
+        private void SetAudioStatusIcons()
+        {
             if (SoundManager.Instance._musicDisabled == true)
             {
                 _musicStatus = _disabled;
@@ -90,19 +91,21 @@ namespace JumpNGun.StatePattern.GameStates
             {
                 _sfxStatus = _enabled;
             }
-
         }
 
         //Initialize is used similar to initialize in GameWorld
         public override void Initialize()
         {
+            ComponentCleanUp();
+
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
             }
 
-            ClearObjects();
+            
 
+            //instansiates buttons used in state
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Music));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Sfx));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
