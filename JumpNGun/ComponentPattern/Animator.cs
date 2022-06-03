@@ -72,7 +72,7 @@ namespace JumpNGun
         /// <param name="animationName">Name of animation to be played</param>
         public void PlayAnimation(string animationName)
         {
-            if (animationName != currentAnimation.Name)
+            if (animationName != currentAnimation.Name && animations.ContainsKey(animationName))
             {
                 // Console.WriteLine($"Playing animationSet: {animationName}");
                 currentAnimation = animations[animationName];
