@@ -12,7 +12,7 @@ namespace JumpNGun
 
         static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
         static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-        private Texture2D _background_image;
+
         private Texture2D _game_title;
 
         
@@ -20,10 +20,9 @@ namespace JumpNGun
 
         public override void LoadContent()
         {
-   
             // asset content loading
-            _background_image = GameWorld.Instance.Content.Load<Texture2D>("background_image");
             _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
