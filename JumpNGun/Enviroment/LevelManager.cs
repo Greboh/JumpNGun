@@ -105,11 +105,11 @@ namespace JumpNGun
                         _currentEnemyType = EnemyType.Worm;
                     }
                     break;
-                case 12:
+                case 2:
                     {
                         _currentPlatformType = PlatformType.dessert;
                         _currentGroundPlatform = PlatformType.dessertGround;
-                        _currentEnemyType = EnemyType.DeathBoss;
+                        _currentEnemyType = EnemyType.Reaper;
                         _isBossLevel = true;
 
                     }

@@ -16,44 +16,47 @@ namespace JumpNGun
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
         private bool _isGrounded = false;
 
-        private List<Rectangle> locations = new List<Rectangle>();
+        private List<Rectangle> _locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
         private bool _locationRectangleFound;
-        
+
 
         public Mushroom(Vector2 position)
         {
-            this.position = position;
+            spawnPosition = position;
             health = 20;
-            speed = 40;
+            Speed = 40;
             damage = 20;
             ProjectileSpeed = 1;
             AttackCooldown = 1;
-  
+            detectionRange = 350;
+            IsRanged = true;
         }
 
         public override void Awake()
         {
             base.Awake();
-            GameObject.Transform.Position = position;
         }
 
         public override void Start()
         {
             base.Start();
-            GetLocations();
+
+            GameObject.Transform.Position = spawnPosition;
+            
+            GetAllRectangleLocations();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            SetLocationRectangle();
+            
+            CalculateMovementArea();
             CreateMovementArea();
 
             HandleGravity();
             CheckCollision();
-            HandleAnimations();
-            Attack();
+            CalculateAttack();
         }
 
         #region Movement Methods
@@ -61,13 +64,13 @@ namespace JumpNGun
         /// <summary>
         /// Find and reference the rectangle containing mushroom object position
         /// </summary>
-        private void SetLocationRectangle()
+        private void CalculateMovementArea()
         {
             if (!_isGrounded) return;
 
-            foreach (Rectangle location in locations)
+            foreach (Rectangle location in _locations)
             {
-                if (location.Contains(position) && !_locationRectangleFound)
+                if (location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
                 {
                     PlatformRectangle = location;
                     _locationRectangleFound = true;
@@ -80,15 +83,15 @@ namespace JumpNGun
         /// </summary>
         private void CreateMovementArea()
         {
-            for (int i = 0; i < locations.Count; i++)
+            for (int i = 0; i < _locations.Count; i++)
             {
-                if (PlatformRectangle.Right == locations[i].Left && PlatformRectangle.Y == locations[i].Y)
+                if (PlatformRectangle.Right == _locations[i].Left && PlatformRectangle.Y == _locations[i].Y)
                 {
-                    PlatformRectangle = Rectangle.Union(PlatformRectangle, locations[i]);
+                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
-                if (PlatformRectangle.Left == locations[i].Right && PlatformRectangle.Y == locations[i].Y)
+                if (PlatformRectangle.Left == _locations[i].Right && PlatformRectangle.Y == _locations[i].Y)
                 {
-                    PlatformRectangle = Rectangle.Union(PlatformRectangle, locations[i]);
+                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
             }
         }
@@ -97,55 +100,31 @@ namespace JumpNGun
         /// <summary>
         /// Get all rectangles that contain a platform
         /// </summary>
-        private void GetLocations()
+        private void GetAllRectangleLocations()
         {
             for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
             {
-                locations.Add(LevelManager.Instance.UsedLocations[i]);
+                _locations.Add(LevelManager.Instance.UsedLocations[i]);
             }
         }
 
         #endregion
 
         /// <summary>
-        /// Attacks by calling shoot method and changing relevant bool
+        /// Calculate if we are in attack range and should change state
         /// </summary>
-        public override void Attack()
+        private void CalculateAttack()
         {
             Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
 
-            float maxDistance = 350;
-
-            // Finding the length of the vectors
-            // The formal for finding a vectors magnitude / length is: (x * x + y * y)
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
             
             float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
-
-
-            if (targetMagnitude <= maxDistance)
-            {
-                ChangeState(attackState);
-            }
-            else
-            {
-                ChangeState(moveState);
-            } 
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackState : moveState);
         }
-
-        /// <summary>
-        /// Play relevant animation
-        /// </summary>
-        public override void HandleAnimations()
-        {
-            if (health <= 0)
-            {
-                isDead = true;
-                speed = 0;
-                //TODO - make enemy stop shooting when death animation playing - KRISTIAN
-                Animator.PlayAnimation("mushroom_death");
-            }
-        }
-
+        
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
         /// </summary>
@@ -163,8 +142,6 @@ namespace JumpNGun
 
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
-        
-       
 
         /// <summary>
         /// Checks for relevant collision with this object
@@ -182,18 +159,7 @@ namespace JumpNGun
                 {
                     _isGrounded = false;
                 }
-                
-                if(col.GameObject.Tag == "p_Projectile" && col.CollisionBox.Intersects(collider.CollisionBox))
-                {
-                    health -= 20;
-                    GameWorld.Instance.Destroy(col.GameObject);
-                }
             }
         }
-
-        
-
-      
-
     }
 }

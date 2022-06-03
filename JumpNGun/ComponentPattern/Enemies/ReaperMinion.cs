@@ -13,45 +13,52 @@ namespace JumpNGun
 
         public ReaperMinion(Vector2 position)
         {
-            this.position = position;
+            spawnPosition = position;
             health = 10;
-            speed = 1f;
+            Speed = 1f;
             damage = 10;
+            IsRanged = false;
+            IsBoss = true;
+            AttackCooldown = 1;
         }
 
         public override void Awake()
         {
             base.Awake();
-            GameObject.Transform.Position = position;
         }
 
         public override void Start()
         {
             base.Start();
+            
+            GameObject.Transform.Position = spawnPosition;
+            detectionRange = SpriteRenderer.Sprite.Width;
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            Death();
-            ChasePlayer();
-            CheckCollision();
-            HandleAnimations();
             base.Update(gameTime);
+            
+            CalculateAttack();
+            CheckCollision();
         }
 
-        public override void Attack()
+        /// <summary>
+        /// Calculate if we are in attack range and should change state
+        /// </summary>
+        private void CalculateAttack()
         {
-            throw new NotImplementedException();
-        }
+            Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
 
-        protected override void ChasePlayer()
-        {
-            Vector2 sourceToTarget = Vector2.Subtract(Player.Position, GameObject.Transform.Position);
-            sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, Player.Speed);
-            Velocity = sourceToTarget;
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
+            
+            float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackState : moveState);
         }
-
+        
         public override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
@@ -62,29 +69,9 @@ namespace JumpNGun
                     if (col.GameObject.HasComponent<Player>())
                     {
                         //get player component and attack player
-                        GameWorld.Instance.Destroy(GameObject);
+                        // GameWorld.Instance.Destroy(GameObject);
                     }
                 }
-            }
-        }
-
-        private void Death()
-        {
-            timer += GameWorld.DeltaTime;
-            if (liveTime < GameWorld.DeltaTime)
-            {
-                GameWorld.Instance.Destroy(GameObject);
-            }
-        }
-
-        public override void HandleAnimations()
-        {
-            if(!_spawningDone)Animator.PlayAnimation("minion_spawn");
-
-            if (Animator.IsAnimationDone && !_spawningDone)
-            {
-                _spawningDone = true;
-                Animator.PlayAnimation("minion_idle");
             }
         }
     }

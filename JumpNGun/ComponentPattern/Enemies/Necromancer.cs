@@ -10,9 +10,9 @@ namespace JumpNGun
 
         public Necromancer(Vector2 position)
         {
-            this.position = position;
+            this.GameObject.Transform.Position = position;
             health = 150;
-            speed = 20;
+            Speed = 20;
         }
 
         public override void Awake()
@@ -30,19 +30,12 @@ namespace JumpNGun
             base.Update(gameTime);
         }
 
-        public override void Attack()
-        {
-            throw new NotImplementedException();
-        }
+ 
 
         public override void CheckCollision()
         {
-            throw new NotImplementedException();
+            
         }
-
-        public override void HandleAnimations()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
