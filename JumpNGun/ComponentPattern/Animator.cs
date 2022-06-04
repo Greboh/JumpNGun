@@ -19,6 +19,8 @@ namespace JumpNGun
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>(); /// dictionary used for animations. string refers to animation
 
         private Animation currentAnimation; //currently being animated
+
+        private bool _animationPlaying;
         
 
         public override void Start()
@@ -34,6 +36,7 @@ namespace JumpNGun
             //initiates animation if no current animation is being animated
             if (currentAnimation != null)
             {
+                _animationPlaying = true;
                 CurrentIndex = (int)(timeElapsed * currentAnimation.FPS);
 
                 //sets animation index to 0, so animations gets replayed - loops animation 
@@ -42,6 +45,7 @@ namespace JumpNGun
                     timeElapsed = 0;
                     CurrentIndex = 0;
                     IsAnimationDone = true;
+                    _animationPlaying = false;
                 }
                 else IsAnimationDone = false;
 
@@ -80,20 +84,6 @@ namespace JumpNGun
                 CurrentIndex = 0;
             }
         }
-        //public Animation BuildAnimations(string animationName, string[] spriteNames)
-        //{
-        //    Texture2D[] sprites = new Texture2D[spriteNames.Length];
-
-        //    for (int i = 0; i < sprites.Length; i++)
-        //    {
-        //        sprites[i] = GameWorld.Instance.Content.Load<Texture2D>(spriteNames[i]);
-        //    }
-
-        //    Animation anim = new Animation(animationName, sprites, 5);
-
-        //    return anim;
-        //}
-
     }
 }
 

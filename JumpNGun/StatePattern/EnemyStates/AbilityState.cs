@@ -9,9 +9,7 @@ namespace JumpNGun
 
         private bool _shouldTeleport;
         private bool _shouldSummon;
-
-        private SpriteEffects _oldSpriteFlip;
-
+        
         private Vector2[] _minionPositions;
         private int _miniomAmount = 2;
 
@@ -45,6 +43,7 @@ namespace JumpNGun
                 if (_parent.Animator.CurrentIndex >= 17)
                 {
                     _parent.GameObject.Transform.Position = teleportDestination;
+
                     Exit();
                 }
             }
@@ -52,6 +51,9 @@ namespace JumpNGun
             {
                 CreateMinionPositions(); 
 
+                // Raise the number of enemies in the levelManager
+                LevelManager.Instance.EnemyCurrentAmount += _miniomAmount;
+                
                 //instantiate 4 minios around reaper
                 for (int i = 0; i < _miniomAmount; i++)
                 {
@@ -59,7 +61,6 @@ namespace JumpNGun
                 }
 
                 Exit();
-                
             }
         }
 
@@ -67,7 +68,7 @@ namespace JumpNGun
         {
             if (_shouldTeleport)
             {
-                _parent.Animator.PlayAnimation("special_teleport");
+                _parent.Animator.PlayAnimation("death");
             }
             else if (_shouldSummon)
             {
@@ -92,10 +93,10 @@ namespace JumpNGun
         public void Exit()
         {
             _parent.Speed = (_parent.GameObject.GetComponent<Reaper>() as Reaper).DefaultSpeed;
-            
             (_parent.GameObject.GetComponent<Reaper>() as Reaper).CanSummon = false;
             (_parent.GameObject.GetComponent<Reaper>() as Reaper).CanTeleport = false;
             (_parent.GameObject.GetComponent<Reaper>() as Reaper).ShouldUseAbility = false;
+            
         }
     }
 }

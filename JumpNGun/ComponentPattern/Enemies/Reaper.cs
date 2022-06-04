@@ -11,9 +11,7 @@ namespace JumpNGun
     {
         public bool CanSummon { get; set; }
         public bool CanTeleport { get; set; }
-
         public bool ShouldUseAbility { get; set; }
-
         public float DefaultSpeed { get; private set; }
         
 
@@ -33,11 +31,7 @@ namespace JumpNGun
             IsRanged = false;
             IsBoss = true;
         }
-        public override void Awake()
-        {
-            base.Awake();
-        }
-
+        
         public override void Start()
         {
             base.Start();
@@ -52,14 +46,6 @@ namespace JumpNGun
             CheckCollision();
             CalculateAttack();
             AbilityLogic();
-        }
-
-        /// <summary>
-        /// Checks for collision with enemy
-        /// </summary>
-        public override void CheckCollision()
-        {
-            
         }
         
         /// <summary>
@@ -96,8 +82,6 @@ namespace JumpNGun
         {
             ShouldUseAbility = true;
             int rndNumber = _rnd.Next(1, 3);
-            
-            Console.WriteLine(rndNumber);
 
             switch (rndNumber)
             {

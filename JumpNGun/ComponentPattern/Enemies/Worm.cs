@@ -28,6 +28,7 @@ namespace JumpNGun
             ProjectileSpeed = 0.5f;
             AttackCooldown = 0.75f;
             IsRanged = true;
+            IsBoss = false;
             detectionRange = 250;
         }
 

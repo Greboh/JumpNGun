@@ -34,7 +34,6 @@ namespace JumpNGun
             }
 
             _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
-
         }
 
         public void Execute()
@@ -48,8 +47,6 @@ namespace JumpNGun
             {
                 MeleeAttack();
             }
-            
-            Animate();
         }
 
         public void Animate()
@@ -70,11 +67,11 @@ namespace JumpNGun
         /// </summary>
         private void RangeAttack()
         {
-            if (!_canShoot) return;
-            
             Vector2 targetDirection = _parent.CalculatePlayerDirection();
+            FlipSprite();
             
-            FlipSprite(targetDirection);
+            if (!_canShoot) return;
+
             InstantiateProjectile(targetDirection);
             
             _canShoot = false;
@@ -99,13 +96,14 @@ namespace JumpNGun
         {
             Vector2 targetDirection = _parent.Player.GameObject.Transform.Position;
             
-            FlipSprite(targetDirection);
+            FlipSprite();
         }
         
-        private void FlipSprite(Vector2 direction)
+        private void FlipSprite()
         {
-            _parent.SpriteRenderer.SpriteEffects = direction.X <= _parent.GameObject.Transform.Position.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-
+            _parent.SpriteRenderer.SpriteEffects = _parent.Player.GameObject.Transform.Position.X <= _parent.GameObject.Transform.Position.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Console.WriteLine($"Direction.X: {_parent.Player.GameObject.Transform.Position.X}, Enemey location: {_parent.GameObject.Transform.Position.X}");
+            
         }
         
         private void InstantiateProjectile(Vector2 direction)
@@ -116,6 +114,7 @@ namespace JumpNGun
             (projectile.GetComponent<Projectile>() as Projectile).Velocity = direction;
             (projectile.GetComponent<Projectile>() as Projectile).Speed = _parent.ProjectileSpeed;
             
+             Animate();
             GameWorld.Instance.Instantiate(projectile);
         }
     }
