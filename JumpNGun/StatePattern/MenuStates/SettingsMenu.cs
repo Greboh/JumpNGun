@@ -1,9 +1,6 @@
-﻿using JumpNGun.ComponentPattern;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -59,7 +56,7 @@ namespace JumpNGun
 
         public void LoadContent()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Exit()

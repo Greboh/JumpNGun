@@ -4,10 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using JumpNGun.StatePattern.GameStates;
-using System.Linq;
-using JumpNGun.ComponentPattern;
+
 
 namespace JumpNGun
 {
@@ -43,9 +40,6 @@ namespace JumpNGun
         
         private int _screenWidth = 1325;
         private int _screenHeight = 800;
-
-        public MenuStateHandler currentMenuStateHandler;
-        private MenuStateHandler _nextMenuStateHandler;
 
         public bool IsPaused { get; set; }
 
@@ -90,7 +84,6 @@ namespace JumpNGun
             _background.LoadContent();
             MenuStateHandler.Instance.LoadContent();
 
-            _nextMenuStateHandler = null; // makes sure next state is empty on startup
             
             base.LoadContent();
         }
@@ -107,15 +100,7 @@ namespace JumpNGun
             DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             
             MenuStateHandler.Instance.Update(gameTime);
-            
-            // if (_nextMenuStateHandler != null)
-            // {
-            //     currentMenuStateHandler = _nextMenuStateHandler;
-            //     currentMenuStateHandler.LoadContent();
-            //     _nextMenuStateHandler = null;
-            // }
-            // else currentMenuStateHandler.Update(gameTime);
-            
+
             base.Update(gameTime);
         }
 
@@ -131,22 +116,6 @@ namespace JumpNGun
             base.Draw(gameTime);
 
         }
-
-        /// <summary>
-        /// // sets nextState with state recived from Button.cs
-        /// </summary>
-        /// <param name="menuStateHandler"></param>
-        public void ChangeState(MenuStateHandler menuStateHandler)
-        {
-            _nextMenuStateHandler = menuStateHandler; 
-        }
-
-        public MenuStateHandler GetCurrentState()
-        {
-            return currentMenuStateHandler;
-        }
-
-        
 
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects

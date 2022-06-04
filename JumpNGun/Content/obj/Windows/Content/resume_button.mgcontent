@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/resume_button.png</SourceFile>
-  <SourceTime>2022-06-04T16:29:02.5273063+02:00</SourceTime>
+  <SourceTime>2022-06-04T19:37:17.355051+02:00</SourceTime>
   <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/resume_button.xnb</DestFile>
-  <DestTime>2022-06-04T16:29:21.8473328+02:00</DestTime>
+  <DestTime>2022-06-04T19:37:48.4826001+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

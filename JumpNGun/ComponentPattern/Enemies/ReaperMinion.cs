@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JumpNGun.ComponentPattern.Enemies
+namespace JumpNGun
 {
     class ReaperMinion : Enemy
     {

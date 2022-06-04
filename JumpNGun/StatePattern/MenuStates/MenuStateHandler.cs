@@ -41,17 +41,6 @@ namespace JumpNGun
 
         public Texture2D GameTitle { get; set; }
 
-
-        private bool isMenu = true;
-        
-        public bool ContentLoaded { get; set; }
-
-        public bool IsMenu
-        {
-            get => isMenu;
-            set => isMenu = value;
-        }
-
         public void Initialize()
         {
             MainMenu = new MainMenu();
@@ -81,6 +70,19 @@ namespace JumpNGun
         }
 
 
+        public void ChangeState(IStateMenu newMenuState)
+        {
+            if (CurrentMenuState == newMenuState) return;
+
+            if (CurrentMenuState != null) Console.WriteLine($"Changed Menu State from: {CurrentMenuState} to {newMenuState}");
+            
+            CurrentMenuState?.Exit();
+            CurrentMenuState = newMenuState;
+            
+            CurrentMenuState.LoadContent();
+            CurrentMenuState.Enter(this);
+        }
+
         public void ComponentCleanUp()
         {
             foreach (GameObject go in GameWorld.Instance.gameObjects)
@@ -98,17 +100,6 @@ namespace JumpNGun
                     GameWorld.Instance.Destroy(go);
                 }
             }
-        }
-
-        public void ChangeState(IStateMenu newMenuState)
-        {
-            if (CurrentMenuState == newMenuState) return;
-
-            if (CurrentMenuState != null) Console.WriteLine($"Changed Menu State from: {CurrentMenuState} to {newMenuState}");
-            CurrentMenuState?.Exit();
-
-            CurrentMenuState = newMenuState;
-            CurrentMenuState.Enter(this);
         }
     }
 }

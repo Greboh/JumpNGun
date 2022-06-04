@@ -45,8 +45,6 @@ namespace JumpNGun
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!_pareMenuStateHandler.ContentLoaded) return;
-            
             spriteBatch.Begin();
 
 
@@ -81,8 +79,6 @@ namespace JumpNGun
 
             _musicStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _sfxStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
-
-            _pareMenuStateHandler.ContentLoaded = true;
         }
 
         public void Exit()
