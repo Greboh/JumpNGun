@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
@@ -10,139 +9,127 @@ namespace JumpNGun
     {
         protected int health;
         protected int damage;
-        
-        protected float speed;
 
-        protected Vector2 position;
-        protected Vector2 velocity;
+        public float Speed { get; set; }
 
-        protected bool isColliding = false;
-
-        protected SpriteRenderer sr;
-        protected Animator animator;
         protected Collider collider;
-        protected Player player;
+        protected float detectionRange;
 
-        protected bool isAttacking;
-        //private bool isFrozen = true;
+        public SpriteRenderer SpriteRenderer { get; private set; }
+        public Animator Animator { get; private set; }
+        public Player Player { get; private set; }
 
-        public abstract void Attack();
-
-        public abstract void CheckCollision();
+        public Vector2 Velocity { get; set; }
+        protected Vector2 spawnPosition;
         
-        public abstract void ChasePlayer();
+        public bool IsRanged { get; protected set; }
+        public bool IsBoss { get; protected set; }
 
-        public abstract void HandleAnimations();
+        public float ProjectileSpeed { get; protected set; }
+        public float AttackTimer { get; set; }
+        public float AttackCooldown { get; protected set; }
+
+
+        public Rectangle PlatformRectangle { get; set; } = Rectangle.Empty;
+
+
+        protected IState currentState;
+        protected IState attackState;
+        protected IState moveState;
+        protected IState deathState;
+        protected IState abilityState;
 
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("OnCollision", OnCollision);
-            //EventManager.Instance.Subscribe("Freeze", FreezeMovement);
-
         }
-
-
-
 
         public override void Start()
         {
-            sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            animator = GameObject.GetComponent<Animator>() as Animator;
+            SpriteRenderer = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            Animator = GameObject.GetComponent<Animator>() as Animator;
             collider = GameObject.GetComponent<Collider>() as Collider;
-            player =  GameWorld.Instance.FindObjectOfType<Player>() as Player;
+            Player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
+
+            InitializeStates();
+
+            ChangeState(moveState);
         }
 
+        private void InitializeStates()
+        {
+            moveState = new MoveState();
+            attackState = new AttackState();
+            deathState = new DeathState();
+            abilityState = new AbilityState();
+        }
 
         public override void Update(GameTime gameTime)
         {
-            FlipSprite();
-
             Move();
+            TakeDamage();
 
-            
-            Die();
-            
-            
+            currentState?.Execute();
+        }
+        
+        public virtual void CheckCollision()
+        {
             
         }
 
+        protected virtual void ChasePlayer()
+        {
+
+        }
+        
+        public Vector2 CalculatePlayerDirection()
+        {
+            Vector2 targetDirection = Vector2.Subtract(Player.Position, GameObject.Transform.Position);
+            targetDirection.Normalize();
+            targetDirection = Vector2.Multiply(targetDirection, Player.Speed);
+
+            return targetDirection;
+        }
+
         /// <summary>
-        /// Initiates movement of object
+        /// Applies movement to the enemy
         /// </summary>
         private void Move()
         {
-            if (!isAttacking) return;
-            
-
-            GameObject.Transform.Translate(velocity * GameWorld.DeltaTime);
-        }
-
-        /// <summary>
-        /// Updates position during gametime
-        /// </summary>
-        protected void UpdatePositionReference()
-        {
-            position = GameObject.Transform.Position;
-        }
-
-        /// <summary>
-        /// Flip sprite according to velocity
-        /// </summary>
-        private void FlipSprite()
-        {
-            if (!isAttacking)
-            {
-                // If we are moving left, flip the sprite
-                if (velocity.X < 0)
-                    sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-                
-                // If we are moving right, unflip the sprite
-                else if (velocity.X > 0)
-                    sr.SpriteEffects = SpriteEffects.None;
-                
-            }
-            else
-            {
-                if (player.GameObject.Transform.Position.X < this.GameObject.Transform.Position.X)
-                    sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-                
-                else if (player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X)
-                    sr.SpriteEffects = SpriteEffects.None;
-            }
+            GameObject.Transform.Translate(Velocity * Speed * GameWorld.DeltaTime);
         }
         
-        private void OnCollision(Dictionary<string, object> ctx)
+        /// <summary>
+        /// Deal damage to Enemy when colliding with Player projectile
+        /// </summary>
+        private void TakeDamage()
         {
-            GameObject collision = (GameObject) ctx["collider"];
-            Rectangle collisonBox = (collision.GetComponent<Collider>() as Collider).CollisionBox;
-            
-            
-            if( collision.Tag == "P_Projectile" && collisonBox.Intersects(collider.CollisionBox))
+            foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                health -= 20;
-                GameWorld.Instance.Destroy(collision);
-            }
-        }
-        private void Die()
-        {
-            if(health <= 0)
-            {
-                EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
+                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "p_Projectile")
                 {
-                    {"enemyDeath", 1}
-                });
-                
-                
-                ScoreHandler.Instance.AddToScore(20);
-                ScoreHandler.Instance.PrintScore();
-                GameWorld.Instance.Destroy(this.GameObject);
-                GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
+                    health -= 20;
+                    GameWorld.Instance.Destroy(col.GameObject);
+                }
             }
+            
+            if (health <= 0)
+                ChangeState(deathState);
+            
         }
 
-        //private void FreezeMovement(Dictionary<string, object> ctx)
-        //{
-        //    isFrozen = (bool)ctx["freeze"];
-        //}
+        #region State Methods
+
+        protected void ChangeState(IState newState)
+        {
+            if (newState == currentState) return;
+
+            Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newState.GetType().Name}");
+            currentState?.Exit();
+
+            currentState = newState;
+            currentState.Enter(this);
+        }
+
+        #endregion
     }
 }

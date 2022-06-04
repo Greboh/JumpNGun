@@ -3,45 +3,62 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JumpNGun.ComponentPattern.Enemies
+namespace JumpNGun
 {
     class ReaperMinion : Enemy
     {
-        private Reaper _parentReaper;
-        private ReaperMinion _reaperMinion;
+        private bool _spawningDone;
+        private float liveTime = 10;
+        private float timer;
 
         public ReaperMinion(Vector2 position)
         {
-            this.position = position;
+            spawnPosition = position;
             health = 10;
-            speed = 60;
+            Speed = 1f;
             damage = 10;
-            isColliding = false;
+            IsRanged = false;
+            IsBoss = true;
+            AttackCooldown = 1;
         }
-        
+
+        public override void Awake()
+        {
+            base.Awake();
+        }
+
         public override void Start()
         {
             base.Start();
+            
+            GameObject.Transform.Position = spawnPosition;
+            detectionRange = SpriteRenderer.Sprite.Width;
 
-            _parentReaper = GameObject.GetComponent<Reaper>() as Reaper;
         }
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+            
+            CalculateAttack();
             CheckCollision();
-            UpdatePositionReference();
         }
 
-        public override void Attack()
+        /// <summary>
+        /// Calculate if we are in attack range and should change state
+        /// </summary>
+        private void CalculateAttack()
         {
-            throw new NotImplementedException();
-        }
+            Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
 
-        public override void ChasePlayer()
-        {
-            throw new NotImplementedException();
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
+            
+            float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackState : moveState);
         }
-
+        
         public override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
@@ -52,22 +69,10 @@ namespace JumpNGun.ComponentPattern.Enemies
                     if (col.GameObject.HasComponent<Player>())
                     {
                         //get player component and attack player
-                        //destroy reaperminion
-                    }
-
-                    //Destroy platform and reaperminion if they collide
-                    if (col.GameObject.HasComponent<Platform>())
-                    {
-                        GameWorld.Instance.Destroy(col.GameObject);
-                        GameWorld.Instance.Destroy(this.GameObject);
+                        // GameWorld.Instance.Destroy(GameObject);
                     }
                 }
             }
-        }
-
-        public override void HandleAnimations()
-        {
-            throw new NotImplementedException();
         }
     }
 }

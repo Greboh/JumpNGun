@@ -98,7 +98,7 @@ namespace JumpNGun
                 if (otherCollider == _portalCollider) return;
 
                 //if other collider is player set _open to false and stop rendering of player
-                if(_portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "Player")
+                if(_portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "player")
                 {
                     HandlePlayerRendering();
                     _open = false;
@@ -117,13 +117,10 @@ namespace JumpNGun
                 if (go.HasComponent<Player>() && !isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = true;
-                    SoundManager.Instance.PlayClip("enter");
                 }
                 else if (go.HasComponent<Player>() && isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = false;
-                    SoundManager.Instance.PlayClip("exit");
-
                 }
             }
         }

@@ -1,86 +1,11 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/1_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5317,14421,0,1629899
-"A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_jump.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/1_Soldier_jump.xnb","TextureProcessor","Texture2DContent",5077,13973,0,003139
-"A:/Github/JumpNGun/JumpNGun/Content/1_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/1_Soldier_run.xnb","TextureProcessor","Texture2DContent",6296,20757,0,0032668
-"A:/Github/JumpNGun/JumpNGun/Content/2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2.xnb","TextureProcessor","Texture2DContent",9914,65621,0,0060253
-"A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5323,14421,0,0046178
-"A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_jump.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2_Soldier_jump.xnb","TextureProcessor","Texture2DContent",5307,15317,0,0204379
-"A:/Github/JumpNGun/JumpNGun/Content/2_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/2_Soldier_run.xnb","TextureProcessor","Texture2DContent",6541,20805,0,0120113
-"A:/Github/JumpNGun/JumpNGun/Content/3_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/3_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5323,14421,0,0080581
-"A:/Github/JumpNGun/JumpNGun/Content/3_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/3_Soldier_run.xnb","TextureProcessor","Texture2DContent",6384,20213,0,0083721
-"A:/Github/JumpNGun/JumpNGun/Content/4_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/4_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5328,14421,0,0084348
-"A:/Github/JumpNGun/JumpNGun/Content/4_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/4_Soldier_run.xnb","TextureProcessor","Texture2DContent",6497,21845,0,0088334
-"A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_idle.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/5_Soldier_idle.xnb","TextureProcessor","Texture2DContent",5326,14421,0,0090227
-"A:/Github/JumpNGun/JumpNGun/Content/5_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/5_Soldier_run.xnb","TextureProcessor","Texture2DContent",6389,21301,0,0084283
-"A:/Github/JumpNGun/JumpNGun/Content/6_Soldier_run.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/6_Soldier_run.xnb","TextureProcessor","Texture2DContent",6259,20213,0,0130032
-"A:/Github/JumpNGun/JumpNGun/Content/audio_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/audio_button.xnb","TextureProcessor","Texture2DContent",4593,44149,0,0068632
-"A:/Github/JumpNGun/JumpNGun/Content/avatar_1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/avatar_1.xnb","TextureProcessor","Texture2DContent",1716,163897,0,0129551
-"A:/Github/JumpNGun/JumpNGun/Content/avatar_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/avatar_2.xnb","TextureProcessor","Texture2DContent",1933,163897,0,0134532
-"A:/Github/JumpNGun/JumpNGun/Content/back_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/back_button.xnb","TextureProcessor","Texture2DContent",3503,23437,0,0135324
-"A:/Github/JumpNGun/JumpNGun/Content/background_image.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/background_image.xnb","TextureProcessor","Texture2DContent",6467,4243285,0,1703362
-"A:/Github/JumpNGun/JumpNGun/Content/Bullet.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Bullet.xnb","TextureProcessor","Texture2DContent",1221,4225,0,0411556
-"A:/Github/JumpNGun/JumpNGun/Content/checkmark.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/checkmark.xnb","TextureProcessor","Texture2DContent",1132,7481,0,0153281
-"A:/Github/JumpNGun/JumpNGun/Content/cloud_1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/cloud_1.xnb","TextureProcessor","Texture2DContent",5931,413113,0,0208046
-"A:/Github/JumpNGun/JumpNGun/Content/cloud_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/cloud_2.xnb","TextureProcessor","Texture2DContent",7981,648933,0,0340323
-"A:/Github/JumpNGun/JumpNGun/Content/cloud_3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/cloud_3.xnb","TextureProcessor","Texture2DContent",6317,488029,0,0378407
-"A:/Github/JumpNGun/JumpNGun/Content/cloud_4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/cloud_4.xnb","TextureProcessor","Texture2DContent",2443,64565,0,0265897
-"A:/Github/JumpNGun/JumpNGun/Content/cloud_5.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/cloud_5.xnb","TextureProcessor","Texture2DContent",4286,194653,0,0167939
-"A:/Github/JumpNGun/JumpNGun/Content/controls_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/controls_button.xnb","TextureProcessor","Texture2DContent",7696,73525,0,0147567
-"A:/Github/JumpNGun/JumpNGun/Content/crossedout.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/crossedout.xnb","TextureProcessor","Texture2DContent",1161,7309,0,0104431
-"A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Desert platform.xnb","TextureProcessor","Texture2DContent",13659,48037,0,0139767
-"A:/Github/JumpNGun/JumpNGun/Content/dessert_ground.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/dessert_ground.xnb","TextureProcessor","Texture2DContent",10849,492985,0,0228866
-"A:/Github/JumpNGun/JumpNGun/Content/enter.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/enter.xnb","SoundEffectProcessor","SoundEffectContent",651548,651425,2,2423189
-"A:/Github/JumpNGun/JumpNGun/Content/enter_name_text.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/enter_name_text.xnb","TextureProcessor","Texture2DContent",2626,15265,0,0068414
-"A:/Github/JumpNGun/JumpNGun/Content/exit.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/exit.xnb","SoundEffectProcessor","SoundEffectContent",651548,651425,2,1846294
-"A:/Github/JumpNGun/JumpNGun/Content/font.spritefont","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/font.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,0,1032307
-"A:/Github/JumpNGun/JumpNGun/Content/footstep_1.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/footstep_1.xnb","SoundEffectProcessor","SoundEffectContent",74956,74845,2,16476
-"A:/Github/JumpNGun/JumpNGun/Content/footstep_2.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/footstep_2.xnb","SoundEffectProcessor","SoundEffectContent",82088,81977,2,1776469
-"A:/Github/JumpNGun/JumpNGun/Content/footstep_3.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/footstep_3.xnb","SoundEffectProcessor","SoundEffectContent",71556,71445,2,134004
-"A:/Github/JumpNGun/JumpNGun/Content/footstep_4.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/footstep_4.xnb","SoundEffectProcessor","SoundEffectContent",69180,69069,2,1469724
-"A:/Github/JumpNGun/JumpNGun/Content/game_title.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/game_title.xnb","TextureProcessor","Texture2DContent",20948,274869,0,0239063
-"A:/Github/JumpNGun/JumpNGun/Content/Grass platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Grass platform.xnb","TextureProcessor","Texture2DContent",12328,48037,0,0132365
-"A:/Github/JumpNGun/JumpNGun/Content/grass_ground.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/grass_ground.xnb","TextureProcessor","Texture2DContent",9287,492985,0,0200705
-"A:/Github/JumpNGun/JumpNGun/Content/graveyard platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/graveyard platform.xnb","TextureProcessor","Texture2DContent",12641,48037,0,0068097
-"A:/Github/JumpNGun/JumpNGun/Content/graveyard_ground.PNG","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/graveyard_ground.xnb","TextureProcessor","Texture2DContent",10902,492985,0,0170463
-"A:/Github/JumpNGun/JumpNGun/Content/ground_platform.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/ground_platform.xnb","TextureProcessor","Texture2DContent",9103,446485,0,0127646
-"A:/Github/JumpNGun/JumpNGun/Content/highscore_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/highscore_button.xnb","TextureProcessor","Texture2DContent",8456,81917,0,0105291
-"A:/Github/JumpNGun/JumpNGun/Content/input_field.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/input_field.xnb","TextureProcessor","Texture2DContent",2085,86917,0,0079115
-"A:/Github/JumpNGun/JumpNGun/Content/jump.mp3","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/jump.xnb","SoundEffectProcessor","SoundEffectContent",38209,336489,2,2703383
-"A:/Github/JumpNGun/JumpNGun/Content/jump_1.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/jump_1.xnb","SoundEffectProcessor","SoundEffectContent",67868,67753,2,5299058
-"A:/Github/JumpNGun/JumpNGun/Content/jump_2.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/jump_2.xnb","SoundEffectProcessor","SoundEffectContent",38556,38453,2,1696806
-"A:/Github/JumpNGun/JumpNGun/Content/menu_click.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/menu_click.xnb","SoundEffectProcessor","SoundEffectContent",8922,8665,2,5630274
-"A:/Github/JumpNGun/JumpNGun/Content/menu_hover_1.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/menu_hover_1.xnb","SoundEffectProcessor","SoundEffectContent",15996,15873,2,4069893
-"A:/Github/JumpNGun/JumpNGun/Content/menu_hover_2.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/menu_hover_2.xnb","SoundEffectProcessor","SoundEffectContent",15996,15873,2,3377633
-"A:/Github/JumpNGun/JumpNGun/Content/menu_hover_3.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/menu_hover_3.xnb","SoundEffectProcessor","SoundEffectContent",15996,15873,2,2087977
-"A:/Github/JumpNGun/JumpNGun/Content/music.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/music.xnb","TextureProcessor","Texture2DContent",3717,25013,0,0042528
-"A:/Github/JumpNGun/JumpNGun/Content/paused_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/paused_button.xnb","TextureProcessor","Texture2DContent",7000,128885,0,0093456
-"A:/Github/JumpNGun/JumpNGun/Content/paused_overlay.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/paused_overlay.xnb","TextureProcessor","Texture2DContent",14875,958133,0,0288049
-"A:/Github/JumpNGun/JumpNGun/Content/paused_overlay_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/paused_overlay_2.xnb","TextureProcessor","Texture2DContent",6432,843265,0,0242764
-"A:/Github/JumpNGun/JumpNGun/Content/pickup.wav","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/pickup.xnb","SoundEffectProcessor","SoundEffectContent",35080,34969,2,2323515
-"A:/Github/JumpNGun/JumpNGun/Content/Pixel.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Pixel.xnb","TextureProcessor","Texture2DContent",2804,485,0,0105876
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_1.xnb","TextureProcessor","Texture2DContent",4663,24085,0,0292569
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_2.xnb","TextureProcessor","Texture2DContent",5059,24085,0,0243875
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_3.xnb","TextureProcessor","Texture2DContent",5508,24085,0,0270961
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_4.xnb","TextureProcessor","Texture2DContent",5749,24085,0,0186713
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_5.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_5.xnb","TextureProcessor","Texture2DContent",5281,24085,0,0130686
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_6.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_6.xnb","TextureProcessor","Texture2DContent",4768,24085,0,0092132
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_7.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_7.xnb","TextureProcessor","Texture2DContent",4864,24085,0,0157491
-"A:/Github/JumpNGun/JumpNGun/Content/portal_idle_8.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_idle_8.xnb","TextureProcessor","Texture2DContent",5032,24085,0,0127734
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_1.xnb","TextureProcessor","Texture2DContent",1159,24085,0,0195242
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_2.xnb","TextureProcessor","Texture2DContent",1655,24085,0,010717
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_3.xnb","TextureProcessor","Texture2DContent",2595,24085,0,0128197
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_4.xnb","TextureProcessor","Texture2DContent",3493,24085,0,00494
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_5.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_5.xnb","TextureProcessor","Texture2DContent",4047,24085,0,0112188
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_6.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_6.xnb","TextureProcessor","Texture2DContent",4627,24085,0,0165137
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_7.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_7.xnb","TextureProcessor","Texture2DContent",4606,24085,0,0171253
-"A:/Github/JumpNGun/JumpNGun/Content/portal_open_8.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/portal_open_8.xnb","TextureProcessor","Texture2DContent",4545,24085,0,0140943
-"A:/Github/JumpNGun/JumpNGun/Content/quit_to_menu_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/quit_to_menu_button.xnb","TextureProcessor","Texture2DContent",5424,55517,0,0109691
-"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle1.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle1.xnb","TextureProcessor","Texture2DContent",3774,90085,0,0156988
-"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle2.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle2.xnb","TextureProcessor","Texture2DContent",3805,90085,0,0069126
-"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle3.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle3.xnb","TextureProcessor","Texture2DContent",3809,90085,0,0172063
-"A:/Github/JumpNGun/JumpNGun/Content/reaper_idle4.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/reaper_idle4.xnb","TextureProcessor","Texture2DContent",3726,90085,0,0078685
-"A:/Github/JumpNGun/JumpNGun/Content/resume_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/resume_button.xnb","TextureProcessor","Texture2DContent",3626,32509,0,010981
-"A:/Github/JumpNGun/JumpNGun/Content/sfx.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/sfx.xnb","TextureProcessor","Texture2DContent",2542,15829,0,007656
-"A:/Github/JumpNGun/JumpNGun/Content/soundtrack_1.mp3","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/soundtrack_1.xnb","SoundEffectProcessor","SoundEffectContent",8995917,56148585,4,19369
-"A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/soundtrack_2.xnb","SoundEffectProcessor","SoundEffectContent",5614485,53863017,3,8207388
-"A:/Github/JumpNGun/JumpNGun/Content/submit_button.png","A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/submit_button.xnb","TextureProcessor","Texture2DContent",3877,39941,0,0072019
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_idle1.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_idle1.xnb","TextureProcessor","Texture2DContent",224,885,0,5021386
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_idle2.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_idle2.xnb","TextureProcessor","Texture2DContent",223,885,0,0022062
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_idle3.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_idle3.xnb","TextureProcessor","Texture2DContent",222,885,0,0022374
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_idle4.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_idle4.xnb","TextureProcessor","Texture2DContent",215,885,0,0055006
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_spawn1.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_spawn1.xnb","TextureProcessor","Texture2DContent",307,10085,0,0040695
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_spawn2.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_spawn2.xnb","TextureProcessor","Texture2DContent",313,10085,0,0033778
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_spawn3.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_spawn3.xnb","TextureProcessor","Texture2DContent",320,10085,0,0064168
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_spawn4.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_spawn4.xnb","TextureProcessor","Texture2DContent",333,10085,0,0078732
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_spawn5.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_spawn5.xnb","TextureProcessor","Texture2DContent",338,10085,0,0142941
+"C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ghost_spawn6.png","C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/ghost_spawn6.xnb","TextureProcessor","Texture2DContent",347,10085,0,0027985

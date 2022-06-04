@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {}
+    "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {
+    "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+        "projectUniqueName": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
         "projectName": "JumpNGun",
-        "projectPath": "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
-        "packagesPath": "C:\\Users\\sthob\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\obj\\",
+        "projectPath": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+        "packagesPath": "C:\\Users\\kjfic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\sthob\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kjfic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -28,7 +28,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,6 +53,10 @@
             "MonoGame.Framework.WindowsDX": {
               "target": "Package",
               "version": "[3.8.0.1641, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.116, )"
             }
           },
           "imports": [

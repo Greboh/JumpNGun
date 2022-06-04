@@ -3,14 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 
-namespace JumpNGun.ComponentPattern
+namespace JumpNGun
 {
     class Background
     {
-
-        #region fields
         private Texture2D _backgroundimage;
 
         private Texture2D _cloud1;
@@ -25,10 +22,13 @@ namespace JumpNGun.ComponentPattern
         private Texture2D _cloud4;
         private Vector2 _position4;
 
-        #endregion
 
-        #region Methods
-        public void LoadContent()
+        public Background()
+        {
+            LoadContent();
+        }
+
+        private void LoadContent()
         {
             _backgroundimage = GameWorld.Instance.Content.Load<Texture2D>("background_image");
 
@@ -60,14 +60,7 @@ namespace JumpNGun.ComponentPattern
             spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime)
-        {
-            Clouds();
-        }
-
-
-        // handles cloud movement 
-        private void Clouds()
+        public void Update()
         {
             _position1.X += 1f;
 
@@ -95,8 +88,9 @@ namespace JumpNGun.ComponentPattern
                 Console.WriteLine("hit edge");
                 _position4.X = GameWorld.Instance.ScreenSize.X;
             }
-        }
-        #endregion
 
+
+
+        }
     }
 }

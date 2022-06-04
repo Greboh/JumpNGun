@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -18,22 +15,26 @@ namespace JumpNGun
         }
 
 
-        private bool _levelIsGenerated = false; //bool to control level generation
+        private bool _isBossLevel = false;
         private int _level = 1; // used to change level
-        private int _enemyStartAmount = 2;
-        private int _enemyCurrentAmount = 2;
+        private int _enemyStartAmount = 2; // initial amount of enemies at start of game
+
+        // TODO maybe find another way for enemycount
+        public int EnemyCurrentAmount { get; set; } = 2; // current amount of enemies through game
         private int _platformAmount = 4; // determines amount of platform pr. level
 
-        public bool LevelIsGenerated { get; set; } = false;
+        #region DEBUG BUTTONS
 
-        //for testing
         private bool _canPress = true;
         private bool canPressL = true;
-        private PlatformType _currentPlatformType;
-        private PlatformType _currentGroundPlatform;
-        private EnemyType _currentEnemyType;
 
-        public List<Rectangle> UsedLocations { get; private set; }
+        #endregion
+
+        private PlatformType _currentPlatformType; // current platform used in game
+        private PlatformType _currentGroundPlatform; // currennt ground platform being used in game
+        private EnemyType _currentEnemyType; // current enemy being used in gamge
+
+        public List<Rectangle> UsedLocations { get; private set; } //List for storing rectangles that contain a platform
 
         private LevelManager()
         {
@@ -41,49 +42,56 @@ namespace JumpNGun
             EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath); //TODO Fix another way
         }
 
+
+        public void ExecuteLevelGeneration()
+        {
+            new Thread(GenerateLevel) {IsBackground = true}.Start();
+        }
+
+
         /// <summary>
         /// Creates platforms and relevant Enviroment objects
         /// </summary>
-        public void GenerateLevel()
+        private void GenerateLevel()
         {
-            if (!_levelIsGenerated)
-            {
-                //Change all relevant enum types
-                ChangeEnviroment();
+            //Change all relevant enum types
+            ChangeEnviroment();
 
-                //Create first portal
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
+            //Create first portal
+            GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
 
-                //Create all relevant platforms
-                PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
+            //Create all relevant platforms
+            PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
 
-                UsedLocations = PlatformGenerator.Instance.GetLocations();
+            //Get all rectangles that contain platforms 
+            UsedLocations = PlatformGenerator.Instance.GetLocations();
 
-                //Create all relevant enemies
-                EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, EnemyType.Mushroom, UsedLocations);
+            //Create relevant boss or all relevant enemies 
+            if (_isBossLevel) EnemyGenerator.Instance.GenerateBoss(_currentEnemyType);
+            else EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
 
-                //Create ground
-                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
-
-                //Stop genering level
-                _levelIsGenerated = true;
-            }
+            //Create ground
+            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
         }
 
+        /// <summary>
+        /// Instantiates portal when level has been cleared of enemies
+        /// </summary>
+        /// <param name="ctx"></param>
         private void OnEnemyDeath(Dictionary<string, object> ctx)
         {
-            _enemyCurrentAmount -= (int) ctx["enemyDeath"];
+            EnemyCurrentAmount -= (int) ctx["enemyDeath"];
 
-            if (_enemyCurrentAmount <= 0)
+            if (EnemyCurrentAmount <= 0)
             {
                 GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
             }
         }
 
         /// <summary>
-        /// Change platform sprites according to level
+        /// Change enemies, platforms and bosses
         /// </summary>
-        public void ChangeEnviroment()
+        private void ChangeEnviroment()
         {
             switch (_level)
             {
@@ -98,12 +106,32 @@ namespace JumpNGun
                 {
                     _currentPlatformType = PlatformType.dessert;
                     _currentGroundPlatform = PlatformType.dessertGround;
+                    _currentEnemyType = EnemyType.Worm;
+                }
+                    break;
+                case 12:
+                {
+                    EnemyCurrentAmount = 1;
+                    _currentPlatformType = PlatformType.dessert;
+                    _currentGroundPlatform = PlatformType.dessertGround;
+                    _currentEnemyType = EnemyType.Reaper;
+                    _isBossLevel = true;
                 }
                     break;
                 case 13:
                 {
+                    EnemyCurrentAmount = 8;
+                    _isBossLevel = false;
+                    _currentEnemyType = EnemyType.Skeleton;
                     _currentPlatformType = PlatformType.graveyard;
                     _currentGroundPlatform = PlatformType.graveGround;
+                }
+                    break;
+                case 18:
+                {
+                    _currentEnemyType = EnemyType.Skeleton;
+                    _currentPlatformType = PlatformType.graveyard;
+                    _isBossLevel = true;
                 }
                     break;
             }
@@ -118,8 +146,8 @@ namespace JumpNGun
             if (message.ContainsKey("NewLevel"))
             {
                 IncrementLevel();
-                _levelIsGenerated = (bool) message["NewLevel"];
                 CleanLevel();
+                ExecuteLevelGeneration();
             }
         }
 
@@ -128,33 +156,20 @@ namespace JumpNGun
         /// </summary>
         private void CleanLevel()
         {
+            //Destroy all objects besides player
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                if (!go.HasComponent<Player>())
+                if (go.Tag != "player")
                 {
                     GameWorld.Instance.Destroy(go);
                 }
             }
 
+            //Clear lists containing rectangles with platforms
             UsedLocations.Clear();
 
+            //Set position of player to left corner of screen
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
-            Console.Clear();
-        }
-
-        /// <summary>
-        /// Iterates through list of gameobjects to check if any enemies are left in game
-        /// or if the level is cleared
-        /// </summary>
-        public void CheckForClearedLevel()
-        {
-            foreach (GameObject go in GameWorld.Instance.GameObjects)
-            {
-                // if(EnemyAmount <= 0 && _levelIsGenerated)
-                // {
-                //     GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
-                // }
-            }
         }
 
         /// <summary>
@@ -165,12 +180,13 @@ namespace JumpNGun
             _level++;
             _platformAmount++;
 
+            //if level is odd increment amount of enemies
             if (_level % 2 != 0)
             {
                 _enemyStartAmount++;
             }
 
-            _enemyCurrentAmount = _enemyStartAmount;
+            EnemyCurrentAmount = _enemyStartAmount;
 
             //amount of platforms capped at 19, to avoid overcrowding screen and errors
             if (_platformAmount > 19)
@@ -178,7 +194,10 @@ namespace JumpNGun
                 _platformAmount = 19;
             }
         }
-        
+
+        /// <summary>
+        /// Reset current level and enviroment to level 1
+        /// </summary>
         public void ResetLevel()
         {
             _level = 1;
@@ -210,14 +229,14 @@ namespace JumpNGun
         public void ChangeLevelDebug()
         {
             //TODO FIX THIS CALLING
-            CheckForClearedLevel();
+            //CheckForClearedLevel();
 
             if (Keyboard.GetState().IsKeyDown(Keys.K) && _canPress)
             {
                 IncrementLevel();
-                _levelIsGenerated = false;
                 CleanLevel();
                 _canPress = false;
+                ExecuteLevelGeneration();
             }
 
             if (Keyboard.GetState().IsKeyUp(Keys.K))

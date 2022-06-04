@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/dessert_ground.png</SourceFile>
-  <SourceTime>2022-05-23T10:46:26.2836804+02:00</SourceTime>
-  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/dessert_ground.xnb</DestFile>
-  <DestTime>2022-06-04T14:05:48.2822204+02:00</DestTime>
+  <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/dessert_ground.png</SourceFile>
+  <SourceTime>2022-05-27T13:50:02.5509637+02:00</SourceTime>
+  <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/dessert_ground.xnb</DestFile>
+  <DestTime>2022-05-27T17:46:32.6530229+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
