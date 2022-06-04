@@ -33,11 +33,6 @@ namespace JumpNGun
             IsRanged = true;
         }
 
-        public override void Awake()
-        {
-            base.Awake();
-        }
-
         public override void Start()
         {
             base.Start();

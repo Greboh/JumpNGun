@@ -71,7 +71,10 @@ namespace JumpNGun
             currentState?.Execute();
         }
         
-        public abstract void CheckCollision();
+        public virtual void CheckCollision()
+        {
+            
+        }
 
         protected virtual void ChasePlayer()
         {
