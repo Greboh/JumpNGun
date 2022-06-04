@@ -108,9 +108,7 @@ namespace JumpNGun
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _background.Draw(SpriteBatch);
-
-            // currentMenuStateHandler.Draw(gameTime, SpriteBatch);
-
+            
             MenuStateHandler.Instance.Draw(SpriteBatch);
             
             base.Draw(gameTime);
