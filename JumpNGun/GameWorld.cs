@@ -132,22 +132,7 @@ namespace JumpNGun
 
         }
 
-        /// <summary>
-        /// // sets nextState with state recived from Button.cs
-        /// </summary>
-        /// <param name="menuStateHandler"></param>
-        public void ChangeState(MenuStateHandler menuStateHandler)
-        {
-            _nextMenuStateHandler = menuStateHandler; 
-        }
-
-        public MenuStateHandler GetCurrentState()
-        {
-            return currentMenuStateHandler;
-        }
-
         
-
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
         /// </summary>

@@ -59,7 +59,6 @@ namespace JumpNGun
 
         public void LoadContent()
         {
-            throw new NotImplementedException();
         }
 
         public void Exit()

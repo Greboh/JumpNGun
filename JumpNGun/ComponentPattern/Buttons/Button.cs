@@ -404,13 +404,13 @@ namespace JumpNGun
                 }
                 
                 // return to main settings menu from audio settings
-                else if (GameWorld.Instance.currentMenuStateHandler is Audio) 
+                else if (MenuStateHandler.Instance.CurrentMenuState is Audio) 
                 {
                     MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }
                 
                 // return to main settings menu from control settings
-                else if (GameWorld.Instance.currentMenuStateHandler is Controls) 
+                else if (MenuStateHandler.Instance.CurrentMenuState is Controls) 
                 {
                     MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }

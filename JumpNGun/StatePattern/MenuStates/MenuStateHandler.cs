@@ -36,22 +36,9 @@ namespace JumpNGun
         public IStateMenu Controls { get; private set; }
         public IStateMenu Audio { get; private set; }
 
-        protected static int screenSizeX = (int) GameWorld.Instance.ScreenSize.X;
-        protected static int screenSizeY = (int) GameWorld.Instance.ScreenSize.Y;
-
         public Texture2D GameTitle { get; set; }
 
-
-        private bool isMenu = true;
         
-        public bool ContentLoaded { get; set; }
-
-        public bool IsMenu
-        {
-            get => isMenu;
-            set => isMenu = value;
-        }
-
         public void Initialize()
         {
             MainMenu = new MainMenu();
@@ -108,6 +95,7 @@ namespace JumpNGun
             CurrentMenuState?.Exit();
 
             CurrentMenuState = newMenuState;
+            CurrentMenuState.LoadContent();
             CurrentMenuState.Enter(this);
         }
     }
