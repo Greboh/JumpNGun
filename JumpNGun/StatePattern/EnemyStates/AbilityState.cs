@@ -13,7 +13,8 @@ namespace JumpNGun
         private Vector2[] _minionPositions;
         private int _miniomAmount = 2;
 
-
+        // Remove after
+        
         
         public void Enter(Enemy parent)
         {
@@ -63,7 +64,6 @@ namespace JumpNGun
                 Exit();
             }
         }
-
         public void Animate()
         {
             if (_shouldTeleport)
