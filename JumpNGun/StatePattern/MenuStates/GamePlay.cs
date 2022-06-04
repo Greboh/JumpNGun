@@ -44,7 +44,7 @@ namespace JumpNGun
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
-            LevelManager.Instance.GenerateLevel();
+            LevelManager.Instance.ExecuteLevelGeneration();
 
 
             foreach (var go in GameWorld.Instance.gameObjects)
@@ -59,7 +59,6 @@ namespace JumpNGun
             SetAudioStatusIcons();
 
             LevelManager.Instance.ChangeLevelDebug();
-            LevelManager.Instance.GenerateLevel();
             LevelManager.Instance.CheckForClearedLevelDebug();
 
 

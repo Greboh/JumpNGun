@@ -98,7 +98,7 @@ namespace JumpNGun
         protected override void Update(GameTime gameTime)
         {
             
-            _background.Update(gameTime);
+            _background.Update();
 
 
             MyMouse = Mouse.GetState();

@@ -76,7 +76,6 @@ namespace JumpNGun
                     go.HasComponent<Mushroom>())
                 {
                     GameWorld.Instance.Destroy(go);
-                    LevelManager.Instance.LevelIsGenerated = false;
                     LevelManager.Instance.ResetLevel();
                 }
 

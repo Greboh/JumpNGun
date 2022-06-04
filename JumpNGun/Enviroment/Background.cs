@@ -28,7 +28,7 @@ namespace JumpNGun
             LoadContent();
         }
 
-        private void LoadContent()
+        public void LoadContent()
         {
             _backgroundimage = GameWorld.Instance.Content.Load<Texture2D>("background_image");
 
