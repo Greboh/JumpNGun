@@ -12,7 +12,7 @@ namespace JumpNGun
 
         
 
-        private Texture2D _game_title;
+        private Texture2D _gameTitle;
 
         //Initialize is used similar to initialize in GameWorld
         public override void Initialize()
@@ -36,7 +36,7 @@ namespace JumpNGun
         public override void LoadContent()
         {
             // asset content loading
-            _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+            _gameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
 
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -45,7 +45,7 @@ namespace JumpNGun
             spriteBatch.Begin();
 
             #region SpriteBatch Draws
-            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+            spriteBatch.Draw(_gameTitle, new Rectangle(screenSizeY / 2, 150, _gameTitle.Width, _gameTitle.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
 
             // draws active GameObjects in list

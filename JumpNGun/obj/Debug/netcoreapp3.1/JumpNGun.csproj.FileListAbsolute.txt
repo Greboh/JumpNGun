@@ -198,3 +198,7 @@ A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\pickup.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\enter.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\exit.xnb
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\resume_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\enter_name_text.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\input_field.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\submit_button.xnb
+A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\avatar_2.xnb

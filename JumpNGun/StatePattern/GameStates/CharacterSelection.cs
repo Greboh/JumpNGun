@@ -8,7 +8,8 @@ namespace JumpNGun.StatePattern.GameStates
 {
     public class CharacterSelection : State
     {
-        private Texture2D _game_title;
+        private Texture2D _gameTitle;
+
 
         public override void Initialize()
         {
@@ -18,23 +19,61 @@ namespace JumpNGun.StatePattern.GameStates
             {
                 go.Awake();
             }
+
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character1));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character2));
+
+            Console.WriteLine("Character selection state");
         }
 
         public override void LoadContent()
         {
-            _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+            //call start method on every active GameObject in list
+            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            {
+                GameWorld.Instance.gameObjects[i].Start();
+            }
+
+            _gameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+
+
+
 
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+            spriteBatch.Begin();
+
+            //draw sprites of every active gameObject in list
+            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            {
+                GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
+            }
+
+
+            spriteBatch.Draw(_gameTitle, new Rectangle(screenSizeY / 2, 150, _gameTitle.Width, _gameTitle.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+
+
+            
+
+            spriteBatch.End();
 
         }
 
         public override void Update(GameTime gameTime)
         {
             InitializeCheck();
+
+            //call update method on every active GameObject in list
+            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            {
+                GameWorld.Instance.gameObjects[i].Update(gameTime);
+
+            }
+
+            //call cleanup in every cycle
+            GameWorld.Instance.CleanUp();
         }
     }
 }

@@ -20,6 +20,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/6_Soldier_run.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/audio_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/avatar_1.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/avatar_2.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/back_button.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/background_image.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/Bullet.png</File>
@@ -34,6 +35,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/Desert platform.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/dessert_ground.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/enter.wav</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/enter_name_text.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/exit.wav</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/font.spritefont</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/footstep_1.wav</File>
@@ -47,6 +49,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/graveyard_ground.PNG</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/ground_platform.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/highscore_button.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/input_field.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/jump.mp3</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/jump_1.wav</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/jump_2.wav</File>
@@ -85,8 +88,13 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/sfx.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_1.mp3</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_2.mp3</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/submit_button.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

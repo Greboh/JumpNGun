@@ -205,6 +205,18 @@
 /processorParam:TextureFormat=Color
 /build:avatar_1.png
 
+#begin avatar_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:avatar_2.png
+
 #begin back_button.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -367,6 +379,18 @@
 /processorParam:Quality=Best
 /build:enter.wav
 
+#begin enter_name_text.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enter_name_text.png
+
 #begin exit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -487,6 +511,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:highscore_button.png
+
+#begin input_field.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:input_field.png
 
 #begin jump.mp3
 /importer:Mp3Importer
@@ -883,4 +919,16 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:soundtrack_2.mp3
+
+#begin submit_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:submit_button.png
 

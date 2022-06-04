@@ -24,7 +24,11 @@ namespace JumpNGun
                             QuitToMain,
                             Resume,
                             SfxPause,
-                            MusicPause
+                            MusicPause,
+                            Submit,
+                            InputField,
+                            Character1,
+                            Character2,
                            }
     class ButtonFactory : Factory
     {
@@ -159,6 +163,38 @@ namespace JumpNGun
                 case ButtonType.SfxPause:
                     {
                         sr.SetSprite("sfx");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Submit:
+                    {
+                        sr.SetSprite("submit_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.InputField:
+                    {
+                        sr.SetSprite("input_field");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Character1:
+                    {
+                        sr.SetSprite("avatar_1");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Character2:
+                    {
+                        sr.SetSprite("avatar_2");
 
                         gameObject.AddComponent(new Button(_type));
 

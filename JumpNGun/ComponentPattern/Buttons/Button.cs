@@ -34,6 +34,13 @@ namespace JumpNGun
         private Vector2 _ResumeButtonPosition = new Vector2(556, 631);
         private Vector2 _sfxPauseButtonPosition = new Vector2(1168, 88);
         private Vector2 _musicPauseButtonPosition = new Vector2(1109, 20);
+        private Vector2 _submitButtonPosition = new Vector2(571, 491);
+        private Vector2 _inputFieldPosition = new Vector2(476, 427);
+        private Vector2 _character1Position = new Vector2(448, 365);
+        private Vector2 _character2Position = new Vector2(686, 365);
+
+
+
 
 
 
@@ -104,6 +111,18 @@ namespace JumpNGun
                     break;
                 case ButtonType.MusicPause:
                     _position = _musicPauseButtonPosition;
+                    break;
+                case ButtonType.Submit:
+                    _position = _submitButtonPosition;
+                    break;
+                case ButtonType.InputField:
+                    _position = _inputFieldPosition;
+                    break;
+                case ButtonType.Character1:
+                    _position = _character1Position;
+                    break;
+                case ButtonType.Character2:
+                    _position = _character2Position;
                     break;
             }
         }
@@ -180,7 +199,18 @@ namespace JumpNGun
                         break;
                     case ButtonType.MusicPause:
                         MusicPauseToggleButton();
-
+                        break;
+                    case ButtonType.Submit:
+                        Submit();
+                        break;
+                    case ButtonType.InputField:
+                        InputField();
+                        break;
+                    case ButtonType.Character1:
+                        Character1();
+                        break;
+                    case ButtonType.Character2:
+                        Character2();
                         break;
                 }
             }
@@ -203,7 +233,7 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                GameWorld.Instance.ChangeState(new StatePattern.GameStates.GamePlay());
+                GameWorld.Instance.ChangeState(new CharacterSelection());
 
 
                 _canIntersect = false;
@@ -508,6 +538,73 @@ namespace JumpNGun
             {
                 SoundManager.Instance.PlayClip("menu_click");
 
+                _canIntersect = true;
+            }
+        }
+
+        private void Submit()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+                GameWorld.Instance.ChangeState(new MainMenu());
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        private void InputField()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+                //TODO: Add input field logic
+
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        private void Character1()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                //TODO: Set player character here
+                GameWorld.Instance.ChangeState(new GamePlay());
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+        private void Character2()
+        {
+            Console.WriteLine($"Intersects with {_type}");
+
+            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            { 
+                //TODO: Set player character here
+                GameWorld.Instance.ChangeState(new GamePlay());
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
                 _canIntersect = true;
             }
         }

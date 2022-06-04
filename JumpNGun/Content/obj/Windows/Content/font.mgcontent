@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/font.spritefont</SourceFile>
-  <SourceTime>2020-08-10T18:17:28+02:00</SourceTime>
+  <SourceTime>2022-06-03T06:13:41.7301189+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/font.xnb</DestFile>
-  <DestTime>2022-06-01T13:17:18.5743656+02:00</DestTime>
+  <DestTime>2022-06-03T06:13:51.170119+02:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

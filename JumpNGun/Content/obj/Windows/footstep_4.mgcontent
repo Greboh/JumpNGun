@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/footstep_4.wav</SourceFile>
-  <SourceTime>2022-06-01T21:20:49.7500699+02:00</SourceTime>
+  <SourceTime>2022-06-03T06:13:41.7371114+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/footstep_4.xnb</DestFile>
-  <DestTime>2022-06-03T05:15:11.8209136+02:00</DestTime>
+  <DestTime>2022-06-04T14:06:01.4647358+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

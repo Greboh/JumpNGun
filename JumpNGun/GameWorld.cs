@@ -97,7 +97,7 @@ namespace JumpNGun
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _background.LoadContent();
 
-            _currentState = new MainMenu(); // sets first state to show on startup
+            _currentState = new LandingScreen(); // sets first state to show on startup
             _currentState.LoadContent(); // loads state content into GameWorld content
             _nextState = null; // makes sure next state is empty on startup
         }

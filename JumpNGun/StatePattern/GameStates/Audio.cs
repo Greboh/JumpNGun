@@ -10,7 +10,7 @@ namespace JumpNGun.StatePattern.GameStates
     {
 
 
-        private Texture2D _game_title;
+        private Texture2D _gameTitle;
         private Texture2D _enabled;
         private Texture2D _disabled;
         private Texture2D _musicStatus;
@@ -38,7 +38,7 @@ namespace JumpNGun.StatePattern.GameStates
         {
 
             // asset content loading
-            _game_title = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+            _gameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
             _enabled = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _disabled = GameWorld.Instance.Content.Load<Texture2D>("crossedout");
 
@@ -51,7 +51,7 @@ namespace JumpNGun.StatePattern.GameStates
             spriteBatch.Begin();
 
             #region SpriteBatch draws
-            spriteBatch.Draw(_game_title, new Rectangle(screenSizeY / 2, 150, _game_title.Width, _game_title.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+            spriteBatch.Draw(_gameTitle, new Rectangle(screenSizeY / 2, 150, _gameTitle.Width, _gameTitle.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
             spriteBatch.Draw(_musicStatus, new Rectangle(715, 373, _enabled.Width, _enabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
             spriteBatch.Draw(_sfxStatus, new Rectangle(715, 442, _disabled.Width, _disabled.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
