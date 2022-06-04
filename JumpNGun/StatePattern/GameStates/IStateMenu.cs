@@ -2,13 +2,13 @@
 
 namespace JumpNGun
 {
-    public interface IState
+    public interface IStateMenu
     {
         /// <summary>
         /// Method called when entering new state
         /// </summary>
         /// <param name="parent"></param>
-        void Enter(GameObject parent);
+        void Enter(State parent);
 
         /// <summary>
         /// Logic to execute when in specific state
@@ -20,6 +20,5 @@ namespace JumpNGun
         /// Logic to execute before/as leaving state
         /// </summary>
         void Exit();
-
     }
 }

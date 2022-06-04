@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using JumpNGun.StatePattern.GameStates;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
 
 namespace JumpNGun
 {
@@ -18,6 +16,7 @@ namespace JumpNGun
 
 
         #region Fields
+
         private Vector2 _position;
 
         //static button positions based on photoshop design mockup
@@ -29,7 +28,7 @@ namespace JumpNGun
         private Vector2 _controlsButtonPosition = new Vector2(493, 486);
         private Vector2 _musicButtonPosition = new Vector2(553, 375);
         private Vector2 _sfxButtonPosition = new Vector2(614, 443);
-        private Vector2 _backButtonPosition = new Vector2(583,639);
+        private Vector2 _backButtonPosition = new Vector2(583, 639);
         private Vector2 _quitToMainButtonPosition = new Vector2(487, 700);
         private Vector2 _ResumeButtonPosition = new Vector2(556, 631);
         private Vector2 _sfxPauseButtonPosition = new Vector2(1168, 88);
@@ -38,10 +37,6 @@ namespace JumpNGun
         private Vector2 _inputFieldPosition = new Vector2(476, 427);
         private Vector2 _character1Position = new Vector2(448, 365);
         private Vector2 _character2Position = new Vector2(686, 365);
-
-
-
-
 
 
         private bool fireOnce = true; // bool used for insuring sound doesn't fire more than once when hovering
@@ -55,15 +50,25 @@ namespace JumpNGun
 
         private SpriteRenderer _sr;
 
+        private bool _inputClicked;
+        private bool _inputKeyInteract;
+        private string _inputString = String.Empty;
+        
+        private Keys _currentInputKey = Keys.None;
+
+
         // TODO REMOVE THIS
         private bool _canIntersect = true;
+
         #endregion
 
         #region Constructor
+
         public Button(ButtonType type)
         {
             _type = type;
         }
+
         #endregion
 
         #region Methods
@@ -71,7 +76,7 @@ namespace JumpNGun
         public override void Awake()
         {
             // Sets position for the button sprite
-            switch (_type) 
+            switch (_type)
             {
                 case ButtonType.Start:
                     _position = _startButtonPosition;
@@ -138,8 +143,10 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             _mouseRect = new Rectangle((int) GameWorld.Instance.myMouse.X, (int) GameWorld.Instance.myMouse.Y, 10, 10); // mouse rectangle
-            _mouseCooldown += (float)gameTime.ElapsedGameTime.TotalSeconds; // negates double input on buttons
+            _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds; // negates double input on buttons
             
+            
+
             // used for checking mouse rect & sprite rect intersection
             if (_mouseRect.Intersects(_buttonRect))
             {
@@ -149,8 +156,7 @@ namespace JumpNGun
                     SoundManager.Instance.PlayRandomClick();
                     fireOnce = false;
                 }
-                
-                
+
 
                 //TODO: Refactor this mess
                 switch (_type)
@@ -205,6 +211,7 @@ namespace JumpNGun
                         break;
                     case ButtonType.InputField:
                         InputField();
+                        InputFieldLogic();
                         break;
                     case ButtonType.Character1:
                         Character1();
@@ -218,11 +225,9 @@ namespace JumpNGun
             {
                 _sr.SetColor(Color.White); // resets hover color
                 fireOnce = true;
-
             }
         }
 
-       
 
         /// <summary>
         /// Start Game logic button
@@ -256,7 +261,7 @@ namespace JumpNGun
             {
                 GameWorld.Instance.ChangeState(new Settings());
 
-                _mouseCooldown += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds;
                 _canIntersect = false;
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -272,7 +277,6 @@ namespace JumpNGun
         {
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-
                 GameWorld.Instance.Exit();
 
                 _canIntersect = false;
@@ -340,14 +344,11 @@ namespace JumpNGun
                 {
                     SoundManager.Instance._musicDisabled = false;
                     SoundManager.Instance.toggleSoundtrackOn();
-
                 }
                 else
                 {
                     SoundManager.Instance._musicDisabled = true;
                     SoundManager.Instance.toggleSoundtrackOff();
-
-
                 }
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -367,8 +368,6 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-
-
                 _mouseCooldown += 0;
                 _canIntersect = false;
                 if (SoundManager.Instance._sfxDisabled == true)
@@ -380,9 +379,7 @@ namespace JumpNGun
                 {
                     SoundManager.Instance._sfxDisabled = true;
                     SoundManager.Instance.toggleSFXOff();
-
                 }
-
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
@@ -401,9 +398,6 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-
-
-
                 //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
                 //{
                 //    GameWorld.Instance.ChangeState(new SettingsMenuState());
@@ -412,17 +406,14 @@ namespace JumpNGun
                 if (GameWorld.Instance._currentState is Settings) // return to Main menu from settings
                 {
                     GameWorld.Instance.ChangeState(new MainMenu());
-
                 }
                 else if (GameWorld.Instance._currentState is Audio) // return to main settings menu from audio settings
                 {
                     GameWorld.Instance.ChangeState(new Settings());
-
                 }
                 else if (GameWorld.Instance._currentState is Controls) // return to main settings menu from control settings
                 {
                     GameWorld.Instance.ChangeState(new Settings());
-
                 }
 
                 _mouseCooldown += 0;
@@ -484,8 +475,6 @@ namespace JumpNGun
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-
-
                 _mouseCooldown += 0;
                 _canIntersect = false;
                 if (SoundManager.Instance._sfxDisabled == true)
@@ -497,9 +486,7 @@ namespace JumpNGun
                 {
                     SoundManager.Instance._sfxDisabled = true;
                     SoundManager.Instance.toggleSFXOff();
-
                 }
-
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
@@ -524,14 +511,11 @@ namespace JumpNGun
                 {
                     SoundManager.Instance._musicDisabled = false;
                     SoundManager.Instance.toggleSoundtrackOn();
-
                 }
                 else
                 {
                     SoundManager.Instance._musicDisabled = true;
                     SoundManager.Instance.toggleSoundtrackOff();
-
-
                 }
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -544,7 +528,8 @@ namespace JumpNGun
 
         private void Submit()
         {
-            Console.WriteLine($"Intersects with {_type}");
+            // Console.WriteLine($"Intersects with {_type}");
+            Console.WriteLine(BuildName());
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
@@ -560,18 +545,55 @@ namespace JumpNGun
 
         private void InputField()
         {
-            Console.WriteLine($"Intersects with {_type}");
-
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
                 //TODO: Add input field logic
 
+                Console.WriteLine($"Intersects with {_type}");
+                _inputClicked = true;
                 _canIntersect = false;
             }
             else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
+        }
+        
+        List<char> _name = new List<char>();
+
+        private void InputFieldLogic()
+        {
+            if (_inputClicked)
+            {
+                KeyboardState keyboardState = Keyboard.GetState();
+                Keys[] keyArray = keyboardState.GetPressedKeys();
+                
+                foreach (Keys key in keyArray)
+                {
+                    if (keyboardState.IsKeyDown(key) && !_inputKeyInteract && key != Keys.Space)
+                    {
+                        _currentInputKey = key;
+                    
+                        Console.WriteLine($"{_currentInputKey} added");
+                        _inputKeyInteract = true;
+
+                        EventManager.Instance.TriggerEvent("OnInput", new Dictionary<string, object>()
+                            {
+                                {"inputKey", _currentInputKey.ToString()}
+                            }
+                        );
+                        
+                        _name.Add(char.Parse(_currentInputKey.ToString()));
+                        _inputString += _currentInputKey.ToString();
+                    }
+                }
+
+                if (!keyboardState.IsKeyUp(_currentInputKey) || !_inputKeyInteract) return;
+                
+                _inputKeyInteract = false;
+            }
+
+
         }
 
         private void Character1()
@@ -591,12 +613,13 @@ namespace JumpNGun
                 _canIntersect = true;
             }
         }
+
         private void Character2()
         {
             Console.WriteLine($"Intersects with {_type}");
 
             if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
-            { 
+            {
                 //TODO: Set player character here
                 GameWorld.Instance.ChangeState(new GamePlay());
 
@@ -608,6 +631,17 @@ namespace JumpNGun
                 _canIntersect = true;
             }
         }
+        
+        private string BuildName()
+        {
+            foreach (char c in _name)
+            {
+                _inputString += c;
+            }
+
+            return _inputString;
+        }
+
         #endregion
     }
 }

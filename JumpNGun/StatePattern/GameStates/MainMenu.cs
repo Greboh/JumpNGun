@@ -9,9 +9,6 @@ namespace JumpNGun
 {
     public class MainMenu : State
     {
-
-        
-
         private Texture2D _gameTitle;
 
         //Initialize is used similar to initialize in GameWorld

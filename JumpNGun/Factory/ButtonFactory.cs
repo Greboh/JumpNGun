@@ -32,13 +32,8 @@ namespace JumpNGun
                            }
     class ButtonFactory : Factory
     {
-       
-
         private ButtonType _type; // determines which button to create.
         
-
-
-
         private static ButtonFactory _instance;
 
         public static ButtonFactory Instance

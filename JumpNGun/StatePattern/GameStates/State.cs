@@ -7,7 +7,7 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public abstract class State 
+    public abstract class State : IStateMenu
     {
         /*
             [Description]
@@ -57,5 +57,19 @@ namespace JumpNGun
         }
 
 
+        public void Enter(State parent)
+        {
+            
+        }
+
+        public void Execute(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Exit()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
