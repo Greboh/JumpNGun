@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/jump_1.wav</SourceFile>
-  <SourceTime>2022-06-04T14:28:29.6620618+02:00</SourceTime>
+  <SourceTime>2022-06-04T16:29:02.4073064+02:00</SourceTime>
   <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/jump_1.xnb</DestFile>
-  <DestTime>2022-06-04T14:30:02.3648938+02:00</DestTime>
+  <DestTime>2022-06-04T16:29:18.5494892+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -142,7 +142,7 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            _mouseRect = new Rectangle((int) GameWorld.Instance.myMouse.X, (int) GameWorld.Instance.myMouse.Y, 10, 10); // mouse rectangle
+            _mouseRect = new Rectangle((int) GameWorld.Instance.MyMouse.X, (int) GameWorld.Instance.MyMouse.Y, 10, 10); // mouse rectangle
             _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds; // negates double input on buttons
             
             
@@ -236,14 +236,13 @@ namespace JumpNGun
         {
             //Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                GameWorld.Instance.ChangeState(new CharacterSelection());
-
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.CharacterSelection);
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -257,14 +256,14 @@ namespace JumpNGun
         {
             //Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                GameWorld.Instance.ChangeState(new Settings());
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.SettingsMenu);
 
                 _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds;
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -275,13 +274,13 @@ namespace JumpNGun
         /// </summary>
         private void Quit()
         {
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
                 GameWorld.Instance.Exit();
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -294,14 +293,14 @@ namespace JumpNGun
         {
             //Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                GameWorld.Instance.ChangeState(new Audio());
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Audio);
 
                 _mouseCooldown += 0;
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -314,16 +313,16 @@ namespace JumpNGun
         {
             //Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                GameWorld.Instance.ChangeState(new Controls());
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Controls);
 
                 _mouseCooldown += 0;
 
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -336,7 +335,7 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
@@ -351,7 +350,7 @@ namespace JumpNGun
                     SoundManager.Instance.toggleSoundtrackOff();
                 }
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 SoundManager.Instance.PlayClip("menu_click");
 
@@ -366,7 +365,7 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
@@ -381,7 +380,7 @@ namespace JumpNGun
                     SoundManager.Instance.toggleSFXOff();
                 }
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 SoundManager.Instance.PlayClip("menu_click");
 
@@ -396,24 +395,24 @@ namespace JumpNGun
         {
             //Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                //if (GameWorld.Instance._currentState == Convert.ChangeType(GameWorld.Instance._currentState, typeof(AudioSettingsState)))
-                //{
-                //    GameWorld.Instance.ChangeState(new SettingsMenuState());
-
-                //}
-                if (GameWorld.Instance._currentState is Settings) // return to Main menu from settings
+                // return to Main menu from settings
+                if (MenuStateHandler.Instance.CurrentMenuState is SettingsMenu) 
                 {
-                    GameWorld.Instance.ChangeState(new MainMenu());
+                    MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.MainMenu);
                 }
-                else if (GameWorld.Instance._currentState is Audio) // return to main settings menu from audio settings
+                
+                // return to main settings menu from audio settings
+                else if (GameWorld.Instance.currentMenuStateHandler is Audio) 
                 {
-                    GameWorld.Instance.ChangeState(new Settings());
+                    MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }
-                else if (GameWorld.Instance._currentState is Controls) // return to main settings menu from control settings
+                
+                // return to main settings menu from control settings
+                else if (GameWorld.Instance.currentMenuStateHandler is Controls) 
                 {
-                    GameWorld.Instance.ChangeState(new Settings());
+                    MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }
 
                 _mouseCooldown += 0;
@@ -421,7 +420,7 @@ namespace JumpNGun
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -434,16 +433,16 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                GameWorld.Instance.ChangeState(new MainMenu());
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.MainMenu);
 
                 _mouseCooldown += 0;
 
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -453,14 +452,14 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 GameWorld.Instance.IsPaused = false;
 
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -473,7 +472,7 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
@@ -488,7 +487,7 @@ namespace JumpNGun
                     SoundManager.Instance.toggleSFXOff();
                 }
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 SoundManager.Instance.PlayClip("menu_click");
 
@@ -503,7 +502,7 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
@@ -518,7 +517,7 @@ namespace JumpNGun
                     SoundManager.Instance.toggleSoundtrackOff();
                 }
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 SoundManager.Instance.PlayClip("menu_click");
 
@@ -531,13 +530,13 @@ namespace JumpNGun
             // Console.WriteLine($"Intersects with {_type}");
             Console.WriteLine(BuildName());
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                GameWorld.Instance.ChangeState(new MainMenu());
+                MenuStateHandler.Instance.ChangeState( MenuStateHandler.Instance.MainMenu);
 
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -545,7 +544,7 @@ namespace JumpNGun
 
         private void InputField()
         {
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
                 //TODO: Add input field logic
 
@@ -553,7 +552,7 @@ namespace JumpNGun
                 _inputClicked = true;
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -600,15 +599,15 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 //TODO: Set player character here
-                GameWorld.Instance.ChangeState(new GamePlay());
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Gameplay);
 
                 _mouseCooldown += 0;
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }
@@ -618,15 +617,15 @@ namespace JumpNGun
         {
             Console.WriteLine($"Intersects with {_type}");
 
-            if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 //TODO: Set player character here
-                GameWorld.Instance.ChangeState(new GamePlay());
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Gameplay);
 
                 _mouseCooldown += 0;
                 _canIntersect = false;
             }
-            else if (GameWorld.Instance.myMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
                 _canIntersect = true;
             }

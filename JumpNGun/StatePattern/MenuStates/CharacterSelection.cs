@@ -6,14 +6,13 @@ using System.Text;
 
 namespace JumpNGun.StatePattern.GameStates
 {
-    public class CharacterSelection : State
+    public class CharacterSelection : IStateMenu
     {
-        private Texture2D _gameTitle;
+        private MenuStateHandler _pareMenuStateHandler;
 
-
-        public override void Initialize()
+        public void Enter(MenuStateHandler parent)
         {
-            ComponentCleanUp();
+            _pareMenuStateHandler = parent;
 
             foreach (var go in GameWorld.Instance.gameObjects)
             {
@@ -26,22 +25,19 @@ namespace JumpNGun.StatePattern.GameStates
             Console.WriteLine("Character selection state");
         }
 
-        public override void LoadContent()
+        public void Execute(GameTime gameTime)
         {
-            //call start method on every active GameObject in list
+            //call update method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Start();
+                GameWorld.Instance.gameObjects[i].Update(gameTime);
             }
 
-            _gameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
-
-
-
-
+            //call cleanup in every cycle
+            GameWorld.Instance.CleanUpGameObjects();
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
@@ -51,29 +47,26 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
 
-
-            spriteBatch.Draw(_gameTitle, new Rectangle(screenSizeY / 2, 150, _gameTitle.Width, _gameTitle.Height), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-
-
-            
+            spriteBatch.Draw(_pareMenuStateHandler.GameTitle,
+                new Rectangle((int) GameWorld.Instance.ScreenSize.X / 2, 150, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null,
+                Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
             spriteBatch.End();
-
         }
 
-        public override void Update(GameTime gameTime)
+        public void LoadContent()
         {
-            InitializeCheck();
-
-            //call update method on every active GameObject in list
+            //call start method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Update(gameTime);
-
+                GameWorld.Instance.gameObjects[i].Start();
             }
-
-            //call cleanup in every cycle
-            GameWorld.Instance.CleanUp();
         }
+
+        public void Exit()
+        {
+            _pareMenuStateHandler.ComponentCleanUp();
+        }
+        
     }
 }
