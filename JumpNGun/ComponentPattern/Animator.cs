@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Text;
 
 namespace JumpNGun
@@ -22,6 +23,9 @@ namespace JumpNGun
 
         private bool _animationPlaying;
         
+        public override void Awake()
+        {
+        }
 
         public override void Start()
         {
@@ -30,6 +34,11 @@ namespace JumpNGun
         }
 
         public override void Update(GameTime gameTime)
+        {
+            HandleAnimationLogic(gameTime);
+        }
+        
+        private void HandleAnimationLogic(GameTime gameTime)
         {
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -52,7 +61,6 @@ namespace JumpNGun
                 //set sprite to the current animation sprite
                 spriteRenderer.Sprite = currentAnimation.Sprites[CurrentIndex];
             }
-
 
         }
 

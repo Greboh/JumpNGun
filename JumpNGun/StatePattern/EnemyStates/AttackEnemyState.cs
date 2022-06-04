@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
-    public class AttackState : IState
+    public class AttackEnemyState : IEnemyState
     {
         private Enemy _parent;
         

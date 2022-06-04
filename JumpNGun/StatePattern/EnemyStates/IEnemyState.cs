@@ -2,7 +2,7 @@
 
 namespace JumpNGun
 {
-    public interface IState
+    public interface IEnemyState
     {
         void Enter(Enemy parent);
         void Execute();

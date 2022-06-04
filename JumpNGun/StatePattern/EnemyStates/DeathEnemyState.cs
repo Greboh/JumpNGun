@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
-    public class DeathState : IState
+    public class DeathEnemyState : IEnemyState
     {
         private Enemy _parent;
 

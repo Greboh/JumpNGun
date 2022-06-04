@@ -11,6 +11,11 @@ namespace JumpNGun
             [Description]
             Abstract class for menu state methods to be used in GameWorld.
         */
+        
+        public Texture2D GameTitle { get; set; }
+        
+        public string PlayerName { get; set; } = string.Empty;
+        
 
         private static MenuStateHandler _instance;
 
@@ -28,6 +33,8 @@ namespace JumpNGun
         }
 
 
+        #region Menu States Caches
+
         public IStateMenu CurrentMenuState { get; private set; }
         public IStateMenu MainMenu { get; private set; }
         public IStateMenu SettingsMenu { get; private set; }
@@ -36,8 +43,8 @@ namespace JumpNGun
         public IStateMenu Controls { get; private set; }
         public IStateMenu Audio { get; private set; }
 
-        public Texture2D GameTitle { get; set; }
-
+        #endregion
+        
         
         public void Initialize()
         {
@@ -49,6 +56,7 @@ namespace JumpNGun
             Audio = new Audio();
 
             GameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
+            
         }
 
 
@@ -90,7 +98,7 @@ namespace JumpNGun
         {
             if (CurrentMenuState == newMenuState) return;
 
-            if (CurrentMenuState != null) Console.WriteLine($"Changed Menu State from: {CurrentMenuState} to {newMenuState}");
+            if (CurrentMenuState != null) Console.WriteLine($"Changed Menu State from: {CurrentMenuState.GetType().Name} to {newMenuState.GetType().Name}");
             CurrentMenuState?.Exit();
 
             CurrentMenuState = newMenuState;

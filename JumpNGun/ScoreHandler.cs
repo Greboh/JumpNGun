@@ -11,15 +11,14 @@ namespace JumpNGun
             get { return _instance ??= new ScoreHandler(); }
         }
 
-        private float _startScore = 0;
-        private float _currentScore;
+        private int _currentScore;
 
-        public float GetScore()
+        public int GetScore()
         {
             return _currentScore;
         }
         
-        public void AddToScore(float addAmount)
+        public void AddToScore(int addAmount)
         {
             _currentScore += addAmount;
         }

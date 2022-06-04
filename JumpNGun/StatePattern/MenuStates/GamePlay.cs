@@ -33,6 +33,8 @@ namespace JumpNGun
 
         private PauseState currentPauseState = PauseState.unpaused;
 
+        private LevelSystem _levelSystem;
+
         public void Enter(MenuStateHandler parent)
         {
             _pareMenuStateHandler = parent;
@@ -46,7 +48,6 @@ namespace JumpNGun
 
             LevelManager.Instance.ExecuteLevelGeneration();
 
-
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
@@ -55,6 +56,8 @@ namespace JumpNGun
 
         public void Execute(GameTime gameTime)
         {
+            _levelSystem ??= GameWorld.Instance.FindObjectOfType<LevelSystem>() as LevelSystem;
+
             PauseMenuHandling();
             SetAudioStatusIcons();
 
@@ -112,6 +115,8 @@ namespace JumpNGun
         public void Exit()
         {
             _pareMenuStateHandler.ComponentCleanUp();
+            
+            Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
         }
 
         private void PauseMenuHandling()
@@ -153,6 +158,13 @@ namespace JumpNGun
                             GameWorld.Instance.Destroy(go);
                         }
                     }
+                    
+                    // UnFreeze gameobjects
+                    EventManager.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                        {
+                            {"freeze", false}
+                        }
+                    );
 
                     isPaused = false;
                 } break;
@@ -168,7 +180,7 @@ namespace JumpNGun
                     spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White);
                     ;
 
-                    spriteBatch.DrawString(_scoreFont, "Level : " + 8, new Vector2(401, 535), Color.White);
+                    spriteBatch.DrawString(_scoreFont, "Level : " + _levelSystem.GetLevel() , new Vector2(401, 535), Color.White);
 
 
                     spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White,
@@ -176,6 +188,13 @@ namespace JumpNGun
                     spriteBatch.Draw(_sfxStatus, new Rectangle(1269, 88, _disabled.Width, _disabled.Height), null, Color.White,
                         0, new Vector2(0, 0), SpriteEffects.None, 1);
 
+                    // Freeze gameobjects
+                    EventManager.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                        {
+                            {"freeze", true}
+                        }
+                    );
+                    
                     //instansiates buttons used if paused
                     if (!isPaused)
                     {

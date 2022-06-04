@@ -8,7 +8,7 @@ namespace JumpNGun
 {
     public class GameObject
     {
-        private List<Component> components = new List<Component>();//list for relevant components
+        private List<Component> components = new List<Component>(); //list for relevant components
 
         public Transform Transform { get; set; } = new Transform();
 
@@ -45,9 +45,15 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < components.Count; i++)
+            foreach (var component in components)
             {
-                components[i].Update(gameTime);
+                if (component.IsDisabled)
+                {
+                    Console.WriteLine(component.GetType().Name + " is disabled!");
+                    return;
+                }
+
+                component.Update(gameTime);
             }
         }
 

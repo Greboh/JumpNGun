@@ -33,12 +33,12 @@ namespace JumpNGun
         public Rectangle PlatformRectangle { get; set; } = Rectangle.Empty;
 
 
-        protected IState currentState;
-        protected IState attackState;
-        protected IState moveState;
-        protected IState deathState;
-        protected IState abilityState;
-
+        protected IEnemyState currentEnemyState;
+        protected IEnemyState attackEnemyState;
+        protected IEnemyState moveEnemyState;
+        protected IEnemyState deathEnemyState;
+        protected IEnemyState abilityEnemyState;
+        
         public override void Awake()
         {
         }
@@ -52,15 +52,15 @@ namespace JumpNGun
 
             InitializeStates();
 
-            ChangeState(moveState);
+            ChangeState(moveEnemyState);
         }
 
         private void InitializeStates()
         {
-            moveState = new MoveState();
-            attackState = new AttackState();
-            deathState = new DeathState();
-            abilityState = new AbilityState();
+            moveEnemyState = new MoveEnemyState();
+            attackEnemyState = new AttackEnemyState();
+            deathEnemyState = new DeathEnemyState();
+            abilityEnemyState = new AbilityEnemyState();
         }
 
         public override void Update(GameTime gameTime)
@@ -68,7 +68,7 @@ namespace JumpNGun
             Move();
             TakeDamage();
 
-            currentState?.Execute();
+            currentEnemyState?.Execute();
         }
         
         public virtual void CheckCollision()
@@ -113,21 +113,21 @@ namespace JumpNGun
             }
             
             if (health <= 0)
-                ChangeState(deathState);
+                ChangeState(deathEnemyState);
             
         }
 
         #region State Methods
 
-        protected void ChangeState(IState newState)
+        protected void ChangeState(IEnemyState newEnemyState)
         {
-            if (newState == currentState) return;
+            if (newEnemyState == currentEnemyState) return;
 
-            Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newState.GetType().Name}");
-            currentState?.Exit();
+            Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newEnemyState.GetType().Name}");
+            currentEnemyState?.Exit();
 
-            currentState = newState;
-            currentState.Enter(this);
+            currentEnemyState = newEnemyState;
+            currentEnemyState.Enter(this);
         }
 
         #endregion

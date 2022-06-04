@@ -56,7 +56,7 @@ namespace JumpNGun
             
             float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
             
-            ChangeState(targetMagnitude <= detectionRange ? attackState : moveState);
+            ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
         
         public override void CheckCollision()
