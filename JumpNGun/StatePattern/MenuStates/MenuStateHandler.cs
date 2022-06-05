@@ -42,10 +42,12 @@ namespace JumpNGun
         public IStateMenu CharacterSelection { get; private set; }
         public IStateMenu Controls { get; private set; }
         public IStateMenu Audio { get; private set; }
+        public IStateMenu Highscore { get; private set; }
+
 
         #endregion
-        
-        
+
+
         public void Initialize()
         {
             MainMenu = new MainMenu();
@@ -54,6 +56,8 @@ namespace JumpNGun
             CharacterSelection = new CharacterSelection();
             Controls = new Controls();
             Audio = new Audio();
+            Highscore = new Highscore();
+
 
             GameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
             

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/mush_dead2.png</SourceFile>
-  <SourceTime>2022-05-29T13:49:14.366828+02:00</SourceTime>
-  <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/mush_dead2.xnb</DestFile>
-  <DestTime>2022-05-29T14:08:43.5736528+02:00</DestTime>
+  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/mush_dead2.png</SourceFile>
+  <SourceTime>2022-06-05T21:19:53.6559937+02:00</SourceTime>
+  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/mush_dead2.xnb</DestFile>
+  <DestTime>2022-06-05T21:48:30.3477676+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

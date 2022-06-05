@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.Windows.Forms.VisualStyles;
 
 namespace JumpNGun
 {

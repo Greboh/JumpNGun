@@ -168,7 +168,7 @@ namespace JumpNGun
                         Settings(gameTime); // gametime is used for preventing unwanted mouse press inputs after the initial mouse press input with a deltatime cooldown
                         break;
                     case ButtonType.Highscores:
-
+                        HighscoreButton();
                         break;
                     case ButtonType.Quit:
                         Quit();
@@ -225,6 +225,21 @@ namespace JumpNGun
             {
                 _sr.SetColor(Color.White); // resets hover color
                 fireOnce = true;
+            }
+        }
+
+        private void HighscoreButton()
+        {
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Highscore);
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
             }
         }
 
@@ -414,6 +429,14 @@ namespace JumpNGun
                 {
                     MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }
+
+                // return to main settings menu from highscore menu
+                else if (MenuStateHandler.Instance.CurrentMenuState is Highscore)
+                {
+                    MenuStateHandler.Instance.ChangeState(new MainMenu());
+                }
+
+
 
                 _mouseCooldown += 0;
 

@@ -55,7 +55,12 @@ namespace JumpNGun
                 go.Awake();
             }
         }
-
+        /// <summary>        
+        /// 
+        /// /// Event that gets trigger when the player dies         
+        /// /// </summary>         
+        /// /// <param name="ctx">The context that gets sent from the trigger in Player.cs</param>
+        
         private void OnGameover(Dictionary<string, object> ctx)
         {
             MenuStateHandler.Instance.ChangeState(_pareMenuStateHandler.MainMenu);
