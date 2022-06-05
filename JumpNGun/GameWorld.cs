@@ -1,13 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Threading;
-using JumpNGun.StatePattern.GameStates;
-using System.Linq;
-using JumpNGun.ComponentPattern;
 
 namespace JumpNGun
 {
@@ -31,7 +25,7 @@ namespace JumpNGun
         }
        
         public GraphicsDeviceManager Graphics { get; private set; }
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch SpriteBatch { get; private set; }
 
         public List<GameObject> gameObjects = new List<GameObject>();//List of active GameObjects
 
@@ -40,27 +34,25 @@ namespace JumpNGun
         public List<GameObject> destroyedGameObjects = new List<GameObject>();//List of GameObjects that will be destroyed or removed to object pool
 
         public List<Collider> Colliders { get; private set; } = new List<Collider>();//List of current active Colliders
-
-        public LinkedList<State> PreviousStates = new LinkedList<State>();
-
+        
         private int _screenWidth = 1325;
         private int _screenHeight = 800;
 
-        public State _currentState;
-        private State _nextState;
-        public State _previousState;
+        public MenuStateHandler currentMenuStateHandler;
+        private MenuStateHandler _nextMenuStateHandler;
+
+        public bool IsPaused { get; set; }
 
         private Background _background;
 
-        private bool isRunning = false;
+        private bool _isRunning = false;
 
-        public MouseState myMouse { get; private set; }
+        public MouseState MyMouse { get; private set; }
         public Vector2 MousePosition { get; private set; }
         public Vector2 ScreenSize { get; private set; }
 
         public static float DeltaTime { get; private set; }
         public List<GameObject> GameObjects { get => gameObjects; set => gameObjects = value; }
-        public bool IsRunning { get => isRunning; set => isRunning = value; }
 
         public GameWorld()
         {
@@ -76,42 +68,47 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
+            
             SoundManager.Instance.InitDictionary();
-
+            MenuStateHandler.Instance.Initialize();
+            
+            _background = new Background();
+            
+            MenuStateHandler.Instance.ChangeState(new LandingScreen());
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            //_background = new Background(); 
-            //_background.LoadContent();
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+            _background.LoadContent();
+            MenuStateHandler.Instance.LoadContent();
 
-            _currentState = new MainMenuState(); // sets first state to show on startup
-            _currentState.LoadContent(); // loads state content into GameWorld content
-            _nextState = null; // makes sure next state is empty on startup
+            _nextMenuStateHandler = null; // makes sure next state is empty on startup
+            
+            base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
-            //if (Keyboard.GetState().IsKeyDown(Keys.U)) SoundManager.Instance.toggleSFXOff();
-            //if (Keyboard.GetState().IsKeyDown(Keys.I)) SoundManager.Instance.toggleSFXOn();
+            
+            _background.Update();
 
-            //_background.Update(gameTime);
 
-            myMouse = Mouse.GetState();
-            MousePosition = new Vector2(myMouse.X, myMouse.Y);
+            MyMouse = Mouse.GetState();
+            MousePosition = new Vector2(MyMouse.X, MyMouse.Y);
 
             DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             
-            if (_nextState != null)
-            {
-                _currentState = _nextState;
-                _currentState.LoadContent();
-                _nextState = null;
-            }
-            else _currentState.Update(gameTime);
+            MenuStateHandler.Instance.Update(gameTime);
+            
+            // if (_nextMenuStateHandler != null)
+            // {
+            //     currentMenuStateHandler = _nextMenuStateHandler;
+            //     currentMenuStateHandler.LoadContent();
+            //     _nextMenuStateHandler = null;
+            // }
+            // else currentMenuStateHandler.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -119,32 +116,17 @@ namespace JumpNGun
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //_background.Draw(_spriteBatch);
+            _background.Draw(SpriteBatch);
 
-            _currentState.Draw(gameTime, _spriteBatch);
+            // currentMenuStateHandler.Draw(gameTime, SpriteBatch);
 
-            //_spriteBatch.Begin();
-
-            //_spriteBatch.End();
-
+            MenuStateHandler.Instance.Draw(SpriteBatch);
+            
             base.Draw(gameTime);
+
         }
 
-        /// <summary>
-        /// // sets nextState with state recived from Button.cs
-        /// </summary>
-        /// <param name="state"></param>
-        public void ChangeState(State state)
-        {
-            _previousState = _currentState;
-            _nextState = state; 
-        }
-
-        public State GetCurrentState()
-        {
-            return _currentState;
-        }
-
+        
         /// <summary>
         /// Instantiate object by adding them to list of newGameObjects
         /// </summary>
@@ -166,7 +148,7 @@ namespace JumpNGun
         /// <summary>
         /// Removes, adds, and activates relevant GameObjects and components from game
         /// </summary>
-        public void CleanUp()
+        public void CleanUpGameObjects()
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {

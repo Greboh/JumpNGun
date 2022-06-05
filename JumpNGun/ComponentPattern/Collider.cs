@@ -1,25 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
+using System.Threading;
+using JumpNGun;
 
 namespace JumpNGun
 {
     public class Collider : Component
     {
-        private Texture2D texture; //texture to be drawn by renderer
+        private Texture2D _texture; //texture to be drawn by renderer
 
-        private SpriteRenderer spriteRenderer; //spriterender for drawing
+        private SpriteRenderer _spriteRenderer; //spriterender for drawing
+
         public Rectangle TopLine { get; set; }
         public Rectangle BottomLine { get; set; }
         public Rectangle RightLine { get; set; }
         public Rectangle LeftLine { get; set; }
-        
-        
+
         /// <summary>
         /// Property for rectangle colisionbox  for sprite
         /// </summary>
@@ -29,21 +28,24 @@ namespace JumpNGun
             {
                 return new Rectangle
                 (
-                    (int) (GameObject.Transform.Position.X - spriteRenderer.Sprite.Width / 2),
-                    (int) (GameObject.Transform.Position.Y - spriteRenderer.Sprite.Height / 2),
-                    spriteRenderer.Sprite.Width,
-                    spriteRenderer.Sprite.Height
+                    (int) (GameObject.Transform.Position.X - _spriteRenderer.Sprite.Width / 2),
+                    (int) (GameObject.Transform.Position.Y - _spriteRenderer.Sprite.Height / 2),
+                    _spriteRenderer.Sprite.Width,
+                    _spriteRenderer.Sprite.Height
                 );
             }
         }
 
+
+
         public override void Start()
         {
             //get spriterenderer component of GameObject
-            spriteRenderer = (SpriteRenderer) GameObject.GetComponent<SpriteRenderer>();
+            _spriteRenderer = (SpriteRenderer) GameObject.GetComponent<SpriteRenderer>();
 
             //load pixeltexture for texture. Texture used to create visible colisionbox for debugging
-            texture = GameWorld.Instance.Content.Load<Texture2D>("Pixel");
+            _texture = GameWorld.Instance.Content.Load<Texture2D>("Pixel");
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -56,6 +58,7 @@ namespace JumpNGun
             CheckCollision();
         }
 
+
         /// <summary>
         /// Will draw rectangle for visible colisionbox for debugging
         /// </summary>
@@ -67,34 +70,21 @@ namespace JumpNGun
             BottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
             RightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
             LeftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
-            
 
-            spriteBatch.Draw(texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+
+            spriteBatch.Draw(_texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
 
         /// <summary>
         /// Checks if any colliders (collisionbox) intersects with each other and trigger event if they do
         /// </summary>
-        public void CheckCollision()
+        private void CheckCollision()
         {
-            foreach (Collider otherCollision in GameWorld.Instance.Colliders)
-            {
-                if (this.CollisionBox.Intersects(otherCollision.CollisionBox) && otherCollision != this)
-                {
-                    if (otherCollision.GameObject != this.GameObject)
-                    {
-                        EventManager.Instance.TriggerEvent("OnCollision", new Dictionary<string, object>()
-                            {
-                                {"collider", otherCollision.GameObject },
-                            }
-                        );
-                    }
-                }
-            }
+
         }
     }
 }

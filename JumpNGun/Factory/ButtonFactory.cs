@@ -6,23 +6,34 @@ using System.Text;
 
 namespace JumpNGun
 {
-    public enum ButtonType { Start,Settings,Highscores,Quit,Audio,Controls,Music,Sfx,Back}
+
+
+
+    // enums of buttons used in Button.cs
+    // 
+    public enum ButtonType {
+                            Start,
+                            Settings,
+                            Highscores,
+                            Quit,
+                            Audio,
+                            Controls,
+                            Music,
+                            Sfx,
+                            Back,
+                            QuitToMain,
+                            Resume,
+                            SfxPause,
+                            MusicPause,
+                            Submit,
+                            InputField,
+                            Character1,
+                            Character2,
+                           }
     class ButtonFactory : Factory
     {
-        static int screenSizeX = (int)GameWorld.Instance.ScreenSize.X;
-        static int screenSizeY = (int)GameWorld.Instance.ScreenSize.Y;
-
-        private Vector2 _startButtonPosition = new Vector2(screenSizeX / 2, 365);
-        private Vector2 _settingButtonPosition = new Vector2(screenSizeX / 2, 437);
-        private Vector2 _highscoreButtonPosition = new Vector2(screenSizeX / 2, 505);
-        private Vector2 _quitButtonPosition = new Vector2(screenSizeX / 2, 575);
-
-
-        private ButtonType _type;
+        private ButtonType _type; // determines which button to create.
         
-
-
-
         private static ButtonFactory _instance;
 
         public static ButtonFactory Instance
@@ -37,6 +48,7 @@ namespace JumpNGun
             }
         }
 
+        // Uses factory pattern to create a gameObject with the corresponding button enum and sprite
         public override GameObject Create(Enum type)
         {
             GameObject gameObject = new GameObject();
@@ -44,6 +56,7 @@ namespace JumpNGun
 
             _type = (ButtonType)type;
             
+            // adding sprites to buttons
             switch (_type)
             {
                 case ButtonType.Start:
@@ -51,8 +64,6 @@ namespace JumpNGun
                         sr.SetSprite("start_button");
 
                         gameObject.AddComponent(new Button(_type));
-                        
-                        Console.WriteLine();
 
                     }
                     break;
@@ -61,8 +72,6 @@ namespace JumpNGun
                         sr.SetSprite("settings_button");
                         
                         gameObject.AddComponent(new Button(_type));
-
-
                     }
                     break;
                 case ButtonType.Highscores:
@@ -117,6 +126,70 @@ namespace JumpNGun
                 case ButtonType.Back:
                     {
                         sr.SetSprite("back_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.QuitToMain:
+                    {
+                        sr.SetSprite("quit_to_menu_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Resume:
+                    {
+                        sr.SetSprite("resume_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.MusicPause:
+                    {
+                        sr.SetSprite("music");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.SfxPause:
+                    {
+                        sr.SetSprite("sfx");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Submit:
+                    {
+                        sr.SetSprite("submit_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.InputField:
+                    {
+                        sr.SetSprite("input_field");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Character1:
+                    {
+                        sr.SetSprite("avatar_1");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Character2:
+                    {
+                        sr.SetSprite("avatar_2");
 
                         gameObject.AddComponent(new Button(_type));
 

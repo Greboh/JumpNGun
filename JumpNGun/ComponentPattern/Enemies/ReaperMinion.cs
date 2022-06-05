@@ -13,80 +13,65 @@ namespace JumpNGun
 
         public ReaperMinion(Vector2 position)
         {
-            this.position = position;
+            spawnPosition = position;
             health = 10;
-            speed = 1f;
-            damage = 10;
-            canAttack = true;
+            Speed = 1f;
+            Damage = 10;
+            IsRanged = false;
+            IsBoss = true;
+            AttackCooldown = 1;
         }
 
         public override void Awake()
         {
             base.Awake();
-            GameObject.Transform.Position = position;
         }
 
         public override void Start()
         {
             base.Start();
+            
+            GameObject.Transform.Position = spawnPosition;
+            detectionRange = SpriteRenderer.Sprite.Width;
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            Death();
-            ChasePlayer();
-            CheckCollision();
-            HandleAnimations();
             base.Update(gameTime);
+            
+            CalculateAttack();
+            CheckCollision();
         }
 
-        public override void Attack()
+        /// <summary>
+        /// Calculate if we are in attack range and should change state
+        /// </summary>
+        private void CalculateAttack()
         {
-            throw new NotImplementedException();
-        }
+            Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
 
-        public override void ChasePlayer()
-        {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
-            sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
-            velocity = sourceToTarget;
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
+            
+            float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
-
+        
         public override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (collider.CollisionBox.Intersects(col.CollisionBox))
+                if (Collider.CollisionBox.Intersects(col.CollisionBox))
                 {
                     //deal damage to the player if reaperminion and player collides
                     if (col.GameObject.HasComponent<Player>())
                     {
                         //get player component and attack player
-                        GameWorld.Instance.Destroy(GameObject);
+                        // GameWorld.Instance.Destroy(GameObject);
                     }
                 }
-            }
-        }
-
-        private void Death()
-        {
-            timer += GameWorld.DeltaTime;
-            if (liveTime < GameWorld.DeltaTime)
-            {
-                GameWorld.Instance.Destroy(GameObject);
-            }
-        }
-
-        public override void HandleAnimations()
-        {
-            if(!_spawningDone)animator.PlayAnimation("minion_spawn");
-
-            if (animator.IsAnimationDone && !_spawningDone)
-            {
-                _spawningDone = true;
-                canAttack = false;
-                animator.PlayAnimation("minion_idle");
             }
         }
     }

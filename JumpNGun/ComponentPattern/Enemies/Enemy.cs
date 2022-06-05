@@ -1,155 +1,155 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
     public abstract class Enemy : Component
     {
         protected int health;
-        protected int damage;
+        public int Damage { get; set; }
 
-        protected float speed;
-        protected float originalspeed;
+        public float Speed { get; set; }
 
-        protected Vector2 position;
-        protected Vector2 velocity;
+        public Collider Collider { get; private set; }
+        protected float detectionRange;
 
-        protected SpriteRenderer sr;
-        protected Animator animator;
-        protected Collider collider;
-        protected Player player;
+        protected Random rnd = new Random();
+        
+        public SpriteRenderer SpriteRenderer { get; private set; }
+        public Animator Animator { get; private set; }
+        public Player Player { get; private set; }
 
-        protected bool isImmune;
-        protected bool canAttack;
-        private bool canMove = true;
+        public Vector2 Velocity { get; set; }
+        protected Vector2 spawnPosition;
+        
+        public bool IsRanged { get; protected set; }
+        public bool IsBoss { get; protected set; }
+
+        public float ProjectileSpeed { get; protected set; }
+        public float AttackTimer { get; set; }
+        public float AttackCooldown { get; protected set; }
+
+
+        public Rectangle PlatformRectangle { get; set; } = Rectangle.Empty;
+
+
+        protected IEnemyState currentEnemyState;
+        protected IEnemyState attackEnemyState;
+        protected IEnemyState moveEnemyState;
+        protected IEnemyState deathEnemyState;
+        protected IEnemyState abilityEnemyState;
+
+        #region Component Methods
 
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("Freeze", FreezeMovement);
+            EventManager.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
         }
 
         public override void Start()
         {
-            sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-            animator = GameObject.GetComponent<Animator>() as Animator;
-            collider = GameObject.GetComponent<Collider>() as Collider;
-            player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
+            SpriteRenderer = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            Animator = GameObject.GetComponent<Animator>() as Animator;
+            Collider = GameObject.GetComponent<Collider>() as Collider;
+            Player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
+
+            InitializeStates();
+
+            ChangeState(moveEnemyState);
+        }
+
+        private void InitializeStates()
+        {
+            moveEnemyState = new EnemyMoveState();
+            attackEnemyState = new EnemyAttackState();
+            deathEnemyState = new EnemyDeathState();
+            abilityEnemyState = new EnemyAbilityState();
         }
 
         public override void Update(GameTime gameTime)
         {
-            FlipSprite();
             Move();
-            TakeDamage();
-            UpdatePositionReference();
-            Die();
+            HandleDeath();
+            currentEnemyState?.Execute();
         }
 
-        public abstract void Attack();
+        #endregion
 
-        public abstract void CheckCollision();
-        
-        public abstract void HandleAnimations();
+        #region Class Methods
 
-        public virtual void ChasePlayer()
+        public virtual void CheckCollision()
         {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
-            sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+            
+        }
 
-            velocity = sourceToTarget;
+        protected virtual void ChasePlayer()
+        {
+
+        }
+        
+        public Vector2 CalculatePlayerDirection()
+        {
+            Vector2 targetDirection = Vector2.Subtract(Player.Position, GameObject.Transform.Position);
+            targetDirection.Normalize();
+            targetDirection = Vector2.Multiply(targetDirection, Player.Speed);
+
+            return targetDirection;
         }
 
 
         /// <summary>
-        /// Initiates movement of object
+        /// Applies movement to the enemy
         /// </summary>
         private void Move()
         {
-            if (canAttack || !canMove) return;
-            GameObject.Transform.Translate(velocity * speed * GameWorld.DeltaTime);
+            GameObject.Transform.Translate(Velocity * Speed * GameWorld.DeltaTime);
+        }
+        
+        private void HandleDeath()
+        {
+            if (health <= 0)
+                ChangeState(deathEnemyState);
         }
 
-        /// <summary>
-        /// Updates position during gametime
-        /// </summary>
-        private void UpdatePositionReference()
+        #endregion
+
+        #region State Methods
+
+        protected void ChangeState(IEnemyState newEnemyState)
         {
-            position = GameObject.Transform.Position;
+            if (newEnemyState == currentEnemyState) return;
+
+            // Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newEnemyState.GetType().Name}");
+            currentEnemyState?.Exit();
+
+            currentEnemyState = newEnemyState;
+            currentEnemyState.Enter(this);
         }
 
-        /// <summary>
-        /// Flip sprite according to velocity
-        /// </summary>
-        private void FlipSprite()
-        {
-            if (!canAttack)
-            {
-                // If we are moving left, flip the sprite
-                if (velocity.X < 0)
-                    sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-                
-                // If we are moving right, unflip the sprite
-                else if (velocity.X > 0)
-                    sr.SpriteEffects = SpriteEffects.None;
-                
-            }
-            else
-            {
-                if (player.GameObject.Transform.Position.X < this.GameObject.Transform.Position.X)
-                    sr.SpriteEffects = SpriteEffects.FlipHorizontally;
-                
-                else if (player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X)
-                    sr.SpriteEffects = SpriteEffects.None;
-            }
-        }
+        #endregion
+
+        #region Event Methods
 
         /// <summary>
         /// Deal damage to Enemy when colliding with Player projectile
         /// </summary>
-        private void TakeDamage()
+        /// <param name="ctx">The context that gets sent from the trigger in Projectile.cs</param>
+        private void OnTakeDamage(Dictionary<string, object> ctx)
         {
-            foreach (Collider col in GameWorld.Instance.Colliders)
+            GameObject collisionObject = (GameObject) ctx["object"];
+            int damageTaken = (int) ctx["damage"];
+            GameObject projectile = (GameObject) ctx["projectile"];
+            
+            if(collisionObject == this.GameObject && projectile.Tag == "p_Projectile")
             {
-                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "P_Projectile")
-                {
-                    health -= 20;
-                    GameWorld.Instance.Destroy(col.GameObject);
-                }
+                health -= damageTaken;
+                GameWorld.Instance.Destroy(projectile);
+
             }
         }
 
-        /// <summary>
-        /// Freeze movement when event triggered
-        /// </summary>
-        /// <param name="ctx"></param>
-        private void FreezeMovement(Dictionary<string, object> ctx)
-        {
-            canMove = (bool)ctx["freeze"];
-        }
-
-        /// <summary>
-        /// Trigger event, add to score, and destroy this gameobject when health goes below or equal to 0
-        /// </summary>
-        private void Die()
-        {
-            if (health <= 0)
-            {
-                if (animator.IsAnimationDone)
-                {
-                    EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
-                    {
-                    {"enemyDeath", 1}
-                     });
-                    ScoreHandler.Instance.AddToScore(20);
-                    ScoreHandler.Instance.PrintScore();
-                    GameWorld.Instance.Destroy(this.GameObject);
-                    GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, GameObject.Transform.Position));
-                }
-            }
-        }
+        #endregion
     }
 }

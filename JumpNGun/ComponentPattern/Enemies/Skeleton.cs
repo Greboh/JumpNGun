@@ -15,13 +15,17 @@ namespace JumpNGun
         private Rectangle _currentRectangle = Rectangle.Empty;
         private bool _locationFound;
 
+        private float _originalSpeed;
+
         public Skeleton(Vector2 position)
         {
-            this.position = position;
+            int rndSpeed = rnd.Next(40, 51);
+            
+            GameObject.Transform.Position = position;
             health = 100;
-            damage = 20;
-            speed = 50;
-            originalspeed = speed;
+            Damage = 20;
+            Speed = rndSpeed;
+            _originalSpeed = Speed;
         }
 
         public override void Awake()
@@ -59,7 +63,7 @@ namespace JumpNGun
 
             foreach (Rectangle location in locations)
             {
-                if (location.Contains(position) && !_locationFound)
+                if (location.Contains(this.GameObject.Transform.Position) && !_locationFound)
                 {
                     Console.WriteLine("location found");
                     _currentRectangle = location;
@@ -89,14 +93,14 @@ namespace JumpNGun
         private void SetVelocity()
         {
             //if position is close to right, move left
-            if (position.X >= _currentRectangle.Right - sr.Sprite.Width)
+            if (this.GameObject.Transform.Position.X >= _currentRectangle.Right - SpriteRenderer.Sprite.Width)
             {
-                velocity = new Vector2(-1, 0);
+                Velocity = new Vector2(-1, 0);
             }
             //if position is close to left, move right
-            if (position.X <= _currentRectangle.Left + sr.Sprite.Width)
+            if (this.GameObject.Transform.Position.X <= _currentRectangle.Left + SpriteRenderer.Sprite.Width)
             {
-                velocity = new Vector2(1, 0);
+                Velocity = new Vector2(1, 0);
             }
         }
 
@@ -138,52 +142,45 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
                     _isGrounded = true;
                     _groundCollision = col.CollisionBox;
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
 
-                if (col.GameObject.Tag == "Player" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "player" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
-                    canAttack = true;
-                    Attack();
+                    // Attack();
                 }
-                else if (col.GameObject.Tag == "Player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
+                // else if (col.GameObject.Tag == "player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
             }
-        }
 
         public override void Attack()
         {
             //trigger event to deal player damage
         }
 
-        public override void ChasePlayer()
+        protected override void ChasePlayer()
         {
-            Collider playerCol = (player.GameObject.GetComponent<Collider>() as Collider);
+            Collider playerCol = (Player.GameObject.GetComponent<Collider>() as Collider);
 
             if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
             {
-                speed = 100;
+                Speed = 100;
 
-                if (player.Position.X < position.X)
+                if (Player.Position.X < this.GameObject.Transform.Position.X)
                 {
-                    velocity = new Vector2(-1, 0);
+                    Velocity = new Vector2(-1, 0);
                 }
-                else if (player.Position.X > position.X)
+                else if (Player.Position.X > this.GameObject.Transform.Position.X)
                 {
 
-                    velocity = new Vector2(1, 0);
+                    Velocity = new Vector2(1, 0);
                 }
-            }
             else speed = originalspeed;
-        }
-
-        public override void HandleAnimations()
-        {
-            if (!canAttack) animator.PlayAnimation("skeleton_walk");
-            if (canAttack) animator.PlayAnimation("skeleton_attack");
+            }
+            else Speed = _originalSpeed;
         }
 
     }

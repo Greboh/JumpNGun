@@ -12,14 +12,38 @@ namespace JumpNGun
 {
     public class SoundManager
     {
+        /*
+           [Description]
+           Manager for loading, handling and playback of soundclips
+           uses dictionaries to couple a string to a SoundEffectInstance to be used in other classes
+       */
+
         protected Random myRandom = new Random();
 
-        #region SoundEffects
-        private static SoundEffectInstance jump;
+        #region Menu soundeffects
         private static SoundEffectInstance menu_hover_1;
         private static SoundEffectInstance menu_hover_2;
         private static SoundEffectInstance menu_hover_3;
         private static SoundEffectInstance menu_click;
+
+
+        #endregion
+        #region Player soundeffects
+        private static SoundEffectInstance jump;
+        private static SoundEffectInstance footstep_1;
+        private static SoundEffectInstance footstep_2;
+        private static SoundEffectInstance footstep_3;
+        private static SoundEffectInstance footstep_4;
+
+        private static SoundEffectInstance jump_1;
+        private static SoundEffectInstance jump_2;
+
+        private static SoundEffectInstance pickup;
+
+        private static SoundEffectInstance enter;
+        private static SoundEffectInstance exit;
+
+
 
 
         #endregion
@@ -37,8 +61,8 @@ namespace JumpNGun
 
         #endregion
 
-        public bool _sfxDisabled = false;
-        public bool _musicDisabled = false;
+        public bool _sfxDisabled = false; // bool for controlling sfx output
+        public bool _musicDisabled = false; // bool for controlling music output
 
 
 
@@ -76,8 +100,8 @@ namespace JumpNGun
         public void InitDictionary()
         {
 
-            _soundEffects ??= new Dictionary<string, SoundEffectInstance>();
-            _soundtracks ??= new Dictionary<string, SoundEffectInstance>();
+            _soundEffects ??= new Dictionary<string, SoundEffectInstance>();    // SFX
+            _soundtracks ??= new Dictionary<string, SoundEffectInstance>();     // MUSIC
 
 
 
@@ -88,7 +112,6 @@ namespace JumpNGun
         /// </summary>
         public void InitClips()
         {
-            //soundtrack = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack").CreateInstance;
             jump = GameWorld.Instance.Content.Load<SoundEffect>("jump").CreateInstance();
             menu_hover_1 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_1").CreateInstance();
             menu_hover_2 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_2").CreateInstance();
@@ -97,6 +120,20 @@ namespace JumpNGun
 
             soundtrack_1 = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack_1").CreateInstance();
             soundtrack_2 = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack_2").CreateInstance();
+
+            footstep_1 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_1").CreateInstance();
+            footstep_2 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_2").CreateInstance();
+            footstep_3 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_3").CreateInstance();
+            footstep_4 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_4").CreateInstance();
+
+            jump_1 = GameWorld.Instance.Content.Load<SoundEffect>("jump_1").CreateInstance();
+            jump_2 = GameWorld.Instance.Content.Load<SoundEffect>("jump_2").CreateInstance();
+
+            pickup = GameWorld.Instance.Content.Load<SoundEffect>("pickup").CreateInstance();
+
+            enter = GameWorld.Instance.Content.Load<SoundEffect>("enter").CreateInstance();
+            exit = GameWorld.Instance.Content.Load<SoundEffect>("exit").CreateInstance();
+
 
 
 
@@ -114,8 +151,26 @@ namespace JumpNGun
             _soundEffects.Add("menu_hover_3", menu_hover_3);
             _soundEffects.Add("menu_click", menu_click);
 
-            _soundtracks.Add("soundtrack_1", soundtrack_1);
-            _soundtracks.Add("soundtrack_2", soundtrack_2);
+            _soundEffects.Add("footstep_1", footstep_1);
+            _soundEffects.Add("footstep_2", footstep_2);
+            _soundEffects.Add("footstep_3", footstep_3);
+            _soundEffects.Add("footstep_4", footstep_4);
+
+            _soundEffects.Add("jump_1", jump_1);
+            _soundEffects.Add("jump_2", jump_2);
+
+            _soundEffects.Add("pickup", pickup);
+
+            _soundEffects.Add("enter", enter);
+            _soundEffects.Add("exit", exit);
+
+
+
+
+
+
+            _soundtracks.Add("soundtrack_1", soundtrack_1); // Main game soundtrack
+            _soundtracks.Add("soundtrack_2", soundtrack_2); // Menu soundtrack
 
 
 
@@ -163,7 +218,6 @@ namespace JumpNGun
         {
             int rdm = myRandom.Next(1, 4);
 
-            //TODO: Fix this garbage
             if (rdm == 1)
             {
                 menu_hover_1.Play();
@@ -183,7 +237,55 @@ namespace JumpNGun
 
         }
 
-      
+        /// <summary>
+        /// Play a random footstep from 4 different sounds
+        /// </summary>
+        public void PlayRandomFootstep()
+        {
+            int rdm = myRandom.Next(1, 5);
+
+            if (rdm == 1)
+            {
+                footstep_1.Play();
+
+            }
+            else if (rdm == 2)
+            {
+                footstep_2.Play();
+
+            }
+            else if (rdm == 3)
+            {
+                footstep_3.Play();
+
+            }
+            else if (rdm == 4)
+            {
+                footstep_4.Play();
+
+            }
+        }
+
+        /// <summary>
+        /// Play a random footstep from 4 different sounds
+        /// </summary>
+        public void PlayRandomJump()
+        {
+            int rdm = myRandom.Next(1, 3);
+
+            if (rdm == 1)
+            {
+                jump_1.Play();
+
+            }
+            else if (rdm == 2)
+            {
+                jump_2.Play();
+
+            }
+            
+        }
+
 
         /// <summary>
         /// Toggles SoundEffect volume to 0 (off)

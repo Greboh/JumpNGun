@@ -3,7 +3,7 @@
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/soundtrack_1.mp3</SourceFile>
   <SourceTime>2022-05-26T04:06:34.2459899+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/soundtrack_1.xnb</DestFile>
-  <DestTime>2022-05-27T12:01:23.5247553+02:00</DestTime>
+  <DestTime>2022-06-04T14:06:24.9437243+02:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

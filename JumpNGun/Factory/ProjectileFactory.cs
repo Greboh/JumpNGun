@@ -29,19 +29,19 @@ namespace JumpNGun
                 case CharacterType.Soldier:
                     {
                         sr.SetSprite("Bullet");
-                        projectile.Tag = "P_Projectile";
+                        projectile.Tag = "p_Projectile";
                     }
                     break;
                 case CharacterType.Ranger:
                     {
                         sr.SetSprite("Arrow");
-                        projectile.Tag = "P_Projectile";
+                        projectile.Tag = "p_Projectile";
                     }
                     break;
                 case EnemyType.Mushroom:
                     {
                         sr.SetSprite("mush_projectile");
-                        projectile.Tag = "E_Projectile";
+                        projectile.Tag = "e_Projectile";
                     }
                     break;
                 case EnemyType.Worm:
@@ -50,7 +50,7 @@ namespace JumpNGun
                         sr.SetSprite("fireball1");
                         CreateFireBallAnimations();
                         _animator.PlayAnimation("fireball");
-                        projectile.Tag = "E_Projectile";
+                        projectile.Tag = "e_Projectile";
                     }break;
             }
 

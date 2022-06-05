@@ -8,24 +8,30 @@ namespace JumpNGun
     class Worm : Enemy
     {
         //TODO fix worm Sprites and Animations - KRISTIAN
-        
+
         private float _gravityPull; // How strong the force of gravity is
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private bool _isGrounded = false; //whether object is on ground or falling
-        private List<Rectangle> locations = new List<Rectangle>();
+        private bool _isGrounded; //whether object is on ground or falling
+        
+        private List<Rectangle> _locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
-        private Rectangle _currentRectangle = Rectangle.Empty;
-        private bool _locationFound;
-        private float _projectileSpeed = 150;
-        private bool _canShoot = true;
-        private float _shootTime;
-        private float _shootCooldown = 1f;
+
+        private bool _locationRectangleFound;
+
 
         public Worm(Vector2 position)
         {
-            this.position = position;
-            health = 50;
-            speed = 50;
+            int rndSpeed = rnd.Next(40, 51);
+            
+            spawnPosition = position;
+            health = 40;
+            Speed = rndSpeed;
+            Damage = 20;
+            ProjectileSpeed = 0.5f;
+            AttackCooldown = 0.75f;
+            IsRanged = true;
+            IsBoss = false;
+            detectionRange = 250;
         }
 
         public override void Awake()
@@ -36,21 +42,23 @@ namespace JumpNGun
 
         public override void Start()
         {
-            GetLocations();
             base.Start();
+            
+            GameObject.Transform.Position = spawnPosition;
+
+            GetLocations();
         }
 
         public override void Update(GameTime gameTime)
         {
-            SetLocationRectangle();
-            CreateMovementArea();
-            HandleGravity();
-            SetVelocity();
-            CheckCollision();
-            HandleShootLogic();
-            HandleAnimations();
-            Attack();
             base.Update(gameTime);
+
+            CalculateMovementArea();
+            CreateMovementArea();
+
+            CalculateAttack();
+            HandleGravity();
+            CheckCollision();
         }
 
         #region Movement Methods
@@ -58,17 +66,16 @@ namespace JumpNGun
         /// <summary>
         /// Set _currentRectangle to rectangle within position lies. 
         /// </summary>
-        private void SetLocationRectangle()
+        private void CalculateMovementArea()
         {
             if (!_isGrounded) return;
 
-            foreach (Rectangle location in locations)
+            foreach (Rectangle location in _locations)
             {
-                if (location.Contains(position) && !_locationFound)
+                if (location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
                 {
-                    Console.WriteLine("location found");
-                    _currentRectangle = location;
-                    _locationFound = true;
+                    PlatformRectangle = location;
+                    _locationRectangleFound = true;
                 }
             }
         }
@@ -78,33 +85,16 @@ namespace JumpNGun
         /// </summary>
         private void CreateMovementArea()
         {
-            for (int i = 0; i < locations.Count; i++)
+            for (int i = 0; i < _locations.Count; i++)
             {
-                if (_currentRectangle.Right == locations[i].Left && _currentRectangle.Y == locations[i].Y)
+                if (PlatformRectangle.Right == _locations[i].Left && PlatformRectangle.Y == _locations[i].Y)
                 {
-                    _currentRectangle = Rectangle.Union(_currentRectangle, locations[i]);
+                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
-                if (_currentRectangle.Left == locations[i].Right && _currentRectangle.Y == locations[i].Y)
+                if (PlatformRectangle.Left == _locations[i].Right && PlatformRectangle.Y == _locations[i].Y)
                 {
-                    _currentRectangle = Rectangle.Union(_currentRectangle, locations[i]);
+                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Set direction of movement according to position on platform
-        /// </summary>
-        private void SetVelocity()
-        {
-            //if position is close to right, move left
-            if (position.X >= _currentRectangle.Right - sr.Sprite.Width)
-            {
-                velocity = new Vector2(-1, 0);
-            }
-            //if position is close to left, move right
-            if (position.X <= _currentRectangle.Left + sr.Sprite.Width)
-            {
-                velocity = new Vector2(1, 0);
             }
         }
 
@@ -115,11 +105,28 @@ namespace JumpNGun
         {
             for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
             {
-                locations.Add(LevelManager.Instance.UsedLocations[i]);
+                _locations.Add(LevelManager.Instance.UsedLocations[i]);
             }
         }
-        #endregion
 
+        #endregion
+        
+        /// <summary>
+        /// Calculate if we are in attack range and should change state
+        /// </summary>
+        private void CalculateAttack()
+        {
+            Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
+
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
+            
+            float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
+        }
+        #endregion
+        
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
         /// </summary>
@@ -137,7 +144,7 @@ namespace JumpNGun
 
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
-        
+
         /// <summary>
         /// Check collision with ground to deploy gravity
         /// </summary>
@@ -147,83 +154,17 @@ namespace JumpNGun
             {
                 if (col.GameObject.HasComponent<Platform>())
                 {
-                    if (col.CollisionBox.Intersects(collider.CollisionBox))
+                    if (col.CollisionBox.Intersects(Collider.CollisionBox))
                     {
                         _isGrounded = true;
                         _groundCollision = col.CollisionBox;
                     }
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
+
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
                 {
                     _isGrounded = false;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Initialize attack if player is in field of view
-        /// </summary>
-        public override void Attack()
-        {
-            Collider playerCol = (player.GameObject.GetComponent<Collider>() as Collider);
-
-            if (playerCol.CollisionBox.Intersects(_currentRectangle) && playerCol.CollisionBox.Bottom < _currentRectangle.Center.Y)
-            {
-                Shoot();
-                canAttack = true;
-            }
-            else canAttack = false;
-        }
-
-        /// <summary>
-        /// Reset ability to shoot after cooldown
-        /// </summary>
-        private void HandleShootLogic()
-        {
-            if (_canShoot) return;
-
-            _shootTime += GameWorld.DeltaTime;
-
-            if (_shootTime > _shootCooldown)
-            {
-                _canShoot = true;
-                _shootTime = 0;
-            }
-        }
-
-        /// <summary>
-        /// Logic for shooting and instantiating projectile
-        /// </summary>
-        private void Shoot()
-        {
-            if (!_canShoot) return;
-
-            GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Worm);
-
-            projectile.Transform.Position = GameObject.Transform.Position;
-
-            if (player.Position.X < position.X)
-            {
-                ((Projectile)projectile.GetComponent<Projectile>()).Velocity = new Vector2(-1, 0);
-            }
-            else
-            {
-                ((Projectile)projectile.GetComponent<Projectile>()).Velocity = new Vector2(1, 0);
-            }
-            Console.WriteLine("Shot fired");
-            ((Projectile)projectile.GetComponent<Projectile>()).Speed = _projectileSpeed;
-            GameWorld.Instance.Instantiate(projectile);
-            _canShoot = false;
-        }
-
-        public override void HandleAnimations()
-        {
-            if (!canAttack && health > 0) animator.PlayAnimation("worm_walk");
-            if (canAttack && health > 0) animator.PlayAnimation("worm_attack");
-            if (health <= 0)
-            {
-                speed = 0;
-                animator.PlayAnimation("worm_death");
             }
         }
     }
