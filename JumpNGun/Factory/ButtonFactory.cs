@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace JumpNGun
@@ -49,7 +50,7 @@ namespace JumpNGun
         }
 
         // Uses factory pattern to create a gameObject with the corresponding button enum and sprite
-        public override GameObject Create(Enum type, Vector2 position)
+        public override GameObject Create(Enum type, [Optional] Vector2 position)
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());

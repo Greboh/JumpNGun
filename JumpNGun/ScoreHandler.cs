@@ -43,15 +43,7 @@ namespace JumpNGun
             SortedLists = Sort(_highScoreScores, _highscoreNames);
 
 
-            foreach (int score in SortedLists.Item1)
-            {
-                Console.WriteLine("SCORE: " + score);
-            }
-
-            foreach (string name in SortedLists.Item2)
-            {
-                Console.WriteLine("NAME: " + name);
-            }
+           
         }
 
         private Tuple<List<int>, List<string>> Sort(List<int> scores, List<string> names)
@@ -86,6 +78,17 @@ namespace JumpNGun
             return Tuple.Create(scores, names);
 
         }
+
+        public Tuple<List<int>, List<string>> GetSortedScores()
+        {
+            _highScoreScores = Database.Instance.GetHighScores().Item2;
+            _highscoreNames = Database.Instance.GetHighScores().Item1;
+
+            return Sort(_highScoreScores, _highscoreNames);
+            
+        }
+
+        
 
         public void GetHighScores()
         {
