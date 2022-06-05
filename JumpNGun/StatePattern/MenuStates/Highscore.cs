@@ -98,13 +98,13 @@ namespace JumpNGun.StatePattern.GameStates
             }
             spriteBatch.Draw(_highscorePanel, new Rectangle(370,180,_highscorePanel.Width,_highscorePanel.Height), Color.White);
 
-            for (int i = 0; i < _score.Count; i++)
+            for (int i = 0; i < 10; i++)
             {
                 spriteBatch.DrawString(_scoreFont, _name[i].ToString(), new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White);
 
             }
 
-            for (int i = 0; i < _score.Count; i++)
+            for (int i = 0; i < 10; i++)
             {
                 spriteBatch.DrawString(_scoreFont, _score[i].ToString(), new Vector2(_scorePositions[i].X, _scorePositions[i].Y), Color.White);
 
