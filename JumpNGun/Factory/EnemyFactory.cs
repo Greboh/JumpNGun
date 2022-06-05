@@ -36,28 +36,6 @@ namespace JumpNGun
 
         Animator _animator;
 
-        public override GameObject Create(Enum type)
-        {
-            GameObject gameObject = new GameObject();
-            SpriteRenderer sr = (SpriteRenderer) gameObject.AddComponent(new SpriteRenderer());
-            gameObject.AddComponent(new Collider());
-            gameObject.Tag = "Enemy";
-            _animator = (Animator) gameObject.AddComponent(new Animator());
-
-            switch (type)
-            {
-                case EnemyType.Reaper:
-                {
-                    gameObject.AddComponent(new Reaper());
-                    sr.SetSprite("reaper_idle1");
-                    CreateReaperAnimations();
-                }
-                    break;
-            }
-
-            return gameObject;
-        }
-
         public override GameObject Create(Enum type, Vector2 position)
         {
             //Instantiate gameobject
@@ -106,6 +84,14 @@ namespace JumpNGun
                     gameObject.AddComponent(new Worm(position));
                     sr.SetSprite("worm_walk1");
                     CreateWormAnimations();
+                }
+                    break;
+                
+                case EnemyType.Reaper:
+                {
+                    gameObject.AddComponent(new Reaper());
+                    sr.SetSprite("reaper_idle1");
+                    CreateReaperAnimations();
                 }
                     break;
             }

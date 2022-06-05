@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
-
 namespace JumpNGun
 {
     public abstract class Enemy : Component
     {
         protected int health;
-        public int Damage { get; set; }
+        public int Damage { get; protected set; }
 
         public float Speed { get; set; }
 
@@ -32,7 +30,7 @@ namespace JumpNGun
         public float AttackCooldown { get; protected set; }
 
 
-        public Rectangle PlatformRectangle { get; set; } = Rectangle.Empty;
+        public Rectangle PlatformRectangle { get; protected set; } = Rectangle.Empty;
 
 
         protected IEnemyState currentEnemyState;
@@ -79,16 +77,11 @@ namespace JumpNGun
 
         #region Class Methods
 
-        public virtual void CheckCollision()
+        protected virtual void CheckCollision()
         {
             
         }
 
-        protected virtual void ChasePlayer()
-        {
-
-        }
-        
         public Vector2 CalculatePlayerDirection()
         {
             Vector2 targetDirection = Vector2.Subtract(Player.Position, GameObject.Transform.Position);

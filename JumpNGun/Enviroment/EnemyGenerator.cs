@@ -58,7 +58,7 @@ namespace JumpNGun
         /// <param name="type">type of boss to be instantiated</param>
         public void GenerateBoss(EnemyType type)
         {
-            GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type));
+            GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type, Vector2.Zero));
         }
     }
 }

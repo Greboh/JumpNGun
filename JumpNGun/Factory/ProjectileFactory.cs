@@ -1,6 +1,6 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX;
 
 namespace JumpNGun
 {
@@ -17,7 +17,7 @@ namespace JumpNGun
         }
         private Animator _animator;
 
-        public override GameObject Create(Enum type)
+        public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject projectile = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)projectile.AddComponent(new SpriteRenderer());
@@ -58,11 +58,6 @@ namespace JumpNGun
             return projectile;
         }
 
-        public override GameObject Create(Enum type, Microsoft.Xna.Framework.Vector2 position)
-        {
-            throw new NotImplementedException();
-        }
-
         private void CreateFireBallAnimations()
         {
             _animator.AddAnimation(BuildAnimations("fireball", new string[] { "fireball1", "fireball2", "fireball3", "fireball4", "fireball5", "fireball6", }));
@@ -82,6 +77,5 @@ namespace JumpNGun
 
             return anim;
         }
-
     }
 }

@@ -1,17 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
     public enum PauseState
     {
-        unpaused,
-        paused,
+        Unpaused,
+        Paused,
     }
 
     public class GamePlay : IStateMenu
@@ -19,7 +16,7 @@ namespace JumpNGun
         private MenuStateHandler _pareMenuStateHandler;
 
         private Texture2D _pausedOverlay;
-        private Texture2D _avatar_1; // temporary
+        private Texture2D _avatar1; // temporary
         private Texture2D _enabled;
         private Texture2D _disabled;
         private Texture2D _musicStatus;
@@ -27,11 +24,11 @@ namespace JumpNGun
 
         private SpriteFont _scoreFont;
 
-        private bool isPaused;
+        private bool _isPaused;
 
-        private bool pauseKeyPressed;
+        private bool _pauseKeyPressed;
 
-        private PauseState currentPauseState = PauseState.unpaused;
+        private PauseState _currentPauseState = PauseState.Unpaused;
 
         private LevelSystem _levelSystem;
 
@@ -106,7 +103,7 @@ namespace JumpNGun
 
             // asset content loading
             _pausedOverlay = GameWorld.Instance.Content.Load<Texture2D>("paused_overlay");
-            _avatar_1 = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
+            _avatar1 = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
             _enabled = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _disabled = GameWorld.Instance.Content.Load<Texture2D>("crossedout");
 
@@ -125,34 +122,34 @@ namespace JumpNGun
 
         private void PauseMenuHandling()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.unpaused && pauseKeyPressed == false)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && _currentPauseState == PauseState.Unpaused && _pauseKeyPressed == false)
             {
-                currentPauseState = PauseState.paused;
-                pauseKeyPressed = true;
+                _currentPauseState = PauseState.Paused;
+                _pauseKeyPressed = true;
             }
             else if (Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
-                pauseKeyPressed = false;
+                _pauseKeyPressed = false;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && currentPauseState == PauseState.paused && pauseKeyPressed == false)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) && _currentPauseState == PauseState.Paused && _pauseKeyPressed == false)
             {
                 //_keypressCooldown = GameWorld.DeltaTime;
-                currentPauseState = PauseState.unpaused;
-                pauseKeyPressed = true;
+                _currentPauseState = PauseState.Unpaused;
+                _pauseKeyPressed = true;
             }
             else if (Keyboard.GetState().IsKeyUp(Keys.Escape))
             {
-                pauseKeyPressed = false;
+                _pauseKeyPressed = false;
             }
         }
 
         private void HandlePauseLogic(SpriteBatch spriteBatch)
         {
             //Handles draws when pause menu is open / closed
-            switch (currentPauseState)
+            switch (_currentPauseState)
             {
-                case PauseState.unpaused:
+                case PauseState.Unpaused:
                 {
                     //removes buttons instansitated in pause menu
                     foreach (GameObject go in GameWorld.Instance.gameObjects)
@@ -170,19 +167,19 @@ namespace JumpNGun
                         }
                     );
 
-                    isPaused = false;
+                    _isPaused = false;
                 } break;
 
-                case PauseState.paused:
+                case PauseState.Paused:
                 {
                     spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null,
                         Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
-                    spriteBatch.Draw(_avatar_1, new Rectangle(401, 325, _avatar_1.Width, _avatar_1.Height), null, Color.White,
+                    spriteBatch.Draw(_avatar1, new Rectangle(401, 325, _avatar1.Width, _avatar1.Height), null, Color.White,
                         0, new Vector2(0, 0), SpriteEffects.None, 1);
 
                     spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White);
-                    ;
+                    
 
                     spriteBatch.DrawString(_scoreFont, "Level : " + _levelSystem.GetLevel() , new Vector2(401, 535), Color.White);
 
@@ -200,13 +197,13 @@ namespace JumpNGun
                     );
                     
                     //instansiates buttons used if paused
-                    if (!isPaused)
+                    if (!_isPaused)
                     {
-                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.MusicPause));
-                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.SfxPause));
-                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.MusicPause, Vector2.Zero));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.SfxPause, Vector2.Zero));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain, Vector2.Zero));
 
-                        isPaused = true;
+                        _isPaused = true;
                     }
                 } break;
             }

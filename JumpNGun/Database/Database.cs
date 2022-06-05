@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Data.SQLite;
-using System.Windows.Forms.VisualStyles;
 using System.Collections.Generic;
+using System.Data.SQLite;
 
 namespace JumpNGun
 {
@@ -68,6 +67,29 @@ namespace JumpNGun
             }
 
             _connection.Close();
+        }
+        
+        public Tuple<List<string>, List<int>> GetHighScores()
+        {
+            List<string> names = new List<string>();
+            List<int> scores = new List<int>();
+            
+            _connection.Open();
+
+            SQLiteCommand command = new SQLiteCommand("SELECT * FROM scores", _connection);
+
+            SQLiteDataReader dataset = command.ExecuteReader();
+
+            while (dataset.Read())
+            {
+                names.Add(dataset.GetString(1));
+                scores.Add( dataset.GetInt32(2));
+
+            }
+
+            _connection.Close();
+
+            return Tuple.Create(names, scores);
         }
 
     }

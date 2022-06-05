@@ -49,7 +49,7 @@ namespace JumpNGun
         }
 
         // Uses factory pattern to create a gameObject with the corresponding button enum and sprite
-        public override GameObject Create(Enum type)
+        public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
@@ -199,12 +199,5 @@ namespace JumpNGun
             }
             return gameObject;
         }
-
-        public override GameObject Create(Enum type, Vector2 position)
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

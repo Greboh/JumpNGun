@@ -257,12 +257,12 @@ namespace JumpNGun
             //If player moves beyond 0 on x-axis move player max x-value on axis
             if (GameObject.Transform.Position.X < 0)
             {
-                GameObject.Transform.Change(new Vector2(GameWorld.Instance.GraphicsDevice.Viewport.Width, GameObject.Transform.Position.Y));
+                GameObject.Transform.Transport(new Vector2(GameWorld.Instance.GraphicsDevice.Viewport.Width, GameObject.Transform.Position.Y));
             }
             //If plyaer moves beyond max value on x-axis move player to 0 on x-axis 
             if (GameObject.Transform.Position.X > GameWorld.Instance.GraphicsDevice.Viewport.Width)
             {
-                GameObject.Transform.Change(new Vector2(10, GameObject.Transform.Position.Y));
+                GameObject.Transform.Transport(new Vector2(10, GameObject.Transform.Position.Y));
             }
         }
 
@@ -278,7 +278,7 @@ namespace JumpNGun
         {
             if (!_canShoot) return; // Guard clause
 
-            GameObject projectile = ProjectileFactory.Instance.Create(_character);
+            GameObject projectile = ProjectileFactory.Instance.Create(_character, Vector2.Zero);
 
             projectile.Transform.Position = GameObject.Transform.Position;
 

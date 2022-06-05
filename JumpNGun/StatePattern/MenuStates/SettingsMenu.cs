@@ -16,9 +16,9 @@ namespace JumpNGun
                 go.Awake();
             }
 
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Audio, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Controls, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back, Vector2.Zero));
         }
 
         public void Execute(GameTime gameTime)

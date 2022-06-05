@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -10,7 +8,7 @@ namespace JumpNGun
     {
         public GameObject GameObject { get; set; }
 
-        public bool IsDisabled { get; private set; } = false;
+        public bool IsDisabled { get; private set; }
 
         public virtual void Awake()
         {

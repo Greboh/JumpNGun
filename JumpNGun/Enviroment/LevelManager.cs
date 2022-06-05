@@ -17,7 +17,7 @@ namespace JumpNGun
         }
 
         //Used to check for boss level
-        private bool _isBossLevel = false;
+        private bool _isBossLevel;
 
         //Used to change level
         private int _level = 1;
@@ -39,7 +39,7 @@ namespace JumpNGun
 
         // current enemy being used in gamge
         private EnemyType _currentEnemyType;
-        private bool canPress = true;
+        private bool _canPress = true;
 
         //List for storing rectangles that contain a platform
         public List<Rectangle> UsedLocations { get; private set; } 
@@ -67,7 +67,7 @@ namespace JumpNGun
             ChangeEnviroment();
 
             //Create ground
-            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform));
+            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform, Vector2.Zero));
 
             //Create first portal
             GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
@@ -106,29 +106,29 @@ namespace JumpNGun
             {
                 case 11:
                     {
-                        _currentPlatformType = PlatformType.grass;
-                        _currentGroundPlatform = PlatformType.grassGround;
+                        _currentPlatformType = PlatformType.Grass;
+                        _currentGroundPlatform = PlatformType.GrassGround;
                         _currentEnemyType = EnemyType.Mushroom;
                     }
                     break;
                 case 7:
                     {
-                        _currentPlatformType = PlatformType.dessert;
-                        _currentGroundPlatform = PlatformType.dessertGround;
+                        _currentPlatformType = PlatformType.Dessert;
+                        _currentGroundPlatform = PlatformType.DessertGround;
                         _currentEnemyType = EnemyType.Worm;
                     }
                     break;
                 case 1:
                     {
                         _currentEnemyType = EnemyType.Skeleton;
-                        _currentPlatformType = PlatformType.graveyard;
-                        _currentGroundPlatform = PlatformType.graveGround;
+                        _currentPlatformType = PlatformType.Graveyard;
+                        _currentGroundPlatform = PlatformType.GraveGround;
                     }
                     break;
                 case 18:
                     {
                         EnemyCurrentAmount = 1;
-                        _currentPlatformType = PlatformType.graveyard;
+                        _currentPlatformType = PlatformType.Graveyard;
                         _currentEnemyType = EnemyType.Reaper;
                         _isBossLevel = true;
                     }
@@ -206,18 +206,18 @@ namespace JumpNGun
 
         public void ChangeLevelDebug()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.K) && canPress == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.K) && _canPress)
             {
-                canPress = false;
+                _canPress = false;
                 IncrementLevel();
                 CleanLevel();
                 ExecuteLevelGeneration();
                 Console.WriteLine("Current level:" + _level);
                 Console.WriteLine("Current enemyAmount:" + EnemyCurrentAmount);
             }
-            else if (Keyboard.GetState().IsKeyUp(Keys.K) && canPress == false)
+            else if (Keyboard.GetState().IsKeyUp(Keys.K) && _canPress == false)
             {
-                canPress = true;
+                _canPress = true;
             }
         }
     }

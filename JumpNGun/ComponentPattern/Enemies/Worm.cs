@@ -148,7 +148,7 @@ namespace JumpNGun
         /// <summary>
         /// Check collision with ground to deploy gravity
         /// </summary>
-        public override void CheckCollision()
+        protected override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {

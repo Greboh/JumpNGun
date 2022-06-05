@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -9,7 +8,7 @@ namespace JumpNGun
     {
         private float _gravityPull; // How strong the force of gravity is
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private bool _isGrounded = false; // whether object is on ground or falling
+        private bool _isGrounded; // whether object is on ground or falling
 
         private List<Rectangle> _locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
@@ -29,12 +28,6 @@ namespace JumpNGun
             IsBoss = false;
             IsRanged = false;
             
-        }
-
-        public override void Awake()
-        {
-            base.Awake();
-
         }
 
         public override void Start()
@@ -146,7 +139,7 @@ namespace JumpNGun
         /// <summary>
         /// Check collision with ground to deploy gravity
         /// </summary>
-        public override void CheckCollision()
+        protected override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
@@ -160,7 +153,7 @@ namespace JumpNGun
         }
 
 
-        protected override void ChasePlayer()
+        protected void ChasePlayer()
         {
             if (currentEnemyState == attackEnemyState) return;
 

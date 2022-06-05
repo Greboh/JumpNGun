@@ -125,7 +125,7 @@ namespace JumpNGun
         
         private void InstantiateProjectile(Vector2 direction)
         {
-            GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom);
+            GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom, Vector2.Zero);
             projectile.Transform.Position = _parent.GameObject.Transform.Position;
             
             (projectile.GetComponent<Projectile>() as Projectile).Velocity = direction;

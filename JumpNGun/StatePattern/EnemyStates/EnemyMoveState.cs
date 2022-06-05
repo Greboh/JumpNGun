@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
@@ -8,8 +7,7 @@ namespace JumpNGun
     {
         private Enemy _parent;
 
-        private Vector2 oldVelocity = Vector2.Zero;
-        private float _originalSpeed;
+        private Vector2 _oldVelocity = Vector2.Zero;
         
         public void Enter(Enemy parent)
         {
@@ -34,14 +32,12 @@ namespace JumpNGun
             else if (parent.GameObject.HasComponent<Skeleton>())
             {
                 _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
-                _originalSpeed = _parent.Speed;
             }
         }
 
         public void Execute()
         {
             CalculateMovementDirection();
-            //SkeletonAbility();
             Animate();
         }
 
@@ -52,7 +48,7 @@ namespace JumpNGun
 
         public void Exit()
         {
-            oldVelocity = _parent.Velocity;
+            _oldVelocity = _parent.Velocity;
             _parent.Velocity = Vector2.Zero;
         }
         
@@ -68,7 +64,7 @@ namespace JumpNGun
                 // If our velocity is zero, we revert back to our old velocity
                 if (_parent.Velocity == Vector2.Zero)
                 {
-                    _parent.Velocity = oldVelocity;
+                    _parent.Velocity = _oldVelocity;
                 }
 
                 //if position is close to right, move left
@@ -94,31 +90,5 @@ namespace JumpNGun
                     SpriteEffects.FlipHorizontally : SpriteEffects.None;
             } 
         }
-        
-        private void SkeletonAbility()
-        {
-            if (!_parent.GameObject.HasComponent<Skeleton>()) return;
-
-
-            Collider playerCol = (_parent.Player.GameObject.GetComponent<Collider>() as Collider);
-
-            if (playerCol.CollisionBox.Intersects(_parent.PlatformRectangle) && playerCol.CollisionBox.Bottom < _parent.PlatformRectangle.Center.Y)
-            {
-                _parent.Speed = 100;
-
-                if (_parent.Player.Position.X < _parent.GameObject.Transform.Position.X)
-                {
-                    _parent.Velocity = new Vector2(-1, 0);
-                }
-                else if (_parent.Player.Position.X > _parent.GameObject.Transform.Position.X)
-                {
-
-                    _parent.Velocity = new Vector2(1, 0);
-                }
-            }
-            else _parent.Speed = _originalSpeed;
-        }
-        
-
     }
 }

@@ -20,7 +20,7 @@ namespace JumpNGun
             }
             
             //instansiates buttons used in state
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back, Vector2.Zero));
         }
 
         public void Execute(GameTime gameTime)
