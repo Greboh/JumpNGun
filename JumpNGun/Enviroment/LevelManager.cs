@@ -109,7 +109,7 @@ namespace JumpNGun
                     _currentEnemyType = EnemyType.Worm;
                 }
                     break;
-                case 12:
+                case 2:
                 {
                     EnemyCurrentAmount = 1;
                     _currentPlatformType = PlatformType.dessert;
@@ -203,68 +203,5 @@ namespace JumpNGun
             _level = 1;
             _platformAmount = 4;
         }
-
-        #region Test Methods
-
-        /// <summary>
-        /// Check for cleared level debugging
-        /// </summary>
-        public void CheckForClearedLevelDebug()
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.L) && canPressL)
-            {
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
-                canPressL = false;
-            }
-
-            if (Keyboard.GetState().IsKeyUp(Keys.L))
-            {
-                canPressL = true;
-            }
-        }
-
-        /// <summary>
-        /// Level change for debugging
-        /// </summary>
-        public void ChangeLevelDebug()
-        {
-            //TODO FIX THIS CALLING
-            //CheckForClearedLevel();
-
-            if (Keyboard.GetState().IsKeyDown(Keys.K) && _canPress)
-            {
-                IncrementLevel();
-                CleanLevel();
-                _canPress = false;
-                ExecuteLevelGeneration();
-            }
-
-            if (Keyboard.GetState().IsKeyUp(Keys.K))
-            {
-                _canPress = true;
-            }
-        }
-
-        //TEST LEVEL FOR GENERATE LEVEL METHOD
-
-        //private Rectangle[] testLevel = new Rectangle[]
-        //{
-        //    new Rectangle(0, 500, 222, 125),
-        //    new Rectangle(222, 500, 222, 125),
-        //    new Rectangle(444, 500, 222, 125),
-        //    new Rectangle(666, 500, 222, 125),
-        //    new Rectangle(888, 500, 222, 125),
-        //    new Rectangle(1110, 500, 222, 125),
-        //};
-
-        //for (int i = 0; i < 3; i++)
-        //{
-        //    GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(EnemyType.Mushroom, new Vector2(600, 0)));
-        //    GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grass, new Vector2(testLevel[i].Center.X, testLevel[i].Center.Y)));
-        //    LevelGenerator.Instance.InvalidLocations.Add(testLevel[i]);
-        //}
-        //GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(PlatformType.grassGround));
-
-        #endregion
     }
 }

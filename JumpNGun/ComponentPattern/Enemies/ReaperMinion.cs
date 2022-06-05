@@ -16,7 +16,7 @@ namespace JumpNGun
             spawnPosition = position;
             health = 10;
             Speed = 1f;
-            damage = 10;
+            Damage = 10;
             IsRanged = false;
             IsBoss = true;
             AttackCooldown = 1;
@@ -63,7 +63,7 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (collider.CollisionBox.Intersects(col.CollisionBox))
+                if (Collider.CollisionBox.Intersects(col.CollisionBox))
                 {
                     //deal damage to the player if reaperminion and player collides
                     if (col.GameObject.HasComponent<Player>())

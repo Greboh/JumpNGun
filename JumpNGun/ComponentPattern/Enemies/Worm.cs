@@ -21,10 +21,12 @@ namespace JumpNGun
 
         public Worm(Vector2 position)
         {
+            int rndSpeed = rnd.Next(40, 51);
+            
             spawnPosition = position;
             health = 40;
-            Speed = 50;
-            damage = 20;
+            Speed = rndSpeed;
+            Damage = 20;
             ProjectileSpeed = 0.5f;
             AttackCooldown = 0.75f;
             IsRanged = true;
@@ -150,14 +152,14 @@ namespace JumpNGun
             {
                 if (col.GameObject.HasComponent<Platform>())
                 {
-                    if (col.CollisionBox.Intersects(collider.CollisionBox))
+                    if (col.CollisionBox.Intersects(Collider.CollisionBox))
                     {
                         _isGrounded = true;
                         _groundCollision = col.CollisionBox;
                     }
                 }
 
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
                 {
                     _isGrounded = false;
                 }

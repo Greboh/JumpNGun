@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
@@ -6,16 +7,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
-    public class AttackEnemyState : IEnemyState
+    public class EnemyAttackState : IEnemyState
     {
         private Enemy _parent;
         
         private bool _canShoot;
 
+        // Reference to which direction the sprite was flipped before attacking
         private SpriteEffects _oldSpriteFlip;
         
         public void Enter(Enemy parent)
         {
+            // Check which type of enemy the parent is
             if(parent.GameObject.HasComponent<Mushroom>())
             {
                 _parent = parent.GameObject.GetComponent<Mushroom>() as Mushroom;
@@ -33,24 +36,27 @@ namespace JumpNGun
                 _parent = parent.GameObject.GetComponent<ReaperMinion>() as ReaperMinion;
             }
 
+            // Set the oldSpriteFlip
             _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
         }
 
         public void Execute()
         {
+            // Check if the enemy is ranged or melee
             if (_parent.IsRanged)
             {
                 HandleRangeAttackLogic();
                 RangeAttack();
             }
-            else
-            {
-                MeleeAttack();
-            }
+            else MeleeAttack();
         }
 
+        /// <summary>
+        /// Handles the state animations
+        /// </summary>
         public void Animate()
         {
+            // Play animation
             _parent.Animator.PlayAnimation("attack");
         }
         
@@ -94,16 +100,23 @@ namespace JumpNGun
         
         private void MeleeAttack()
         {
-            Vector2 targetDirection = _parent.Player.GameObject.Transform.Position;
-            
             FlipSprite();
+            
+            // Trigger event
+            EventManager.Instance.TriggerEvent("OnTakeDamage", new Dictionary<string, object>()
+                {
+                    {"damage", _parent.Damage}, // The projectile's damage
+                    {"object", _parent.Player.GameObject}, // The collision object 
+                    {"projectile", null} // The projectile object
+                }
+            );
+            
+            Animate();
         }
         
         private void FlipSprite()
         {
             _parent.SpriteRenderer.SpriteEffects = _parent.Player.GameObject.Transform.Position.X <= _parent.GameObject.Transform.Position.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            Console.WriteLine($"Direction.X: {_parent.Player.GameObject.Transform.Position.X}, Enemey location: {_parent.GameObject.Transform.Position.X}");
-            
         }
         
         private void InstantiateProjectile(Vector2 direction)
@@ -113,6 +126,7 @@ namespace JumpNGun
             
             (projectile.GetComponent<Projectile>() as Projectile).Velocity = direction;
             (projectile.GetComponent<Projectile>() as Projectile).Speed = _parent.ProjectileSpeed;
+            (projectile.GetComponent<Projectile>() as Projectile).Damage = _parent.Damage;
             
              Animate();
             GameWorld.Instance.Instantiate(projectile);

@@ -18,13 +18,11 @@ namespace JumpNGun
         private float _abilityCooldown = 5;
         private float _abilityTimer;
 
-        private Random _rnd = new Random();
-        
         public Reaper()
         {
             spawnPosition = new Vector2(662, 400);
             health = 200;
-            damage = 20;
+            Damage = 20;
             Speed = 0.5f;
             AttackCooldown = 1;
             DefaultSpeed = Speed;
@@ -81,7 +79,7 @@ namespace JumpNGun
         private void PickAbility()
         {
             ShouldUseAbility = true;
-            int rndNumber = _rnd.Next(1, 3);
+            int rndNumber = rnd.Next(1, 3);
 
             switch (rndNumber)
             {

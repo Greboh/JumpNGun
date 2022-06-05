@@ -1,13 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Threading;
-using JumpNGun.StatePattern.GameStates;
-using System.Linq;
-using JumpNGun.ComponentPattern;
 
 namespace JumpNGun
 {

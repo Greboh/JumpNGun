@@ -8,13 +8,15 @@ namespace JumpNGun
     public abstract class Enemy : Component
     {
         protected int health;
-        protected int damage;
+        public int Damage { get; set; }
 
         public float Speed { get; set; }
 
-        protected Collider collider;
+        public Collider Collider { get; private set; }
         protected float detectionRange;
 
+        protected Random rnd = new Random();
+        
         public SpriteRenderer SpriteRenderer { get; private set; }
         public Animator Animator { get; private set; }
         public Player Player { get; private set; }
@@ -38,16 +40,22 @@ namespace JumpNGun
         protected IEnemyState moveEnemyState;
         protected IEnemyState deathEnemyState;
         protected IEnemyState abilityEnemyState;
-        
+
+        #region Component Methods
+
         public override void Awake()
         {
+            EventManager.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
         }
+
+
+
 
         public override void Start()
         {
             SpriteRenderer = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             Animator = GameObject.GetComponent<Animator>() as Animator;
-            collider = GameObject.GetComponent<Collider>() as Collider;
+            Collider = GameObject.GetComponent<Collider>() as Collider;
             Player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
 
             InitializeStates();
@@ -57,20 +65,23 @@ namespace JumpNGun
 
         private void InitializeStates()
         {
-            moveEnemyState = new MoveEnemyState();
-            attackEnemyState = new AttackEnemyState();
-            deathEnemyState = new DeathEnemyState();
-            abilityEnemyState = new AbilityEnemyState();
+            moveEnemyState = new EnemyMoveState();
+            attackEnemyState = new EnemyAttackState();
+            deathEnemyState = new EnemyDeathState();
+            abilityEnemyState = new EnemyAbilityState();
         }
 
         public override void Update(GameTime gameTime)
         {
             Move();
-            TakeDamage();
-
+            HandleDeath();
             currentEnemyState?.Execute();
         }
-        
+
+        #endregion
+
+        #region Class Methods
+
         public virtual void CheckCollision()
         {
             
@@ -98,24 +109,13 @@ namespace JumpNGun
             GameObject.Transform.Translate(Velocity * Speed * GameWorld.DeltaTime);
         }
         
-        /// <summary>
-        /// Deal damage to Enemy when colliding with Player projectile
-        /// </summary>
-        private void TakeDamage()
+        private void HandleDeath()
         {
-            foreach (Collider col in GameWorld.Instance.Colliders)
-            {
-                if (col.CollisionBox.Intersects(collider.CollisionBox) && col.GameObject.Tag == "p_Projectile")
-                {
-                    health -= 20;
-                    GameWorld.Instance.Destroy(col.GameObject);
-                }
-            }
-            
             if (health <= 0)
                 ChangeState(deathEnemyState);
-            
         }
+
+        #endregion
 
         #region State Methods
 
@@ -123,11 +123,33 @@ namespace JumpNGun
         {
             if (newEnemyState == currentEnemyState) return;
 
-            Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newEnemyState.GetType().Name}");
+            // Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newEnemyState.GetType().Name}");
             currentEnemyState?.Exit();
 
             currentEnemyState = newEnemyState;
             currentEnemyState.Enter(this);
+        }
+
+        #endregion
+
+        #region Event Methods
+
+        /// <summary>
+        /// Deal damage to Enemy when colliding with Player projectile
+        /// </summary>
+        /// <param name="ctx">The context that gets sent from the trigger in Projectile.cs</param>
+        private void OnTakeDamage(Dictionary<string, object> ctx)
+        {
+            GameObject collisionObject = (GameObject) ctx["object"];
+            int damageTaken = (int) ctx["damage"];
+            GameObject projectile = (GameObject) ctx["projectile"];
+            
+            if(collisionObject == this.GameObject && projectile.Tag == "p_Projectile")
+            {
+                health -= damageTaken;
+                GameWorld.Instance.Destroy(projectile);
+
+            }
         }
 
         #endregion

@@ -47,11 +47,7 @@ namespace JumpNGun
         {
             foreach (var component in components)
             {
-                if (component.IsDisabled)
-                {
-                    Console.WriteLine(component.GetType().Name + " is disabled!");
-                    return;
-                }
+                if (component.IsDisabled) return;
 
                 component.Update(gameTime);
             }

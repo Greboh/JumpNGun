@@ -47,11 +47,18 @@ namespace JumpNGun
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
             LevelManager.Instance.ExecuteLevelGeneration();
+            
+            EventManager.Instance.Subscribe("OnPlayerDeath", OnGameover);
 
             foreach (var go in GameWorld.Instance.gameObjects)
             {
                 go.Awake();
             }
+        }
+
+        private void OnGameover(Dictionary<string, object> ctx)
+        {
+            MenuStateHandler.Instance.ChangeState(_pareMenuStateHandler.MainMenu);
         }
 
         public void Execute(GameTime gameTime)
@@ -60,11 +67,7 @@ namespace JumpNGun
 
             PauseMenuHandling();
             SetAudioStatusIcons();
-
-            LevelManager.Instance.ChangeLevelDebug();
-            LevelManager.Instance.CheckForClearedLevelDebug();
-
-
+            
             //call update method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {

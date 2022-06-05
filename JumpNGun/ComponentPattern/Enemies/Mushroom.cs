@@ -23,10 +23,12 @@ namespace JumpNGun
 
         public Mushroom(Vector2 position)
         {
+            int rndSpeed = rnd.Next(20, 31);
+            
             spawnPosition = position;
             health = 20;
-            Speed = 40;
-            damage = 20;
+            Speed = rndSpeed;
+            Damage = 20;
             ProjectileSpeed = 1;
             AttackCooldown = 1;
             detectionRange = 350;
@@ -145,12 +147,12 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "platform" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "platform" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
                     _isGrounded = true;
                     _groundCollision = col.CollisionBox;
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
                 {
                     _isGrounded = false;
                 }

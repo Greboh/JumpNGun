@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace JumpNGun
 {
@@ -11,9 +12,8 @@ namespace JumpNGun
         private CharacterType _character;
         private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
 
-        private float _maxHealth;
-        private float _currentHealth;
-        
+ 
+
         #region Component Fields
 
         private SpriteRenderer _sr; // Reference to the SpriteRenderer component
@@ -22,12 +22,12 @@ namespace JumpNGun
         private Collider _pCollider;
 
         #endregion
-        
+
         #region Movement Fields
 
         private Vector2 _moveDirection;
-        
-        private float _speed; // Speed at which the player moves
+
+        public float Speed { get; set; } // Speed at which the player moves
         private float _jumpHeight; // The jump height of the player
         private float _dashStrength; // The strength of the player dash
 
@@ -41,7 +41,8 @@ namespace JumpNGun
         private int _jumpCount; // The current amount of player jumps
         private int _maxJumpCount; // The max allowed amount of player jumps
 
-        private bool _shouldIgnorePlatform;
+        private int _maxHealth;
+        private int _currentHealth;
         
         private bool _canDash = true;
         private float _dashTimer;
@@ -56,26 +57,32 @@ namespace JumpNGun
         private float _shootCooldown;
 
         private float _projectileSpeed;
-
+        private int _damage;
+        
+        // How much fill the xpBar should be filled
+        private float _hpBarFillAmount;
+        
+        // The xpBar's texture
+        private Texture2D _hpBarTexture2D;
+        
         #endregion
 
         #region Collision Fields
 
-        private Vector2 _position = new Vector2(40, 705);
+        public Vector2 Position { get; set; }= new Vector2(40, 705);
+        
         private GameObject _groundCollisionGameObject;
         private Rectangle _groundCollisionRectangle = Rectangle.Empty;
         private bool _isGrounded; // Is the player grounded
         private bool _hasCollidedWithGround = false;
 
-        public Vector2 Position { get => _position; set => _position = value; }
-        public float Speed { get => _speed; private set => _speed = value; }
-
         #endregion
 
-        public Player(CharacterType character, float speed, float jumpHeight, float dashStrength, float dashCooldown, float shootCooldown, int maxJumpCount, float maxHealth, float projectileSpeed)
+        public Player(CharacterType character, float speed, float jumpHeight, float dashStrength, float dashCooldown, float shootCooldown, int maxJumpCount, int maxHealth,
+            float projectileSpeed, int damage)
         {
             _character = character;
-            _speed = speed;
+            Speed = speed;
             _jumpHeight = jumpHeight;
             _dashStrength = dashStrength;
             _maxJumpCount = maxJumpCount;
@@ -83,6 +90,7 @@ namespace JumpNGun
             _shootCooldown = shootCooldown;
             _maxHealth = maxHealth;
             _projectileSpeed = projectileSpeed;
+            _damage = damage;
         }
 
         #region Component Methods
@@ -90,8 +98,9 @@ namespace JumpNGun
         public override void Awake()
         {
             EventManager.Instance.Subscribe("OnKeyPress", OnKeyPressed);
+            EventManager.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
         }
-        
+
         public override void Start()
         {
             _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
@@ -99,30 +108,39 @@ namespace JumpNGun
             _input = GameObject.GetComponent<Input>() as Input;
 
             _animator = GameObject.GetComponent<Animator>() as Animator;
-            
+
             _pCollider = GameObject.GetComponent<Collider>() as Collider;
 
 
-            GameObject.Transform.Position = _position;
+            GameObject.Transform.Position = Position;
             _gravityPull = _gravity;
             _currentHealth = _maxHealth;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Draw the hpBar
         }
 
         public override void Update(GameTime gameTime)
         {
             _input.Execute(this);
 
+            CalculateHpBar();
             UpdatePositionReference();
+            HandleDeath();
             HandleShootLogic();
             HandleDashLogic();
             HandleAnimations();
             CheckGrounded();
             HandleGravity();
-            CheckDeath();
+
+        }
+
+        private void CalculateHpBar()
+        {
+            // Set the hpFillAmount
+            _hpBarFillAmount = (_currentHealth / _maxHealth * 100);
         }
 
         #endregion
@@ -140,7 +158,7 @@ namespace JumpNGun
             velocity.Normalize();
 
             // Multiply with speed
-            velocity *= _speed;
+            velocity *= Speed;
 
             _moveDirection = velocity;
 
@@ -156,8 +174,6 @@ namespace JumpNGun
         /// </summary>
         public void Jump()
         {
-            
-
             // Check if we are above or at our maxJumpCount
             _canJump = _jumpCount <= _maxJumpCount;
 
@@ -175,7 +191,7 @@ namespace JumpNGun
 
             GameObject.Transform.Translate(targetDirection);
         }
-        
+
         /// <summary>
         /// Called from DashCommand.cs
         /// Makes the player dash if he can
@@ -252,15 +268,32 @@ namespace JumpNGun
 
             ((Projectile) projectile.GetComponent<Projectile>()).Velocity = _sr.SpriteEffects == SpriteEffects.None ? shootRight : shootLeft;
             ((Projectile) projectile.GetComponent<Projectile>()).Speed = _projectileSpeed;
+            ((Projectile) projectile.GetComponent<Projectile>()).Damage = _damage;
             GameWorld.Instance.Instantiate(projectile);
 
             _canShoot = false;
+        }
+        
+        private void HandleDeath()
+        {
+            if (!(_currentHealth <= 0)) return; // Guard clause
+
+            //TODO Play death animation - NICHLAS
+
+            // Check if the death animation is done
+            if (_animator.IsAnimationDone)
+            {
+                // Destroy player object
+                GameWorld.Instance.Destroy(this.GameObject);
+                
+                EventManager.Instance.TriggerEvent("OnPlayerDeath", new Dictionary<string, object>(){});
+            }
         }
 
         #endregion
 
         #region Class Methods
-        
+
         /// <summary>
         /// Handles when to set Animations 
         /// </summary>
@@ -268,13 +301,13 @@ namespace JumpNGun
         {
             // If we are not grounded we are in the air and should play the jump animation
             if (!_isGrounded) _animator.PlayAnimation("Jump");
-            
+
             // If there isn't any values that is true in movementKeys and we are grounded play idle
             if (!_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Idle");
-            
-            if(_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Run");
+
+            if (_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Run");
         }
-        
+
         /// <summary>
         /// Check if we are grounded
         /// </summary>
@@ -287,34 +320,16 @@ namespace JumpNGun
                 {
                     if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
                     {
-                        _isGrounded = CalculateCollisionLineIntersection( otherCollision);
-
+                        _isGrounded = CalculateCollisionLineIntersection(otherCollision);
                     }
                 }
             }
-            
+
             // If we are grounded but do not collide with our groundCollision, then we are not grounded!
             if (_isGrounded && !_pCollider.CollisionBox.Intersects(_groundCollisionRectangle))
             {
                 _isGrounded = false;
                 _hasCollidedWithGround = false;
-            }
-        }
-        
-        /// <summary>
-        /// Checks if the player should die
-        /// </summary>
-        private void CheckDeath()
-        {
-            if (!(_currentHealth <= 0)) return; // Guard clause
-            
-            //TODO Play death animation - NICHLAS
-                
-            // Check if the death animation is done
-            if(_animator.IsAnimationDone)
-            {
-                // Destroy player object
-                GameWorld.Instance.Destroy(this.GameObject);
             }
         }
 
@@ -323,12 +338,13 @@ namespace JumpNGun
         /// </summary>
         private void UpdatePositionReference()
         {
-            _position = GameObject.Transform.Position;
+            Position = GameObject.Transform.Position;
         }
+
         #endregion
 
         #region Helper Methods
-        
+
         /// <summary>
         /// Checks if the sprite should be flipped by using the moveDirection
         /// </summary>
@@ -342,10 +358,7 @@ namespace JumpNGun
         /// </summary>
         private void HandleShootLogic()
         {
-            
             if (_canShoot) return; // Guard clause
-            
-            _shootTime += GameWorld.DeltaTime; // Add to our shootTime
 
             // Check if its bigger than the cooldown
             if (_shootTime > _shootCooldown)
@@ -353,6 +366,7 @@ namespace JumpNGun
                 _canShoot = true;
                 _shootTime = 0;
             }
+            else _shootTime += GameWorld.DeltaTime; // Add to our shootTime
         }
 
         /// <summary>
@@ -373,61 +387,77 @@ namespace JumpNGun
                     _groundCollisionRectangle = collisionCollider.CollisionBox; // Reference our current collisionColliders CollisionBox
                     _hasCollidedWithGround = true; // We have collided with ground now
                     return true;
-                    
                 }
             }
-
-
             // If the player hits the ground CollisionBox from either the left or the right side
             else if (_pCollider.CollisionBox.Intersects(collisionCollider.LeftLine))
             {
+                // Push the player a little bit
                 GameObject.Transform.Translate(new Vector2(-1, 0) * 10); // Create a small push back
                 return false;
             }
             else if (_pCollider.CollisionBox.Intersects(collisionCollider.RightLine))
             {
-                // _isGrounded = false;
-                // Console.WriteLine("Collided with RightLine!");
                 GameObject.Transform.Translate(new Vector2(1, 0) * 10);
                 return false;
             }
-            
+
             return false;
         }
 
         #endregion
-        
+
         #region Event Methods
+
+        /// <summary>
+        /// Event that gets triggered when the player takes damage
+        /// </summary>
+        /// <param name="ctx">The context that gets sent from the trigger in Projectile.cs</param>
+        private void OnTakeDamage(Dictionary<string, object> ctx)
+        {
+            GameObject collisionObject = (GameObject) ctx["object"];
+            int damageTaken = (int) ctx["damage"];
+            GameObject projectile = (GameObject) ctx["projectile"];
+
+            // If the collisionObject is not this one return
+            if (collisionObject != this.GameObject) return;
+            
+            if (projectile != null)
+            {
+                if (projectile.Tag == "e_Projectile")
+                {
+                    _currentHealth -= damageTaken;
+                    GameWorld.Instance.Destroy(projectile);
+                }
+            }
+            else _currentHealth -= damageTaken;
+
+        }
 
         /// <summary>
         /// Event that receives all key presses
         /// And handles logic depending on the key and if its pressed down
         /// </summary>
-        /// <param name="ctx">The context from the trigger in InputHandler.cs</param>
+        /// <param name="ctx">The context that gets sent from the trigger in InputHandler.cs</param>
         private void OnKeyPressed(Dictionary<string, object> ctx)
         {
             // Get the current pressed key
             Keys currentKey = (Keys) ctx["key"];
-            
+
             // If the currentKey is either the same as  our MoveLeft or MoveRight KeyCode
-            if(currentKey == _input.MoveLeft.KeyboardBinding  ||
-               currentKey == _input.MoveRight.KeyboardBinding)
+            if (currentKey == _input.MoveLeft.KeyboardBinding ||
+                currentKey == _input.MoveRight.KeyboardBinding)
             {
                 _movementKeys[currentKey] = (bool) ctx["isKeyDown"];
             }
-            
-            // If the currentKey is the same as our Jump KeyCode
-            if(currentKey == _input.Jump.KeyboardBinding)
-            {
-                _isJumping = (bool)ctx["isKeyDown"];
-            }
-            
-            if(currentKey == _input.Fall.KeyboardBinding)
-            {
-                _shouldIgnorePlatform = (bool) ctx["isKeyDown"];
-            }
 
+            // If the currentKey is the same as our Jump KeyCode
+            if (currentKey == _input.Jump.KeyboardBinding)
+            {
+                _isJumping = (bool) ctx["isKeyDown"];
+            }
         }
+
         #endregion
     }
 }

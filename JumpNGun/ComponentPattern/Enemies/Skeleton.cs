@@ -19,10 +19,12 @@ namespace JumpNGun
 
         public Skeleton(Vector2 position)
         {
+            int rndSpeed = rnd.Next(40, 51);
+            
             GameObject.Transform.Position = position;
             health = 100;
-            damage = 20;
-            Speed = 50;
+            Damage = 20;
+            Speed = rndSpeed;
             _originalSpeed = Speed;
         }
 
@@ -138,14 +140,14 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "Platform" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
                     _isGrounded = true;
                     _groundCollision = col.CollisionBox;
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
 
-                if (col.GameObject.Tag == "player" && col.CollisionBox.Intersects(collider.CollisionBox))
+                if (col.GameObject.Tag == "player" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
                     // Attack();
                 }

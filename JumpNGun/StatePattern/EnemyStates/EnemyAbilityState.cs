@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
-    public class AbilityEnemyState : IEnemyState
+    public class EnemyAbilityState : IEnemyState
     {
         private Enemy _parent;
 
