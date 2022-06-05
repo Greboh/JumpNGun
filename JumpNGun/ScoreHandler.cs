@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SharpDX.Direct3D11;
+
 
 namespace JumpNGun
 {
@@ -10,7 +10,8 @@ namespace JumpNGun
 
         private List<string> _highscoreNames;
         private List<int> _highScoreScores;
-        
+        Tuple<List<int>, List<string>> SortedLists;
+
         public static ScoreHandler Instance
         {
             get { return _instance ??= new ScoreHandler(); }
@@ -34,16 +35,63 @@ namespace JumpNGun
             Console.WriteLine($"Current score is: {_currentScore}");
         }
         
-        private void SortScore()
+        public void SortScore()
         {
             _highScoreScores = Database.Instance.GetHighScores().Item2;
             _highscoreNames = Database.Instance.GetHighScores().Item1;
-            
+
+            SortedLists = Sort(_highScoreScores, _highscoreNames);
+
+
+            foreach (int score in SortedLists.Item1)
+            {
+                Console.WriteLine("SCORE: " + score);
+            }
+
+            foreach (string name in SortedLists.Item2)
+            {
+                Console.WriteLine("NAME: " + name);
+            }
+        }
+
+        private Tuple<List<int>, List<string>> Sort(List<int> scores, List<string> names)
+        {
+            bool swapped = false;
+            int scoreHolder;
+            string nameHolder;
+
+            while (!swapped)
+            {
+                for (int i = 1; i < scores.Count; i++)
+                {
+                    if (scores[i - 1] < scores[i])
+                    {
+                        scoreHolder = scores[i - 1];
+                        scores[i - 1] = scores[i];
+                        scores[i] = scoreHolder;
+
+
+                        nameHolder = names[i - 1];
+                        names[i - 1] = names[i];
+                        names[i] = nameHolder;
+
+                        swapped = true;
+                    }
+                }
+
+                if (swapped) swapped = false;
+                else if (!swapped) swapped = true;
+            }
+
+            return Tuple.Create(scores, names);
+
         }
 
         public void GetHighScores()
         {
-            
+
+
+
         }
 
     }
