@@ -53,12 +53,11 @@ namespace JumpNGun.StatePattern.GameStates
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
-            spriteBatch.Draw(_highscorePanel, new Rectangle(376,211,_highscorePanel.Width,_highscorePanel.Height), Color.White);
+            spriteBatch.Draw(_highscorePanel, new Rectangle(370,180,_highscorePanel.Width,_highscorePanel.Height), Color.White);
 
             spriteBatch.Draw(_pareMenuStateHandler.GameTitle,
-                new Rectangle(420, 100, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null,
+                new Rectangle(400, 60, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null,
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
-
 
 
             spriteBatch.End();

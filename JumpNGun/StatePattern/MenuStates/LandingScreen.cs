@@ -46,7 +46,7 @@ namespace JumpNGun
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_pareMenuStateHandler.GameTitle, new Rectangle((int) GameWorld.Instance.ScreenSize.X / 2, 150, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null, Color.White, 0,
+            spriteBatch.Draw(_pareMenuStateHandler.GameTitle, new Rectangle(400, 150, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null, Color.White, 0,
                 new Vector2(0, 0), SpriteEffects.None, 1);
             spriteBatch.Draw(_inputFieldTitle, new Rectangle(594, 396, _inputFieldTitle.Width, _inputFieldTitle.Height), null, Color.White, 0, new Vector2(0, 0),
                 SpriteEffects.None, 1);
