@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.Windows.Forms.VisualStyles;
+using System.Collections.Generic;
 
 namespace JumpNGun
 {
@@ -20,6 +21,8 @@ namespace JumpNGun
         }
 
         private SQLiteConnection _connection;
+
+
 
         private Database()
         {
@@ -66,5 +69,6 @@ namespace JumpNGun
 
             _connection.Close();
         }
+
     }
 }

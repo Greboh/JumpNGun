@@ -54,6 +54,7 @@ namespace JumpNGun
             {
                 go.Awake();
             }
+
         }
 
         private void OnGameover(Dictionary<string, object> ctx)

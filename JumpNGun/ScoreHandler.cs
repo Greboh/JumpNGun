@@ -11,6 +11,7 @@ namespace JumpNGun
             get { return _instance ??= new ScoreHandler(); }
         }
 
+
         private int _currentScore;
 
         public int GetScore()
