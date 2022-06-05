@@ -152,10 +152,7 @@ namespace JumpNGun
                     _isGrounded = true;
                     _groundCollision = col.CollisionBox;
                 }
-                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
-                {
-                    _isGrounded = false;
-                }
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
             }
         }
     }

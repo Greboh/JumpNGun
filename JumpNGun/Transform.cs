@@ -17,5 +17,13 @@ namespace JumpNGun
                 Position += translation;
             }
         }
+
+        public void Change(Vector2 newPos)
+        {
+            if (!float.IsNaN(newPos.X) && !float.IsNaN(newPos.Y))
+            {
+                Position = newPos;
+            }
+        }
     }
 }

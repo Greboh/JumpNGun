@@ -65,6 +65,7 @@ namespace JumpNGun
 
         public void Exit()
         {
+            LevelManager.Instance.ResetLevel();
            _pareMenuStateHandler.ComponentCleanUp();
         }
     }

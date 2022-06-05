@@ -9,6 +9,7 @@ namespace JumpNGun
         private Enemy _parent;
 
         private Vector2 oldVelocity = Vector2.Zero;
+        private float _originalSpeed;
         
         public void Enter(Enemy parent)
         {
@@ -30,11 +31,17 @@ namespace JumpNGun
             {
                 _parent = parent.GameObject.GetComponent<ReaperMinion>() as ReaperMinion;
             }
+            else if (parent.GameObject.HasComponent<Skeleton>())
+            {
+                _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
+                _originalSpeed = _parent.Speed;
+            }
         }
 
         public void Execute()
         {
             CalculateMovementDirection();
+            //SkeletonAbility();
             Animate();
         }
 
@@ -88,5 +95,30 @@ namespace JumpNGun
             } 
         }
         
+        private void SkeletonAbility()
+        {
+            if (!_parent.GameObject.HasComponent<Skeleton>()) return;
+
+
+            Collider playerCol = (_parent.Player.GameObject.GetComponent<Collider>() as Collider);
+
+            if (playerCol.CollisionBox.Intersects(_parent.PlatformRectangle) && playerCol.CollisionBox.Bottom < _parent.PlatformRectangle.Center.Y)
+            {
+                _parent.Speed = 100;
+
+                if (_parent.Player.Position.X < _parent.GameObject.Transform.Position.X)
+                {
+                    _parent.Velocity = new Vector2(-1, 0);
+                }
+                else if (_parent.Player.Position.X > _parent.GameObject.Transform.Position.X)
+                {
+
+                    _parent.Velocity = new Vector2(1, 0);
+                }
+            }
+            else _parent.Speed = _originalSpeed;
+        }
+        
+
     }
 }

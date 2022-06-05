@@ -101,7 +101,7 @@ namespace JumpNGun
             DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             
             MenuStateHandler.Instance.Update(gameTime);
-            
+
             // if (_nextMenuStateHandler != null)
             // {
             //     currentMenuStateHandler = _nextMenuStateHandler;
@@ -109,7 +109,7 @@ namespace JumpNGun
             //     _nextMenuStateHandler = null;
             // }
             // else currentMenuStateHandler.Update(gameTime);
-            
+            LevelManager.Instance.ChangeLevelDebug();
             base.Update(gameTime);
         }
 

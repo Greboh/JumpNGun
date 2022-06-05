@@ -35,9 +35,13 @@ namespace JumpNGun
             {
                 _parent = parent.GameObject.GetComponent<ReaperMinion>() as ReaperMinion;
             }
+            else if (parent.GameObject.HasComponent<Skeleton>())
+            {
+                _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
 
-            // Set the oldSpriteFlip
-            _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
+            }
+                // Set the oldSpriteFlip
+                _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
         }
 
         public void Execute()

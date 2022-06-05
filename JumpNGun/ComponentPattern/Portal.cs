@@ -9,7 +9,7 @@ namespace JumpNGun
     {
         private Vector2 _position; // position of portal
         private bool _open = false; //Determines animation to play
-        private bool isStartPortal = false; //Determines if its spawn portal or next lvl portal
+        private bool isStartPortal; //Determines if its spawn portal or next lvl portal
         private Animator _animator; // plays animations
 
         public Portal(Vector2 position)
@@ -20,7 +20,7 @@ namespace JumpNGun
             if (position == new Vector2(40, 705))
             {
                 isStartPortal = true;
-                HandlePlayerRendering();
+                StopPlayerRendering();
             }
         }
 
@@ -40,7 +40,6 @@ namespace JumpNGun
         {
             CheckCollision();
             HandleAnimations();
-            
         }
 
         /// <summary>
@@ -74,7 +73,7 @@ namespace JumpNGun
             {
                 EventManager.Instance.TriggerEvent("NextLevel", new Dictionary<string, object>
                     {
-                        {"NewLevel", false}
+                        {"NewLevel", null}
                     });
             }
             else
@@ -88,7 +87,7 @@ namespace JumpNGun
         /// </summary>
         private void CheckCollision()
         {
-            //the portals collider
+            //the portal collider
             Collider _portalCollider = GameObject.GetComponent<Collider>() as Collider;
 
             //checks every collisionbox in game and see if they intersect with _portalCollider
@@ -100,7 +99,7 @@ namespace JumpNGun
                 //if other collider is player set _open to false and stop rendering of player
                 if(_portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "player")
                 {
-                    HandlePlayerRendering();
+                    StopPlayerRendering();
                     _open = false;
                 }
             }
@@ -109,7 +108,7 @@ namespace JumpNGun
         /// <summary>
         /// Stops and starts player rendering
         /// </summary>
-        private void HandlePlayerRendering()
+        private void StopPlayerRendering()
         {
             //TODO move handleplayerrendering to Player collision method - KRISTIAN
             foreach (GameObject go in GameWorld.Instance.GameObjects)

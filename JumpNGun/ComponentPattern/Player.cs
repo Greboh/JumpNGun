@@ -48,6 +48,7 @@ namespace JumpNGun
         private float _dashTimer;
         private float _dashCooldown;
 
+
         #endregion
 
         #region Action Fields
@@ -134,6 +135,7 @@ namespace JumpNGun
             HandleAnimations();
             CheckGrounded();
             HandleGravity();
+            ScreenBounds();
 
         }
 
@@ -247,6 +249,23 @@ namespace JumpNGun
             GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
         }
 
+        /// <summary>
+        /// Change player position to oposite side if he exceeds screenbounds
+        /// </summary>
+        private void ScreenBounds()
+        {
+            //If player moves beyond 0 on x-axis move player max x-value on axis
+            if (GameObject.Transform.Position.X < 0)
+            {
+                GameObject.Transform.Change(new Vector2(GameWorld.Instance.GraphicsDevice.Viewport.Width, GameObject.Transform.Position.Y));
+            }
+            //If plyaer moves beyond max value on x-axis move player to 0 on x-axis 
+            if (GameObject.Transform.Position.X > GameWorld.Instance.GraphicsDevice.Viewport.Width)
+            {
+                GameObject.Transform.Change(new Vector2(10, GameObject.Transform.Position.Y));
+            }
+        }
+
         #endregion
 
         #region Action Methods
@@ -318,7 +337,7 @@ namespace JumpNGun
                 // If our CollisionBox collides with another CollisionBox and it's tag is ground and we haven't collided with ground yet
                 if (_pCollider.CollisionBox.Intersects(otherCollision.CollisionBox) && !_hasCollidedWithGround)
                 {
-                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "Platform")
+                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
                     {
                         _isGrounded = CalculateCollisionLineIntersection(otherCollision);
                     }

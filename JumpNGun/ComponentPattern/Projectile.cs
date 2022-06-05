@@ -24,6 +24,19 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             Move();
+            ScreenBounds();
+        }
+
+        /// <summary>
+        /// Destroy projectile if it exceeds screen limitations
+        /// </summary>
+        private void ScreenBounds()
+        {
+            //Destroy projectile for exceeding min/max width
+            if (GameObject.Transform.Position.X > GameWorld.Instance.GraphicsDevice.Viewport.Width || GameObject.Transform.Position.X < 0) GameWorld.Instance.Destroy(GameObject);
+
+            //Destroy projectile for excceeding min/max height
+            if (GameObject.Transform.Position.Y > GameWorld.Instance.GraphicsDevice.Viewport.Height || GameObject.Transform.Position.Y < 0) GameWorld.Instance.Destroy(GameObject);
         }
 
         private void Move()

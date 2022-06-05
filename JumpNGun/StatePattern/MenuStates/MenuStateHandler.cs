@@ -78,19 +78,20 @@ namespace JumpNGun
 
         public void ComponentCleanUp()
         {
+            //TODO - Ask if this is okay
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
-                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<ExperienceOrb>() || go.HasComponent<Button>() ||
-                    go.HasComponent<Mushroom>())
-                {
-                    GameWorld.Instance.Destroy(go);
-                    LevelManager.Instance.ResetLevel();
-                }
+                //if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<ExperienceOrb>() || go.HasComponent<Button>() ||
+                //    go.HasComponent<Mushroom>())
+                //{
+                //    GameWorld.Instance.Destroy(go);
+                //}
 
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
-                }
+                //if (go.HasComponent<Button>())
+                //{
+                //    GameWorld.Instance.Destroy(go);
+                //}
+                GameWorld.Instance.Destroy(go);
             }
         }
 

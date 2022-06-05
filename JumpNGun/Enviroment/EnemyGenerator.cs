@@ -16,7 +16,6 @@ namespace JumpNGun
         }
 
         private Random _random = new Random();
-        private Vector2 _spawnPosition;
         private List<Rectangle> _hasEnemy = new List<Rectangle>();
 
         /// <summary>
@@ -27,13 +26,9 @@ namespace JumpNGun
         /// <param name="locations">location rectangle for enemey</param>
         public void GenerateEnemies(int amountOfEnemies, EnemyType type, List<Rectangle> locations)
         {
-
             for (int i = 0; i < amountOfEnemies; i++)
             {
-                _spawnPosition = GeneratePosition(locations);
-
-                GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type, _spawnPosition));
-                Console.WriteLine("Enemy position: " + _spawnPosition);
+                GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type, GeneratePosition(locations)));
             }
         }
 

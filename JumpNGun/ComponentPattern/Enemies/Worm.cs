@@ -152,19 +152,12 @@ namespace JumpNGun
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.HasComponent<Platform>())
+                if (col.GameObject.Tag == "platform" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
-                    if (col.CollisionBox.Intersects(Collider.CollisionBox))
-                    {
-                        _isGrounded = true;
-                        _groundCollision = col.CollisionBox;
-                    }
+                    _isGrounded = true;
+                    _groundCollision = col.CollisionBox;
                 }
-
-                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
-                {
-                    _isGrounded = false;
-                }
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
             }
         }
     }

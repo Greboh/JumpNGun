@@ -6,7 +6,6 @@ using System.Text;
 
 namespace JumpNGun
 {
-    //TODO - Refactor build/add methods. Take FPS as an overload, to specify on each anim build - KRISTIAN
     public enum EnemyType
     {
         GrassBoss,
@@ -47,14 +46,6 @@ namespace JumpNGun
 
             switch (type)
             {
-                case EnemyType.GrassBoss:
-                {
-                }
-                    break;
-                case EnemyType.SandBoss:
-                {
-                }
-                    break;
                 case EnemyType.Reaper:
                 {
                     gameObject.AddComponent(new Reaper());
@@ -69,12 +60,24 @@ namespace JumpNGun
 
         public override GameObject Create(Enum type, Vector2 position)
         {
+            //Instantiate gameobject
             GameObject gameObject = new GameObject();
+
+            //Instantiate SpriteRenderer and add it to gameObject
             SpriteRenderer sr = (SpriteRenderer) gameObject.AddComponent(new SpriteRenderer());
+
+            //Instantiate and add collider to gameObject
             gameObject.AddComponent(new Collider());
+
+            //Set tag for gameObject to "Enemy"
             gameObject.Tag = "Enemy";
+
+            //Instantiate and add Animtator to gameObject
             _animator = (Animator) gameObject.AddComponent(new Animator());
 
+
+            /*Add relevant component by type, to instantiate relevant component for enemy. 
+             * Build relevant animations and SetSprite*/
             switch (type)
             {
                 case EnemyType.ReaperMinion:
@@ -140,10 +143,12 @@ namespace JumpNGun
             }, 30));
         }
 
+        /// <summary>
+        /// Adds and builds animations for Reaperminion
+        /// </summary>
         private void CreateReaperMinionAnimations()
         {
             _animator.AddAnimation(BuildAnimations("run", new string[] {"ghost_idle1", "ghost_idle2", "ghost_idle3", "ghost_idle4",}, 5));
-            // _animator.AddAnimation(BuildAnimations("spawn", new string[] { "ghost_spawn1", "ghost_spawn2", "ghost_spawn3", "ghost_spawn4", "ghost_spawn5", "ghost_spawn6"}, 5));
         }
 
         /// <summary>
