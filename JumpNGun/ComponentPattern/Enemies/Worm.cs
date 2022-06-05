@@ -37,7 +37,7 @@ namespace JumpNGun
         public override void Awake()
         {
             base.Awake();
-            GameObject.Transform.Position = position;
+
         }
 
         public override void Start()
@@ -125,7 +125,7 @@ namespace JumpNGun
             
             ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
-        #endregion
+
         
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded

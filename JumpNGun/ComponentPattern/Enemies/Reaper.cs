@@ -41,11 +41,6 @@ namespace JumpNGun
             base.Awake();
         }
 
-        public override void Start()
-        {
-            GameObject.Transform.Position = position;
-            base.Start();
-        }
 
         public override void Update(GameTime gameTime)
         {

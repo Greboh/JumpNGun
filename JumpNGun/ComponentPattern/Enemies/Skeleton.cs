@@ -31,7 +31,7 @@ namespace JumpNGun
         public override void Awake()
         {
             base.Awake();
-            GameObject.Transform.Position = position;
+            GameObject.Transform.Position = spawnPosition;
         }
 
         public override void Start()
@@ -47,7 +47,6 @@ namespace JumpNGun
             SetVelocity();
             HandleGravity();
             CheckCollision();
-            HandleAnimations();
             ChasePlayer();
             base.Update(gameTime);
         }
@@ -155,11 +154,8 @@ namespace JumpNGun
                 }
                 // else if (col.GameObject.Tag == "player" && !col.CollisionBox.Intersects(collider.CollisionBox)) canAttack = false;
             }
-
-        public override void Attack()
-        {
-            //trigger event to deal player damage
         }
+
 
         protected override void ChasePlayer()
         {
@@ -178,7 +174,6 @@ namespace JumpNGun
 
                     Velocity = new Vector2(1, 0);
                 }
-            else speed = originalspeed;
             }
             else Speed = _originalSpeed;
         }
