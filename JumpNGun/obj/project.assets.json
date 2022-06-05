@@ -7439,14 +7439,21 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Kean\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+=======
+    "C:\\Users\\kjfic\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+>>>>>>> KristianV3
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
       "projectName": "JumpNGun",
       "projectPath": "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
@@ -7460,6 +7467,20 @@
       ],
       "configFilePaths": [
         "C:\\Users\\Kean\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+      "projectUniqueName": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+      "projectName": "JumpNGun",
+      "projectPath": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+      "packagesPath": "C:\\Users\\kjfic\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\kjfic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> KristianV3
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"

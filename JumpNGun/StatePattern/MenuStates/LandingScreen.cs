@@ -26,8 +26,8 @@ namespace JumpNGun
             {
                 go.Awake();
             }
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Submit));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.InputField));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Submit,Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.InputField,Vector2.Zero));
         }
 
         public void Execute(GameTime gameTime)

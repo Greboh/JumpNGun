@@ -23,11 +23,7 @@ namespace JumpNGun
             new Vector2(500, 700),
         };
         private int _positionIncrement;
-
-        public override GameObject Create(Enum type)
-        {
-            return null;
-        }
+        
         
         /// <summary>
         /// Build all animations relevant to movement 

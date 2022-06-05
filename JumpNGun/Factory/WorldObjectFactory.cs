@@ -16,12 +16,6 @@ namespace JumpNGun
             get { return _instance ??= new WorldObjectFactory(); }
         }
 
-        public override GameObject Create(Enum type)
-        {
-
-            throw new NotImplementedException();
-        }
-
         public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject gameObject = new GameObject();

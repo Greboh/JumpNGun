@@ -23,10 +23,10 @@ namespace JumpNGun
             {
                 go.Awake();
             }
-            
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Music));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Sfx));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back));
+
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Music, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Sfx, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back, Vector2.Zero));
         }
 
         public void Execute(GameTime gameTime)

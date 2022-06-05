@@ -35,9 +35,13 @@ namespace JumpNGun
             {
                 _parent = parent.GameObject.GetComponent<ReaperMinion>() as ReaperMinion;
             }
+            else if (parent.GameObject.HasComponent<Skeleton>())
+            {
+                _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
 
-            // Set the oldSpriteFlip
-            _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
+            }
+                // Set the oldSpriteFlip
+                _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
         }
 
         public void Execute()
@@ -121,7 +125,7 @@ namespace JumpNGun
         
         private void InstantiateProjectile(Vector2 direction)
         {
-            GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom);
+            GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom, Vector2.Zero);
             projectile.Transform.Position = _parent.GameObject.Transform.Position;
             
             (projectile.GetComponent<Projectile>() as Projectile).Velocity = direction;

@@ -23,7 +23,7 @@ namespace JumpNGun
                 return instance;
             }
         }
-
+       
         public GraphicsDeviceManager Graphics { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
 
@@ -101,7 +101,7 @@ namespace JumpNGun
             DeltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             
             MenuStateHandler.Instance.Update(gameTime);
-            
+
             // if (_nextMenuStateHandler != null)
             // {
             //     currentMenuStateHandler = _nextMenuStateHandler;
@@ -109,7 +109,7 @@ namespace JumpNGun
             //     _nextMenuStateHandler = null;
             // }
             // else currentMenuStateHandler.Update(gameTime);
-            
+            LevelManager.Instance.ChangeLevelDebug();
             base.Update(gameTime);
         }
 
@@ -137,7 +137,7 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Destroy and remove active GameObject from game by adding them to list of destroyedGameObjects
+        /// Remove active GameObject from game by adding them to list of destroyedGameObjects
         /// </summary>
         /// <param name="go">GameObject to be destoyed</param>
         public void Destroy(GameObject go)
@@ -152,18 +152,16 @@ namespace JumpNGun
         {
             for (int i = 0; i < newGameObjects.Count; i++)
             {
+                AddCollider(newGameObjects[i]);
                 gameObjects.Add(newGameObjects[i]);
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
-                AddCollider(newGameObjects[i]);
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
-                gameObjects.Remove(destroyedGameObjects[i]);
-
                 RemoveCollider(destroyedGameObjects[i]);
-
+                gameObjects.Remove(destroyedGameObjects[i]);
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();
@@ -212,12 +210,7 @@ namespace JumpNGun
                     return c;
                 }
             }
-
             return null;
-
-
         }
-
-
     }
 }

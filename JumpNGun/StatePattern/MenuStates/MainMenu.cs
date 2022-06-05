@@ -17,13 +17,15 @@ namespace JumpNGun
                 go.Awake();
             }
 
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores, Vector2.Zero));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit, Vector2.Zero));
 
             SoundManager.Instance.StopClip("soundtrack_1");
             SoundManager.Instance.PlayClip("soundtrack_2");
+            
+            ScoreHandler.Instance.SortScore();
             
         }
 
@@ -65,6 +67,7 @@ namespace JumpNGun
 
         public void Exit()
         {
+            LevelManager.Instance.ResetLevel();
            _pareMenuStateHandler.ComponentCleanUp();
         }
     }

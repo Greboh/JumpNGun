@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {}
   },
   "projects": {
@@ -20,6 +21,26 @@
         ],
         "configFilePaths": [
           "C:\\Users\\Kean\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+        "projectName": "JumpNGun",
+        "projectPath": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+        "packagesPath": "C:\\Users\\kjfic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kjfic\\OneDrive\\Skrivebord\\SKOLEPROJEKTER\\please please\\JumpNGun\\JumpNGun\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\kjfic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> KristianV3
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"

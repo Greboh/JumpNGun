@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using JumpNGun.StatePattern.GameStates;
+using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
@@ -18,6 +19,7 @@ namespace JumpNGun
         
 
         private static MenuStateHandler _instance;
+        private bool canPress = true;
 
         public static MenuStateHandler Instance
         {
@@ -67,6 +69,8 @@ namespace JumpNGun
         public void Update(GameTime gameTime)
         {
             CurrentMenuState.Execute(gameTime);
+
+
         }
 
         public void LoadContent()
@@ -82,19 +86,10 @@ namespace JumpNGun
 
         public void ComponentCleanUp()
         {
+            //TODO - Ask if this is okay
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
-                if (go.HasComponent<Player>() || go.HasComponent<Platform>() || go.HasComponent<Portal>() || go.HasComponent<ExperienceOrb>() || go.HasComponent<Button>() ||
-                    go.HasComponent<Mushroom>())
-                {
-                    GameWorld.Instance.Destroy(go);
-                    LevelManager.Instance.ResetLevel();
-                }
-
-                if (go.HasComponent<Button>())
-                {
-                    GameWorld.Instance.Destroy(go);
-                }
+                GameWorld.Instance.Destroy(go);
             }
         }
 
@@ -108,6 +103,12 @@ namespace JumpNGun
             CurrentMenuState = newMenuState;
             CurrentMenuState.LoadContent();
             CurrentMenuState.Enter(this);
+        }
+
+
+        private void DataBasteTesting()
+        {
+            Database.Instance.PrintScore();
         }
     }
 }

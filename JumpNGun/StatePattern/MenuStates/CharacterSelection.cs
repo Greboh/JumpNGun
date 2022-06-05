@@ -19,8 +19,8 @@ namespace JumpNGun.StatePattern.GameStates
                 go.Awake();
             }
 
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character1));
-            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character2));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character1,Vector2.Zero ));
+            GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character2,Vector2.Zero ));
 
             Console.WriteLine("Character selection state");
         }

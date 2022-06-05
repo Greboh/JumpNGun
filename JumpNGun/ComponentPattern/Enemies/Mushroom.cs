@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace JumpNGun
 {
@@ -14,7 +10,7 @@ namespace JumpNGun
 
         private float _gravityPull; // How strong the force of gravity is
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private bool _isGrounded = false;
+        private bool _isGrounded;
 
         private List<Rectangle> _locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
@@ -143,7 +139,7 @@ namespace JumpNGun
         /// <summary>
         /// Checks for relevant collision with this object
         /// </summary>
-        public override void CheckCollision()
+        protected override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
@@ -152,10 +148,7 @@ namespace JumpNGun
                     _isGrounded = true;
                     _groundCollision = col.CollisionBox;
                 }
-                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
-                {
-                    _isGrounded = false;
-                }
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
             }
         }
     }

@@ -58,8 +58,8 @@ namespace JumpNGun
             
             ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
-        
-        public override void CheckCollision()
+
+        protected override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {

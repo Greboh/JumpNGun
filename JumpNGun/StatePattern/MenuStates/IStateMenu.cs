@@ -15,7 +15,7 @@ namespace JumpNGun
         /// Logic to execute when in specific state
         /// </summary>
         /// <param name="gameTime"></param>
-        void Execute(GameTime gameTime);
+        public void Execute(GameTime gameTime);
 
         /// <summary>
         /// Logic to Draw when in specific state

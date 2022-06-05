@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
@@ -8,7 +7,7 @@ namespace JumpNGun
     {
         private Enemy _parent;
 
-        private Vector2 oldVelocity = Vector2.Zero;
+        private Vector2 _oldVelocity = Vector2.Zero;
         
         public void Enter(Enemy parent)
         {
@@ -30,6 +29,10 @@ namespace JumpNGun
             {
                 _parent = parent.GameObject.GetComponent<ReaperMinion>() as ReaperMinion;
             }
+            else if (parent.GameObject.HasComponent<Skeleton>())
+            {
+                _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
+            }
         }
 
         public void Execute()
@@ -45,7 +48,7 @@ namespace JumpNGun
 
         public void Exit()
         {
-            oldVelocity = _parent.Velocity;
+            _oldVelocity = _parent.Velocity;
             _parent.Velocity = Vector2.Zero;
         }
         
@@ -61,7 +64,7 @@ namespace JumpNGun
                 // If our velocity is zero, we revert back to our old velocity
                 if (_parent.Velocity == Vector2.Zero)
                 {
-                    _parent.Velocity = oldVelocity;
+                    _parent.Velocity = _oldVelocity;
                 }
 
                 //if position is close to right, move left
@@ -87,6 +90,5 @@ namespace JumpNGun
                     SpriteEffects.FlipHorizontally : SpriteEffects.None;
             } 
         }
-        
     }
 }

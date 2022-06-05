@@ -37,6 +37,7 @@ namespace JumpNGun
         public override void Awake()
         {
             base.Awake();
+
         }
 
         public override void Start()
@@ -124,6 +125,7 @@ namespace JumpNGun
             
             ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
+
         
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
@@ -146,23 +148,16 @@ namespace JumpNGun
         /// <summary>
         /// Check collision with ground to deploy gravity
         /// </summary>
-        public override void CheckCollision()
+        protected override void CheckCollision()
         {
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.HasComponent<Platform>())
+                if (col.GameObject.Tag == "platform" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
-                    if (col.CollisionBox.Intersects(Collider.CollisionBox))
-                    {
-                        _isGrounded = true;
-                        _groundCollision = col.CollisionBox;
-                    }
+                    _isGrounded = true;
+                    _groundCollision = col.CollisionBox;
                 }
-
-                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision))
-                {
-                    _isGrounded = false;
-                }
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
             }
         }
     }
