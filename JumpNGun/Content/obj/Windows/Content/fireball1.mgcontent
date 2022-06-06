@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/fireball1.png</SourceFile>
-  <SourceTime>2022-05-28T23:28:18.9865263+02:00</SourceTime>
-  <DestFile>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bin/Windows/Content/fireball1.xnb</DestFile>
-  <DestTime>2022-06-05T23:33:16.5776201+02:00</DestTime>
+  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/fireball1.png</SourceFile>
+  <SourceTime>2022-06-06T00:01:43.2789656+02:00</SourceTime>
+  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/fireball1.xnb</DestFile>
+  <DestTime>2022-06-06T12:52:26.4072156+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
