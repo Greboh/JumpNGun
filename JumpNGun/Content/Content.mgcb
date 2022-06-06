@@ -529,6 +529,13 @@
 /processorParam:TextureFormat=Color
 /build:highscore_panel.png
 
+#begin highscoreFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:highscoreFont.spritefont
+
 #begin mush_attack1.png
 /importer:TextureImporter
 /processor:TextureProcessor

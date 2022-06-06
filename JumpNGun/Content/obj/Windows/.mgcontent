@@ -47,6 +47,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/graveyard_ground.PNG</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/ground_platform.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/highscore_panel.png</File>
+    <File>A:/Github/JumpNGun/JumpNGun/Content/highscoreFont.spritefont</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/mush_attack1.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/mush_attack2.png</File>
     <File>A:/Github/JumpNGun/JumpNGun/Content/mush_attack3.png</File>
@@ -170,6 +171,7 @@
     <File>A:/Github/JumpNGun/JumpNGun/Content/worm_walk9.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

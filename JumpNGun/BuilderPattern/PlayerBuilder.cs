@@ -90,7 +90,7 @@ namespace JumpNGun
             switch (character)
             {
                 case CharacterType.Soldier:
-                    _gameObject.AddComponent(new Player(character, 100, -100, 50, 0.5f, 1f, 2, 5000, 350, 15));
+                    _gameObject.AddComponent(new Player(character, 100, -100, 50, 0.5f, 1f, 2, 100, 350, 15));
                     break;
                 case CharacterType.Ranger:
                     _gameObject.AddComponent(new Player(character,150, -120, 75, 0.25f, 1.5f, 2, 80, 250, 20));

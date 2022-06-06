@@ -25,32 +25,32 @@ namespace JumpNGun.StatePattern.GameStates
 
         private Vector2[] _namePositions = new Vector2[10]
         {
-            new Vector2(415,335),
-            new Vector2(415,355),
+            new Vector2(415,285),
+            new Vector2(415,315),
+            new Vector2(415,345),
             new Vector2(415,375),
-            new Vector2(415,395),
-            new Vector2(415,415),
+            new Vector2(415,405),
             new Vector2(415,435),
-            new Vector2(415,455),
-            new Vector2(415,475),
+            new Vector2(415,465),
             new Vector2(415,495),
-            new Vector2(415,515),
+            new Vector2(415,525),
+            new Vector2(415,555),
 
 
         };
 
         private Vector2[] _scorePositions = new Vector2[10]
         {
-            new Vector2(889,335),
-            new Vector2(889,355),
+            new Vector2(889,285),
+            new Vector2(889,315),
+            new Vector2(889,345),
             new Vector2(889,375),
-            new Vector2(889,395),
-            new Vector2(889,415),
+            new Vector2(889,405),
             new Vector2(889,435),
-            new Vector2(889,455),
-            new Vector2(889,475),
+            new Vector2(889,465),
             new Vector2(889,495),
-            new Vector2(889,515),
+            new Vector2(889,525),
+            new Vector2(889,555),
 
 
         };
@@ -91,21 +91,24 @@ namespace JumpNGun.StatePattern.GameStates
         {
             spriteBatch.Begin();
 
+            int count = 1;
+
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
+
             spriteBatch.Draw(_highscorePanel, new Rectangle(370,180,_highscorePanel.Width,_highscorePanel.Height), Color.White);
 
             for (int i = 0; i < 10; i++)
             {
-                spriteBatch.DrawString(_scoreFont, _name[i].ToString(), new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White);
-
+                spriteBatch.DrawString(_scoreFont, (count + i).ToString() + ". " + _name[i].ToString(), new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White) ; ; ;
             }
 
             for (int i = 0; i < 10; i++)
             {
+
                 spriteBatch.DrawString(_scoreFont, _score[i].ToString(), new Vector2(_scorePositions[i].X, _scorePositions[i].Y), Color.White);
 
             }
@@ -133,7 +136,7 @@ namespace JumpNGun.StatePattern.GameStates
             }
 
             _highscorePanel = GameWorld.Instance.Content.Load<Texture2D>("highscore_panel");
-            _scoreFont = GameWorld.Instance.Content.Load<SpriteFont>("font");
+            _scoreFont = GameWorld.Instance.Content.Load<SpriteFont>("highscoreFont");
         }
 
         public void Exit()

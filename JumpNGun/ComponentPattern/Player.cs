@@ -412,12 +412,12 @@ namespace JumpNGun
             else if (_pCollider.CollisionBox.Intersects(collisionCollider.LeftLine))
             {
                 // Push the player a little bit
-                GameObject.Transform.Translate(new Vector2(-1, 0) * 10); // Create a small push back
+                //GameObject.Transform.Translate(new Vector2(-1, 0) * 10); // Create a small push back
                 return false;
             }
             else if (_pCollider.CollisionBox.Intersects(collisionCollider.RightLine))
             {
-                GameObject.Transform.Translate(new Vector2(1, 0) * 10);
+                //GameObject.Transform.Translate(new Vector2(1, 0) * 10);
                 return false;
             }
 

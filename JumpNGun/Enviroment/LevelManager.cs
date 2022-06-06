@@ -104,7 +104,7 @@ namespace JumpNGun
         {
             switch (_level)
             {
-                case 11:
+                case 1:
                     {
                         _currentPlatformType = PlatformType.Grass;
                         _currentGroundPlatform = PlatformType.GrassGround;
@@ -118,7 +118,7 @@ namespace JumpNGun
                         _currentEnemyType = EnemyType.Worm;
                     }
                     break;
-                case 1:
+                case 13:
                     {
                         _currentEnemyType = EnemyType.Skeleton;
                         _currentPlatformType = PlatformType.Graveyard;
