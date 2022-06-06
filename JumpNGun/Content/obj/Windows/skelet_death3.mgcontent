@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/skelet_death3.png</SourceFile>
-  <SourceTime>2022-06-06T00:01:44.6259555+02:00</SourceTime>
+  <SourceTime>2022-06-06T13:29:28.3665437+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/skelet_death3.xnb</DestFile>
-  <DestTime>2022-06-06T12:19:15.8809166+02:00</DestTime>
+  <DestTime>2022-06-06T23:25:10.527815+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

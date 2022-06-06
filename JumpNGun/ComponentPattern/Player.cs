@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
@@ -47,6 +48,8 @@ namespace JumpNGun
         private bool _canDash = true;
         private float _dashTimer;
         private float _dashCooldown;
+
+        private float _footstepCooldown; // delay between footstep sound
 
 
         #endregion
@@ -136,8 +139,11 @@ namespace JumpNGun
             CheckGrounded();
             HandleGravity();
             ScreenBounds();
+            WalkingSoundEffects();
 
         }
+
+        
 
         private void CalculateHpBar()
         {
@@ -183,7 +189,7 @@ namespace JumpNGun
             if (!_canJump || _isJumping) return;
 
             // Sound effect
-            SoundManager.Instance.PlayClip("jump");
+            SoundManager.Instance.PlayRandomJump();
 
             // Add to our jump count
             _jumpCount++;
@@ -308,6 +314,25 @@ namespace JumpNGun
                 EventManager.Instance.TriggerEvent("OnPlayerDeath", new Dictionary<string, object>(){});
             }
         }
+
+        /// <summary>
+        /// Plays random footstep out of 4 diffent if player is moving with A or D and is on ground
+        /// LAVET AF KEAN
+        /// </summary>
+        private void WalkingSoundEffects()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && _isGrounded || Keyboard.GetState().IsKeyDown(Keys.D) && _isGrounded)
+            {
+                _footstepCooldown += GameWorld.DeltaTime;
+                if (_footstepCooldown > 0.3f)
+                {
+                    SoundManager.Instance.PlayRandomFootstep();
+                    _footstepCooldown = 0;
+                }
+            }
+        }
+
+
 
         #endregion
 

@@ -60,7 +60,9 @@ namespace JumpNGun
                     if (otherCollision.GameObject.Tag == "player" )
                     {
                         Console.WriteLine($"this {GameObject.Tag} collided with {otherCollision.GameObject.Tag}");
-                        
+
+                        SoundManager.Instance.PlayClip("pickup");
+
                         GameWorld.Instance.Destroy(collider.GameObject);
                         
                         EventManager.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
