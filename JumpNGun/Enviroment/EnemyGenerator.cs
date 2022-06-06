@@ -17,12 +17,12 @@ namespace JumpNGun
         private Random _random = new Random();
 
         /// <summary>
-        /// Generates X amount of enemies based on inputs
+        /// Generates X amount of enemies based on parameters
         /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="amountOfEnemies">amount of enemies to be instantiated</param>
         /// <param name="type">type of enemy to be instantieated</param>
-        /// <param name="locations">location rectangle for enemey</param>
+        /// <param name="locations">valid locations for any given enemy</param>
         public void GenerateEnemies(int amountOfEnemies, EnemyType type, List<Rectangle> locations)
         {
             for (int i = 0; i < amountOfEnemies; i++)
@@ -32,10 +32,10 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Creates and returns a random Vector2 that lies within a rectangle from list
+        /// Creates and returns a a vector in the center of rect
         /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
-        /// <param name="locations"></param>
+        /// <param name="rect">rectangle within vector will be created</param>
         /// <returns></returns>
         private Vector2 GeneratePosition(Rectangle rect)
         {

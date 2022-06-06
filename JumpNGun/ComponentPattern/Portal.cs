@@ -5,12 +5,22 @@ using System.Text;
 
 namespace JumpNGun
 {
+    //HELE KLASSEN ER LAVET AF KRISTIAN J. FICH 
+
     public class Portal : Component
     {
-        private Vector2 _position; // position of portal
-        private bool _open = false; //Determines animation to play
-        private bool isStartPortal; //Determines if its spawn portal or next lvl portal
-        private Animator _animator; // plays animations
+
+        // position of portal
+        private Vector2 _position;
+
+        //Determines animation to play
+        private bool _open = false;
+
+        //Determines if its spawn portal or next lvl portal
+        private bool isStartPortal;
+
+        //animator component to play animations
+        private Animator _animator;
 
         public Portal(Vector2 position)
         {
@@ -31,8 +41,13 @@ namespace JumpNGun
 
         public override void Start()
         {
+            //get animator component from gameobject
             _animator = GameObject.GetComponent<Animator>() as Animator;
+
+            //play open animation
             _animator.PlayAnimation("open");
+
+            //set open to true
             _open = true;
         }
 
@@ -69,6 +84,7 @@ namespace JumpNGun
         /// </summary>
         private void ClosePortal()
         {
+            //if portal isn't a start portal trigger next level event
             if (!isStartPortal)
             {
                 EventManager.Instance.TriggerEvent("NextLevel", new Dictionary<string, object>
@@ -76,6 +92,7 @@ namespace JumpNGun
                         {"NewLevel", null}
                     });
             }
+            //destroy portal if its a start portal
             else
             {
                 GameWorld.Instance.Destroy(this.GameObject);
@@ -106,18 +123,17 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Stops and starts player rendering
+        /// Stops and starts player rendering accodring to isStartPortal bool
         /// </summary>
         private void StopPlayerRendering()
         {
-            //TODO move handleplayerrendering to Player collision method - KRISTIAN
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                if (go.HasComponent<Player>() && !isStartPortal)
+                if (go.Tag == "player" && !isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = true;
                 }
-                else if (go.HasComponent<Player>() && isStartPortal)
+                else if (go.Tag == "player" && isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = false;
                 }

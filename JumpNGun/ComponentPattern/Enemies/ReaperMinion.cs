@@ -7,10 +7,6 @@ namespace JumpNGun
 {
     class ReaperMinion : Enemy
     {
-        private bool _spawningDone;
-        private float liveTime = 10;
-        private float timer;
-
         public ReaperMinion(Vector2 position)
         {
             spawnPosition = position;
@@ -46,6 +42,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Calculate if we are in attack range and should change state
+        /// //LAVET AF NICHLAS HOBERG 
         /// </summary>
         private void CalculateAttack()
         {

@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
+    //HELE KLASSEN ER LAVET AF KRISTIAN J. FICH
+
     public class Platform : Component
     {
         private Vector2 _position; //position of platform
