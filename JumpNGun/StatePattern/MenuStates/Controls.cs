@@ -6,6 +6,11 @@ using System.Text;
 
 namespace JumpNGun
 {
+             /*
+            [Description]
+            Class is not fully utilized as we havent implemented UI for changing control scheme
+            */
+
     public class Controls : IStateMenu
     {
         private MenuStateHandler _pareMenuStateHandler;

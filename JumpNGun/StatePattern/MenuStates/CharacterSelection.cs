@@ -8,8 +8,12 @@ namespace JumpNGun.StatePattern.GameStates
 {
     public class CharacterSelection : IStateMenu
     {
+        #region fields
         private MenuStateHandler _pareMenuStateHandler;
 
+        #endregion
+
+        #region methods
         public void Enter(MenuStateHandler parent)
         {
             _pareMenuStateHandler = parent;
@@ -19,10 +23,10 @@ namespace JumpNGun.StatePattern.GameStates
                 go.Awake();
             }
 
+            //instansiates buttons for character selection
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character1,Vector2.Zero ));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Character2,Vector2.Zero ));
 
-            Console.WriteLine("Character selection state");
         }
 
         public void Execute(GameTime gameTime)
@@ -47,6 +51,7 @@ namespace JumpNGun.StatePattern.GameStates
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
 
+            // game title texture
             spriteBatch.Draw(_pareMenuStateHandler.GameTitle,
                 new Rectangle(400, 150, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null,
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
@@ -67,6 +72,6 @@ namespace JumpNGun.StatePattern.GameStates
         {
             _pareMenuStateHandler.ComponentCleanUp();
         }
-        
+        #endregion
     }
 }

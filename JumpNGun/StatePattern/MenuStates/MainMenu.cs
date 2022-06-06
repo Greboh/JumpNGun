@@ -5,8 +5,18 @@ namespace JumpNGun
 {
     public class MainMenu : IStateMenu
     {
+        #region fields
         private MenuStateHandler _pareMenuStateHandler;
 
+        #endregion
+
+        #region methods
+
+        /// <summary>
+        /// initializes code that runs when MainMenu state is instansiated
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
         {
             _pareMenuStateHandler = parent;
@@ -17,11 +27,13 @@ namespace JumpNGun
                 go.Awake();
             }
 
+            //instansiates relevant buttons
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Start, Vector2.Zero));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Settings, Vector2.Zero));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Highscores, Vector2.Zero));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Quit, Vector2.Zero));
 
+            //stops main game music and starts menu music
             SoundManager.Instance.StopClip("soundtrack_1");
             SoundManager.Instance.PlayClip("soundtrack_2");
             
@@ -46,6 +58,7 @@ namespace JumpNGun
 
             #region SpriteBatch Draws
 
+            // game title texture
             spriteBatch.Draw(_pareMenuStateHandler.GameTitle, new Rectangle(400, 150, _pareMenuStateHandler.GameTitle.Width, _pareMenuStateHandler.GameTitle.Height), null,
                 Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
@@ -70,5 +83,6 @@ namespace JumpNGun
             LevelManager.Instance.ResetLevel();
            _pareMenuStateHandler.ComponentCleanUp();
         }
+        #endregion
     }
 }

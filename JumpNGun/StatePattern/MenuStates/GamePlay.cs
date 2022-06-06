@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace JumpNGun
 {
+    // check pause enums
     public enum PauseState
     {
         Unpaused,
@@ -13,25 +14,36 @@ namespace JumpNGun
 
     public class GamePlay : IStateMenu
     {
+        #region fields
+
         private MenuStateHandler _pareMenuStateHandler;
 
-        private Texture2D _pausedOverlay;
+        private Texture2D _pausedOverlay; // pause overlay texture
         private Texture2D _avatar1; // temporary
-        private Texture2D _enabled;
-        private Texture2D _disabled;
-        private Texture2D _musicStatus;
-        private Texture2D _sfxStatus;
+        private Texture2D _enabled; // checkmark texture for audio
+        private Texture2D _disabled; // crossed out texture for audio
+        private Texture2D _musicStatus; // holds music status texture from either _enabled or _disabled
+        private Texture2D _sfxStatus; // holds sfx status texture from either _enabled or _disabled
 
-        private SpriteFont _scoreFont;
+        private SpriteFont _scoreFont; // font used for displaying scores in pause menu
 
-        private bool _isPaused;
+        private bool _isPaused; // pause bool check
 
-        private bool _pauseKeyPressed;
+        private bool _pauseKeyPressed; // bool for toggling pause menu
 
-        private PauseState _currentPauseState = PauseState.Unpaused;
+        private PauseState _currentPauseState = PauseState.Unpaused; // sets default PauseState to enum Unpaused
 
         private LevelSystem _levelSystem;
 
+        #endregion
+
+        #region methods
+
+        /// <summary>
+        /// initializes code that runs when GamePlay state is instansiated
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
         {
             _pareMenuStateHandler = parent;
@@ -53,17 +65,22 @@ namespace JumpNGun
             }
 
         }
-        /// <summary>        
-        /// 
-        /// /// Event that gets trigger when the player dies         
-        /// /// </summary>         
-        /// /// <param name="ctx">The context that gets sent from the trigger in Player.cs</param>
-        
+
+        /// <summary>
+        /// Event that gets trigger when the player dies   
+        ////LAVET AF NICHLAS
+        /// </summary>
+        /// <param name="ctx">The context that gets sent from the trigger in Player.cs</param>
         private void OnGameover(Dictionary<string, object> ctx)
         {
             MenuStateHandler.Instance.ChangeState(_pareMenuStateHandler.MainMenu);
         }
 
+        /// <summary>
+        /// Updates logic when state is GamePlay, also handles pause menu input
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
         {
             _levelSystem ??= GameWorld.Instance.FindObjectOfType<LevelSystem>() as LevelSystem;
@@ -92,6 +109,7 @@ namespace JumpNGun
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
             
+            //draws pause menu overlay
             HandlePauseLogic(spriteBatch);
             
             spriteBatch.End();
@@ -118,6 +136,10 @@ namespace JumpNGun
             _scoreFont = GameWorld.Instance.Content.Load<SpriteFont>("font");
         }
 
+        /// <summary>
+        /// Code that runs when state is changed
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
         public void Exit()
         {
             _pareMenuStateHandler.ComponentCleanUp();
@@ -125,6 +147,10 @@ namespace JumpNGun
             Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
         }
 
+        /// <summary>
+        /// Handles keyboard inputs for opening and closing pause menu
+        /////LAVET AF KEAN
+        /// </summary>
         private void PauseMenuHandling()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) && _currentPauseState == PauseState.Unpaused && _pauseKeyPressed == false)
@@ -149,6 +175,11 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Handles what assets and button types to draw when PauseState is set to .Paused
+        /////LAVET AF KEAN
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         private void HandlePauseLogic(SpriteBatch spriteBatch)
         {
             //Handles draws when pause menu is open / closed
@@ -216,12 +247,16 @@ namespace JumpNGun
 
         /// <summary>
         /// Sets music/sfx status icons
+        /////LAVET AF KEAN
         /// </summary>
         private void SetAudioStatusIcons()
         {
+            //sets _musicStatus texture to _disabled if false otherwise sets it to _enabled
             _musicStatus = SoundManager.Instance._musicDisabled ? _disabled : _enabled;
 
+            //sets _sfxStatus texture to _disabled if false otherwise sets it to _enabled
             _sfxStatus = SoundManager.Instance._sfxDisabled ? _disabled : _enabled;
         }
+        #endregion
     }
 }

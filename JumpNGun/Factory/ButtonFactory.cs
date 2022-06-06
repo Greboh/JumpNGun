@@ -11,7 +11,6 @@ namespace JumpNGun
 
 
     // enums of buttons used in Button.cs
-    // 
     public enum ButtonType {
                             Start,
                             Settings,
@@ -33,8 +32,11 @@ namespace JumpNGun
                            }
     class ButtonFactory : Factory
     {
+        #region fields
         private ButtonType _type; // determines which button to create.
-        
+        #endregion
+
+        #region instance
         private static ButtonFactory _instance;
 
         public static ButtonFactory Instance
@@ -49,13 +51,24 @@ namespace JumpNGun
             }
         }
 
-        // Uses factory pattern to create a gameObject with the corresponding button enum and sprite
+        #endregion
+
+        #region methods
+
+       
+        /// <summary>
+        ///  Uses factory pattern to create a gameObject with the corresponding button enum and sprite
+        /////LAVET AF KEAN
+        /// </summary>
+        /// <param name="type">used for determining button type</param>
+        /// <param name="position">is optional because this isn't used on this particular class</param>
+        /// <returns></returns>
         public override GameObject Create(Enum type, [Optional] Vector2 position)
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
 
-            _type = (ButtonType)type;
+            _type = (ButtonType)type; // sets _type from recived type parameter
             
             // adding sprites to buttons
             switch (_type)
@@ -200,5 +213,6 @@ namespace JumpNGun
             }
             return gameObject;
         }
+        #endregion
     }
 }

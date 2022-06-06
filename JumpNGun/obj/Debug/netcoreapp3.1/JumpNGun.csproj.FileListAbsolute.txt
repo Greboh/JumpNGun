@@ -286,5 +286,4 @@ A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CopyComplete
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
-A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csprojAssemblyReference.cache
 A:\Github\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\highscoreFont.xnb

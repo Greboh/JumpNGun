@@ -8,6 +8,7 @@ namespace JumpNGun
 {
     public class Audio : IStateMenu
     {
+        #region fields
         private Texture2D _enabled;
         private Texture2D _disabled;
         private Texture2D _musicStatus;
@@ -15,6 +16,15 @@ namespace JumpNGun
         
         private MenuStateHandler _pareMenuStateHandler;
 
+        #endregion
+
+        #region methods
+
+        /// <summary>
+        /// initializes code that runs when Audio state is instansiated
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
         {
             _pareMenuStateHandler = parent;
@@ -24,11 +34,17 @@ namespace JumpNGun
                 go.Awake();
             }
 
+            //instansiates button when initializng state
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Music, Vector2.Zero));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Sfx, Vector2.Zero));
             GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.Back, Vector2.Zero));
         }
 
+        /// <summary>
+        /// Updates gameobjects when state is audio
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
         {
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
@@ -37,7 +53,7 @@ namespace JumpNGun
             }
 
 
-            SetAudioStatusIcons();
+            SetAudioStatusIcons(); // logic for toggling sfx/music on/off textures
 
             GameWorld.Instance.CleanUpGameObjects();        
         }
@@ -81,6 +97,10 @@ namespace JumpNGun
             _sfxStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
         }
 
+        /// <summary>
+        /// Code that runs when state is changed
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
         public void Exit()
         {
             _pareMenuStateHandler.ComponentCleanUp();
@@ -89,12 +109,16 @@ namespace JumpNGun
 
         /// <summary>
         /// Sets music/sfx status icons
+        /////LAVET AF KEAN
         /// </summary>
         private void SetAudioStatusIcons()
         {
+            //sets texture to _disabled if false otherwise sets it to _enabled
             _musicStatus = SoundManager.Instance._musicDisabled ? _disabled : _enabled;
 
+            //sets texture to _disabled if false otherwise sets it to _enabled
             _sfxStatus = SoundManager.Instance._sfxDisabled ? _disabled : _enabled;
         }
+        #endregion
     }
 }
