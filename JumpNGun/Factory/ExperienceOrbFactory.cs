@@ -23,11 +23,7 @@ namespace JumpNGun
             new Vector2(500, 700),
         };
         private int _positionIncrement;
-
-        public override GameObject Create(Enum type)
-        {
-            return null;
-        }
+        
         
         /// <summary>
         /// Build all animations relevant to movement 
@@ -55,7 +51,7 @@ namespace JumpNGun
             SpriteRenderer sr = (SpriteRenderer)orb.AddComponent(new SpriteRenderer());
             orb.AddComponent(new Collider());
             Animator animator = (Animator) orb.AddComponent(new Animator());
-            orb.Tag = "Experience_Orb";
+            orb.Tag = "xpOrb";
 
             switch (type)
             {

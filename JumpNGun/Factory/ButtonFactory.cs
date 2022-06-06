@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace JumpNGun
@@ -24,17 +25,16 @@ namespace JumpNGun
                             QuitToMain,
                             Resume,
                             SfxPause,
-                            MusicPause
+                            MusicPause,
+                            Submit,
+                            InputField,
+                            Character1,
+                            Character2,
                            }
     class ButtonFactory : Factory
     {
-       
-
         private ButtonType _type; // determines which button to create.
         
-
-
-
         private static ButtonFactory _instance;
 
         public static ButtonFactory Instance
@@ -50,7 +50,7 @@ namespace JumpNGun
         }
 
         // Uses factory pattern to create a gameObject with the corresponding button enum and sprite
-        public override GameObject Create(Enum type)
+        public override GameObject Create(Enum type, [Optional] Vector2 position)
         {
             GameObject gameObject = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
@@ -164,16 +164,41 @@ namespace JumpNGun
 
                     }
                     break;
+                case ButtonType.Submit:
+                    {
+                        sr.SetSprite("submit_button");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.InputField:
+                    {
+                        sr.SetSprite("input_field");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Character1:
+                    {
+                        sr.SetSprite("avatar_1");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
+                case ButtonType.Character2:
+                    {
+                        sr.SetSprite("avatar_2");
+
+                        gameObject.AddComponent(new Button(_type));
+
+                    }
+                    break;
 
             }
             return gameObject;
         }
-
-        public override GameObject Create(Enum type, Vector2 position)
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

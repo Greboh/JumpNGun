@@ -1,86 +1,97 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace JumpNGun
 {
-    class Reaper : Enemy
+    public class Reaper : Enemy
     {
-        private int _spawnTimer = 20;
-        private Reaper _reaper;
-        private Thread _spawnerThread;
+        public bool CanSummon { get; set; }
+        public bool CanTeleport { get; set; }
+        public bool ShouldUseAbility { get; set; }
+        public float DefaultSpeed { get; private set; }
+        
 
-        public Reaper(Vector2 position)
+        private float _abilityCooldown = 5;
+        private float _abilityTimer;
+
+        public Reaper()
         {
-            this.position = position;
-            health = 100;
-            damage = 20;
-            speed = 40;
+            spawnPosition = new Vector2(662, 400);
+            health = 200;
+            Damage = 20;
+            Speed = 0.5f;
+            AttackCooldown = 1;
+            DefaultSpeed = Speed;
+            IsRanged = false;
+            IsBoss = true;
         }
+        
+        public override void Start()
+        {
+            base.Start();
 
+            detectionRange = SpriteRenderer.Sprite.Width;
+        }
+        
         public override void Update(GameTime gameTime)
         {
-            ChasePlayer();
-            UpdatePositionReference();
-            HandleAnimations();
+            base.Update(gameTime);
+            
             CheckCollision();
+            CalculateAttack();
+            AbilityLogic();
         }
-
+        
         /// <summary>
-        /// Handles damage to player logic 
+        /// Calculate if we are in attack range and should change state
         /// </summary>
-        public override void Attack()
+        private void CalculateAttack()
         {
-            throw new NotImplementedException();
+            if(ShouldUseAbility) return;
+            
+            Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
+
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
+            
+            float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
 
-        /// <summary>
-        /// Sets velocity to target player position
-        /// </summary>
-        public override void ChasePlayer()
+        private void AbilityLogic()
         {
-            Vector2 sourceToTarget = Vector2.Subtract(player.Position, GameObject.Transform.Position);
-            sourceToTarget.Normalize();
-            sourceToTarget = Vector2.Multiply(sourceToTarget, player.Speed);
+            if (ShouldUseAbility) return;
 
-            velocity = sourceToTarget;
-        }
-
-        public override void CheckCollision()
-        {
-            foreach (Collider col in GameWorld.Instance.Colliders)
+            if (_abilityTimer > _abilityCooldown)
             {
-                if (col.GameObject.Tag == "Player" && collider.CollisionBox.Intersects(col.CollisionBox))
+                _abilityTimer = 0;
+                PickAbility();
+            }
+            else _abilityTimer += GameWorld.DeltaTime;
+
+        }
+
+        private void PickAbility()
+        {
+            ShouldUseAbility = true;
+            int rndNumber = rnd.Next(1, 3);
+
+            switch (rndNumber)
+            {
+                case 1:
                 {
-                    isColliding = true;
-                }
-                if (col.GameObject.Tag == "Player" && !collider.CollisionBox.Intersects(col.CollisionBox))
+                    CanTeleport = true;
+                } break;
+                
+                case 2:
                 {
-                    isColliding = false;
-                }
+                    CanSummon = true;
+                } break;
             }
+            
+            ChangeState(abilityEnemyState);
+            
         }
-
-
-        public override void HandleAnimations()
-        {
-            if (!isColliding)
-            {
-                animator.PlayAnimation("reaper_idle");
-            }
-            if (isColliding)
-            {
-                animator.PlayAnimation("reaper_attack");
-            }
-        }
-
-        private void SpawnGhosts()
-        {
-
-        }
-
     }
 }

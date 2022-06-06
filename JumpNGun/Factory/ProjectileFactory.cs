@@ -1,5 +1,6 @@
 ﻿using System;
-using SharpDX;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
@@ -14,33 +15,67 @@ namespace JumpNGun
                 return _instance ??= new ProjectileFactory();
             }
         }
-        
-        public override GameObject Create(Enum type)
+        private Animator _animator;
+
+        public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject projectile = new GameObject();
             SpriteRenderer sr = (SpriteRenderer)projectile.AddComponent(new SpriteRenderer());
             projectile.AddComponent(new Collider());
-            projectile.Tag = "P_Projectile";
-            
+            _animator = new Animator();
+
             switch (type)
             {
                 case CharacterType.Soldier:
-                    sr.SetSprite("Bullet");
+                    {
+                        sr.SetSprite("Bullet");
+                        projectile.Tag = "p_Projectile";
+                    }
                     break;
                 case CharacterType.Ranger:
-                {
-                    sr.SetSprite("Arrow");
-                } break;
-                
+                    {
+                        sr.SetSprite("Arrow");
+                        projectile.Tag = "p_Projectile";
+                    }
+                    break;
+                case EnemyType.Mushroom:
+                    {
+                        sr.SetSprite("mush_projectile");
+                        projectile.Tag = "e_Projectile";
+                    }
+                    break;
+                case EnemyType.Worm:
+                    {
+                        projectile.AddComponent(_animator);
+                        sr.SetSprite("fireball1");
+                        CreateFireBallAnimations();
+                        _animator.PlayAnimation("fireball");
+                        projectile.Tag = "e_Projectile";
+                    }break;
             }
 
             projectile.AddComponent(new Projectile());
             return projectile;
         }
 
-        public override GameObject Create(Enum type, Microsoft.Xna.Framework.Vector2 position)
+        private void CreateFireBallAnimations()
         {
-            throw new NotImplementedException();
+            _animator.AddAnimation(BuildAnimations("fireball", new string[] { "fireball1", "fireball2", "fireball3", "fireball4", "fireball5", "fireball6", }));
+        }
+
+
+        public Animation BuildAnimations(string animationName, string[] spriteNames)
+        {
+            Texture2D[] sprites = new Texture2D[spriteNames.Length];
+
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                sprites[i] = GameWorld.Instance.Content.Load<Texture2D>(spriteNames[i]);
+            }
+
+            Animation anim = new Animation(animationName, sprites, 5);
+
+            return anim;
         }
     }
 }

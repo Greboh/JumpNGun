@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
@@ -86,15 +87,25 @@ namespace JumpNGun
         /// <param name="character">What Character the player is</param>
         private void BuildComponents(CharacterType character)
         {
-
+            switch (character)
+            {
+                case CharacterType.Soldier:
+                    _gameObject.AddComponent(new Player(character, 100, -100, 50, 0.5f, 1f, 2, 100, 350, 15));
+                    break;
+                case CharacterType.Ranger:
+                    _gameObject.AddComponent(new Player(character,150, -120, 75, 0.25f, 1.5f, 2, 80, 250, 20));
+                    break;
+                case CharacterType.Wizard:
+                    break;
+            }
+            
             // Add all relevant components
-            _gameObject.AddComponent(new Player(character));
             _gameObject.AddComponent(new SpriteRenderer());
             _gameObject.AddComponent(new Animator());
             _gameObject.AddComponent(new Input());
             _gameObject.AddComponent(new Collider());
             _gameObject.AddComponent(new LevelSystem());
-            _gameObject.Tag = "Player";
+            _gameObject.Tag = "player";
             
             
 

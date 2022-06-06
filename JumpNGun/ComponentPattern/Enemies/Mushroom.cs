@@ -1,75 +1,55 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
     class Mushroom : Enemy
     {
-        //TODO Refactor this whole mess - KRISTIAN;
+        //TODO - Add comments for methods and fields - KRISTIAN
 
         private float _gravityPull; // How strong the force of gravity is
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private bool _isGrounded = false;
+        private bool _isGrounded;
 
-        private List<Rectangle> locations = new List<Rectangle>();
+        private List<Rectangle> _locations = new List<Rectangle>();
         private Rectangle _groundCollision = Rectangle.Empty;
-        private Rectangle _currentRectangle = Rectangle.Empty;
-        private List<Rectangle> _fieldOfView = new List<Rectangle>();
-
         private bool _locationRectangleFound;
-        private bool _collidingWithPlayer;
-        private bool _canRangeAttack;
-        // private bool _isAttacking;
-        private int rangeDammage;
+
 
         public Mushroom(Vector2 position)
         {
-            this.position = position;
-            health = 20;
-            speed = 40;
-            damage = 20;
-            rangeDammage = 15;
-            //TODO - Maybe make speed an overload for constructor - KRISTIAN
-        }
-
-        public override void Awake()
-        {
-            base.Awake();
+            int rndSpeed = rnd.Next(20, 31);
             
-            GameObject.Transform.Position = position;
+            spawnPosition = position;
+            health = 20;
+            Speed = rndSpeed;
+            Damage = 20;
+            ProjectileSpeed = 1;
+            AttackCooldown = 1;
+            detectionRange = 350;
+            IsRanged = true;
         }
 
         public override void Start()
         {
             base.Start();
+
+            GameObject.Transform.Position = spawnPosition;
             
-            GetLocations();
+            GetAllRectangleLocations();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             
-            
-            if (_isGrounded)
-            {
-                SetLocationRectangle();
-            }
-            ChasePlayer();
-            SetVelocity();
-            if (isAttacking)
-            {
-                // Move();
-            }
-            UpdatePositionReference();
-            // FlipSprite();
+            CalculateMovementArea();
+            CreateMovementArea();
+
             HandleGravity();
             CheckCollision();
-            Attack();
-
+            CalculateAttack();
         }
 
         #region Movement Methods
@@ -77,80 +57,67 @@ namespace JumpNGun
         /// <summary>
         /// Find and reference the rectangle containing mushroom object position
         /// </summary>
-        private void SetLocationRectangle()
+        private void CalculateMovementArea()
         {
-            foreach (Rectangle location in locations)
+            if (!_isGrounded) return;
+
+            foreach (Rectangle location in _locations)
             {
-                if (location.Contains(position) && !_locationRectangleFound)
+                if (location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
                 {
-                    _currentRectangle = location;
+                    PlatformRectangle = location;
                     _locationRectangleFound = true;
-                    UpdateFieldOfView(_currentRectangle);
                 }
             }
         }
 
         /// <summary>
-        /// Sets velocity according to position in rectangle and calls find location methods
+        /// Create a rectangle that consist of all rectangles containing platforms and are alligned
         /// </summary>
-        private void SetVelocity()
+        private void CreateMovementArea()
         {
-            if (position.X >= (_currentRectangle.Right - sr.Sprite.Width))
+            for (int i = 0; i < _locations.Count; i++)
             {
-                velocity = new Vector2(-50, 0);
-
-                FindLocationLeft();
-            }
-            if (position.X <= (_currentRectangle.Left + sr.Sprite.Width))
-            {
-                velocity = new Vector2(50, 0);
-                FindLocationRight();
-            }
-        }
-
-        /// <summary>
-        /// Set current location to right rectangle if it contains a platform
-        /// </summary>
-        private void FindLocationRight()
-        {
-            for (int i = 0; i < locations.Count; i++)
-            {
-                if (_currentRectangle.X + 222 == locations[i].X && _currentRectangle.Y == locations[i].Y)
+                if (PlatformRectangle.Right == _locations[i].Left && PlatformRectangle.Y == _locations[i].Y)
                 {
-                    _currentRectangle = locations[i];
-                    UpdateFieldOfView(_currentRectangle);
+                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
+                }
+                if (PlatformRectangle.Left == _locations[i].Right && PlatformRectangle.Y == _locations[i].Y)
+                {
+                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
             }
         }
+        
 
         /// <summary>
-        /// Set current location to left rectangle if it contains a platform
+        /// Get all rectangles that contain a platform
         /// </summary>
-        private void FindLocationLeft()
-        {
-            for (int i = 0; i < locations.Count; i++)
-            {
-                if (_currentRectangle.X - 222 == locations[i].X && _currentRectangle.Y == locations[i].Y)
-                {
-                    _currentRectangle = locations[i];
-
-                    UpdateFieldOfView(_currentRectangle);
-                   
-                }
-            }
-        }
-
-        private void GetLocations()
+        private void GetAllRectangleLocations()
         {
             for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
             {
-                locations.Add(LevelManager.Instance.UsedLocations[i]);
+                _locations.Add(LevelManager.Instance.UsedLocations[i]);
             }
         }
 
         #endregion
 
+        /// <summary>
+        /// Calculate if we are in attack range and should change state
+        /// </summary>
+        private void CalculateAttack()
+        {
+            Vector2 target = GameObject.Transform.Position - Player.GameObject.Transform.Position;
 
+            // Find the length of the target Vector2
+            // The equation for finding a vectors magnitude is: (x * x + y * y)
+            
+            float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
+            
+            ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
+        }
+        
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
         /// </summary>
@@ -172,98 +139,17 @@ namespace JumpNGun
         /// <summary>
         /// Checks for relevant collision with this object
         /// </summary>
-        public override void CheckCollision()
+        protected override void CheckCollision()
         {
-            //TODO - Refactor this - KRISTIAN
             foreach (Collider col in GameWorld.Instance.Colliders)
             {
-                if (col.GameObject.HasComponent<Platform>())
+                if (col.GameObject.Tag == "platform" && col.CollisionBox.Intersects(Collider.CollisionBox))
                 {
-                    if (col.CollisionBox.Intersects(collider.CollisionBox))
-                    {
-                        _isGrounded = true;
-                        _groundCollision = col.CollisionBox;
-                    }
+                    _isGrounded = true;
+                    _groundCollision = col.CollisionBox;
                 }
-                if (_isGrounded && !collider.CollisionBox.Intersects(_groundCollision))
-                {
-                    _isGrounded = false;
-                }
+                if (_isGrounded && !Collider.CollisionBox.Intersects(_groundCollision)) _isGrounded = false;
             }
         }
-
-        /// <summary>
-        /// Locate player within fieldOfview rectangles and set rangeAttack to either true or false
-        /// </summary>
-        public override void ChasePlayer()
-        {
-            Rectangle playerCol = (player.GameObject.GetComponent<Collider>() as Collider).CollisionBox;
-            int outOfView = 0;
-
-            for (int i = 0; i < _fieldOfView.Count; i++)
-            {
-                //if player intersects with any of one _fieldofview and is above center, set range attack to true;
-                if (playerCol.Intersects(_fieldOfView[i]) && playerCol.Bottom < _fieldOfView[i].Center.Y)
-                {
-                    Console.WriteLine("player in sight");
-                    _canRangeAttack = true;
-                }
-
-                //If no _fieldofView intersects with player collisionbox, set range attacck to false;
-                if (!playerCol.Intersects(_fieldOfView[i]))
-                {
-                    outOfView++;
-                }
-                if (outOfView == _fieldOfView.Count)
-                {
-                    _canRangeAttack = false;
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Initiate attack depending on relevant bool
-        /// </summary>
-        public override void Attack()
-        {
-            isAttacking = _canRangeAttack;
-        }
-
-        /// <summary>
-        /// Add view to fieldOfView list, if it doesn't contain it
-        /// </summary>
-        /// <param name="view">rectangle to be added</param>
-        private void UpdateFieldOfView(Rectangle view)
-        {
-            if (!_fieldOfView.Contains(view))
-            {
-                _fieldOfView.Add(_currentRectangle);
-            }
-        }
-
-        /// <summary>
-        /// Play relevant animation
-        /// </summary>
-        public override void HandleAnimations()
-        {
-            if (_collidingWithPlayer)
-            {
-                //play close attack animation
-                animator.PlayAnimation("");
-            }
-            if (_canRangeAttack)
-            {
-                //play range attack animation
-                animator.PlayAnimation("");
-            }
-            if (health <= 0)
-            {
-                //play death animation
-                animator.PlayAnimation("");
-            }
-
-        }
-
     }
 }

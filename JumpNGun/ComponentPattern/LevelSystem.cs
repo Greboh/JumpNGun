@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,64 +6,77 @@ namespace JumpNGun
 {
     public class LevelSystem : Component
     {
-        private float _currentXPAmount = 0;
-
-        private int _currentLevel = 0;
+        // Players current level
+        private int _currentLevel;
         
-        private float _experienceRequierment = 500;
-
-        private float _fillAmount;
+        // Players current amount of xp
+        private float _currentXpAmount;
         
+        // xp required to level up
+        private float _experienceRequirement = 500;
+
+        // How much fill the xpBar should be filled
+        private float _xpBarFillAmount;
+        
+        // The xpBar's texture
         private Texture2D _xpBarTexture2D;
-
-        public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
-
+        
         public override void Awake()
         {
+            // Subscribe to event
             EventManager.Instance.Subscribe("OnExperienceGain", OnExperienceGain);
         }
 
         public override void Start()
         {
+            // Load the texture
             _xpBarTexture2D = GameWorld.Instance.Content.Load<Texture2D>("ExperienceBar");
-            
         }
 
         public override void Update(GameTime gameTime)
         {
-            _fillAmount = (_currentXPAmount / _experienceRequierment * 100) * 10;
+            // Set the xpFillAmount
+            _xpBarFillAmount = (_currentXpAmount / _experienceRequirement * 100) * 10;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_xpBarTexture2D, new Rectangle(100, 0, (int) _fillAmount, 20), Color.White);
+            // Draw the xpBar
+            spriteBatch.Draw(_xpBarTexture2D, new Rectangle(100, 0, (int) _xpBarFillAmount, 20), Color.White);
         }
 
+        /// <summary>
+        /// Handles logic when the player levels up
+        /// </summary>
         private void LevelUp()
         {
-            CurrentLevel++;
-            _currentXPAmount -= _experienceRequierment;
-            _experienceRequierment += 500;
-            Console.WriteLine($"Player gained a level!");
-            Console.WriteLine($"Player is now level: {CurrentLevel}");
-            Console.WriteLine($"Player's experience is now {_currentXPAmount}");
+            _currentLevel++; // Raise the current level by 1
+            _currentXpAmount -= _experienceRequirement; // currentXp should be subtracted by the required xp
+            _experienceRequirement += 500; // Raise the requirement for gaining a level
         }
         
         private void GetExperience(float amount)
         {
-            Console.WriteLine($"Player's gained {amount} experience");
+            _currentXpAmount += amount; // Give experience to the player
             
-            _currentXPAmount += amount;
-
-
-            Console.WriteLine($"Player's experience is now {_currentXPAmount}");
-            
-            if (_currentXPAmount >= _experienceRequierment)
-            {
+            // If we have enough xp, level up
+            if (_currentXpAmount >= _experienceRequirement)
                 LevelUp();
-            }
+        }
+        
+        /// <summary>
+        /// Gets the players current level
+        /// </summary>
+        /// <returns>Player's current level</returns>
+        public int GetLevel()
+        {
+            return _currentLevel;
         }
 
+        /// <summary>
+        /// Gets trigger by an event whenever the player receives experience
+        /// </summary>
+        /// <param name="ctx">The context that gets send  from the trigger in InputHandler.cs</param>
         private void OnExperienceGain(Dictionary<string, object> ctx)
         {
             GetExperience((float)ctx["xpAmount"]);

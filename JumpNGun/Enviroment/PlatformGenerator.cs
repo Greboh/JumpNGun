@@ -80,7 +80,7 @@ namespace JumpNGun
             new Rectangle(888, 625, 222, 125)
 };
 
-        //Valid distance for a rectangle's center to a vertical/diagonal or horizontal alligned rectangle
+        //Valid distance from a rectangle's center to a vertical, diagonal or horizontal alligned rectangle
         private Point[] _validDistances = new Point[]
         {
             new Point(222, 125),
@@ -134,7 +134,6 @@ namespace JumpNGun
 
         #endregion
 
-
         /// <summary>
         /// Spawns x-amount of platforms on map
         /// </summary>
@@ -181,34 +180,35 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Uses rectangle to generate platform position
+        /// Finds new rectangle and generates position
         /// </summary>
         /// <param name="rectangle">current rectangle</param>
-        /// <returns>position and new rectangle</returns>
+        /// <returns>position and rectangle containing position</returns>
         private Tuple<Vector2, Rectangle> GeneratePositions(Rectangle rectangle)
         {
             //Loops through all rectangles in array
             for (int i = 0; i < _locations.Length; i++)
             {
-                //calculates distance from current rectangle 
+                //calculates distance from rectangle center to locations[i] center 
                 Point distance = _locations[i].Center - rectangle.Center;
 
                 //loops through all points in array
                 for (int j = 0; j < _validDistances.Length; j++)
                 {
-                    //checks if distance is viable and if _locations[i] is a valid location then adds to list
+                    //checks if distance is viable and if _locations[i] isn't used. Adds to validlocations if conditions are met
                     if (_validDistances[j].Equals(distance) && !_usedLocations.Contains(_locations[i]))
                     {
                         _validLocations.Add(_locations[i]);
                     }
                 }
             }
-            //if any valid locations exists we pick a random one(rectangle)
+
+            //if any _validLocations contains a rectangle we pick one at random 
             if (_validLocations.Count > 0)
             {
                 rectangle = _validLocations[_random.Next(0, _validLocations.Count)];
             }
-            //in case of no valid locations we call method recursive with new points in _validDistances
+            //in case of no rectangles in _validLocations we call method again with new points in _validDistances
             else
             {
                 SetDistancesUp();
@@ -218,22 +218,18 @@ namespace JumpNGun
             //remove valid locations from list 
             _validLocations.Clear();
 
-            //make rectangle invalid 
+            //make rectangle invalid by adding it to _usedLocations
             _usedLocations.Add(rectangle);
 
             //return all valid distances to original. 
-            if (_hasAltered == true)
-            {
-                SetDistancesBack();
-                _hasAltered = false;
-            }
+            SetDistancesBack();
 
 
             return Tuple.Create(new Vector2(rectangle.Center.X, rectangle.Center.Y), rectangle);
         }
 
         /// <summary>
-        /// Adds the value of every point in validDistances to itself. 
+        /// Adds the value of every point in _validDistances to itself. 
         /// </summary>
         /// <param name="change"></param>
         private void SetDistancesUp()
@@ -244,24 +240,25 @@ namespace JumpNGun
                 if (_validDistances[i].X < 0) _validDistances[i].X -= 222;
                 if (_validDistances[i].Y > 0) _validDistances[i].Y += 125;
                 if (_validDistances[i].Y < 0) _validDistances[i].Y -= 125;
-                _hasAltered = true;
             }
+            _hasAltered = true;
         }
 
         /// <summary>
-        /// Alters points back to original points.
+        /// Alters points back to original points, if they have been altered
         /// </summary>
         private void SetDistancesBack()
         {
+            if (!_hasAltered) return;
+
             for (int i = 0; i < _validDistances.Length; i++)
             {
                 if (_validDistances[i].X > 0) _validDistances[i].X = 222;
                 if (_validDistances[i].X < 0) _validDistances[i].X = -222;
                 if (_validDistances[i].Y > 0) _validDistances[i].Y = 125;
                 if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
-
             }
-
+            _hasAltered = false;
         }
 
         /// <summary>

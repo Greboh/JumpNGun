@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
 namespace JumpNGun
@@ -12,8 +11,8 @@ namespace JumpNGun
         /// </summary>
         /// <param name="type">type of specific GameObject to be created</param>
         /// <returns></returns>
-        public abstract GameObject Create(Enum type);
+        public abstract GameObject Create(Enum type, Vector2 position = default);
 
-        public abstract GameObject Create(Enum type, Vector2 position);
+        // public abstract GameObject Create(Enum type, Vector2 position);
     }
 }

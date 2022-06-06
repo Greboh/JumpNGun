@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 
 namespace JumpNGun
@@ -8,7 +6,16 @@ namespace JumpNGun
     /// <summary>
     /// Different types of platforms 
     /// </summary>
-    public enum PlatformType { grassGround, dessertGround, graveGround, graveyard, grass, dessert, startPlatform }
+    public enum PlatformType
+    {
+        GrassGround,
+        DessertGround,
+        GraveGround,
+        Graveyard,
+        Grass,
+        Dessert
+    }
+
     public class PlatformFactory : Factory
     {
         private static PlatformFactory _instance;
@@ -21,56 +28,13 @@ namespace JumpNGun
                 {
                     _instance = new PlatformFactory();
                 }
+
                 return _instance;
             }
         }
 
         //position for ground platform
-        private Vector2 _groundPosition = new Vector2((GameWorld.Instance.GraphicsDevice.Viewport.Width /2), 795);
-
-        /// <summary>
-        /// Takes in 1 overload and creates ground
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public override GameObject Create(Enum type)
-        {
-            GameObject gameObject = new GameObject();
-            SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
-            gameObject.Tag = "ground";
-
-
-            gameObject.AddComponent(new Collider());
-
-            switch (type)
-            {
-                case PlatformType.grassGround:
-                    {
-                        gameObject.AddComponent(new Platform(_groundPosition));
-                        sr.SetSprite("grass_ground");
-
-                    }
-                    break;
-                case PlatformType.dessertGround:
-                    {
-                        gameObject.AddComponent(new Platform(_groundPosition));
-                        sr.SetSprite("dessert_ground");
-
-
-                    }
-                    break;
-                case PlatformType.graveGround:
-                    {
-                        gameObject.AddComponent(new Platform(_groundPosition));
-                        sr.SetSprite("graveyard_ground");
-
-                    }
-                    break;
-            }
-            
-            return gameObject;
-
-        }
+        private Vector2 _groundPosition = new Vector2((GameWorld.Instance.GraphicsDevice.Viewport.Width / 2), 795);
 
         /// <summary>
         /// Takes in 2 overloads and creates floating platform
@@ -81,33 +45,57 @@ namespace JumpNGun
         public override GameObject Create(Enum type, Vector2 position)
         {
             GameObject gameObject = new GameObject();
-            SpriteRenderer sr = (SpriteRenderer)gameObject.AddComponent(new SpriteRenderer());
-            gameObject.Tag = "platform";
-
+            SpriteRenderer sr = (SpriteRenderer) gameObject.AddComponent(new SpriteRenderer());
+            
             gameObject.AddComponent(new Collider());
 
             switch (type)
             {
-                case PlatformType.grass:
-                    {
-                        gameObject.AddComponent(new Platform(position));
-                        sr.SetSprite("Grass platform");
-                    }
+                case PlatformType.GrassGround:
+                {
+                    gameObject.AddComponent(new Platform(_groundPosition));
+                    sr.SetSprite("grass_ground");
+                    gameObject.Tag = "ground";
+                }
                     break;
-                case PlatformType.dessert:
-                    {
-                        gameObject.AddComponent(new Platform(position));
-                        sr.SetSprite("Desert platform");
-                    }
+                case PlatformType.DessertGround:
+                {
+                    gameObject.AddComponent(new Platform(_groundPosition));
+                    sr.SetSprite("dessert_ground");
+                    gameObject.Tag = "ground";
+                }
                     break;
-                case PlatformType.graveyard:
-                    {
-                        gameObject.AddComponent(new Platform( position));
-                        sr.SetSprite("graveyard platform");
-                    }
+                case PlatformType.GraveGround:
+                {
+                    gameObject.AddComponent(new Platform(_groundPosition));
+                    sr.SetSprite("graveyard_ground");
+                    gameObject.Tag = "ground";
+                }
                     break;
 
+                case PlatformType.Grass:
+                {
+                    gameObject.AddComponent(new Platform(position));
+                    sr.SetSprite("Grass platform");
+                    gameObject.Tag = "platform";
+                }
+                    break;
+                case PlatformType.Dessert:
+                {
+                    gameObject.AddComponent(new Platform(position));
+                    sr.SetSprite("Desert platform");
+                    gameObject.Tag = "platform";
+                }
+                    break;
+                case PlatformType.Graveyard:
+                {
+                    gameObject.AddComponent(new Platform(position));
+                    sr.SetSprite("graveyard platform");
+                    gameObject.Tag = "platform";
+                }
+                    break;
             }
+
             return gameObject;
         }
     }
