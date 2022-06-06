@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {}
+    "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {}
   },
   "projects": {
-    "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {
+    "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+        "projectUniqueName": "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
         "projectName": "JumpNGun",
-        "projectPath": "A:\\Github\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
-        "packagesPath": "C:\\Users\\Kean\\.nuget\\packages\\",
-        "outputPath": "A:\\Github\\JumpNGun\\JumpNGun\\obj\\",
+        "projectPath": "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\JumpNGun.csproj",
+        "packagesPath": "C:\\Users\\sthob\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sthob\\Desktop\\Skole\\Opgaver\\Eksamen\\JumpNGun\\JumpNGun\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
         ],
         "configFilePaths": [
-          "C:\\Users\\Kean\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sthob\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -29,6 +28,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -72,12 +72,8 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[3.1.0, 3.1.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[3.1.0, 3.1.0]"
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.23, 3.1.23]"
             }
           ],
           "frameworkReferences": {
@@ -88,7 +84,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
