@@ -5,7 +5,7 @@ namespace JumpNGun
 {
     public class Reaper : Enemy
     {
-        public bool CanSummon { get; set; }
+        public bool CanSummon { get; set; } 
         public bool CanTeleport { get; set; }
         public bool ShouldUseAbility { get; set; }
         public float DefaultSpeed { get; private set; }
@@ -30,20 +30,20 @@ namespace JumpNGun
         {
             base.Start();
 
+            //set detectionRange to sprite width
             detectionRange = SpriteRenderer.Sprite.Width;
         }
         
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
-            CheckCollision();
             CalculateAttack();
             AbilityLogic();
         }
-        
+
         /// <summary>
         /// Calculate if we are in attack range and should change state
+        /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         private void CalculateAttack()
         {
@@ -59,24 +59,39 @@ namespace JumpNGun
             ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
 
+        /// <summary>
+        /// Handles ability to select an ability for reaper
+        /// ////LAVET AF NICHLAS HOBERG, KRISTIAN J. FICH
+        /// </summary>
         private void AbilityLogic()
         {
+            //return if ShouldUseAbility is true;
             if (ShouldUseAbility) return;
 
+            //reset ability timer and call PickAbility() if cooldown is surpassed
             if (_abilityTimer > _abilityCooldown)
             {
                 _abilityTimer = 0;
                 PickAbility();
             }
+            //else add time to _abilitytimer
             else _abilityTimer += GameWorld.DeltaTime;
 
         }
 
+        /// <summary>
+        /// Pick random ability and change to ability state
+        /// ////LAVET AF NICHLAS HOBERG, KRISTIAN J. FICH
+        /// </summary>
         private void PickAbility()
         {
+            //should use ability set to true
             ShouldUseAbility = true;
+
+            //generate random number to pick ability
             int rndNumber = rnd.Next(1, 3);
 
+            //pick ability by random number
             switch (rndNumber)
             {
                 case 1:
@@ -90,6 +105,7 @@ namespace JumpNGun
                 } break;
             }
             
+            //change state to abilityEnemyState to execute picked ability
             ChangeState(abilityEnemyState);
             
         }

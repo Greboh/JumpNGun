@@ -25,8 +25,6 @@ namespace JumpNGun
             SoundManager.Instance.StopClip("soundtrack_1");
             SoundManager.Instance.PlayClip("soundtrack_2");
             
-            ScoreHandler.Instance.SortScore();
-            
         }
 
         public void Execute(GameTime gameTime)

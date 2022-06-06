@@ -136,6 +136,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Spawns x-amount of platforms on map
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="amountOfPlatforms"></param>
         public void GeneratePlatforms(int amountOfPlatforms, PlatformType type)
@@ -159,6 +160,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Instantiates ground platform and first platform on random position close to ground
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <returns>current rectangle</returns>
         private Rectangle SpawnFirstPlatform(PlatformType type)
@@ -181,6 +183,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Finds new rectangle and generates position
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="rectangle">current rectangle</param>
         /// <returns>position and rectangle containing position</returns>
@@ -229,7 +232,8 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Adds the value of every point in _validDistances to itself. 
+        /// Adds the value of every point in _validDistances to itself.
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="change"></param>
         private void SetDistancesUp()
@@ -246,6 +250,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Alters points back to original points, if they have been altered
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void SetDistancesBack()
         {
@@ -263,6 +268,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Returns list of rectangles that contain a platform
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <returns></returns>
         public List<Rectangle> GetLocations()

@@ -8,7 +8,6 @@ namespace JumpNGun
 {
     public class LevelManager
     {
-        // TODO maybe find another way for enemycount
         private static LevelManager _instance;
 
         public static LevelManager Instance
@@ -47,11 +46,12 @@ namespace JumpNGun
         private LevelManager()
         {
             EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
-            EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath); //TODO Fix another way
+            EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath);
         }
 
         /// <summary>
-        /// Start a thread that executes all relevant level generation logic 
+        /// Start a thread that executes all relevant level generation logic
+        /// //LAVET AF NICHLAS HOBERG, KRISTIAN J. FICH
         /// </summary>
         public void ExecuteLevelGeneration()
         {
@@ -60,6 +60,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Creates platforms and relevant Enviroment objects
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void GenerateLevel()
         {
@@ -85,6 +86,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Instantiates portal when level has been cleared of enemies
+        /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         /// <param name="ctx"></param>
         private void OnEnemyDeath(Dictionary<string, object> ctx)
@@ -99,9 +101,12 @@ namespace JumpNGun
 
         /// <summary>
         /// Change enemies, platforms and implement boss
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void ChangeEnviroment()
         {
+            
+
             switch (_level)
             {
                 case 1:
@@ -130,6 +135,7 @@ namespace JumpNGun
                         EnemyCurrentAmount = 1;
                         _currentPlatformType = PlatformType.Graveyard;
                         _currentEnemyType = EnemyType.Reaper;
+
                         _isBossLevel = true;
                     }
                     break;
@@ -138,6 +144,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Change level when event message is recieved by calling relevant level change methods
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="ctx">The context that gets sent from trigger in Portal.cs</param>
         private void ChangeLevel(Dictionary<string, object> ctx)
@@ -154,6 +161,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Removes all current objects from game and resets player position
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void CleanLevel()
         {
@@ -175,15 +183,20 @@ namespace JumpNGun
 
         /// <summary>
         /// Increments level and amount of platforms. 
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void IncrementLevel()
         {
+            //increment _level
             _level++; 
+
+            //increment _platformAmount
             _platformAmount++;
 
             //if level is odd increment amount of enemies
             if (_level % 2 != 0) _enemyStartAmount++;
 
+            //set EnemyCurrenAmount equal to _enemyStartAmount
             EnemyCurrentAmount = _enemyStartAmount;
 
             //amount of platforms capped at 19, to avoid overcrowding screen and errors
@@ -191,14 +204,24 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Reset current level and enviroment to level 1
+        /// Reset current level and associated values to initial values
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         public void ResetLevel()
         {
+            //set level to level 1
             _level = 1;
+
+            //set platform amount to 4
             _platformAmount = 4;
+
+            //set enemyStart amount to 2
             _enemyStartAmount = 2;
+
+            //set EnemyCurrentAmount to 2
             EnemyCurrentAmount = 2;
+
+            //Clear used locations if it isn't null
             if (UsedLocations != null ) UsedLocations.Clear();
         }
 

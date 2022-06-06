@@ -7,7 +7,6 @@ namespace JumpNGun
 {
     class EnemyGenerator
     {
-        //TODO - fix enemy spawning
         private static EnemyGenerator _instance;
 
         public static EnemyGenerator Instance
@@ -19,6 +18,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Generates X amount of enemies based on inputs
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="amountOfEnemies">amount of enemies to be instantiated</param>
         /// <param name="type">type of enemy to be instantieated</param>
@@ -33,6 +33,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Creates and returns a random Vector2 that lies within a rectangle from list
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="locations"></param>
         /// <returns></returns>
@@ -43,6 +44,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Instantiate boss by type
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="type">type of boss to be instantiated</param>
         public void GenerateBoss(EnemyType type)
