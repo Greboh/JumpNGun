@@ -105,6 +105,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Calculate if we are in attack range and should change state
+        /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         private void CalculateAttack()
         {
@@ -117,9 +118,10 @@ namespace JumpNGun
             
             ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
-        
+
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
+        /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         private void HandleGravity()
         {
@@ -138,6 +140,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Checks for relevant collision with this object
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         protected override void CheckCollision()
         {
