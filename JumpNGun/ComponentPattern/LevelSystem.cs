@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public class LevelSystem : Component
     {
         // Players current level

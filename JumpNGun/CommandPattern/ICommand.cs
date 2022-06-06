@@ -1,5 +1,8 @@
 ﻿namespace JumpNGun
 {
+    /// <summary>
+    /// Interfacen er lavet af Nichlas Hoberg
+    /// </summary>
     public interface ICommand
     {
         /// <summary>

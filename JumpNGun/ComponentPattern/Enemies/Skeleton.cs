@@ -163,11 +163,11 @@ namespace JumpNGun
             {
                 Speed = 100;
 
-                if (Player.Position.X < this.GameObject.Transform.Position.X)
+                if (Player.GameObject.Transform.Position.X < this.GameObject.Transform.Position.X)
                 {
                     Velocity = new Vector2(-1, 0);
                 }
-                else if (Player.Position.X > this.GameObject.Transform.Position.X)
+                else if (Player.GameObject.Transform.Position.X > this.GameObject.Transform.Position.X)
                 {
 
                     Velocity = new Vector2(1, 0);

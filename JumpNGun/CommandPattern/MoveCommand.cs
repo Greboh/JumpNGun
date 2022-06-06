@@ -2,6 +2,9 @@
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public class MoveCommand : ICommand
     {
         private Vector2 velocity;
@@ -10,8 +13,7 @@ namespace JumpNGun
         {
             this.velocity = velocity;
         }
-        
-        
+
         public void Execute(Player player)
         {
             player.Move(velocity);

@@ -5,13 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public enum ExperienceOrbType {Small, Medium, Large}
     
     public class ExperienceOrb : Component
     {
-        private float _xpAmount;
-        private Vector2 _position;
-        private bool _hasCollided = false;
+        private float _xpAmount; // Amount of xp an orb gives
+        private Vector2 _position; // The orb's position
+        private bool _hasCollided = false; // if the orb has collided with player
        
 
         public ExperienceOrb(float xpAmount, Vector2 position)
@@ -21,21 +24,15 @@ namespace JumpNGun
         }
 
         #region Component Methods
-
-        public override void Awake()
-        {
-        }
         
         public override void Start()
         {
+            // Set position of the orb
             GameObject.Transform.Position = _position;
             
-            //(GameObject.GetComponent<Animator>() as Animator).PlayAnimation("Idle");
+            // Play Idle Animation
+            (GameObject.GetComponent<Animator>() as Animator).PlayAnimation("Idle");
             
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
         }
 
         public override void Update(GameTime gameTime)
@@ -49,26 +46,26 @@ namespace JumpNGun
 
         private void OnCollision()
         {
+            // Reference orbs collider
             Collider collider = GameObject.GetComponent<Collider>() as Collider;
             
-            Collider goCollider = GameObject.GetComponent<Collider>() as Collider;
-
+            // Check if we collided with anything in our list of colliders
             foreach (Collider otherCollision in GameWorld.Instance.Colliders)
             {
-                if (goCollider.CollisionBox.Intersects(otherCollision.CollisionBox))
+                if (collider.CollisionBox.Intersects(otherCollision.CollisionBox))
                 {
+                    // Check if our collision has the tag player
                     if (otherCollision.GameObject.Tag == "player" )
                     {
-                        Console.WriteLine($"this {GameObject.Tag} collided with {otherCollision.GameObject.Tag}");
-                        
-                        GameWorld.Instance.Destroy(collider.GameObject);
-                        
+                        // TriggerEvent
                         EventManager.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
                             {
                                 {"xpAmount", _xpAmount}
                             }
                         );
 
+                        // Destroy this object
+                        GameWorld.Instance.Destroy(collider.GameObject);
                     }
                 }
             }

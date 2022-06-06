@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class ScoreHandler
     {
         private static ScoreHandler _instance;
@@ -41,9 +44,6 @@ namespace JumpNGun
             _highscoreNames = Database.Instance.GetHighScores().Item1;
 
             SortedLists = Sort(_highScoreScores, _highscoreNames);
-
-
-           
         }
 
         private Tuple<List<int>, List<string>> Sort(List<int> scores, List<string> names)

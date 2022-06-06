@@ -4,6 +4,9 @@ using System.Data.SQLite;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class Database
     {
         private static Database _instance;

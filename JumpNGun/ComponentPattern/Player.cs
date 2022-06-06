@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using System;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
-using Keys = Microsoft.Xna.Framework.Input.Keys;
+using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public class Player : Component
     {
-        private CharacterType _character;
-        private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>();
-
- 
+        private CharacterType _character; // Reference our characterType
+        private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>(); // Create dictionary containing movement values
 
         #region Component Fields
 
         private SpriteRenderer _sr; // Reference to the SpriteRenderer component
         private Animator _animator; // Reference to the Animator component
         private Input _input; // Reference to the Input Component
-        private Collider _pCollider;
+        private Collider _pCollider; // Reference to the Collider component
 
         #endregion
 
@@ -27,7 +26,9 @@ namespace JumpNGun
 
         private Vector2 _moveDirection;
 
-        public float Speed { get; set; } // Speed at which the player moves
+        private bool _isAlive; // Controls if the player is alive or not
+
+        public float Speed { get; } // Speed at which the player moves
         private float _jumpHeight; // The jump height of the player
         private float _dashStrength; // The strength of the player dash
 
@@ -41,41 +42,36 @@ namespace JumpNGun
         private int _jumpCount; // The current amount of player jumps
         private int _maxJumpCount; // The max allowed amount of player jumps
 
-        private int _maxHealth;
-        private int _currentHealth;
+        private int _maxHealth; // Player's max health
+        private int _currentHealth; // Player's current health
         
-        private bool _canDash = true;
-        private float _dashTimer;
-        private float _dashCooldown;
+        private bool _canDash = true; // Controls if the player canDash
+        private float _dashTimer; // Timer on Dash
+        private float _dashCooldown; // Cooldown on Dash
 
 
         #endregion
 
         #region Action Fields
 
-        private bool _canShoot = true;
-        private float _shootTime;
-        private float _shootCooldown;
+        private bool _canShoot = true; // Controls if the player canShoot
+        private float _shootTime; // Timer on Shoot
+        private float _shootCooldown; // Cooldown on Shoot
 
-        private float _projectileSpeed;
-        private int _damage;
+        private float _projectileSpeed; // Reference to the projectile's speed
+        private int _damage; // Reference to the projectile's damage
+
         
-        // How much fill the xpBar should be filled
-        private float _hpBarFillAmount;
-        
-        // The xpBar's texture
-        private Texture2D _hpBarTexture2D;
         
         #endregion
 
         #region Collision Fields
 
-        public Vector2 Position { get; set; }= new Vector2(40, 705);
+        private Vector2 _spawnPosition = new Vector2(40, 705); // Reference the player's spawnPosition
         
-        private GameObject _groundCollisionGameObject;
-        private Rectangle _groundCollisionRectangle = Rectangle.Empty;
+        private Rectangle _groundCollisionRectangle = Rectangle.Empty; // Reference the current groundCollision
         private bool _isGrounded; // Is the player grounded
-        private bool _hasCollidedWithGround = false;
+        private bool _hasCollidedWithGround; // Reference if the player has collided with ground
 
         #endregion
 
@@ -104,46 +100,35 @@ namespace JumpNGun
 
         public override void Start()
         {
+            // Get the components
             _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-
             _input = GameObject.GetComponent<Input>() as Input;
-
             _animator = GameObject.GetComponent<Animator>() as Animator;
-
             _pCollider = GameObject.GetComponent<Collider>() as Collider;
 
 
-            GameObject.Transform.Position = Position;
-            _gravityPull = _gravity;
-            _currentHealth = _maxHealth;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            // Draw the hpBar
+            GameObject.Transform.Position = _spawnPosition; // Set transformPosition to spawnPosition
+            _gravityPull = _gravity; // Set the gravityPull
+            _currentHealth = _maxHealth; // set currentHealth to MaxHealth
         }
 
         public override void Update(GameTime gameTime)
         {
             _input.Execute(this);
-
-            CalculateHpBar();
-            UpdatePositionReference();
             HandleDeath();
-            HandleShootLogic();
-            HandleDashLogic();
-            HandleAnimations();
             CheckGrounded();
             HandleGravity();
-            ScreenBounds();
+
+            if (_isAlive)
+            {
+                HandleShootLogic();
+                HandleDashLogic();
+                HandleAnimations();
+                ScreenBounds();
+            }
 
         }
 
-        private void CalculateHpBar()
-        {
-            // Set the hpFillAmount
-            _hpBarFillAmount = (_currentHealth / _maxHealth * 100);
-        }
 
         #endregion
 
@@ -156,17 +141,14 @@ namespace JumpNGun
         /// <param name="velocity">The strength at which we want to move</param>
         public void Move(Vector2 velocity)
         {
-            // Normalize velocity
-            velocity.Normalize();
-
-            // Multiply with speed
-            velocity *= Speed;
-
-            _moveDirection = velocity;
-
-
+            velocity.Normalize(); // Normalize velocity
+            
+            velocity *= Speed; // Multiply with speed
+            
+            _moveDirection = velocity; // Set moveDirection To Velocity
+            
             // Translate our current position to the new one
-            GameObject.Transform.Translate(_moveDirection * GameWorld.DeltaTime);
+            GameObject.Transform.Translate(_moveDirection * GameWorld.DeltaTime); 
 
             FlipSprite(_moveDirection);
         }
@@ -259,7 +241,7 @@ namespace JumpNGun
             {
                 GameObject.Transform.Transport(new Vector2(GameWorld.Instance.GraphicsDevice.Viewport.Width, GameObject.Transform.Position.Y));
             }
-            //If plyaer moves beyond max value on x-axis move player to 0 on x-axis 
+            //If player moves beyond max value on x-axis move player to 0 on x-axis 
             if (GameObject.Transform.Position.X > GameWorld.Instance.GraphicsDevice.Viewport.Width)
             {
                 GameObject.Transform.Transport(new Vector2(10, GameObject.Transform.Position.Y));
@@ -278,34 +260,47 @@ namespace JumpNGun
         {
             if (!_canShoot) return; // Guard clause
 
+            // Create a new GameObject
             GameObject projectile = ProjectileFactory.Instance.Create(_character, Vector2.Zero);
 
+            // Set the GameObjects position
             projectile.Transform.Position = GameObject.Transform.Position;
 
+            // Store shoot Directions in Vector2's
             Vector2 shootRight = new Vector2(1, 0);
             Vector2 shootLeft = new Vector2(-1, 0);
 
+            // Set Projectiles velocity depending on the SpriteEffect
             ((Projectile) projectile.GetComponent<Projectile>()).Velocity = _sr.SpriteEffects == SpriteEffects.None ? shootRight : shootLeft;
+            
+            // Set Projectiles Speed
             ((Projectile) projectile.GetComponent<Projectile>()).Speed = _projectileSpeed;
+            
+            // Set Projectiles Damage
             ((Projectile) projectile.GetComponent<Projectile>()).Damage = _damage;
+            
+            // Instantiate Projectile
             GameWorld.Instance.Instantiate(projectile);
-
             _canShoot = false;
         }
         
         private void HandleDeath()
         {
-            if (!(_currentHealth <= 0)) return; // Guard clause
-
-            //TODO Play death animation - NICHLAS
-
+            // Check if player is alive
+            if (_currentHealth > 0)
+            {
+                 _isAlive = true;
+                 return;
+            }
+            
+            _isAlive = false;
+            
+            // Play death animation
+            _animator.PlayAnimation("Death");
             // Check if the death animation is done
             if (_animator.IsAnimationDone)
             {
-                // Destroy player object
-                GameWorld.Instance.Destroy(this.GameObject);
-                
-                EventManager.Instance.TriggerEvent("OnPlayerDeath", new Dictionary<string, object>(){});
+                EventManager.Instance.TriggerEvent("OnPlayerDeath", new Dictionary<string, object>());
             }
         }
 
@@ -319,12 +314,14 @@ namespace JumpNGun
         private void HandleAnimations()
         {
             // If we are not grounded we are in the air and should play the jump animation
-            if (!_isGrounded) _animator.PlayAnimation("Jump");
+            if (!_isGrounded && _isAlive) _animator.PlayAnimation("Jump");
 
             // If there isn't any values that is true in movementKeys and we are grounded play idle
-            if (!_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Idle");
-
-            if (_movementKeys.ContainsValue(true) && _isGrounded) _animator.PlayAnimation("Run");
+            if (!_movementKeys.ContainsValue(true) && _isGrounded && _isAlive) _animator.PlayAnimation("Idle");
+           
+            // If there is any values that is true in movementKeys and we are grounded play idle
+            if (_movementKeys.ContainsValue(true) && _isGrounded && _isAlive) _animator.PlayAnimation("Run");
+            
         }
 
         /// <summary>
@@ -352,14 +349,6 @@ namespace JumpNGun
             }
         }
 
-        /// <summary>
-        /// Updates _position to current position during gametime
-        /// </summary>
-        private void UpdatePositionReference()
-        {
-            Position = GameObject.Transform.Position;
-        }
-
         #endregion
 
         #region Helper Methods
@@ -369,6 +358,7 @@ namespace JumpNGun
         /// </summary>
         private void FlipSprite(Vector2 moveDirection)
         {
+            // Set SpriteEffect depending on our moveDirection.x
             _sr.SpriteEffects = moveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         }
 
@@ -379,7 +369,7 @@ namespace JumpNGun
         {
             if (_canShoot) return; // Guard clause
 
-            // Check if its bigger than the cooldown
+            // Check if shootTime is bigger than the shootCooldown
             if (_shootTime > _shootCooldown)
             {
                 _canShoot = true;
@@ -402,7 +392,6 @@ namespace JumpNGun
                 {
                     _jumpCount = 0; // Reset jump counter
                     _gravityPull = _gravity; // Reset gravity pull
-                    _groundCollisionGameObject = collisionCollider.GameObject; // Reference our current collisionColliders GameObject
                     _groundCollisionRectangle = collisionCollider.CollisionBox; // Reference our current collisionColliders CollisionBox
                     _hasCollidedWithGround = true; // We have collided with ground now
                     return true;

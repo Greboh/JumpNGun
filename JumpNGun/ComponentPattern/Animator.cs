@@ -19,7 +19,7 @@ namespace JumpNGun
 
         private Dictionary<string, Animation> animations = new Dictionary<string, Animation>(); /// dictionary used for animations. string refers to animation
 
-        private Animation currentAnimation; //currently being animated
+        public Animation CurrentAnimation { get; private set; }//currently being animated
 
         private bool _animationPlaying;
         
@@ -43,13 +43,13 @@ namespace JumpNGun
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //initiates animation if no current animation is being animated
-            if (currentAnimation != null)
+            if (CurrentAnimation != null)
             {
                 _animationPlaying = true;
-                CurrentIndex = (int)(timeElapsed * currentAnimation.FPS);
+                CurrentIndex = (int)(timeElapsed * CurrentAnimation.FPS);
 
                 //sets animation index to 0, so animations gets replayed - loops animation 
-                if (CurrentIndex > currentAnimation.Sprites.Length - 1)
+                if (CurrentIndex > CurrentAnimation.Sprites.Length - 1)
                 {
                     timeElapsed = 0;
                     CurrentIndex = 0;
@@ -59,7 +59,7 @@ namespace JumpNGun
                 else IsAnimationDone = false;
 
                 //set sprite to the current animation sprite
-                spriteRenderer.Sprite = currentAnimation.Sprites[CurrentIndex];
+                spriteRenderer.Sprite = CurrentAnimation.Sprites[CurrentIndex];
             }
 
         }
@@ -72,9 +72,9 @@ namespace JumpNGun
         {
             animations.Add(animation.Name, animation);
 
-            if (currentAnimation == null)
+            if (CurrentAnimation == null)
             {
-                currentAnimation = animation;
+                CurrentAnimation = animation;
             }
         }
 
@@ -84,10 +84,10 @@ namespace JumpNGun
         /// <param name="animationName">Name of animation to be played</param>
         public void PlayAnimation(string animationName)
         {
-            if (animationName != currentAnimation.Name && animations.ContainsKey(animationName))
+            if (animationName != CurrentAnimation.Name && animations.ContainsKey(animationName))
             {
                 // Console.WriteLine($"Playing animationSet: {animationName}");
-                currentAnimation = animations[animationName];
+                CurrentAnimation = animations[animationName];
                 timeElapsed = 0;
                 CurrentIndex = 0;
             }

@@ -214,10 +214,10 @@ namespace JumpNGun
                         InputField();
                         break;
                     case ButtonType.Character1:
-                        Character1();
+                        CharacterSoldier();
                         break;
                     case ButtonType.Character2:
-                        Character2();
+                        CharacterRanger();
                         break;
                 }
             }
@@ -620,13 +620,13 @@ namespace JumpNGun
 
         }
 
-        private void Character1()
+        private void CharacterSoldier()
         {
             // Console.WriteLine($"Intersects with {_type}");
 
             if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                //TODO: Set player character here
+                MenuStateHandler.Instance.PlayerType = CharacterType.Soldier;
                 MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Gameplay);
 
                 _mouseCooldown += 0;
@@ -638,13 +638,13 @@ namespace JumpNGun
             }
         }
 
-        private void Character2()
+        private void CharacterRanger()
         {
             // Console.WriteLine($"Intersects with {_type}");
 
             if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
-                //TODO: Set player character here
+                MenuStateHandler.Instance.PlayerType = CharacterType.Ranger;
                 MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.Gameplay);
 
                 _mouseCooldown += 0;

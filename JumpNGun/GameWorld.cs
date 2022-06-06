@@ -68,10 +68,6 @@ namespace JumpNGun
 
         protected override void Initialize()
         {
-            
-            SoundManager.Instance.InitDictionary();
-            MenuStateHandler.Instance.Initialize();
-            
             _background = new Background();
             
             MenuStateHandler.Instance.ChangeState(new LandingScreen());

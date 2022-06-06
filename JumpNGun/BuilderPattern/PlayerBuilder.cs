@@ -14,6 +14,9 @@ namespace JumpNGun
         Wizard
     }
 
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public class PlayerBuilder : IBuilder
     {
         private CharacterType _character; // Reference to the CharacterType
@@ -51,7 +54,8 @@ namespace JumpNGun
             
                     animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Soldier_jump", "2_Soldier_jump"}));
                     
-                    // animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", "3_Soldier_Death"}));
+                    animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", "3_Soldier_Death","4_Soldier_Death", 
+                        "5_Soldier_Death", "6_Soldier_Death", "7_Soldier_Death", "8_Soldier_Death",}));
                     
                 } break;
                 case CharacterType.Ranger:

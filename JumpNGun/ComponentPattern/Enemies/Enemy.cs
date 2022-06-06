@@ -84,7 +84,7 @@ namespace JumpNGun
 
         public Vector2 CalculatePlayerDirection()
         {
-            Vector2 targetDirection = Vector2.Subtract(Player.Position, GameObject.Transform.Position);
+            Vector2 targetDirection = Vector2.Subtract(Player.GameObject.Transform.Position, GameObject.Transform.Position);
             targetDirection.Normalize();
             targetDirection = Vector2.Multiply(targetDirection, Player.Speed);
 

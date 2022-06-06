@@ -17,6 +17,8 @@ namespace JumpNGun
         
         public string PlayerName { get; set; } = string.Empty;
         
+        public CharacterType PlayerType { get; set; }
+        
 
         private static MenuStateHandler _instance;
         private bool canPress = true;
@@ -28,6 +30,7 @@ namespace JumpNGun
                 if (_instance == null)
                 {
                     _instance = new MenuStateHandler();
+                    _instance.Initialize();
                 }
 
                 return _instance;

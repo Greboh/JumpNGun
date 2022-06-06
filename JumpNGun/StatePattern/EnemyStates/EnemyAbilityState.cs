@@ -38,7 +38,7 @@ namespace JumpNGun
             
             if (_shouldTeleport)
             {
-                Vector2 teleportDestination = new Vector2(_parent.Player.Position.X + _parent.SpriteRenderer.Sprite.Width , _parent.Player.Position.Y);
+                Vector2 teleportDestination = new Vector2(_parent.Player.GameObject.Transform.Position.X + _parent.SpriteRenderer.Sprite.Width , _parent.Player.GameObject.Transform.Position.Y);
 
                 if (_parent.Animator.CurrentIndex >= 17)
                 {

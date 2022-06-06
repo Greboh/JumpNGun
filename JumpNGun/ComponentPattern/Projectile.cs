@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public class Projectile : Component
     {
         public Vector2 Velocity { get; set; }
