@@ -50,7 +50,6 @@ namespace JumpNGun
 
             SortedLists = Sort(_highScoreScores, _highscoreNames);
 
-
             foreach (int score in SortedLists.Item1)
             {
                 Console.WriteLine("SCORE: " + score);
