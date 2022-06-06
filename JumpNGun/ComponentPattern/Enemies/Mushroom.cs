@@ -6,7 +6,6 @@ namespace JumpNGun
 {
     class Mushroom : Enemy
     {
-        //TODO - Add comments for methods and fields - KRISTIAN
 
         // How strong the force of gravity is
         private float _gravityPull;
