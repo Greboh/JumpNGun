@@ -42,24 +42,6 @@ namespace JumpNGun
         {
             Console.WriteLine($"Current score is: {_currentScore}");
         }
-        
-        public void SortScore()
-        {
-            _highScoreScores = Database.Instance.GetHighScores().Item2;
-            _highscoreNames = Database.Instance.GetHighScores().Item1;
-
-            SortedLists = Sort(_highScoreScores, _highscoreNames);
-
-            foreach (int score in SortedLists.Item1)
-            {
-                Console.WriteLine("SCORE: " + score);
-            }
-
-            foreach (string name in SortedLists.Item2)
-            {
-                Console.WriteLine("NAME: " + name);
-            }
-        }
 
         /// <summary>
         /// Sort two litst with bubblesort and return tuple containing the sorted lists 
@@ -108,6 +90,15 @@ namespace JumpNGun
 
             //return the two sorted lists
             return Tuple.Create(scores, names);
+
+        }
+        
+        public Tuple<List<int>, List<string>> GetSortedScores()
+        {
+            _highScoreScores = Database.Instance.GetHighScores().Item2;
+            _highscoreNames = Database.Instance.GetHighScores().Item1;
+
+            return Sort(_highScoreScores, _highscoreNames);
 
         }
     }
