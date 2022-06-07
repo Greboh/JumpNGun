@@ -59,7 +59,7 @@ namespace JumpNGun
             
             EventManager.Instance.Subscribe("OnPlayerDeath", OnGameover);
 
-            foreach (var go in GameWorld.Instance.gameObjects)
+            foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
@@ -88,9 +88,9 @@ namespace JumpNGun
             SetAudioStatusIcons();
             
             //call update method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Update(gameTime);
+                GameWorld.Instance.GameObjects[i].Update(gameTime);
             }
 
             //call cleanup in every cycle
@@ -103,9 +103,9 @@ namespace JumpNGun
             spriteBatch.Begin();
             
             //draw sprites of every active gameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
+                GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
             
             //draws pause menu overlay
@@ -117,9 +117,9 @@ namespace JumpNGun
         public void LoadContent()
         {
             //call start method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Start();
+                GameWorld.Instance.GameObjects[i].Start();
             }
 
 
@@ -187,7 +187,7 @@ namespace JumpNGun
                 case PauseState.Unpaused:
                 {
                     //removes buttons instansitated in pause menu
-                    foreach (GameObject go in GameWorld.Instance.gameObjects)
+                    foreach (GameObject go in GameWorld.Instance.GameObjects)
                     {
                         if (go.HasComponent<Button>())
                         {

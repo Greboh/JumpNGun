@@ -188,7 +188,6 @@ namespace JumpNGun
 
         /// <summary>
         /// Deal damage to Enemy when colliding with Player projectile
-        /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         /// <param name="ctx">The context that gets sent from the trigger in Projectile.cs</param>
         private void OnTakeDamage(Dictionary<string, object> ctx)

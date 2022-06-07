@@ -65,7 +65,7 @@ namespace JumpNGun.StatePattern.GameStates
         {
             _pareMenuStateHandler = parent;
 
-            foreach (var go in GameWorld.Instance.gameObjects)
+            foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
@@ -86,9 +86,9 @@ namespace JumpNGun.StatePattern.GameStates
         public void Execute(GameTime gameTime)
         {
             //call update method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Update(gameTime);
+                GameWorld.Instance.GameObjects[i].Update(gameTime);
             }
 
             //call cleanup in every cycle
@@ -103,9 +103,9 @@ namespace JumpNGun.StatePattern.GameStates
             int count = 1; 
 
             //draw sprites of every active gameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
+                GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
 
             spriteBatch.Draw(_highscorePanel, new Rectangle(370,180,_highscorePanel.Width,_highscorePanel.Height), Color.White);
@@ -135,9 +135,9 @@ namespace JumpNGun.StatePattern.GameStates
         public void LoadContent()
         {
             //call start method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Start();
+                GameWorld.Instance.GameObjects[i].Start();
             }
 
             _highscorePanel = GameWorld.Instance.Content.Load<Texture2D>("highscore_panel");

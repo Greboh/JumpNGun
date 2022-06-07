@@ -25,7 +25,6 @@ namespace JumpNGun
             get { return _instance ??= new ScoreHandler(); }
         }
 
-
         private int _currentScore;
 
         public int GetScore()
@@ -36,11 +35,6 @@ namespace JumpNGun
         public void AddToScore(int addAmount)
         {
             _currentScore += addAmount;
-        }
-        
-        public void PrintScore()
-        {
-            Console.WriteLine($"Current score is: {_currentScore}");
         }
 
         /// <summary>
@@ -93,6 +87,10 @@ namespace JumpNGun
 
         }
         
+        /// <summary>
+        /// Gets all sorted HighScores. Sorted with BubbleSort
+        /// </summary>
+        /// <returns>BubbleSorted highscores</returns>
         public Tuple<List<int>, List<string>> GetSortedScores()
         {
             _highScoreScores = Database.Instance.GetHighScores().Item2;

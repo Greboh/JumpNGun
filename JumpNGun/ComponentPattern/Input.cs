@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
-
-   
     
     /// <summary>
     /// Mouse Buttons used in keybinding

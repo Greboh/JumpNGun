@@ -3,16 +3,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg og Kristian J. Fich
+    /// </summary>
     public class EnemyMoveState : IEnemyState
     {
+        // Reference to Enemy
         private Enemy _parent;
 
+        // Used to reference Enemies oldVelocity
         private Vector2 _oldVelocity = Vector2.Zero;
         
         public void Enter(Enemy parent)
         {
-            _parent = parent;
-
+            // Check what enemy it is
             if(parent.GameObject.HasComponent<Mushroom>())
             {
                 _parent = parent.GameObject.GetComponent<Mushroom>() as Mushroom;
@@ -41,6 +45,9 @@ namespace JumpNGun
             Animate();
         }
 
+        /// <summary>
+        /// Play Animation
+        /// </summary>
         public void Animate()
         {
             _parent.Animator.PlayAnimation("run");

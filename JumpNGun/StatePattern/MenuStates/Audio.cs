@@ -29,7 +29,7 @@ namespace JumpNGun
         {
             _pareMenuStateHandler = parent;
             
-            foreach (var go in GameWorld.Instance.gameObjects)
+            foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
@@ -47,9 +47,9 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
         {
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Update(gameTime);
+                GameWorld.Instance.GameObjects[i].Update(gameTime);
             }
 
 
@@ -75,10 +75,10 @@ namespace JumpNGun
 
             // draws active GameObjects in list
 
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
 
             {
-                GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
+                GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
 
             #endregion

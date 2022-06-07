@@ -91,6 +91,7 @@ namespace JumpNGun
         /// <param name="character">What Character the player is</param>
         private void BuildComponents(CharacterType character)
         {
+            // Add character specific components
             switch (character)
             {
                 case CharacterType.Soldier:

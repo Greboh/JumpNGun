@@ -7,7 +7,6 @@ namespace JumpNGun
 {
     public class Transform
     {
-        public string tag;
         public Vector2 Position { get; set; }
 
         /// <summary>

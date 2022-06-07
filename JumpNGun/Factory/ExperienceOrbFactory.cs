@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg
+    /// </summary>
     public class ExperienceOrbFactory : Factory
     {
         private static ExperienceOrbFactory _instance;
@@ -15,15 +18,6 @@ namespace JumpNGun
                 return _instance ??= new ExperienceOrbFactory();
             }
         }
-        
-        private Vector2[] _startPositions =
-        {
-            new Vector2(300, 700),
-            new Vector2(400, 700),
-            new Vector2(500, 700),
-        };
-        private int _positionIncrement;
-        
         
         /// <summary>
         /// Build all animations relevant to movement 
@@ -47,12 +41,18 @@ namespace JumpNGun
 
         public override GameObject Create(Enum type, Vector2 position)
         {
-            GameObject orb = new GameObject();
+            // Create new gameObject 
+            GameObject orb = new GameObject(); 
+            
+            // Add Components
             SpriteRenderer sr = (SpriteRenderer)orb.AddComponent(new SpriteRenderer());
             orb.AddComponent(new Collider());
             Animator animator = (Animator) orb.AddComponent(new Animator());
-            orb.Tag = "xpOrb";
+            
+            // Give the GameObject a tag
+            orb.Tag = "xpOrb";  
 
+            // Add Type specific components
             switch (type)
             {
                 case ExperienceOrbType.Small:
@@ -83,7 +83,7 @@ namespace JumpNGun
             
             Console.WriteLine("Created orb");
             
-            return orb;
+            return orb; // Return the Gameobject
         }
     }
 }

@@ -3,7 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace JumpNGun
-{
+{    
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class Component
     {
         public GameObject GameObject { get; set; }

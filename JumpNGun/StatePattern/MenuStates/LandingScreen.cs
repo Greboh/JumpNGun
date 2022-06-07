@@ -38,7 +38,7 @@ namespace JumpNGun
             
             EventManager.Instance.Subscribe("OnInput", OnInput);
             
-            foreach (var go in GameWorld.Instance.gameObjects)
+            foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
@@ -58,9 +58,9 @@ namespace JumpNGun
         public void Execute(GameTime gameTime)
         {
             //call update method on every active GameObject in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Update(gameTime);
+                GameWorld.Instance.GameObjects[i].Update(gameTime);
 
             }
 
@@ -83,9 +83,9 @@ namespace JumpNGun
             spriteBatch.DrawString(_inputFont, _inputString, new Vector2(594, 450), Color.Black);
 
             // draws active GameObjects in list
-            for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
+            for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
-                GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
+                GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
 
             spriteBatch.End();

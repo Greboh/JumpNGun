@@ -7,6 +7,9 @@ using System.Text;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class Animator : Component
     {
         public int CurrentIndex { get; private set; } //used to determine current animation sprite

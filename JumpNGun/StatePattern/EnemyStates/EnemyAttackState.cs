@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg og Kristian J. Fich
+    /// </summary>
     public class EnemyAttackState : IEnemyState
     {
         private Enemy _parent;

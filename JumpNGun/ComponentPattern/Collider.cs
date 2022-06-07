@@ -8,16 +8,19 @@ using JumpNGun;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class Collider : Component
     {
         private Texture2D _texture; //texture to be drawn by renderer
 
         private SpriteRenderer _spriteRenderer; //spriterender for drawing
 
-        public Rectangle TopLine { get; set; }
-        public Rectangle BottomLine { get; set; }
-        public Rectangle RightLine { get; set; }
-        public Rectangle LeftLine { get; set; }
+        public Rectangle TopLine { get; set; } // TopLine of CollisionBox
+        public Rectangle BottomLine { get; set; } // BottomLine of CollisionBox
+        public Rectangle RightLine { get; set; } // RightLine of CollisionBox
+        public Rectangle LeftLine { get; set; } // LeftLine of CollisionBox
 
         /// <summary>
         /// Property for rectangle colisionbox  for sprite
@@ -35,8 +38,7 @@ namespace JumpNGun
                 );
             }
         }
-
-
+        
 
         public override void Start()
         {
@@ -55,9 +57,7 @@ namespace JumpNGun
 
         public override void Update(GameTime gameTime)
         {
-            CheckCollision();
         }
-
 
         /// <summary>
         /// Will draw rectangle for visible colisionbox for debugging
@@ -66,12 +66,13 @@ namespace JumpNGun
         /// <param name="spriteBatch"></param>
         private void DrawRectangle(Rectangle collisionBox, SpriteBatch spriteBatch)
         {
+            // Create Lines
             TopLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             BottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
             RightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
             LeftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
 
-
+            // Draw Lines
             spriteBatch.Draw(_texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(_texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(_texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
@@ -79,12 +80,6 @@ namespace JumpNGun
         }
 
 
-        /// <summary>
-        /// Checks if any colliders (collisionbox) intersects with each other and trigger event if they do
-        /// </summary>
-        private void CheckCollision()
-        {
 
-        }
     }
 }

@@ -8,14 +8,14 @@ namespace JumpNGun
 {
     public class GameObject
     {
+        // List of all components
         private List<Component> components = new List<Component>(); //list for relevant components
 
+        // Reference to GameOjbects transform
         public Transform Transform { get; set; } = new Transform();
 
+        // Reference to GameObjects Tag
         public string Tag { get; set; }
-
-        public int Id { get; set; }
-
 
         /// <summary>
         /// call awake on all components

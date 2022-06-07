@@ -5,10 +5,12 @@ namespace JumpNGun
 {
     /// <summary>
     /// Klassen er lavet af Nichlas Hoberg
+    /// Denne har vi brugt i ældre projekter også!
     /// </summary>
     public class EventManager
     {
-        private Dictionary<string, Action<Dictionary<string, object>>> _eventDictionary; // Contains all events
+        // Contains all events
+        private Dictionary<string, Action<Dictionary<string, object>>> _eventDictionary; 
 
         private static EventManager _instance;
 

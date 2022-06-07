@@ -1,5 +1,8 @@
 ﻿namespace JumpNGun
 {
+    /// <summary>
+    /// Interfaced er lavet af Nichlas Hoberg
+    /// </summary>
     public interface IBuilder
     {
         /// <summary>

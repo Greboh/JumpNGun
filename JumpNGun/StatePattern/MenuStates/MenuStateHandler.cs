@@ -93,7 +93,7 @@ namespace JumpNGun
         /// </summary>
         public void ComponentCleanUp()
         {
-            foreach (GameObject go in GameWorld.Instance.gameObjects)
+            foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
                 GameWorld.Instance.Destroy(go);
             }

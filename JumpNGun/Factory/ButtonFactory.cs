@@ -53,7 +53,7 @@ namespace JumpNGun
 
         #endregion
 
-        #region methods
+        #region Class methods
 
        
         /// <summary>

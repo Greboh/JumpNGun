@@ -2,6 +2,9 @@
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af Nichlas Hoberg og Kristian J. Fich
+    /// </summary>
     public interface IEnemyState
     {
         /// <summary>

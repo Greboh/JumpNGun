@@ -19,11 +19,15 @@ namespace JumpNGun
 
         public override GameObject Create(Enum type, Vector2 position)
         {
+            // Create new gameObject 
             GameObject projectile = new GameObject();
+            
+            // Add Components
             SpriteRenderer sr = (SpriteRenderer)projectile.AddComponent(new SpriteRenderer());
             projectile.AddComponent(new Collider());
             _animator = new Animator();
-
+            
+            // Add Type specific components and Tag
             switch (type)
             {
                 case CharacterType.Soldier:
@@ -48,34 +52,14 @@ namespace JumpNGun
                     {
                         projectile.AddComponent(_animator);
                         sr.SetSprite("fireball1");
-                        CreateFireBallAnimations();
                         _animator.PlayAnimation("fireball");
                         projectile.Tag = "e_Projectile";
                     }break;
             }
 
             projectile.AddComponent(new Projectile());
+            // return GameObject
             return projectile;
-        }
-
-        private void CreateFireBallAnimations()
-        {
-            _animator.AddAnimation(BuildAnimations("fireball", new string[] { "fireball1", "fireball2", "fireball3", "fireball4", "fireball5", "fireball6", }));
-        }
-
-
-        public Animation BuildAnimations(string animationName, string[] spriteNames)
-        {
-            Texture2D[] sprites = new Texture2D[spriteNames.Length];
-
-            for (int i = 0; i < sprites.Length; i++)
-            {
-                sprites[i] = GameWorld.Instance.Content.Load<Texture2D>(spriteNames[i]);
-            }
-
-            Animation anim = new Animation(animationName, sprites, 5);
-
-            return anim;
         }
     }
 }
