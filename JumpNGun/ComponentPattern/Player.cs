@@ -313,7 +313,7 @@ namespace JumpNGun
         /// </summary>
         private void WalkingSoundEffects()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.A) && _isGrounded || Keyboard.GetState().IsKeyDown(Keys.D) && _isGrounded)
+            if (_movementKeys.ContainsValue(true) && _isGrounded)
             {
                 _footstepCooldown += GameWorld.DeltaTime;
                 if (_footstepCooldown > 0.3f)

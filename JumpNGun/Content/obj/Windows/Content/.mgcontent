@@ -151,6 +151,7 @@
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/skelet_walk2.png</File>
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/skelet_walk3.png</File>
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/skelet_walk4.png</File>
+    <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/soundtrack_1.mp3</File>
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/worm_attack1.png</File>
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/worm_attack2.png</File>
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/worm_attack3.png</File>
@@ -180,6 +181,7 @@
     <File>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/worm_walk9.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
