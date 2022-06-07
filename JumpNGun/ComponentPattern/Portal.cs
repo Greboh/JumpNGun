@@ -116,10 +116,12 @@ namespace JumpNGun
                 if (go.HasComponent<Player>() && !isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = true;
+                    SoundManager.Instance.PlayClip("enter");
                 }
                 else if (go.HasComponent<Player>() && isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = false;
+                    SoundManager.Instance.PlayClip("exit");
                 }
             }
         }

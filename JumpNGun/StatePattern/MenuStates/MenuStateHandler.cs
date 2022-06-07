@@ -10,7 +10,7 @@ namespace JumpNGun
     {
         /*
             [Description]
-            Abstract class for menu state methods to be used in GameWorld.
+            
         */
         
         public Texture2D GameTitle { get; set; }
@@ -55,6 +55,7 @@ namespace JumpNGun
 
         public void Initialize()
         {
+            //Caches states for later use
             MainMenu = new MainMenu();
             SettingsMenu = new SettingsMenu();
             Gameplay = new GamePlay();
@@ -86,32 +87,32 @@ namespace JumpNGun
             CurrentMenuState.Draw(spriteBatch);
         }
 
-
+        /// <summary>
+        /// Cleans up all instansiated components, used for when switching states to insure objects are removed
+        /////LAVET AF KEAN
+        /// </summary>
         public void ComponentCleanUp()
         {
-            //TODO - Ask if this is okay
             foreach (GameObject go in GameWorld.Instance.gameObjects)
             {
                 GameWorld.Instance.Destroy(go);
             }
         }
 
+        /// <summary>
+        /// Sets current menu state from newMenuState parameter recived when calling ChangeState method
+        ///// LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="newMenuState"></param>
         public void ChangeState(IStateMenu newMenuState)
         {
-            if (CurrentMenuState == newMenuState) return;
+            if (CurrentMenuState == newMenuState) return; 
 
-            if (CurrentMenuState != null) Console.WriteLine($"Changed Menu State from: {CurrentMenuState.GetType().Name} to {newMenuState.GetType().Name}");
-            CurrentMenuState?.Exit();
+            CurrentMenuState?.Exit(); // if CurrentMenuState is not null, invoke Exit()
 
-            CurrentMenuState = newMenuState;
+            CurrentMenuState = newMenuState; // sets CurrentMenuState from newMenuState
             CurrentMenuState.LoadContent();
-            CurrentMenuState.Enter(this);
-        }
-
-
-        private void DataBasteTesting()
-        {
-            Database.Instance.PrintScore();
+            CurrentMenuState.Enter(this); // invokes Enter() with this class as parameter
         }
     }
 }

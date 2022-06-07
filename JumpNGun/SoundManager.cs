@@ -28,6 +28,7 @@ namespace JumpNGun
 
 
         #endregion
+
         #region Player soundeffects
         private static SoundEffectInstance jump;
         private static SoundEffectInstance footstep_1;

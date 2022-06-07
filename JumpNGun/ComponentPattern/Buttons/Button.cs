@@ -75,7 +75,7 @@ namespace JumpNGun
 
         public override void Awake()
         {
-            // Sets position for the button sprite
+            // Sets position for the button sprite from predetermined vector positions
             switch (_type)
             {
                 case ButtonType.Start:
@@ -140,6 +140,11 @@ namespace JumpNGun
             _buttonRect = new Rectangle((int) _position.X, (int) _position.Y, _sr.Sprite.Width, _sr.Sprite.Height); // construcs rectangle from position and sprite width/height
         }
 
+        /// <summary>
+        /// primarily handles what code to execute when button is pressed
+        /////LAVET AF KEAN & NICHLAS
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             _mouseRect = new Rectangle((int) GameWorld.Instance.MyMouse.X, (int) GameWorld.Instance.MyMouse.Y, 10, 10); // mouse rectangle
@@ -151,14 +156,12 @@ namespace JumpNGun
             if (_mouseRect.Intersects(_buttonRect))
             {
                 _sr.SetColor(Color.LightGray); // sets color on hover
-                if (fireOnce)
+                if (fireOnce) // makes sure button sounds don't play continuously when hovered
                 {
                     SoundManager.Instance.PlayRandomClick();
                     fireOnce = false;
                 }
 
-
-                //TODO: Refactor this mess
                 switch (_type)
                 {
                     case ButtonType.Start:
@@ -228,6 +231,9 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Highscore logic button
+        /// </summary>
         private void HighscoreButton()
         {
             if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
@@ -471,6 +477,9 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Resume button logic
+        /// </summary>
         private void Resume()
         {
             // Console.WriteLine($"Intersects with {_type}");
@@ -499,6 +508,7 @@ namespace JumpNGun
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
+                // toggles bool on mouse button press and calls method in SoundManager.cs
                 if (SoundManager.Instance._sfxDisabled == true)
                 {
                     SoundManager.Instance._sfxDisabled = false;
@@ -529,6 +539,7 @@ namespace JumpNGun
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
+                // toggles bool on mouse button press and calls method in SoundManager.cs
                 if (SoundManager.Instance._musicDisabled == true)
                 {
                     SoundManager.Instance._musicDisabled = false;

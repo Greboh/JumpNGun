@@ -34,7 +34,7 @@ namespace JumpNGun
             (GameObject.GetComponent<Animator>() as Animator).PlayAnimation("Idle");
             
         }
-
+        
         public override void Update(GameTime gameTime)
         {
             OnCollision();
@@ -54,17 +54,19 @@ namespace JumpNGun
             {
                 if (collider.CollisionBox.Intersects(otherCollision.CollisionBox))
                 {
-                    // Check if our collision has the tag player
                     if (otherCollision.GameObject.Tag == "player" )
                     {
+                        Console.WriteLine($"this {GameObject.Tag} collided with {otherCollision.GameObject.Tag}");
+
+                        SoundManager.Instance.PlayClip("pickup");
+
                         // TriggerEvent
                         EventManager.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
                             {
                                 {"xpAmount", _xpAmount}
                             }
                         );
-
-                        // Destroy this object
+                        
                         GameWorld.Instance.Destroy(collider.GameObject);
                     }
                 }

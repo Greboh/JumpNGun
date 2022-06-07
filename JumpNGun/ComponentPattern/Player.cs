@@ -27,7 +27,6 @@ namespace JumpNGun
         private Vector2 _moveDirection;
 
         private bool _isAlive; // Controls if the player is alive or not
-
         public float Speed { get; } // Speed at which the player moves
         private float _jumpHeight; // The jump height of the player
         private float _dashStrength; // The strength of the player dash
@@ -48,6 +47,8 @@ namespace JumpNGun
         private bool _canDash = true; // Controls if the player canDash
         private float _dashTimer; // Timer on Dash
         private float _dashCooldown; // Cooldown on Dash
+
+        private float _footstepCooldown; // delay between footstep sound
 
 
         #endregion
@@ -125,6 +126,8 @@ namespace JumpNGun
                 HandleDashLogic();
                 HandleAnimations();
                 ScreenBounds();
+            WalkingSoundEffects();
+
             }
 
         }
@@ -165,7 +168,7 @@ namespace JumpNGun
             if (!_canJump || _isJumping) return;
 
             // Sound effect
-            SoundManager.Instance.PlayClip("jump");
+            SoundManager.Instance.PlayRandomJump();
 
             // Add to our jump count
             _jumpCount++;
@@ -304,6 +307,23 @@ namespace JumpNGun
             }
         }
 
+        /// <summary>
+        /// Plays random footstep out of 4 diffent if player is moving with A or D and is on ground
+        /// LAVET AF KEAN
+        /// </summary>
+        private void WalkingSoundEffects()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && _isGrounded || Keyboard.GetState().IsKeyDown(Keys.D) && _isGrounded)
+            {
+                _footstepCooldown += GameWorld.DeltaTime;
+                if (_footstepCooldown > 0.3f)
+                {
+                    SoundManager.Instance.PlayRandomFootstep();
+                    _footstepCooldown = 0;
+                }
+            }
+        }
+        
         #endregion
 
         #region Class Methods

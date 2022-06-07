@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/golem_idle3.png</SourceFile>
-  <SourceTime>2022-06-06T13:24:57.7620677+02:00</SourceTime>
-  <DestFile>C:/Users/sthob/Desktop/Skole/Opgaver/Eksamen/JumpNGun/JumpNGun/Content/bin/Windows/Content/golem_idle3.xnb</DestFile>
-  <DestTime>2022-06-06T13:25:39.7317625+02:00</DestTime>
+  <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/golem_idle3.png</SourceFile>
+  <SourceTime>2022-05-27T13:56:03.1970903+02:00</SourceTime>
+  <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/golem_idle3.xnb</DestFile>
+  <DestTime>2022-06-06T14:55:32.0397416+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
