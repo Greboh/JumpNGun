@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>A:/Github/JumpNGun/JumpNGun/Content/avatar_1.png</SourceFile>
-  <SourceTime>2022-06-06T13:20:30.6473066+02:00</SourceTime>
+  <SourceTime>2022-06-07T10:44:38.7065813+02:00</SourceTime>
   <DestFile>A:/Github/JumpNGun/JumpNGun/Content/bin/Windows/Content/avatar_1.xnb</DestFile>
-  <DestTime>2022-06-06T13:20:38.4772815+02:00</DestTime>
+  <DestTime>2022-06-07T10:47:58.1060313+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T18:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
