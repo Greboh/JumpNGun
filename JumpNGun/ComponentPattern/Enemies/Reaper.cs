@@ -5,13 +5,22 @@ namespace JumpNGun
 {
     public class Reaper : Enemy
     {
+        //determines whether reaper can summon
         public bool CanSummon { get; set; } 
+
+        //determines whether reaper can teleport
         public bool CanTeleport { get; set; }
+
+        //determines if reaper should use ability or not
         public bool ShouldUseAbility { get; set; }
+
+        //used to save initial speed of reaper 
         public float DefaultSpeed { get; private set; }
         
-
+        //cooldown after used ability
         private float _abilityCooldown = 5;
+
+        //timer to handle ability call
         private float _abilityTimer;
 
         public Reaper()

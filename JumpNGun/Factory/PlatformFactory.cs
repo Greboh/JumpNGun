@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
+    // HELE KLASSEN ER LAVET AF KRISTIAN J. FICH 
+
     /// <summary>
     /// Different types of platforms 
     /// </summary>
@@ -36,19 +38,18 @@ namespace JumpNGun
         //position for ground platform
         private Vector2 _groundPosition = new Vector2((GameWorld.Instance.GraphicsDevice.Viewport.Width / 2), 795);
 
-        /// <summary>
-        /// Takes in 2 overloads and creates floating platform
-        /// </summary>
-        /// <param name="type">type of platform</param>
-        /// <param name="position">position of platform</param>
-        /// <returns></returns>
         public override GameObject Create(Enum type, Vector2 position)
         {
+            //instantiate gameobject
             GameObject gameObject = new GameObject();
+
+            //instantiate and add SpriteRenderer component
             SpriteRenderer sr = (SpriteRenderer) gameObject.AddComponent(new SpriteRenderer());
             
+            //add and instantiate collider component 
             gameObject.AddComponent(new Collider());
 
+            // Add platform component and set relevant sprite according to the enum PlatformType
             switch (type)
             {
                 case PlatformType.GrassGround:

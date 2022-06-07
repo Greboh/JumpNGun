@@ -141,6 +141,7 @@ namespace JumpNGun
         /// <param name="amountOfPlatforms"></param>
         public void GeneratePlatforms(int amountOfPlatforms, PlatformType type)
         {
+            //set _currentRectangle equal to the returned rectangle from method
             _currentRectangle = SpawnFirstPlatform(type);
             
             for (int i = 0; i < amountOfPlatforms; i++)

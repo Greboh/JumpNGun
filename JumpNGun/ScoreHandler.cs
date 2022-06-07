@@ -11,8 +11,13 @@ namespace JumpNGun
     {
         private static ScoreHandler _instance;
 
+        //list containing highscore names
         private List<string> _highscoreNames;
+
+        //list containing highscore scores
         private List<int> _highScoreScores;
+
+        //tuple to hold two sorted lists
         Tuple<List<int>, List<string>> SortedLists;
 
         public static ScoreHandler Instance
@@ -44,18 +49,43 @@ namespace JumpNGun
             _highscoreNames = Database.Instance.GetHighScores().Item1;
 
             SortedLists = Sort(_highScoreScores, _highscoreNames);
+
+            foreach (int score in SortedLists.Item1)
+            {
+                Console.WriteLine("SCORE: " + score);
+            }
+
+            foreach (string name in SortedLists.Item2)
+            {
+                Console.WriteLine("NAME: " + name);
+            }
         }
 
+        /// <summary>
+        /// Sort two litst with bubblesort and return tuple containing the sorted lists 
+        /// </summary>
+        /// <param name="scores">list containing integers</param>
+        /// <param name="names">list containing strings</param>
+        /// <returns></returns>
         private Tuple<List<int>, List<string>> Sort(List<int> scores, List<string> names)
         {
+            //determines if we should exit while loop for bubblesort
             bool swapped = false;
+
+            //variable to hold the integer value we are swapping
             int scoreHolder;
+
+            //varibale to hold the string value we are swapping
             string nameHolder;
 
+            //sort while swapped is false
             while (!swapped)
             {
+                //loop runs x amount according to scores.Count
                 for (int i = 1; i < scores.Count; i++)
                 {
+                    /*if previous index is smaller than current index swap them,
+                     and swap the corresponding indexes in the list containing strings*/
                     if (scores[i - 1] < scores[i])
                     {
                         scoreHolder = scores[i - 1];
@@ -67,35 +97,18 @@ namespace JumpNGun
                         names[i - 1] = names[i];
                         names[i] = nameHolder;
 
+                        //swapped set to true
                         swapped = true;
                     }
                 }
 
-                if (swapped) swapped = false;
-                else if (!swapped) swapped = true;
+                if (swapped) swapped = false; //if swapped has altered, return to false sort again
+                else if (!swapped) swapped = true; //if swapped is false, sorting has finished and we exit loop
             }
 
+            //return the two sorted lists
             return Tuple.Create(scores, names);
 
         }
-
-        public Tuple<List<int>, List<string>> GetSortedScores()
-        {
-            _highScoreScores = Database.Instance.GetHighScores().Item2;
-            _highscoreNames = Database.Instance.GetHighScores().Item1;
-
-            return Sort(_highScoreScores, _highscoreNames);
-            
-        }
-
-        
-
-        public void GetHighScores()
-        {
-
-
-
-        }
-
     }
 }

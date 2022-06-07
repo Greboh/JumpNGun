@@ -6,6 +6,7 @@ using System.Text;
 
 namespace JumpNGun
 {
+    //HELE KLASSEN ER LAVET AF KRISTIAN J. FICH 
     public enum EnemyType
     {
         GrassBoss,

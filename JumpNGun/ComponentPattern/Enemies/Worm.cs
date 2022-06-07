@@ -7,15 +7,22 @@ namespace JumpNGun
 {
     class Worm : Enemy
     {
-        //TODO fix worm Sprites and Animations - KRISTIAN
+        // How strong the force of gravity is
+        private float _gravityPull;
 
-        private float _gravityPull; // How strong the force of gravity is
-        private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private bool _isGrounded; //whether object is on ground or falling
-        
+        // Used to multiply the gravity over time making it stronger
+        private int _gravityMultiplier = 100;
+
+        //determines whether object is grounded or not
+        private bool _isGrounded;
+
+        //list of valid locations containing platforms
         private List<Rectangle> _locations = new List<Rectangle>();
+
+        //rectangle to contain groundcollision
         private Rectangle _groundCollision = Rectangle.Empty;
 
+        //used to assert that we have found/not found the initial rectangle containg position
         private bool _locationRectangleFound;
 
 
@@ -46,7 +53,7 @@ namespace JumpNGun
             
             GameObject.Transform.Position = spawnPosition;
 
-            GetLocations();
+            GetAllRectangleLocations();
         }
 
         public override void Update(GameTime gameTime)
@@ -64,44 +71,55 @@ namespace JumpNGun
         #region Movement Methods
 
         /// <summary>
-        /// Set _currentRectangle to rectangle within position lies. 
+        /// Find and reference the rectangle containing mushroom object position
+        /// //LAVET AF KRISTIAN J. FICH 
         /// </summary>
         private void CalculateMovementArea()
         {
+            //return if object isn't grounded
             if (!_isGrounded) return;
 
+            //set PlatformRectangle equal to the rectangle in _locations that contain this objects position
             foreach (Rectangle location in _locations)
             {
                 if (location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
                 {
                     PlatformRectangle = location;
+
+                    //ensure that we only find location once
                     _locationRectangleFound = true;
                 }
             }
         }
 
         /// <summary>
-        /// Sets bounderies for object movement according to platform amount around _currentRectangle
+        /// Create a rectangle that consists of immidiate alligned rectangles
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void CreateMovementArea()
         {
+            //loop through _locations 
             for (int i = 0; i < _locations.Count; i++)
             {
+                //if any rectangles in _locations allign horizontally and right next to each other, make a combined rectangle of the respective rectangles 
                 if (PlatformRectangle.Right == _locations[i].Left && PlatformRectangle.Y == _locations[i].Y)
                 {
+                    //set Platformrectangle equal to new rectangle 
                     PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
                 if (PlatformRectangle.Left == _locations[i].Right && PlatformRectangle.Y == _locations[i].Y)
                 {
+                    //set Platformrectangle equal to new rectangle 
                     PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
             }
         }
 
         /// <summary>
-        /// Get all rectangles that contain platforms
+        /// Get relevant list of locations from levelmanager
+        /// LAVET AF KRISTIAN J. FICH 
         /// </summary>
-        private void GetLocations()
+        private void GetAllRectangleLocations()
         {
             for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
             {
@@ -110,9 +128,10 @@ namespace JumpNGun
         }
 
         #endregion
-        
+
         /// <summary>
         /// Calculate if we are in attack range and should change state
+        /// //LAVET AF NICHLAS HOBERG 
         /// </summary>
         private void CalculateAttack()
         {
@@ -129,6 +148,7 @@ namespace JumpNGun
         
         /// <summary>
         /// Creates gravity making sure the object falls unless grounded
+        /// LAVET AF NICHLAS HOBERG
         /// </summary>
         private void HandleGravity()
         {
@@ -146,7 +166,8 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Check collision with ground to deploy gravity
+        /// Check collision with platforms to deploy gravity
+        /// LAVET AF KRISTIAN J. FICH
         /// </summary>
         protected override void CheckCollision()
         {

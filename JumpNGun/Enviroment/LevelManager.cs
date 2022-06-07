@@ -45,6 +45,7 @@ namespace JumpNGun
 
         private LevelManager()
         {
+            //subscribe to events 
             EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
             EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath);
         }

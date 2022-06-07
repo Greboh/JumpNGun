@@ -6,14 +6,23 @@ namespace JumpNGun
 {
     class Mushroom : Enemy
     {
-        //TODO - Add comments for methods and fields - KRISTIAN
 
-        private float _gravityPull; // How strong the force of gravity is
-        private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private bool _isGrounded;
+        // How strong the force of gravity is
+        private float _gravityPull;
 
+        // Used to multiply the gravity over time making it stronger
+        private int _gravityMultiplier = 100; 
+
+        //determines whether object is grounded or not
+        private bool _isGrounded; 
+
+        //list of valid locations containing platforms
         private List<Rectangle> _locations = new List<Rectangle>();
+
+        //rectangle to contain groundcollision
         private Rectangle _groundCollision = Rectangle.Empty;
+
+        //used to assert that we have found/not found the initial rectangle containg position
         private bool _locationRectangleFound;
 
 
@@ -46,7 +55,6 @@ namespace JumpNGun
             
             CalculateMovementArea();
             CreateMovementArea();
-
             HandleGravity();
             CheckCollision();
             CalculateAttack();
@@ -56,42 +64,52 @@ namespace JumpNGun
 
         /// <summary>
         /// Find and reference the rectangle containing mushroom object position
+        /// //LAVET AF KRISTIAN J. FICH 
         /// </summary>
         private void CalculateMovementArea()
         {
+            //return if object isn't grounded
             if (!_isGrounded) return;
 
+            //set PlatformRectangle equal to the rectangle in _locations that contain this objects position
             foreach (Rectangle location in _locations)
             {
                 if (location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
                 {
                     PlatformRectangle = location;
+                    
+                    //ensure that we only find location once
                     _locationRectangleFound = true;
                 }
             }
         }
 
         /// <summary>
-        /// Create a rectangle that consist of all rectangles containing platforms and are alligned
+        /// Create a rectangle that consists of immidiate alligned rectangles
+        /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         private void CreateMovementArea()
         {
+            //loop through _locations 
             for (int i = 0; i < _locations.Count; i++)
             {
+                //if any rectangles in _locations allign horizontally and right next to each other, make a combined rectangle of the respective rectangles 
                 if (PlatformRectangle.Right == _locations[i].Left && PlatformRectangle.Y == _locations[i].Y)
                 {
+                    //set Platformrectangle equal to new rectangle 
                     PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
                 if (PlatformRectangle.Left == _locations[i].Right && PlatformRectangle.Y == _locations[i].Y)
                 {
+                    //set Platformrectangle equal to new rectangle 
                     PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
                 }
             }
         }
         
-
         /// <summary>
-        /// Get all rectangles that contain a platform
+        /// Get relevant list of locations from levelmanager
+        /// LAVET AF KRISTIAN J. FICH 
         /// </summary>
         private void GetAllRectangleLocations()
         {
@@ -139,8 +157,8 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Checks for relevant collision with this object
-        /// //LAVET AF KRISTIAN J. FICH
+        /// Check collision with platforms to deploy gravity
+        /// LAVET AF KRISTIAN J. FICH
         /// </summary>
         protected override void CheckCollision()
         {

@@ -10,28 +10,28 @@ namespace JumpNGun
     public class EnemyAttackState : IEnemyState
     {
         private Enemy _parent;
-        
+
         private bool _canShoot;
 
         // Reference to which direction the sprite was flipped before attacking
         private SpriteEffects _oldSpriteFlip;
-        
+
         public void Enter(Enemy parent)
         {
             // Check which type of enemy the parent is
-            if(parent.GameObject.HasComponent<Mushroom>())
+            if (parent.GameObject.HasComponent<Mushroom>())
             {
                 _parent = parent.GameObject.GetComponent<Mushroom>() as Mushroom;
             }
-            else if(parent.GameObject.HasComponent<Worm>())
+            else if (parent.GameObject.HasComponent<Worm>())
             {
                 _parent = parent.GameObject.GetComponent<Worm>() as Worm;
             }
-            else if(parent.GameObject.HasComponent<Reaper>())
+            else if (parent.GameObject.HasComponent<Reaper>())
             {
                 _parent = parent.GameObject.GetComponent<Reaper>() as Reaper;
-            }            
-            else if(parent.GameObject.HasComponent<ReaperMinion>())
+            }
+            else if (parent.GameObject.HasComponent<ReaperMinion>())
             {
                 _parent = parent.GameObject.GetComponent<ReaperMinion>() as ReaperMinion;
             }
@@ -40,8 +40,8 @@ namespace JumpNGun
                 _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
 
             }
-                // Set the oldSpriteFlip
-                _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
+            // Set the oldSpriteFlip
+            _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
         }
 
         public void Execute()
@@ -57,6 +57,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Handles the state animations
+        /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         public void Animate()
         {
@@ -118,11 +119,19 @@ namespace JumpNGun
             Animate();
         }
         
+        /// <summary>
+        /// Flipsprite according to player position
+        /// //LAVET AF NICHLAS HOBERG
+        /// </summary>
         private void FlipSprite()
         {
             _parent.SpriteRenderer.SpriteEffects = _parent.Player.GameObject.Transform.Position.X <= _parent.GameObject.Transform.Position.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         }
         
+        /// <summary>
+        /// Instantiate projectile at _parent's position
+        /// </summary>
+        /// <param name="direction">the direction for projectile movement</param>
         private void InstantiateProjectile(Vector2 direction)
         {
             GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom, Vector2.Zero);
@@ -132,7 +141,7 @@ namespace JumpNGun
             (projectile.GetComponent<Projectile>() as Projectile).Speed = _parent.ProjectileSpeed;
             (projectile.GetComponent<Projectile>() as Projectile).Damage = _parent.Damage;
             
-             Animate();
+            Animate();
             GameWorld.Instance.Instantiate(projectile);
         }
     }
