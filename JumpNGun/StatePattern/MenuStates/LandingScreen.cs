@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using SharpDX.Direct3D9;
+
 
 namespace JumpNGun
 {
@@ -16,7 +15,6 @@ namespace JumpNGun
     {
 
         #region fields
-        private Texture2D _inputField;
         private Texture2D _inputFieldTitle;
         private string _inputString = String.Empty;
         private SpriteFont _inputFont;
@@ -29,7 +27,7 @@ namespace JumpNGun
 
         /// <summary>
         /// initializes code that runs when LandingScreen state is instansiated
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
@@ -52,7 +50,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Updates logic when state is Highscore
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
@@ -93,7 +91,6 @@ namespace JumpNGun
 
         public void LoadContent()
         {
-            _inputField = GameWorld.Instance.Content.Load<Texture2D>("input_field");
             _inputFieldTitle = GameWorld.Instance.Content.Load<Texture2D>("enter_name_text");
             _inputFont = GameWorld.Instance.Content.Load<SpriteFont>("font");
         }

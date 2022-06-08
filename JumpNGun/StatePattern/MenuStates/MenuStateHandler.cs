@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using JumpNGun.StatePattern.GameStates;
-using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
@@ -21,7 +19,6 @@ namespace JumpNGun
         
 
         private static MenuStateHandler _instance;
-        private bool canPress = true;
 
         public static MenuStateHandler Instance
         {
@@ -89,7 +86,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Cleans up all instansiated components, used for when switching states to insure objects are removed
-        /////LAVET AF KEAN
+        /// LAVET AF KEAN
         /// </summary>
         public void ComponentCleanUp()
         {
@@ -101,7 +98,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Sets current menu state from newMenuState parameter recived when calling ChangeState method
-        ///// LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="newMenuState"></param>
         public void ChangeState(IStateMenu newMenuState)

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -16,15 +13,13 @@ namespace JumpNGun
         
         public bool IsAnimationDone { get; private set; }
 
-        private float timeElapsed = 0; //timeElapsed through animation
+        private float _timeElapsed; //timeElapsed through animation
 
-        private SpriteRenderer spriteRenderer; //spriterenderer used to draw
+        private SpriteRenderer _spriteRenderer; //spriterenderer used to draw
 
-        private Dictionary<string, Animation> animations = new Dictionary<string, Animation>(); /// dictionary used for animations. string refers to animation
+        private Dictionary<string, Animation> _animations = new Dictionary<string, Animation>(); /// dictionary used for animations. string refers to animation
 
         public Animation CurrentAnimation { get; private set; }//currently being animated
-
-        private bool _animationPlaying;
         
         public override void Awake()
         {
@@ -33,7 +28,7 @@ namespace JumpNGun
         public override void Start()
         {
             //gets spriterender component for animator
-            spriteRenderer = (SpriteRenderer)GameObject.GetComponent<SpriteRenderer>();
+            _spriteRenderer = (SpriteRenderer)GameObject.GetComponent<SpriteRenderer>();
         }
 
         public override void Update(GameTime gameTime)
@@ -43,26 +38,24 @@ namespace JumpNGun
         
         private void HandleAnimationLogic(GameTime gameTime)
         {
-            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //initiates animation if no current animation is being animated
             if (CurrentAnimation != null)
             {
-                _animationPlaying = true;
-                CurrentIndex = (int)(timeElapsed * CurrentAnimation.FPS);
+                CurrentIndex = (int)(_timeElapsed * CurrentAnimation.FPS);
 
                 //sets animation index to 0, so animations gets replayed - loops animation 
                 if (CurrentIndex > CurrentAnimation.Sprites.Length - 1)
                 {
-                    timeElapsed = 0;
+                    _timeElapsed = 0;
                     CurrentIndex = 0;
                     IsAnimationDone = true;
-                    _animationPlaying = false;
                 }
                 else IsAnimationDone = false;
 
                 //set sprite to the current animation sprite
-                spriteRenderer.Sprite = CurrentAnimation.Sprites[CurrentIndex];
+                _spriteRenderer.Sprite = CurrentAnimation.Sprites[CurrentIndex];
             }
 
         }
@@ -73,7 +66,7 @@ namespace JumpNGun
         /// <param name="animation">animation that will be added</param>
         public void AddAnimation(Animation animation)
         {
-            animations.Add(animation.Name, animation);
+            _animations.Add(animation.Name, animation);
 
             if (CurrentAnimation == null)
             {
@@ -87,11 +80,11 @@ namespace JumpNGun
         /// <param name="animationName">Name of animation to be played</param>
         public void PlayAnimation(string animationName)
         {
-            if (animationName != CurrentAnimation.Name && animations.ContainsKey(animationName))
+            if (animationName != CurrentAnimation.Name && _animations.ContainsKey(animationName))
             {
                 // Console.WriteLine($"Playing animationSet: {animationName}");
-                CurrentAnimation = animations[animationName];
-                timeElapsed = 0;
+                CurrentAnimation = _animations[animationName];
+                _timeElapsed = 0;
                 CurrentIndex = 0;
             }
         }

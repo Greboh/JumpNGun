@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -16,11 +14,6 @@ namespace JumpNGun
             IsRanged = false;
             IsBoss = true;
             AttackCooldown = 1;
-        }
-
-        public override void Awake()
-        {
-            base.Awake();
         }
 
         public override void Start()

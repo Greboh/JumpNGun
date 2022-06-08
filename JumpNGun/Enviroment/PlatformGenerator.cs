@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,13 +14,9 @@ namespace JumpNGun
             get { return _instance ??= new PlatformGenerator(); }
         }
 
-        #region FOR RECTANGLES
-
-
-
+        #region  Rectangles
         
-
-        private Texture2D texture;
+        private Texture2D _texture;
 
         public Rectangle TopLine { get; private set; }
         public Rectangle BottomLine { get; private set; }
@@ -115,7 +110,7 @@ namespace JumpNGun
 
         public void LoadContent()
         {
-            texture = GameWorld.Instance.Content.Load<Texture2D>("Pixel");
+            _texture = GameWorld.Instance.Content.Load<Texture2D>("Pixel");
         }
 
         private void DrawRectangle(Rectangle collisionBox, SpriteBatch spriteBatch)
@@ -126,10 +121,10 @@ namespace JumpNGun
             LeftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
 
 
-            spriteBatch.Draw(texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(texture, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         #endregion
@@ -139,6 +134,7 @@ namespace JumpNGun
         /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <param name="amountOfPlatforms"></param>
+        /// <param name="type"></param>
         public void GeneratePlatforms(int amountOfPlatforms, PlatformType type)
         {
             //set _currentRectangle equal to the returned rectangle from method
@@ -236,7 +232,6 @@ namespace JumpNGun
         /// Adds the value of every point in _validDistances to itself.
         /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
-        /// <param name="change"></param>
         private void SetDistancesUp()
         {
             for (int i = 0; i < _validDistances.Length; i++)

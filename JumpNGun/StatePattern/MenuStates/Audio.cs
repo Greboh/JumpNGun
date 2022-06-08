@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -22,7 +19,7 @@ namespace JumpNGun
 
         /// <summary>
         /// initializes code that runs when Audio state is instansiated
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
@@ -42,7 +39,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Updates gameobjects when state is audio
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
@@ -99,7 +96,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Code that runs when state is changed
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         public void Exit()
         {
@@ -109,15 +106,15 @@ namespace JumpNGun
 
         /// <summary>
         /// Sets music/sfx status icons
-        /////LAVET AF KEAN
+        /// LAVET AF KEAN
         /// </summary>
         private void SetAudioStatusIcons()
         {
             //sets texture to _disabled if false otherwise sets it to _enabled
-            _musicStatus = SoundManager.Instance._musicDisabled ? _disabled : _enabled;
+            _musicStatus = SoundManager.Instance.MusicDisabled ? _disabled : _enabled;
 
             //sets texture to _disabled if false otherwise sets it to _enabled
-            _sfxStatus = SoundManager.Instance._sfxDisabled ? _disabled : _enabled;
+            _sfxStatus = SoundManager.Instance.SfxDisabled ? _disabled : _enabled;
         }
         #endregion
     }

@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace JumpNGun
+﻿namespace JumpNGun
 {
     /// <summary>
     /// Klassen er lavet af Nichlas Hoberg

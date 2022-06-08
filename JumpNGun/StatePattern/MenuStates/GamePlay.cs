@@ -40,8 +40,8 @@ namespace JumpNGun
         #region methods
 
         /// <summary>
-        /// initializes code that runs when GamePlay state is instansiated
-        /////LAVET AF KEAN & NICHLAS
+        ///Initializes code that runs when GamePlay state is instansiated
+        ///LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
@@ -56,18 +56,18 @@ namespace JumpNGun
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
             LevelManager.Instance.ExecuteLevelGeneration();
-            
+
             EventManager.Instance.Subscribe("OnPlayerDeath", OnGameover);
 
             foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
-
         }
+
         /// <summary>
         /// Event that gets trigger when the player dies   
-        ////LAVET AF NICHLAS
+        /// LAVET AF NICHLAS
         /// </summary>
         /// <param name="ctx">The context that gets sent from the trigger in Player.cs</param>
         private void OnGameover(Dictionary<string, object> ctx)
@@ -77,7 +77,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Updates logic when state is GamePlay, also handles pause menu input
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
@@ -86,7 +86,7 @@ namespace JumpNGun
 
             PauseMenuHandling();
             SetAudioStatusIcons();
-            
+
             //call update method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
@@ -95,22 +95,21 @@ namespace JumpNGun
 
             //call cleanup in every cycle
             GameWorld.Instance.CleanUpGameObjects();
-            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            
+
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
                 GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
-            
+
             //draws pause menu overlay
             HandlePauseLogic(spriteBatch);
-            
+
             spriteBatch.End();
         }
 
@@ -137,18 +136,18 @@ namespace JumpNGun
 
         /// <summary>
         /// Code that runs when state is changed
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         public void Exit()
         {
             _pareMenuStateHandler.ComponentCleanUp();
-            
+
             Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
         }
 
         /// <summary>
         /// Handles keyboard inputs for opening and closing pause menu
-        /////LAVET AF KEAN
+        /// LAVET AF KEAN
         /// </summary>
         private void PauseMenuHandling()
         {
@@ -176,7 +175,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Handles what assets and button types to draw when PauseState is set to .Paused
-        /////LAVET AF KEAN
+        /// LAVET AF KEAN
         /// </summary>
         /// <param name="spriteBatch"></param>
         private void HandlePauseLogic(SpriteBatch spriteBatch)
@@ -194,7 +193,7 @@ namespace JumpNGun
                             GameWorld.Instance.Destroy(go);
                         }
                     }
-                    
+
                     // UnFreeze gameobjects
                     EventManager.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
                         {
@@ -203,7 +202,8 @@ namespace JumpNGun
                     );
 
                     _isPaused = false;
-                } break;
+                }
+                    break;
 
                 case PauseState.Paused:
                 {
@@ -214,9 +214,9 @@ namespace JumpNGun
                         0, new Vector2(0, 0), SpriteEffects.None, 1);
 
                     spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White);
-                    
 
-                    spriteBatch.DrawString(_scoreFont, "Level : " + _levelSystem.GetLevel() , new Vector2(401, 535), Color.White);
+
+                    spriteBatch.DrawString(_scoreFont, "Level : " + _levelSystem.GetLevel(), new Vector2(401, 535), Color.White);
 
 
                     spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White,
@@ -230,7 +230,7 @@ namespace JumpNGun
                             {"freeze", true}
                         }
                     );
-                    
+
                     //instansiates buttons used if paused
                     if (!_isPaused)
                     {
@@ -240,22 +240,24 @@ namespace JumpNGun
 
                         _isPaused = true;
                     }
-                } break;
+                }
+                    break;
             }
         }
 
         /// <summary>
         /// Sets music/sfx status icons
-        /////LAVET AF KEAN
+        /// LAVET AF KEAN
         /// </summary>
         private void SetAudioStatusIcons()
         {
             //sets _musicStatus texture to _disabled if false otherwise sets it to _enabled
-            _musicStatus = SoundManager.Instance._musicDisabled ? _disabled : _enabled;
+            _musicStatus = SoundManager.Instance.MusicDisabled ? _disabled : _enabled;
 
             //sets _sfxStatus texture to _disabled if false otherwise sets it to _enabled
-            _sfxStatus = SoundManager.Instance._sfxDisabled ? _disabled : _enabled;
+            _sfxStatus = SoundManager.Instance.SfxDisabled ? _disabled : _enabled;
         }
+
         #endregion
     }
 }

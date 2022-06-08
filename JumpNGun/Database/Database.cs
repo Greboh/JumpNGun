@@ -55,7 +55,7 @@ namespace JumpNGun
             _connection.Open();
 
             SQLiteCommand command = new SQLiteCommand(
-                $"INSERT INTO scores (NAME, SCORE) VALUES ('{name}', '{score}' )", (SQLiteConnection) _connection);
+                $"INSERT INTO scores (NAME, SCORE) VALUES ('{name}', '{score}' )",_connection);
             command.ExecuteNonQuery();
 
             _connection.Close();

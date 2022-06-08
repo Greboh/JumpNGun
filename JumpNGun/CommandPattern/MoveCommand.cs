@@ -7,16 +7,16 @@ namespace JumpNGun
     /// </summary>
     public class MoveCommand : ICommand
     {
-        private Vector2 velocity;
+        private Vector2 _velocity;
 
         public MoveCommand(Vector2 velocity)
         {
-            this.velocity = velocity;
+            this._velocity = velocity;
         }
 
         public void Execute(Player player)
         {
-            player.Move(velocity);
+            player.Move(_velocity);
         }
     }
 }

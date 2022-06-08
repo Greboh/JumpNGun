@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
@@ -14,7 +13,6 @@ namespace JumpNGun
     {
         private float _xpAmount; // Amount of xp an orb gives
         private Vector2 _position; // The orb's position
-        private bool _hasCollided = false; // if the orb has collided with player
        
 
         public ExperienceOrb(float xpAmount, Vector2 position)

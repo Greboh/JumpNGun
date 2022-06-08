@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun.StatePattern.GameStates
 {
@@ -58,7 +56,7 @@ namespace JumpNGun.StatePattern.GameStates
 
         /// <summary>
         /// initializes code that runs when Highscore state is instansiated
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
@@ -80,7 +78,7 @@ namespace JumpNGun.StatePattern.GameStates
 
         /// <summary>
         /// Updates logic when state is Highscore
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
@@ -113,7 +111,7 @@ namespace JumpNGun.StatePattern.GameStates
             // for loop for drawing scores to screen, it used int count + iteration to show ranked highscore number
             for (int i = 0; i < 10; i++)
             {
-                spriteBatch.DrawString(_scoreFont, (count + i).ToString() + ". " + _name[i].ToString(), new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White) ; ; ;
+                spriteBatch.DrawString(_scoreFont, (count + i).ToString() + ". " + _name[i], new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White) ; 
             }
 
             // for loop for drawing names to screen, it used int count + iteration to show ranked highscore number
@@ -146,7 +144,7 @@ namespace JumpNGun.StatePattern.GameStates
 
         /// <summary>
         /// Code that runs when state is changed
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         public void Exit()
         {

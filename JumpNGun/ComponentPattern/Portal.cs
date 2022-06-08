@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -9,15 +7,14 @@ namespace JumpNGun
 
     public class Portal : Component
     {
-
         // position of portal
         private Vector2 _position;
 
         //Determines animation to play
-        private bool _open = false;
+        private bool _open;
 
         //Determines if its spawn portal or next lvl portal
-        private bool isStartPortal;
+        private bool _isStartPortal;
 
         //animator component to play animations
         private Animator _animator;
@@ -29,7 +26,7 @@ namespace JumpNGun
             //Sets isStartportal to true according to position and calls HandlePlayerRendering
             if (position == new Vector2(40, 705))
             {
-                isStartPortal = true;
+                _isStartPortal = true;
                 StopPlayerRendering();
             }
         }
@@ -85,7 +82,7 @@ namespace JumpNGun
         private void ClosePortal()
         {
             //if portal isn't a start portal trigger next level event
-            if (!isStartPortal)
+            if (!_isStartPortal)
             {
                 EventManager.Instance.TriggerEvent("NextLevel", new Dictionary<string, object>
                     {
@@ -105,16 +102,16 @@ namespace JumpNGun
         private void CheckCollision()
         {
             //the portal collider
-            Collider _portalCollider = GameObject.GetComponent<Collider>() as Collider;
+            Collider portalCollider = GameObject.GetComponent<Collider>() as Collider;
 
             //checks every collisionbox in game and see if they intersect with _portalCollider
             foreach (Collider otherCollider in GameWorld.Instance.Colliders)
             {
                 //Terminate if the collision is the portal itself
-                if (otherCollider == _portalCollider) return;
+                if (otherCollider == portalCollider) return;
 
                 //if other collider is player set _open to false and stop rendering of player
-                if(_portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "player")
+                if(portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "player")
                 {
                     StopPlayerRendering();
                     _open = false;
@@ -129,12 +126,12 @@ namespace JumpNGun
         {
             foreach (GameObject go in GameWorld.Instance.GameObjects)
             {
-                if (go.Tag == "player" && !isStartPortal)
+                if (go.Tag == "player" && !_isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = true;
                     SoundManager.Instance.PlayClip("enter");
                 }
-                else if (go.Tag == "player" && isStartPortal)
+                else if (go.Tag == "player" && _isStartPortal)
                 {
                     (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = false;
                     SoundManager.Instance.PlayClip("exit");

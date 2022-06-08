@@ -1,9 +1,6 @@
-﻿using JumpNGun;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace JumpNGun
 {
@@ -55,13 +52,12 @@ namespace JumpNGun
 
         #region Class methods
 
-       
         /// <summary>
-        ///  Uses factory pattern to create a gameObject with the corresponding button enum and sprite
-        /////LAVET AF KEAN
+        /// Uses factory pattern to create a gameObject with the corresponding button enum and sprite
+        /// LAVET AF KEAN
         /// </summary>
-        /// <param name="type">used for determining button type</param>
-        /// <param name="position">is optional because this isn't used on this particular class</param>
+        /// <param name="type">Used for determining button type</param>
+        /// <param name="position">Is optional because this isn't used on this particular class</param>
         /// <returns></returns>
         public override GameObject Create(Enum type, [Optional] Vector2 position)
         {

@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.InteropServices;
 
 namespace JumpNGun
 {
     //HELE KLASSEN ER LAVET AF KRISTAIN
 
-    public enum WorldObjectType { portal }
+    public enum WorldObjectType { Portal }
     public class WorldObjectFactory : Factory
     {
         private static WorldObjectFactory _instance;
@@ -18,7 +17,7 @@ namespace JumpNGun
             get { return _instance ??= new WorldObjectFactory(); }
         }
 
-        public override GameObject Create(Enum type, Vector2 position)
+        public override GameObject Create(Enum type, [Optional] Vector2 position)
         {
             //instatiate gameobject
             GameObject gameObject = new GameObject();
@@ -40,7 +39,7 @@ namespace JumpNGun
             //add relevent component to gamobject by WorldObjectType 
             switch (type)
             {
-                case WorldObjectType.portal:
+                case WorldObjectType.Portal:
                     {
                         gameObject.AddComponent(new Portal(position));
                         sr.SetSprite("portal_idle_1");

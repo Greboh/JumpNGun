@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
@@ -18,53 +12,46 @@ namespace JumpNGun
            uses dictionaries to couple a string to a SoundEffectInstance to be used in other classes
        */
 
-        protected Random myRandom = new Random();
+        private Random _rnd = new Random();
 
         #region Menu soundeffects
-        private static SoundEffectInstance menu_hover_1;
-        private static SoundEffectInstance menu_hover_2;
-        private static SoundEffectInstance menu_hover_3;
-        private static SoundEffectInstance menu_click;
+        private static SoundEffectInstance _menuHover1;
+        private static SoundEffectInstance _menuHover2;
+        private static SoundEffectInstance _menuHover3;
+        private static SoundEffectInstance _menuClick;
 
 
         #endregion
 
         #region Player soundeffects
-        private static SoundEffectInstance jump;
-        private static SoundEffectInstance footstep_1;
-        private static SoundEffectInstance footstep_2;
-        private static SoundEffectInstance footstep_3;
-        private static SoundEffectInstance footstep_4;
+        private static SoundEffectInstance _jump;
+        private static SoundEffectInstance _footstep1;
+        private static SoundEffectInstance _footstep2;
+        private static SoundEffectInstance _footstep3;
+        private static SoundEffectInstance _footstep4;
 
-        private static SoundEffectInstance jump_1;
-        private static SoundEffectInstance jump_2;
+        private static SoundEffectInstance _jump1;
+        private static SoundEffectInstance _jump2;
 
-        private static SoundEffectInstance pickup;
+        private static SoundEffectInstance _pickup;
 
-        private static SoundEffectInstance enter;
-        private static SoundEffectInstance exit;
-
-
-
+        private static SoundEffectInstance _enter;
+        private static SoundEffectInstance _exit;
 
         #endregion
 
-        private static SoundEffectInstance soundtrack_1;
-        private static SoundEffectInstance soundtrack_2;
+        private static SoundEffectInstance _soundtrack1;
+        private static SoundEffectInstance _soundtrack2;
 
 
         #region Lists
         private Dictionary<string, SoundEffectInstance> _soundEffects;
         private Dictionary<string, SoundEffectInstance> _soundtracks;
-        private List<SoundEffectInstance> soundEffects = new List<SoundEffectInstance>();//list for soundeffects to easier control volume for all soundeffects
-        private List<SoundEffectInstance> soundtracks = new List<SoundEffectInstance>();//list for soundeffects to easier control volume for all soundeffects
-
-
+        
         #endregion
 
-        public bool _sfxDisabled = false; // bool for controlling sfx output
-        public bool _musicDisabled = false; // bool for controlling music output
-
+        public bool SfxDisabled { get; set; }
+        public bool MusicDisabled { get; set; }
 
 
         #region Instance
@@ -98,42 +85,39 @@ namespace JumpNGun
         /// <summary>
         /// Initializes the dictionary
         /// </summary>
-        public void InitDictionary()
+        private void InitDictionary()
         {
 
             _soundEffects ??= new Dictionary<string, SoundEffectInstance>();    // SFX
             _soundtracks ??= new Dictionary<string, SoundEffectInstance>();     // MUSIC
-
-
-
         }
 
         /// <summary>
         /// Loads soundeffects
         /// </summary>
-        public void InitClips()
+        private void InitClips()
         {
-            jump = GameWorld.Instance.Content.Load<SoundEffect>("jump").CreateInstance();
-            menu_hover_1 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_1").CreateInstance();
-            menu_hover_2 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_2").CreateInstance();
-            menu_hover_3 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_3").CreateInstance();
-            menu_click = GameWorld.Instance.Content.Load<SoundEffect>("menu_click").CreateInstance();
+            _jump = GameWorld.Instance.Content.Load<SoundEffect>("jump").CreateInstance();
+            _menuHover1 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_1").CreateInstance();
+            _menuHover2 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_2").CreateInstance();
+            _menuHover3 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_3").CreateInstance();
+            _menuClick = GameWorld.Instance.Content.Load<SoundEffect>("menu_click").CreateInstance();
 
-            soundtrack_1 = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack_1").CreateInstance();
-            soundtrack_2 = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack_2").CreateInstance();
+            _soundtrack1 = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack_1").CreateInstance();
+            _soundtrack2 = GameWorld.Instance.Content.Load<SoundEffect>("soundtrack_2").CreateInstance();
 
-            footstep_1 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_1").CreateInstance();
-            footstep_2 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_2").CreateInstance();
-            footstep_3 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_3").CreateInstance();
-            footstep_4 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_4").CreateInstance();
+            _footstep1 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_1").CreateInstance();
+            _footstep2 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_2").CreateInstance();
+            _footstep3 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_3").CreateInstance();
+            _footstep4 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_4").CreateInstance();
 
-            jump_1 = GameWorld.Instance.Content.Load<SoundEffect>("jump_1").CreateInstance();
-            jump_2 = GameWorld.Instance.Content.Load<SoundEffect>("jump_2").CreateInstance();
+            _jump1 = GameWorld.Instance.Content.Load<SoundEffect>("jump_1").CreateInstance();
+            _jump2 = GameWorld.Instance.Content.Load<SoundEffect>("jump_2").CreateInstance();
 
-            pickup = GameWorld.Instance.Content.Load<SoundEffect>("pickup").CreateInstance();
+            _pickup = GameWorld.Instance.Content.Load<SoundEffect>("pickup").CreateInstance();
 
-            enter = GameWorld.Instance.Content.Load<SoundEffect>("enter").CreateInstance();
-            exit = GameWorld.Instance.Content.Load<SoundEffect>("exit").CreateInstance();
+            _enter = GameWorld.Instance.Content.Load<SoundEffect>("enter").CreateInstance();
+            _exit = GameWorld.Instance.Content.Load<SoundEffect>("exit").CreateInstance();
 
 
 
@@ -144,39 +128,29 @@ namespace JumpNGun
         /// adds soundeffects from InitClips into dictionary with a string attached.
         /// makes it easier to control parameters like volume for all of them at once.
         /// </summary>
-        public void BuildClips()
+        private void BuildClips()
         {
-            _soundEffects.Add("jump", jump);
-            _soundEffects.Add("menu_hover_1", menu_hover_1);
-            _soundEffects.Add("menu_hover_2", menu_hover_2);
-            _soundEffects.Add("menu_hover_3", menu_hover_3);
-            _soundEffects.Add("menu_click", menu_click);
+            _soundEffects.Add("jump", _jump);
+            _soundEffects.Add("menu_hover_1", _menuHover1);
+            _soundEffects.Add("menu_hover_2", _menuHover2);
+            _soundEffects.Add("menu_hover_3", _menuHover3);
+            _soundEffects.Add("menu_click", _menuClick);
 
-            _soundEffects.Add("footstep_1", footstep_1);
-            _soundEffects.Add("footstep_2", footstep_2);
-            _soundEffects.Add("footstep_3", footstep_3);
-            _soundEffects.Add("footstep_4", footstep_4);
+            _soundEffects.Add("footstep_1", _footstep1);
+            _soundEffects.Add("footstep_2", _footstep2);
+            _soundEffects.Add("footstep_3", _footstep3);
+            _soundEffects.Add("footstep_4", _footstep4);
 
-            _soundEffects.Add("jump_1", jump_1);
-            _soundEffects.Add("jump_2", jump_2);
+            _soundEffects.Add("jump_1", _jump1);
+            _soundEffects.Add("jump_2", _jump2);
 
-            _soundEffects.Add("pickup", pickup);
+            _soundEffects.Add("pickup", _pickup);
 
-            _soundEffects.Add("enter", enter);
-            _soundEffects.Add("exit", exit);
-
-
-
-
-
-
-            _soundtracks.Add("soundtrack_1", soundtrack_1); // Main game soundtrack
-            _soundtracks.Add("soundtrack_2", soundtrack_2); // Menu soundtrack
-
-
-
-
-
+            _soundEffects.Add("enter", _enter);
+            _soundEffects.Add("exit", _exit);
+            
+            _soundtracks.Add("soundtrack_1", _soundtrack1); // Main game soundtrack
+            _soundtracks.Add("soundtrack_2", _soundtrack2); // Menu soundtrack
         }
 
         /// <summary>
@@ -200,7 +174,6 @@ namespace JumpNGun
 
         public void StopClip(string name)
         {
-
             if (_instance._soundEffects.TryGetValue(name, out SoundEffectInstance clip))
             {
                 clip.Stop();
@@ -217,25 +190,20 @@ namespace JumpNGun
         /// </summary>
         public void PlayRandomClick()
         {
-            int rdm = myRandom.Next(1, 4);
+            int rdm = _rnd.Next(1, 4);
 
-            if (rdm == 1)
+            switch (rdm)
             {
-                menu_hover_1.Play();
-
+                case 1:
+                    _menuHover1.Play();
+                    break;
+                case 2:
+                    _menuHover2.Play();
+                    break;
+                case 3:
+                    _menuHover3.Play();
+                    break;
             }
-            else if (rdm == 2)
-            {
-                menu_hover_2.Play();
-
-            }
-            else if (rdm == 3)
-            {
-                menu_hover_3.Play();
-
-            }
-
-
         }
 
         /// <summary>
@@ -243,27 +211,22 @@ namespace JumpNGun
         /// </summary>
         public void PlayRandomFootstep()
         {
-            int rdm = myRandom.Next(1, 5);
+            int rdm = _rnd.Next(1, 5);
 
-            if (rdm == 1)
+            switch (rdm)
             {
-                footstep_1.Play();
-
-            }
-            else if (rdm == 2)
-            {
-                footstep_2.Play();
-
-            }
-            else if (rdm == 3)
-            {
-                footstep_3.Play();
-
-            }
-            else if (rdm == 4)
-            {
-                footstep_4.Play();
-
+                case 1:
+                    _footstep1.Play();
+                    break;
+                case 2:
+                    _footstep2.Play();
+                    break;
+                case 3:
+                    _footstep3.Play();
+                    break;
+                case 4:
+                    _footstep4.Play();
+                    break;
             }
         }
 
@@ -272,33 +235,31 @@ namespace JumpNGun
         /// </summary>
         public void PlayRandomJump()
         {
-            int rdm = myRandom.Next(1, 3);
+            int rdm = _rnd.Next(1, 3);
 
-            if (rdm == 1)
+            switch (rdm)
             {
-                jump_1.Play();
-
+                case 1:
+                    _jump1.Play();
+                    break;
+                case 2:
+                    _jump2.Play();
+                    break;
             }
-            else if (rdm == 2)
-            {
-                jump_2.Play();
-
-            }
-            
         }
 
 
         /// <summary>
         /// Toggles SoundEffect volume to 0 (off)
         /// </summary>
-        public void toggleSFXOff()
+        public void ToggleSfxOff()
         {
             foreach (KeyValuePair<string, SoundEffectInstance> s in _soundEffects)
             {
                 s.Value.Volume = 0;
 
             }
-            _sfxDisabled = true;
+            SfxDisabled = true;
         }
 
         /// <summary>
@@ -310,20 +271,20 @@ namespace JumpNGun
             {
                 s.Value.Volume = 1;
             }
-            _sfxDisabled = false;
+            SfxDisabled = false;
 
         }
 
         /// <summary>
         /// Toggles Soundtrack volume to 0 (off)
         /// </summary>
-        public void toggleSoundtrackOff()
+        public void ToggleSoundtrackOff()
         {
             foreach (KeyValuePair<string, SoundEffectInstance> s in _soundtracks)
             {
                 s.Value.Volume = 0;
             }
-            _musicDisabled = true;
+            MusicDisabled = true;
         }
 
         /// <summary>
@@ -335,7 +296,7 @@ namespace JumpNGun
             {
                 s.Value.Volume = 1;
             }
-            _musicDisabled = false;
+            MusicDisabled = false;
         }
 
         #endregion

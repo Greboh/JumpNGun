@@ -14,7 +14,7 @@ namespace JumpNGun
 
         /// <summary>
         /// initializes code that runs when MainMenu state is instansiated
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)

@@ -10,72 +10,52 @@ namespace JumpNGun
     /// </summary>
     public class Player : Component
     {
+        #region Fields
+
         private CharacterType _character; // Reference our characterType
         private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>(); // Create dictionary containing movement values
-
-        #region Component Fields
 
         private SpriteRenderer _sr; // Reference to the SpriteRenderer component
         private Animator _animator; // Reference to the Animator component
         private Input _input; // Reference to the Input Component
         private Collider _pCollider; // Reference to the Collider component
+        
+        private Vector2 _moveDirection; // The direction the player should move
+        private Vector2 _spawnPosition = new Vector2(40, 705); // Reference the player's spawnPosition
+        private Rectangle _groundCollisionRectangle = Rectangle.Empty; // Reference the current groundCollision
 
-        #endregion
-
-        #region Movement Fields
-
-        private Vector2 _moveDirection;
-
-        private bool _isAlive; // Controls if the player is alive or not
         public float Speed { get; } // Speed at which the player moves
         private float _jumpHeight; // The jump height of the player
         private float _dashStrength; // The strength of the player dash
+        private float _gravityPull; // How strong the force of gravity is
+        private float _dashTimer; // Timer on Dash
+        private float _dashCooldown; // Cooldown on Dash
+        private float _footstepCooldown; // delay between footstep sound
+        private float _shootTime; // Timer on Shoot
+        private float _shootCooldown; // Cooldown on Shoot
+        private float _projectileSpeed; // Reference to the projectile's speed
 
         private int _gravity = 50; // The initial force of gravity
-        private float _gravityPull; // How strong the force of gravity is
         private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-
-
-        private bool _canJump; // Can the player jump
-        private bool _isJumping; // Is the player jumping
         private int _jumpCount; // The current amount of player jumps
         private int _maxJumpCount; // The max allowed amount of player jumps
-
         private int _maxHealth; // Player's max health
         private int _currentHealth; // Player's current health
         
+        private bool _isAlive; // Controls if the player is alive or not
+        private bool _canJump; // Can the player jump
+        private bool _isJumping; // Is the player jumping
         private bool _canDash = true; // Controls if the player canDash
-        private float _dashTimer; // Timer on Dash
-        private float _dashCooldown; // Cooldown on Dash
-
-        private float _footstepCooldown; // delay between footstep sound
-
-
-        #endregion
-
-        #region Action Fields
-
         private bool _canShoot = true; // Controls if the player canShoot
-        private float _shootTime; // Timer on Shoot
-        private float _shootCooldown; // Cooldown on Shoot
-
-        private float _projectileSpeed; // Reference to the projectile's speed
-        private int _damage; // Reference to the projectile's damage
-
-        
-        
-        #endregion
-
-        #region Collision Fields
-
-        private Vector2 _spawnPosition = new Vector2(40, 705); // Reference the player's spawnPosition
-        
-        private Rectangle _groundCollisionRectangle = Rectangle.Empty; // Reference the current groundCollision
         private bool _isGrounded; // Is the player grounded
         private bool _hasCollidedWithGround; // Reference if the player has collided with ground
+        
+        
+        private int _damage; // Reference to the projectile's damage
+        
 
         #endregion
-
+        
         public Player(CharacterType character, float speed, float jumpHeight, float dashStrength, float dashCooldown, float shootCooldown, int maxJumpCount, int maxHealth,
             float projectileSpeed, int damage)
         {
@@ -92,7 +72,7 @@ namespace JumpNGun
         }
 
         #region Component Methods
-
+        
         public override void Awake()
         {
             EventManager.Instance.Subscribe("OnKeyPress", OnKeyPressed);
@@ -120,22 +100,19 @@ namespace JumpNGun
             CheckGrounded();
             HandleGravity();
 
-            if (_isAlive)
-            {
-                HandleShootLogic();
-                HandleDashLogic();
-                HandleAnimations();
-                ScreenBounds();
+            if (!_isAlive) return;
+            
+            HandleShootLogic();
+            HandleDashLogic();
+            HandleAnimations();
+            ScreenBounds();
             WalkingSoundEffects();
-
-            }
 
         }
 
-
         #endregion
 
-        #region Movement Methods
+        #region Class Methods
 
         /// <summary>
         /// Called from MoveCommand.cs
@@ -251,10 +228,6 @@ namespace JumpNGun
             }
         }
 
-        #endregion
-
-        #region Action Methods
-
         /// <summary>
         /// Called from ShootCommand.cs
         /// Shoots a projectile if we can shoot
@@ -292,8 +265,8 @@ namespace JumpNGun
             // Check if player is alive
             if (_currentHealth > 0)
             {
-                 _isAlive = true;
-                 return;
+                _isAlive = true;
+                return;
             }
             
             _isAlive = false;
@@ -323,10 +296,6 @@ namespace JumpNGun
                 }
             }
         }
-        
-        #endregion
-
-        #region Class Methods
 
         /// <summary>
         /// Handles when to set Animations 

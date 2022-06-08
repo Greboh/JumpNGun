@@ -72,7 +72,7 @@ namespace JumpNGun
             GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform, Vector2.Zero));
 
             //Create first portal
-            GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
+            GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.Portal, new Vector2(40, 705)));
 
             //Create all relevant platforms
             PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
@@ -96,7 +96,7 @@ namespace JumpNGun
 
             if (EnemyCurrentAmount <= 0)
             {
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
+                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.Portal, new Vector2(1210, 700)));
             }
         }
 

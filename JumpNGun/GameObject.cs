@@ -1,15 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace JumpNGun
 {
     public class GameObject
     {
         // List of all components
-        private List<Component> components = new List<Component>(); //list for relevant components
+        private List<Component> _components = new List<Component>(); //list for relevant components
 
         // Reference to GameOjbects transform
         public Transform Transform { get; set; } = new Transform();
@@ -22,9 +20,9 @@ namespace JumpNGun
         /// </summary>
         public void Awake()
         {
-            for (int i = 0; i < components.Count; i++)
+            for (int i = 0; i < _components.Count; i++)
             {
-                components[i].Awake();
+                _components[i].Awake();
             }
         }
 
@@ -33,9 +31,9 @@ namespace JumpNGun
         /// </summary>
         public void Start()
         {
-            for (int i = 0; i < components.Count; i++)
+            for (int i = 0; i < _components.Count; i++)
             {
-                components[i].Start();
+                _components[i].Start();
             }
         }
 
@@ -45,7 +43,7 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            foreach (var component in components)
+            foreach (var component in _components)
             {
                 if (component.IsDisabled) return;
 
@@ -59,9 +57,9 @@ namespace JumpNGun
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < components.Count; i++)
+            for (int i = 0; i < _components.Count; i++)
             {
-                components[i].Draw(spriteBatch);
+                _components[i].Draw(spriteBatch);
             }
         }
 
@@ -74,7 +72,7 @@ namespace JumpNGun
         {
             component.GameObject = this;
 
-            components.Add(component);
+            _components.Add(component);
 
             return component;
         }
@@ -86,7 +84,7 @@ namespace JumpNGun
         /// <returns></returns>
         public Component GetComponent<T>() where T : Component
         {
-            return components.Find(x => x.GetType() == typeof(T));
+            return _components.Find(x => x.GetType() == typeof(T));
         }
 
         /// <summary>
@@ -96,7 +94,7 @@ namespace JumpNGun
         /// <returns></returns>
         public bool HasComponent<T>() where T : Component
         {
-            Component c = components.Find(x => x.GetType() == typeof(T));
+            Component c = _components.Find(x => x.GetType() == typeof(T));
 
             return c != null;
         }

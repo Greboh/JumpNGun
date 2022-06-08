@@ -30,7 +30,7 @@ namespace JumpNGun
         private Vector2 _sfxButtonPosition = new Vector2(614, 443);
         private Vector2 _backButtonPosition = new Vector2(583, 639);
         private Vector2 _quitToMainButtonPosition = new Vector2(487, 700);
-        private Vector2 _ResumeButtonPosition = new Vector2(556, 631);
+        private Vector2 _resumeButtonPosition = new Vector2(556, 631);
         private Vector2 _sfxPauseButtonPosition = new Vector2(1168, 88);
         private Vector2 _musicPauseButtonPosition = new Vector2(1109, 20);
         private Vector2 _submitButtonPosition = new Vector2(571, 491);
@@ -39,7 +39,7 @@ namespace JumpNGun
         private Vector2 _character2Position = new Vector2(686, 365);
 
 
-        private bool fireOnce = true; // bool used for insuring sound doesn't fire more than once when hovering
+        private bool _fireOnce = true; // bool used for insuring sound doesn't fire more than once when hovering
 
         private float _mouseCooldown; // mouse click cooldown used for avoiding unwanted menu button navigation
 
@@ -52,12 +52,9 @@ namespace JumpNGun
 
         private bool _inputClicked;
         private bool _inputKeyInteract;
-        private string _inputString = String.Empty;
         
         private Keys _currentInputKey = Keys.None;
 
-
-        // TODO REMOVE THIS
         private bool _canIntersect = true;
 
         #endregion
@@ -109,7 +106,7 @@ namespace JumpNGun
                     _position = _quitToMainButtonPosition;
                     break;
                 case ButtonType.Resume:
-                    _position = _ResumeButtonPosition;
+                    _position = _resumeButtonPosition;
                     break;
                 case ButtonType.SfxPause:
                     _position = _sfxPauseButtonPosition;
@@ -142,24 +139,22 @@ namespace JumpNGun
 
         /// <summary>
         /// primarily handles what code to execute when button is pressed
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            _mouseRect = new Rectangle((int) GameWorld.Instance.MyMouse.X, (int) GameWorld.Instance.MyMouse.Y, 10, 10); // mouse rectangle
+            _mouseRect = new Rectangle(GameWorld.Instance.MyMouse.X, GameWorld.Instance.MyMouse.Y, 10, 10); // mouse rectangle
             _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds; // negates double input on buttons
             
-            
-
             // used for checking mouse rect & sprite rect intersection
             if (_mouseRect.Intersects(_buttonRect))
             {
                 _sr.SetColor(Color.LightGray); // sets color on hover
-                if (fireOnce) // makes sure button sounds don't play continuously when hovered
+                if (_fireOnce) // makes sure button sounds don't play continuously when hovered
                 {
                     SoundManager.Instance.PlayRandomClick();
-                    fireOnce = false;
+                    _fireOnce = false;
                 }
 
                 switch (_type)
@@ -227,7 +222,7 @@ namespace JumpNGun
             else
             {
                 _sr.SetColor(Color.White); // resets hover color
-                fireOnce = true;
+                _fireOnce = true;
             }
         }
 
@@ -360,15 +355,15 @@ namespace JumpNGun
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
-                if (SoundManager.Instance._musicDisabled == true)
+                if (SoundManager.Instance.MusicDisabled)
                 {
-                    SoundManager.Instance._musicDisabled = false;
+                    SoundManager.Instance.MusicDisabled = false;
                     SoundManager.Instance.toggleSoundtrackOn();
                 }
                 else
                 {
-                    SoundManager.Instance._musicDisabled = true;
-                    SoundManager.Instance.toggleSoundtrackOff();
+                    SoundManager.Instance.MusicDisabled = true;
+                    SoundManager.Instance.ToggleSoundtrackOff();
                 }
             }
             else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -390,15 +385,15 @@ namespace JumpNGun
             {
                 _mouseCooldown += 0;
                 _canIntersect = false;
-                if (SoundManager.Instance._sfxDisabled == true)
+                if (SoundManager.Instance.SfxDisabled)
                 {
-                    SoundManager.Instance._sfxDisabled = false;
+                    SoundManager.Instance.SfxDisabled = false;
                     SoundManager.Instance.toggleSFXOn();
                 }
                 else
                 {
-                    SoundManager.Instance._sfxDisabled = true;
-                    SoundManager.Instance.toggleSFXOff();
+                    SoundManager.Instance.SfxDisabled = true;
+                    SoundManager.Instance.ToggleSfxOff();
                 }
             }
             else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -509,15 +504,15 @@ namespace JumpNGun
                 _mouseCooldown += 0;
                 _canIntersect = false;
                 // toggles bool on mouse button press and calls method in SoundManager.cs
-                if (SoundManager.Instance._sfxDisabled == true)
+                if (SoundManager.Instance.SfxDisabled)
                 {
-                    SoundManager.Instance._sfxDisabled = false;
+                    SoundManager.Instance.SfxDisabled = false;
                     SoundManager.Instance.toggleSFXOn();
                 }
                 else
                 {
-                    SoundManager.Instance._sfxDisabled = true;
-                    SoundManager.Instance.toggleSFXOff();
+                    SoundManager.Instance.SfxDisabled = true;
+                    SoundManager.Instance.ToggleSfxOff();
                 }
             }
             else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -540,15 +535,15 @@ namespace JumpNGun
                 _mouseCooldown += 0;
                 _canIntersect = false;
                 // toggles bool on mouse button press and calls method in SoundManager.cs
-                if (SoundManager.Instance._musicDisabled == true)
+                if (SoundManager.Instance.MusicDisabled)
                 {
-                    SoundManager.Instance._musicDisabled = false;
+                    SoundManager.Instance.MusicDisabled = false;
                     SoundManager.Instance.toggleSoundtrackOn();
                 }
                 else
                 {
-                    SoundManager.Instance._musicDisabled = true;
-                    SoundManager.Instance.toggleSoundtrackOff();
+                    SoundManager.Instance.MusicDisabled = true;
+                    SoundManager.Instance.ToggleSoundtrackOff();
                 }
             }
             else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
@@ -583,9 +578,6 @@ namespace JumpNGun
         {
             if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
-                //TODO: Add input field logic
-
-                // Console.WriteLine($"Intersects with {_type}");
                 _inputClicked = true;
                 _canIntersect = false;
             }
@@ -595,8 +587,6 @@ namespace JumpNGun
             }
         }
         
-        List<char> _name = new List<char>();
-
         private void InputField()
         {
             if (_inputClicked)

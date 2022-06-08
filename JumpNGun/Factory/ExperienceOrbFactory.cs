@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -39,7 +40,7 @@ namespace JumpNGun
             return anim;
         }
 
-        public override GameObject Create(Enum type, Vector2 position)
+        public override GameObject Create(Enum type, [Optional] Vector2 position)
         {
             // Create new gameObject 
             GameObject orb = new GameObject(); 

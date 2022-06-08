@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JumpNGun
+﻿namespace JumpNGun
 {
     /// <summary>
     /// Klassen er lavet af Nichlas Hoberg og Kristian J. Fich

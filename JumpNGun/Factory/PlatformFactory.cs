@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
 namespace JumpNGun
@@ -38,7 +39,7 @@ namespace JumpNGun
         //position for ground platform
         private Vector2 _groundPosition = new Vector2((GameWorld.Instance.GraphicsDevice.Viewport.Width / 2), 795);
 
-        public override GameObject Create(Enum type, Vector2 position)
+        public override GameObject Create(Enum type, [Optional] Vector2 position)
         {
             //instantiate gameobject
             GameObject gameObject = new GameObject();

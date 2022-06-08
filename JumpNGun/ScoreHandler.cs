@@ -16,10 +16,7 @@ namespace JumpNGun
 
         //list containing highscore scores
         private List<int> _highScoreScores;
-
-        //tuple to hold two sorted lists
-        Tuple<List<int>, List<string>> SortedLists;
-
+        
         public static ScoreHandler Instance
         {
             get { return _instance ??= new ScoreHandler(); }

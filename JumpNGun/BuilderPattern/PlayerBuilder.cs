@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {

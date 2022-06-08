@@ -9,7 +9,7 @@ namespace JumpNGun
 
         /// <summary>
         /// initializes code that runs when SettingsMenu state is instansiated
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
@@ -28,7 +28,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Updates gameobjects when state is SettingsMenu.
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
@@ -70,7 +70,7 @@ namespace JumpNGun
 
         /// <summary>
         /// Code that runs when state is changed
-        /////LAVET AF KEAN & NICHLAS
+        /// LAVET AF KEAN & NICHLAS
         /// </summary>
         public void Exit()
         {

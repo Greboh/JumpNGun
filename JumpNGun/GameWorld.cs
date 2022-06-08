@@ -7,7 +7,7 @@ namespace JumpNGun
 {
     public class GameWorld : Game
     {
-        private static GameWorld instance;
+        private static GameWorld _instance;
 
         /// <summary>
         /// Property to set the GameWorld instance
@@ -16,11 +16,11 @@ namespace JumpNGun
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new GameWorld();
+                    _instance = new GameWorld();
                 }
-                return instance;
+                return _instance;
             }
         }
        
