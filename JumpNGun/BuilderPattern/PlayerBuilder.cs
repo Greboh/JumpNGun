@@ -7,6 +7,7 @@ namespace JumpNGun
     /// </summary>
     public enum CharacterType
     {
+        None,
         Soldier,
         Ranger,
         Wizard
@@ -44,6 +45,7 @@ namespace JumpNGun
                 case CharacterType.Soldier:
                 {
                     sr.SetSprite("1_Soldier_idle");
+                    
                     animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Soldier_idle", "2_Soldier_idle", 
                         "3_Soldier_idle", "4_Soldier_idle", "5_Soldier_idle"}));             
             
@@ -60,15 +62,16 @@ namespace JumpNGun
                 {
                     sr.SetSprite("1_Ranger_idle");
                     
-                    // animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Ranger_idle", "2__Ranger_idle", 
-                    //     "3__Ranger_idle", "4_Ranger_idle", "5_Ranger_idle"}));             
-                    //
-                    // animator.AddAnimation(BuildAnimation("Run", new string[] {"1_Ranger_run", "2_Ranger_run", 
-                    //     "3_Ranger_run", "4_Ranger_run", "5_Ranger_run", "6_Ranger_run"}));            
-                    //
-                    // animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Ranger_jump", "2_Ranger_jump"}));
+                    animator.AddAnimation(BuildAnimation("Idle", new string[] {"1_Ranger_idle", "2_Ranger_idle", 
+                        "3_Ranger_idle", "4_Ranger_idle"}));             
                     
-                    // animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", "3_Soldier_Death"}));
+                    animator.AddAnimation(BuildAnimation("Run", new string[] {"1_Ranger_run", "2_Ranger_run", 
+                        "3_Ranger_run", "4_Ranger_run", "5_Ranger_run", "6_Ranger_run", "7_Ranger_run", "8_Ranger_run"}));            
+                    
+                    animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Ranger_jump", "2_Ranger_jump"}));
+                    
+                    animator.AddAnimation(BuildAnimation("Death", new []{"1_Ranger_Death", "2_Ranger_Death", "3_Ranger_Death","4_Ranger_Death",
+                        "5_Ranger_Death","6_Ranger_Death","7_Ranger_Death","8_Ranger_Death","9_Ranger_Death","10_Ranger_Death",}));
                     
                 } break;
                 
@@ -93,7 +96,7 @@ namespace JumpNGun
                         100, 350, 15));
                     break;
                 case CharacterType.Ranger:
-                    _gameObject.AddComponent(new Player(character,150, -120, 75, 0.25f, 1.5f, 2, 
+                    _gameObject.AddComponent(new Player(character,150, -120, 75, 0.25f, 0.5f, 2, 
                         80, 250, 20));
                     break;
                 case CharacterType.Wizard:

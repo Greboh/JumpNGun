@@ -25,7 +25,7 @@ namespace JumpNGun
         private int _enemyStartAmount = 2;
 
         // determines amount of platform pr. level
-        private int _platformAmount = 4;
+        private int _platformAmount = 19;
 
         // current amount of enemies through game
         public int EnemyCurrentAmount { get; set; } = 2;
@@ -41,7 +41,7 @@ namespace JumpNGun
         private bool _canPress = true;
 
         //List for storing rectangles that contain a platform
-        public List<Rectangle> UsedLocations { get; private set; } 
+        public List<Rectangle> UsedLocations { get; private set; }
 
         private LevelManager()
         {
@@ -106,39 +106,63 @@ namespace JumpNGun
         /// </summary>
         private void ChangeEnviroment()
         {
-            
-
             switch (_level)
             {
                 case 1:
-                    {
-                        _currentPlatformType = PlatformType.Grass;
-                        _currentGroundPlatform = PlatformType.GrassGround;
-                        _currentEnemyType = EnemyType.Mushroom;
-                    }
+                {
+                    _currentPlatformType = PlatformType.Grass;
+                    _currentGroundPlatform = PlatformType.GrassGround;
+                    _currentEnemyType = EnemyType.Mushroom;
+
+                    _isBossLevel = false;
+                }
+                    break;
+                case 6:
+                {
+                    EnemyCurrentAmount = 1;
+                    _currentPlatformType = PlatformType.Grass;
+                    _currentEnemyType = EnemyType.Reaper;
+
+                    _isBossLevel = true;
+                }
                     break;
                 case 7:
-                    {
-                        _currentPlatformType = PlatformType.Dessert;
-                        _currentGroundPlatform = PlatformType.DessertGround;
-                        _currentEnemyType = EnemyType.Worm;
-                    }
+                {
+                    EnemyCurrentAmount = 5;
+                    _currentPlatformType = PlatformType.Dessert;
+                    _currentGroundPlatform = PlatformType.DessertGround;
+                    _currentEnemyType = EnemyType.Worm;
+
+                    _isBossLevel = false;
+                }
+                    break;
+                case 2:
+                {
+                    EnemyCurrentAmount = 1;
+                    _currentPlatformType = PlatformType.Graveyard;
+                    _currentEnemyType = EnemyType.Reaper;
+
+                    _isBossLevel = true;
+                }
                     break;
                 case 13:
-                    {
-                        _currentEnemyType = EnemyType.Skeleton;
-                        _currentPlatformType = PlatformType.Graveyard;
-                        _currentGroundPlatform = PlatformType.GraveGround;
-                    }
+                {
+                    EnemyCurrentAmount = 8;
+                    _currentEnemyType = EnemyType.Skeleton;
+                    _currentPlatformType = PlatformType.Graveyard;
+                    _currentGroundPlatform = PlatformType.GraveGround;
+
+                    _isBossLevel = false;
+                }
                     break;
                 case 18:
-                    {
-                        EnemyCurrentAmount = 1;
-                        _currentPlatformType = PlatformType.Graveyard;
-                        _currentEnemyType = EnemyType.Reaper;
+                {
+                    EnemyCurrentAmount = 1;
+                    _currentPlatformType = PlatformType.Graveyard;
+                    _currentEnemyType = EnemyType.Reaper;
 
-                        _isBossLevel = true;
-                    }
+                    _isBossLevel = true;
+                }
                     break;
             }
         }
@@ -155,8 +179,6 @@ namespace JumpNGun
                 IncrementLevel();
                 CleanLevel();
                 ExecuteLevelGeneration();
-                Console.WriteLine("Current level:" + _level);
-                Console.WriteLine("Current enemyAmount:" + EnemyCurrentAmount);
             }
         }
 
@@ -189,7 +211,7 @@ namespace JumpNGun
         private void IncrementLevel()
         {
             //increment _level
-            _level++; 
+            _level++;
 
             //increment _platformAmount
             _platformAmount++;
@@ -223,9 +245,8 @@ namespace JumpNGun
             EnemyCurrentAmount = 2;
 
             //Clear used locations if it isn't null
-            if (UsedLocations != null ) UsedLocations.Clear();
+            if (UsedLocations != null) UsedLocations.Clear();
         }
-
 
 
         public void ChangeLevelDebug()
@@ -236,8 +257,6 @@ namespace JumpNGun
                 IncrementLevel();
                 CleanLevel();
                 ExecuteLevelGeneration();
-                Console.WriteLine("Current level:" + _level);
-                Console.WriteLine("Current enemyAmount:" + EnemyCurrentAmount);
             }
             else if (Keyboard.GetState().IsKeyUp(Keys.K) && _canPress == false)
             {

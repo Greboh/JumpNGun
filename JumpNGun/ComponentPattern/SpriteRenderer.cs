@@ -8,15 +8,20 @@ namespace JumpNGun
     /// </summary>
     public class SpriteRenderer : Component
     {
-        public bool StopRendering { get; set; } //decides whether we should render a sprite
+        //decides whether we should render a sprite
+        public bool StopRendering { get; set; } 
 
-        public Texture2D Sprite { get; set; } //texture for sprite
+        //texture for sprite
+        public Texture2D Sprite { get; set; } 
 
-        public Vector2 Origin { get; set; } //origin for sprite
+        //origin for sprite
+        public Vector2 Origin { get; set; } 
 
-        public Color Color { get; set; } = Color.White; //color for sprite
+        //color for sprite
+        public Color Color { get; set; } = Color.White; 
 
-        public SpriteEffects SpriteEffects { get; set; }//spriteeffects for sprite. flips, etc
+        //spriteeffects for sprite. flips, etc
+        public SpriteEffects SpriteEffects { get; set; }
        
 
 

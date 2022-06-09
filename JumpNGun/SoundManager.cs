@@ -65,8 +65,6 @@ namespace JumpNGun
             {
                 if (_instance == null)
                 {
-                    Console.WriteLine("No SoundManager found, creating one!");
-                    Console.WriteLine("____________________________________");
                     _instance = new SoundManager();
                     _instance.InitDictionary();
                     _instance.InitClips();

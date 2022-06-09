@@ -16,8 +16,6 @@ namespace JumpNGun
             get
             {
                 _instance ??= new Database();
-
-
                 return _instance;
             }
         }

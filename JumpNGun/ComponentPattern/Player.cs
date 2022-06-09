@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,47 +13,82 @@ namespace JumpNGun
     {
         #region Fields
 
-        private CharacterType _character; // Reference our characterType
-        private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>(); // Create dictionary containing movement values
+        // Reference our characterType
+        private CharacterType _character; 
+        // Create dictionary containing movement values
+        private Dictionary<Keys, bool> _movementKeys = new Dictionary<Keys, bool>(); 
+        // Reference to the SpriteRenderer component
+        private SpriteRenderer _sr; 
+        // Reference to the Animator component
+        private Animator _animator; 
+        // Reference to the Input Component
+        private Input _input; 
+        // Reference to the Collider component
+        private Collider _pCollider; 
+        
+        // The direction the player should move
+        private Vector2 _moveDirection; 
+        // Reference the player's spawnPosition
+        private Vector2 _spawnPosition = new Vector2(40, 705); 
+        // Reference the current groundCollision
+        private Rectangle _currentGroundCollisionBox = Rectangle.Empty; 
 
-        private SpriteRenderer _sr; // Reference to the SpriteRenderer component
-        private Animator _animator; // Reference to the Animator component
-        private Input _input; // Reference to the Input Component
-        private Collider _pCollider; // Reference to the Collider component
-        
-        private Vector2 _moveDirection; // The direction the player should move
-        private Vector2 _spawnPosition = new Vector2(40, 705); // Reference the player's spawnPosition
-        private Rectangle _currentGroundCollisionBox = Rectangle.Empty; // Reference the current groundCollision
+        // Speed at which the player moves
+        public float Speed { get; set; } 
+        // The jump height of the player
+        private float _jumpHeight;
+        // The strength of the player dash
+        private float _dashStrength; 
+        // How strong the force of gravity is
+        private float _gravityPull; 
+        // Timer on Dash
+        private float _dashTimer; 
+        // Cooldown on Dash
+        private float _dashCooldown; 
+        // delay between footstep sound
+        private float _footstepCooldown; 
+        // Timer on Shoot
+        private float _shootTime; 
+        // Cooldown on Shoot
+        private float _shootCooldown; 
+        // Reference to the projectile's speed
+        private float _projectileSpeed; 
+        // Player's max health
+        private float _maxHealth;
+        // Player's current health
+        private float _currentHealth; 
+        // Reference to the fillAmount of the healthBar
+        private float _healthBarFillAmount;
 
-        public float Speed { get; } // Speed at which the player moves
-        private float _jumpHeight; // The jump height of the player
-        private float _dashStrength; // The strength of the player dash
-        private float _gravityPull; // How strong the force of gravity is
-        private float _dashTimer; // Timer on Dash
-        private float _dashCooldown; // Cooldown on Dash
-        private float _footstepCooldown; // delay between footstep sound
-        private float _shootTime; // Timer on Shoot
-        private float _shootCooldown; // Cooldown on Shoot
-        private float _projectileSpeed; // Reference to the projectile's speed
+        // Reference to the projectile's damage
+        private int _damage; 
+        // The initial force of gravity
+        private int _gravity = 50; 
+        // Used to multiply the gravity over time making it stronger
+        private int _gravityMultiplier = 100; 
+        // The current amount of player jumps
+        private int _jumpCount; 
+        // The max allowed amount of player jumps
+        private int _maxJumpCount; 
 
-        private int _gravity = 50; // The initial force of gravity
-        private int _gravityMultiplier = 100; // Used to multiply the gravity over time making it stronger
-        private int _jumpCount; // The current amount of player jumps
-        private int _maxJumpCount; // The max allowed amount of player jumps
-        private int _maxHealth; // Player's max health
-        private int _currentHealth; // Player's current health
         
-        private bool _isAlive; // Controls if the player is alive or not
-        private bool _canJump; // Can the player jump
-        private bool _isJumping; // Is the player jumping
-        private bool _canDash = true; // Controls if the player canDash
-        private bool _canShoot = true; // Controls if the player canShoot
-        private bool _isGrounded; // Is the player grounded
-        private bool _hasCollidedWithGround; // Reference if the player has collided with ground
-        
-        
-        private int _damage; // Reference to the projectile's damage
-        
+        // Controls if the player is alive or not
+        private bool _isAlive; 
+        // Can the player jump
+        private bool _canJump;
+        // Is the player jumping
+        private bool _isJumping;
+        // Controls if the player canDash
+        private bool _canDash = true; 
+        // Controls if the player canShoot
+        private bool _canShoot = true; 
+        // Is the player grounded
+        private bool _isGrounded;
+        // Reference if the player has collided with ground
+        private bool _hasCollidedWithGround; 
+
+        // Reference to the healthBar Texture
+        private Texture2D _healthBar;
 
         #endregion
         
@@ -95,6 +131,9 @@ namespace JumpNGun
             
             // set currentHealth to MaxHealth
             _currentHealth = _maxHealth; 
+            
+            // Load healthBar
+            _healthBar = GameWorld.Instance.Content.Load<Texture2D>("HealthBar");
         }
 
         public override void Update(GameTime gameTime)
@@ -103,6 +142,7 @@ namespace JumpNGun
             HandleDeath();
             CheckGrounded();
             HandleGravity();
+            HandleHealthBar();
 
             if (!_isAlive) return;
             
@@ -111,6 +151,11 @@ namespace JumpNGun
             HandleAnimations();
             ScreenBounds();
             WalkingSoundEffects();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_healthBar, new Rectangle(100, 50, (int) _healthBarFillAmount, 20), Color.White);
         }
 
         #endregion
@@ -309,6 +354,15 @@ namespace JumpNGun
             // If there is any values that is true in movementKeys and we are grounded play idle
             if (_movementKeys.ContainsValue(true) && _isGrounded && _isAlive) _animator.PlayAnimation("Run");
             
+        }
+        
+        /// <summary>
+        /// Updates the healthBar
+        /// </summary>
+        private void HandleHealthBar()
+        {
+            // We multiply by 100 to make it percentage, then multiply by 10 to stretch the sprite
+            _healthBarFillAmount =  (_currentHealth / _maxHealth  * 100) * 10;
         }
         
         #endregion

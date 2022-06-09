@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace JumpNGun
         private MenuStateHandler _pareMenuStateHandler;
 
         private Texture2D _pausedOverlay; // pause overlay texture
-        private Texture2D _avatar1; // temporary
+        private Texture2D _CharacterAvatar; // Icon of the character
         private Texture2D _enabled; // checkmark texture for audio
         private Texture2D _disabled; // crossed out texture for audio
         private Texture2D _musicStatus; // holds music status texture from either _enabled or _disabled
@@ -109,7 +110,24 @@ namespace JumpNGun
 
             //draws pause menu overlay
             HandlePauseLogic(spriteBatch);
-
+            
+            // Makes sure PlayerType is not set to none
+            // Needs to be in a method that updates since we set CharacterType later than Gameplay!
+            if(_pareMenuStateHandler.PlayerType != CharacterType.None)
+            {
+                switch (_pareMenuStateHandler.PlayerType)
+                {
+                    // Loads the CharacterAvatar
+                    case CharacterType.Soldier:
+                        _CharacterAvatar = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
+                        break;
+                    case CharacterType.Ranger:
+                        _CharacterAvatar = GameWorld.Instance.Content.Load<Texture2D>("avatar_2");
+                        break;
+                    case CharacterType.Wizard:
+                        break;
+                }
+            }
             spriteBatch.End();
         }
 
@@ -121,10 +139,8 @@ namespace JumpNGun
                 GameWorld.Instance.GameObjects[i].Start();
             }
 
-
             // asset content loading
             _pausedOverlay = GameWorld.Instance.Content.Load<Texture2D>("paused_overlay");
-            _avatar1 = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
             _enabled = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _disabled = GameWorld.Instance.Content.Load<Texture2D>("crossedout");
 
@@ -140,6 +156,8 @@ namespace JumpNGun
         /// </summary>
         public void Exit()
         {
+            _currentPauseState = PauseState.Unpaused;
+            
             _pareMenuStateHandler.ComponentCleanUp();
 
             Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
@@ -210,7 +228,7 @@ namespace JumpNGun
                     spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null,
                         Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
-                    spriteBatch.Draw(_avatar1, new Rectangle(401, 325, _avatar1.Width, _avatar1.Height), null, Color.White,
+                    spriteBatch.Draw(_CharacterAvatar, new Rectangle(401, 325, _CharacterAvatar.Width, _CharacterAvatar.Height), null, Color.White,
                         0, new Vector2(0, 0), SpriteEffects.None, 1);
 
                     spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White);

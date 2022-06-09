@@ -111,7 +111,6 @@ namespace JumpNGun
 
         protected virtual void CheckCollision()
         {
-            
         }
 
         /// <summary>
@@ -175,7 +174,6 @@ namespace JumpNGun
         {
             if (newEnemyState == currentEnemyState) return;
 
-            // Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newEnemyState.GetType().Name}");
             currentEnemyState?.Exit();
 
             currentEnemyState = newEnemyState;

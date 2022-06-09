@@ -81,9 +81,6 @@ namespace JumpNGun
                 }break;
                     
             }
-            
-            Console.WriteLine("Created orb");
-            
             return orb; // Return the Gameobject
         }
     }

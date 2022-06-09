@@ -48,21 +48,5 @@ namespace JumpNGun
             
             ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
         }
-
-        protected override void CheckCollision()
-        {
-            foreach (Collider col in GameWorld.Instance.Colliders)
-            {
-                if (Collider.CollisionBox.Intersects(col.CollisionBox))
-                {
-                    //deal damage to the player if reaperminion and player collides
-                    if (col.GameObject.HasComponent<Player>())
-                    {
-                        //get player component and attack player
-                        // GameWorld.Instance.Destroy(GameObject);
-                    }
-                }
-            }
-        }
     }
 }

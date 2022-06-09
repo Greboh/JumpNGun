@@ -33,37 +33,25 @@ namespace JumpNGun
         //List of all possible rectangle locations on map
         private Rectangle[] _locations = new Rectangle[]
 {
-            new Rectangle(0, 0, 222, 125),
-            new Rectangle(222, 0, 222, 125),
-            new Rectangle(444, 0, 222, 125),
-            new Rectangle(666, 0, 222, 125),
-            new Rectangle(888, 0, 222, 125),
-            new Rectangle(1110, 0, 222, 125),
-
             new Rectangle(0, 125, 222, 125),
             new Rectangle(222, 125, 222, 125),
             new Rectangle(444, 125, 222, 125),
             new Rectangle(666, 125, 222, 125),
-            new Rectangle(888, 125, 222, 125),
             new Rectangle(1110, 125, 222, 125),
 
             new Rectangle(0, 250, 222, 125),
-            new Rectangle(222, 250, 222, 125),
             new Rectangle(444, 250, 222, 125),
             new Rectangle(666, 250, 222, 125),
             new Rectangle(888, 250, 222, 125),
             new Rectangle(1110, 250, 222, 125),
-
 
             new Rectangle(0, 375, 222, 125),
             new Rectangle(222, 375, 222, 125),
             new Rectangle(444, 375, 222, 125),
             new Rectangle(666, 375, 222, 125),
             new Rectangle(888, 375, 222, 125),
-            new Rectangle(1110, 375, 222, 125),
 
             new Rectangle(0, 500, 222, 125),
-            new Rectangle(222, 500, 222, 125),
             new Rectangle(444, 500, 222, 125),
             new Rectangle(666, 500, 222, 125),
             new Rectangle(888, 500, 222, 125),
@@ -163,7 +151,7 @@ namespace JumpNGun
         private Rectangle SpawnFirstPlatform(PlatformType type)
         {
             //Choose the first location rectangle
-            Rectangle rectangle = _locations[_random.Next(30, 33)];
+            Rectangle rectangle = _locations[_random.Next(20, 23)];
 
             //Create a vector position in the center of first location rectangle
             Vector2 position = new Vector2(rectangle.Center.X, rectangle.Center.Y);

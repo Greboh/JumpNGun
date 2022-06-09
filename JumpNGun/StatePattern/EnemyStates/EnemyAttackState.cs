@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,7 +12,7 @@ namespace JumpNGun
     {
         private Enemy _parent;
 
-        private bool _canShoot;
+        private bool _canAttack;
 
         // Reference to which direction the sprite was flipped before attacking
         private SpriteEffects _oldSpriteFlip;
@@ -38,18 +39,20 @@ namespace JumpNGun
             else if (parent.GameObject.HasComponent<Skeleton>())
             {
                 _parent = parent.GameObject.GetComponent<Skeleton>() as Skeleton;
-
             }
+
             // Set the oldSpriteFlip
             _oldSpriteFlip = _parent.SpriteRenderer.SpriteEffects;
+            _canAttack = true;
         }
 
         public void Execute()
         {
+            HandleAttackLogic();
+
             // Check if the enemy is ranged or melee
             if (_parent.IsRanged)
             {
-                HandleRangeAttackLogic();
                 RangeAttack();
             }
             else MeleeAttack();
@@ -61,10 +64,9 @@ namespace JumpNGun
         /// </summary>
         public void Animate()
         {
-            // Play animation
             _parent.Animator.PlayAnimation("attack");
         }
-        
+
         public void Exit()
         {
             if (_parent.IsRanged)
@@ -80,33 +82,35 @@ namespace JumpNGun
         {
             Vector2 targetDirection = _parent.CalculatePlayerDirection();
             FlipSprite();
-            
-            if (!_canShoot) return;
+
+            if (!_canAttack) return;
 
             InstantiateProjectile(targetDirection);
-            
-            _canShoot = false;
+
+            _canAttack = false;
         }
-        
+
         /// <summary>
         /// Reset ability to shoot after cooldown
         /// </summary>
-        private void HandleRangeAttackLogic()
+        private void HandleAttackLogic()
         {
-            if (_canShoot) return;
-            
+            if (_canAttack) return;
+
             if (_parent.AttackTimer > _parent.AttackCooldown)
             {
-                _canShoot = true;
+                _canAttack = true;
                 _parent.AttackTimer = 0;
             }
             else _parent.AttackTimer += GameWorld.DeltaTime;
         }
-        
+
         private void MeleeAttack()
         {
             FlipSprite();
-            
+
+            if (!_canAttack) return;
+
             // Trigger event
             EventHandler.Instance.TriggerEvent("OnTakeDamage", new Dictionary<string, object>()
                 {
@@ -117,17 +121,21 @@ namespace JumpNGun
             );
             
             Animate();
+            Console.WriteLine("Attack");
+            _canAttack = false;
         }
-        
+
         /// <summary>
         /// Flipsprite according to player position
         /// //LAVET AF NICHLAS HOBERG
         /// </summary>
         private void FlipSprite()
         {
-            _parent.SpriteRenderer.SpriteEffects = _parent.Player.GameObject.Transform.Position.X <= _parent.GameObject.Transform.Position.X ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            _parent.SpriteRenderer.SpriteEffects = _parent.Player.GameObject.Transform.Position.X <= _parent.GameObject.Transform.Position.X
+                ? SpriteEffects.FlipHorizontally
+                : SpriteEffects.None;
         }
-        
+
         /// <summary>
         /// Instantiate projectile at _parent's position
         /// </summary>
@@ -136,11 +144,11 @@ namespace JumpNGun
         {
             GameObject projectile = ProjectileFactory.Instance.Create(EnemyType.Mushroom, Vector2.Zero);
             projectile.Transform.Position = _parent.GameObject.Transform.Position;
-            
+
             (projectile.GetComponent<Projectile>() as Projectile).Velocity = direction;
             (projectile.GetComponent<Projectile>() as Projectile).Speed = _parent.ProjectileSpeed;
             (projectile.GetComponent<Projectile>() as Projectile).Damage = _parent.Damage;
-            
+
             Animate();
             GameWorld.Instance.Instantiate(projectile);
         }

@@ -35,6 +35,7 @@ namespace JumpNGun
             health = 100;
             Damage = 20;
             Speed = rndSpeed;
+            AttackCooldown = 1.2f;
             _originalSpeed = Speed;
             IsBoss = false;
             IsRanged = false;

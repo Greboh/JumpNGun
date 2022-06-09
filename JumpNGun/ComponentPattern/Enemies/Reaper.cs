@@ -29,7 +29,7 @@ namespace JumpNGun
             health = 200;
             Damage = 20;
             Speed = 0.5f;
-            AttackCooldown = 1;
+            AttackCooldown = 20;
             DefaultSpeed = Speed;
             IsRanged = false;
             IsBoss = true;
@@ -40,7 +40,7 @@ namespace JumpNGun
             base.Start();
 
             //set detectionRange to sprite width
-            detectionRange = SpriteRenderer.Sprite.Width;
+            detectionRange = SpriteRenderer.Sprite.Width - 100;
         }
         
         public override void Update(GameTime gameTime)
@@ -65,7 +65,7 @@ namespace JumpNGun
             
             float targetMagnitude = MathF.Sqrt(target.X * target.X + target.Y * target.Y);
             
-            ChangeState(targetMagnitude <= detectionRange ? attackEnemyState : moveEnemyState);
+            ChangeState(targetMagnitude <= this.detectionRange ? attackEnemyState : moveEnemyState);
         }
 
         /// <summary>
