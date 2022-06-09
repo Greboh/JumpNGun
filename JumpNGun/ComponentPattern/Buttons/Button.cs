@@ -55,8 +55,6 @@ namespace JumpNGun
         
         private Keys _currentInputKey = Keys.None;
 
-
-        // TODO REMOVE THIS
         private bool _canIntersect = true;
 
         #endregion
