@@ -75,6 +75,11 @@ namespace JumpNGun
         {
             return _currentLevel;
         }
+        
+        public void Resetlevel()
+        {
+            _currentLevel = 0;
+        }
 
         /// <summary>
         /// Gets trigger by an event whenever the player receives experience

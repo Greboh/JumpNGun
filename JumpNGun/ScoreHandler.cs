@@ -33,6 +33,11 @@ namespace JumpNGun
             return _currentScore;
         }
         
+        public void ResetScore()
+        {
+            _currentScore = 0;
+        }
+        
         /// <summary>
         /// Add to current score
         /// </summary>

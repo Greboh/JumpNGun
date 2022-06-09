@@ -136,7 +136,7 @@ namespace JumpNGun
                     _isBossLevel = false;
                 }
                     break;
-                case 2:
+                case 12:
                 {
                     EnemyCurrentAmount = 1;
                     _currentPlatformType = PlatformType.Graveyard;

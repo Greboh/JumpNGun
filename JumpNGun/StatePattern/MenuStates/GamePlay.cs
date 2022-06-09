@@ -20,7 +20,7 @@ namespace JumpNGun
         private MenuStateHandler _pareMenuStateHandler;
 
         private Texture2D _pausedOverlay; // pause overlay texture
-        private Texture2D _CharacterAvatar; // Icon of the character
+        private Texture2D _characterAvatar; // Icon of the character
         private Texture2D _enabled; // checkmark texture for audio
         private Texture2D _disabled; // crossed out texture for audio
         private Texture2D _musicStatus; // holds music status texture from either _enabled or _disabled
@@ -119,10 +119,10 @@ namespace JumpNGun
                 {
                     // Loads the CharacterAvatar
                     case CharacterType.Soldier:
-                        _CharacterAvatar = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
+                        _characterAvatar = GameWorld.Instance.Content.Load<Texture2D>("avatar_1");
                         break;
                     case CharacterType.Ranger:
-                        _CharacterAvatar = GameWorld.Instance.Content.Load<Texture2D>("avatar_2");
+                        _characterAvatar = GameWorld.Instance.Content.Load<Texture2D>("avatar_2");
                         break;
                     case CharacterType.Wizard:
                         break;
@@ -161,6 +161,9 @@ namespace JumpNGun
             _pareMenuStateHandler.ComponentCleanUp();
 
             Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
+
+            ScoreHandler.Instance.ResetScore();
+            _levelSystem.Resetlevel();
         }
 
         /// <summary>
@@ -228,7 +231,7 @@ namespace JumpNGun
                     spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null,
                         Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
-                    spriteBatch.Draw(_CharacterAvatar, new Rectangle(401, 325, _CharacterAvatar.Width, _CharacterAvatar.Height), null, Color.White,
+                    spriteBatch.Draw(_characterAvatar, new Rectangle(401, 325, _characterAvatar.Width, _characterAvatar.Height), null, Color.White,
                         0, new Vector2(0, 0), SpriteEffects.None, 1);
 
                     spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White);

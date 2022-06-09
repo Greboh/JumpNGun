@@ -12,6 +12,8 @@ namespace JumpNGun
     {
         private MenuStateHandler _pareMenuStateHandler;
 
+        private Texture2D _controlScheme;
+
         public void Enter(MenuStateHandler parent)
         {
             _pareMenuStateHandler = parent;
@@ -49,6 +51,10 @@ namespace JumpNGun
             {
                 GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
+            
+            spriteBatch.Draw(_controlScheme,
+                new Rectangle(500, 392, _controlScheme.Width, _controlScheme.Height), null,
+                Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
 
 
             spriteBatch.End();
@@ -56,6 +62,7 @@ namespace JumpNGun
 
         public void LoadContent()
         {
+            _controlScheme = GameWorld.Instance.Content.Load<Texture2D>("control_scheme");
         }
 
         public void Exit()

@@ -111,7 +111,7 @@ namespace JumpNGun.StatePattern.GameStates
             // for loop for drawing scores to screen, it used int count + iteration to show ranked highscore number
             for (int i = 0; i < 10; i++)
             {
-                spriteBatch.DrawString(_scoreFont, (count + i).ToString() + ". " + _name[i], new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White) ; 
+                spriteBatch.DrawString(_scoreFont, count + i + ". " + _name[i], new Vector2(_namePositions[i].X, _namePositions[i].Y), Color.White) ; 
             }
 
             // for loop for drawing names to screen, it used int count + iteration to show ranked highscore number

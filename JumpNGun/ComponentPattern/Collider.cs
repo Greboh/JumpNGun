@@ -34,7 +34,6 @@ namespace JumpNGun
             }
         }
         
-
         public override void Start()
         {
             //get spriterenderer component of GameObject
@@ -68,10 +67,12 @@ namespace JumpNGun
             LeftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
 
             // Draw Lines
+#if DEBUG
             spriteBatch.Draw(_texture, TopLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(_texture, BottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(_texture, RightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(_texture, LeftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+#endif
         }
 
 
