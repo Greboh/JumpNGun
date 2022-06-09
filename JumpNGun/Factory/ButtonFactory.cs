@@ -8,6 +8,9 @@ namespace JumpNGun
 
 
     // enums of buttons used in Button.cs
+    /// <summary>
+    /// LAVET AF KEAN
+    /// </summary>
     public enum ButtonType {
                             Start,
                             Settings,

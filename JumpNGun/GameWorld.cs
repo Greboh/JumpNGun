@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class GameWorld : Game
     {
         private static GameWorld _instance;

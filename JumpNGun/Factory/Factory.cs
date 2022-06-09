@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF ALLE
+    /// </summary>
     public abstract class Factory
     {
         /// <summary>

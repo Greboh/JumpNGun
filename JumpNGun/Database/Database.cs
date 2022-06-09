@@ -38,7 +38,8 @@ namespace JumpNGun
 
             // Creating the table
             _connection.Open();
-            SQLiteCommand command = new SQLiteCommand($"CREATE TABLE IF NOT EXISTS scores (ID INTEGER PRIMARY KEY, NAME VARCHAR(50), SCORE INTEGER)", _connection);
+            SQLiteCommand command = new SQLiteCommand($"CREATE TABLE IF NOT EXISTS scores " +
+                                                      $"(ID INTEGER PRIMARY KEY, NAME VARCHAR(50), SCORE INTEGER)", _connection);
             command.ExecuteNonQuery();
             _connection.Close();
         }

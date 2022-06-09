@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF KEAN & NICHLAS
+    /// </summary>
     public interface IStateMenu
     {
         /// <summary>

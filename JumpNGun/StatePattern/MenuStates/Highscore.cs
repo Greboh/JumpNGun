@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace JumpNGun.StatePattern.GameStates
 {
+    /// <summary>
+    /// LAVET AF KEAN & NICHLAS
+    /// </summary>
     public class Highscore : IStateMenu
     {
         #region fields

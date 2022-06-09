@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF Kristian
+    /// </summary>
     class EnemySpawner
     {
         private static EnemySpawner _instance;

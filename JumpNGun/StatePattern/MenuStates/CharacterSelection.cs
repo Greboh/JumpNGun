@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace JumpNGun.StatePattern.GameStates
+namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF KEAN & NICHLAS
+    /// </summary>
     public class CharacterSelection : IStateMenu
     {
         #region fields

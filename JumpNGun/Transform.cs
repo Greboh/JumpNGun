@@ -2,6 +2,9 @@
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Lavet af alle
+    /// </summary>
     public class Transform
     {
         public Vector2 Position { get; set; }

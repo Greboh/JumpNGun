@@ -10,6 +10,7 @@ namespace JumpNGun
            [Description]
            Manager for loading, handling and playback of soundclips
            uses dictionaries to couple a string to a SoundEffectInstance to be used in other classes
+           Lavet af Kean
        */
 
         public bool SfxDisabled { get; set; }

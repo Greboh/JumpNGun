@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF Kristian
+    /// </summary>
     public class LevelManager
     {
         private static LevelManager _instance;

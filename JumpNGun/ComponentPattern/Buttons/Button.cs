@@ -12,6 +12,7 @@ namespace JumpNGun
             [Description]
             This class handles buttons position as well as mouse and button sprite interactions.
             The class is otherwise used for changing GameStates corresponding to clicked the button context
+            Lavet af kean
         */
 
 

@@ -4,6 +4,9 @@ using JumpNGun.StatePattern.GameStates;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF KEAN & NICHLAS
+    /// </summary>
     public class MenuStateHandler
     {
         public Texture2D GameTitle { get; set; }

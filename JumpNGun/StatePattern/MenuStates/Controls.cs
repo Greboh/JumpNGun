@@ -6,6 +6,7 @@ namespace JumpNGun
              /*
             [Description]
             Class is not fully utilized as we havent implemented UI for changing control scheme
+            Lavet af Kean og Nichlas
             */
 
     public class Controls : IStateMenu

@@ -12,7 +12,9 @@ namespace JumpNGun
         Unpaused,
         Paused,
     }
-
+    /// <summary>
+    /// LAVET AF KEAN & NICHLAS
+    /// </summary>
     public class GamePlay : IStateMenu
     {
         #region fields

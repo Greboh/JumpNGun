@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// Klassen er lavet af alle
+    /// </summary>
     public class GameObject
     {
         // List of all components

@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF Nichlas
+    /// </summary>
     public class ProjectileFactory : Factory
     {
         private static ProjectileFactory _instance;

@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF Kristian
+    /// </summary>
     public class PlatformSpawner
     {
         private static PlatformSpawner _instance;

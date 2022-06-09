@@ -6,6 +6,7 @@ namespace JumpNGun
     /// <summary>
     /// Klassen er lavet af Nichlas Hoberg
     /// OBS denne har vi brugt i ældre projekter også!
+    /// Den er baseret på en artikel fra Unity Learn, se mere i Rapporten!
     /// </summary>
     public class EventHandler
     {

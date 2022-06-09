@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
+    /// <summary>
+    /// LAVET AF KEAN & NICHLAS
+    /// </summary>
     public class MainMenu : IStateMenu
     {
         #region fields

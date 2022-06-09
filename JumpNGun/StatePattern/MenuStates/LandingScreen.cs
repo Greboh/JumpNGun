@@ -9,6 +9,7 @@ namespace JumpNGun
     /*
             [Description]
             LandingScreen state is the first state loaded, handles player name input for highscore db storage
+            Lavet af Kean og Nichlas
             */
 
     class LandingScreen : IStateMenu
