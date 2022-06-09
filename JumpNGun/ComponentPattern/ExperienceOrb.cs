@@ -59,7 +59,7 @@ namespace JumpNGun
                         SoundManager.Instance.PlayClip("pickup");
 
                         // TriggerEvent
-                        EventManager.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
+                        EventHandler.Instance.TriggerEvent("OnExperienceGain", new Dictionary<string, object>()
                             {
                                 {"xpAmount", _xpAmount}
                             }

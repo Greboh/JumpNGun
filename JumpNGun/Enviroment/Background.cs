@@ -13,7 +13,7 @@ namespace JumpNGun
 
     class Background
     {
-        #region fields
+        #region Fields
 
         // background image texture
         private Texture2D _backgroundimage;

@@ -55,6 +55,8 @@ namespace JumpNGun
         
         private Keys _currentInputKey = Keys.None;
 
+
+        // TODO REMOVE THIS
         private bool _canIntersect = true;
 
         #endregion
@@ -358,7 +360,7 @@ namespace JumpNGun
                 if (SoundManager.Instance.MusicDisabled)
                 {
                     SoundManager.Instance.MusicDisabled = false;
-                    SoundManager.Instance.toggleSoundtrackOn();
+                    SoundManager.Instance.ToggleSoundtrackOn();
                 }
                 else
                 {
@@ -538,7 +540,7 @@ namespace JumpNGun
                 if (SoundManager.Instance.MusicDisabled)
                 {
                     SoundManager.Instance.MusicDisabled = false;
-                    SoundManager.Instance.toggleSoundtrackOn();
+                    SoundManager.Instance.ToggleSoundtrackOn();
                 }
                 else
                 {
@@ -603,7 +605,7 @@ namespace JumpNGun
                         Console.WriteLine($"{_currentInputKey} added");
                         _inputKeyInteract = true;
 
-                        EventManager.Instance.TriggerEvent("OnInput", new Dictionary<string, object>()
+                        EventHandler.Instance.TriggerEvent("OnInput", new Dictionary<string, object>()
                             {
                                 {"inputKey", _currentInputKey.ToString()}
                             }

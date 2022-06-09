@@ -52,7 +52,6 @@ namespace JumpNGun
                     {
                         projectile.AddComponent(_animator);
                         sr.SetSprite("fireball1");
-                        _animator.PlayAnimation("fireball");
                         projectile.Tag = "e_Projectile";
                     }break;
             }

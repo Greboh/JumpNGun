@@ -6,18 +6,10 @@ namespace JumpNGun
 {
     public class MenuStateHandler
     {
-        /*
-            [Description]
-            
-        */
-        
         public Texture2D GameTitle { get; set; }
-        
         public string PlayerName { get; set; } = string.Empty;
-        
         public CharacterType PlayerType { get; set; }
         
-
         private static MenuStateHandler _instance;
 
         public static MenuStateHandler Instance
@@ -50,7 +42,7 @@ namespace JumpNGun
         #endregion
 
 
-        public void Initialize()
+        private void Initialize()
         {
             //Caches states for later use
             MainMenu = new MainMenu();

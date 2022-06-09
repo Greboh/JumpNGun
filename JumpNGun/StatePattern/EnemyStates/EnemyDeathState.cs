@@ -26,7 +26,7 @@ namespace JumpNGun
             {
                 
                 // TriggerEvent in LevelManager.cs
-                EventManager.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
+                EventHandler.Instance.TriggerEvent("OnEnemyDeath", new Dictionary<string, object>()
                 {
                     {"enemyDeath", 1}
                 });

@@ -36,6 +36,10 @@ namespace JumpNGun
             HandleAnimationLogic(gameTime);
         }
         
+        /// <summary>
+        /// Handles how to play an animation
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void HandleAnimationLogic(GameTime gameTime)
         {
             _timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -93,13 +97,15 @@ namespace JumpNGun
 
 public class Animation
 {
-    public float FPS { get; private set; } //frames per second
+    //frames per second
+    public float FPS { get; private set; } 
 
-    public string Name { get; private set; }//name of animation
+    //name of animation
+    public string Name { get; private set; }
 
-    public Texture2D[] Sprites { get; private set; }//sprites for animation
-
-
+    //sprites for animation
+    public Texture2D[] Sprites { get; private set; }
+    
     public Animation(string name, Texture2D[] sprites, float fps)
     {
         this.Sprites = sprites;

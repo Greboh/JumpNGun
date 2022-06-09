@@ -27,7 +27,7 @@ namespace JumpNGun
         public override void Awake()
         {
             // Subscribe to event
-            EventManager.Instance.Subscribe("OnExperienceGain", OnExperienceGain);
+            EventHandler.Instance.Subscribe("OnExperienceGain", OnExperienceGain);
         }
 
         public override void Start()

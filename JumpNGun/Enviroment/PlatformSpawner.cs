@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
 {
-    public class PlatformGenerator
+    public class PlatformSpawner
     {
-        private static PlatformGenerator _instance;
+        private static PlatformSpawner _instance;
 
-        public static PlatformGenerator Instance
+        public static PlatformSpawner Instance
         {
-            get { return _instance ??= new PlatformGenerator(); }
+            get { return _instance ??= new PlatformSpawner(); }
         }
 
         #region  Rectangles

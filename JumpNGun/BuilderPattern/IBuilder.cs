@@ -6,7 +6,7 @@
     public interface IBuilder
     {
         /// <summary>
-        /// Builds the GameObject with all required components etc.
+        /// Builds the GameObject with all required components
         /// </summary>
         void BuildGameObject();
 

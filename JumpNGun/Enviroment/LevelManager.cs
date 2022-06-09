@@ -46,8 +46,8 @@ namespace JumpNGun
         private LevelManager()
         {
             //subscribe to events 
-            EventManager.Instance.Subscribe("NextLevel", ChangeLevel);
-            EventManager.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath);
+            EventHandler.Instance.Subscribe("NextLevel", ChangeLevel);
+            EventHandler.Instance.Subscribe("OnEnemyDeath", OnEnemyDeath);
         }
 
         /// <summary>
@@ -75,14 +75,14 @@ namespace JumpNGun
             GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.Portal, new Vector2(40, 705)));
 
             //Create all relevant platforms
-            PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
+            PlatformSpawner.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
 
             //Get all rectangles that contain platforms 
-            UsedLocations = PlatformGenerator.Instance.GetLocations();
+            UsedLocations = PlatformSpawner.Instance.GetLocations();
 
             //Create relevant boss or all relevant enemies 
-            if (_isBossLevel) EnemyGenerator.Instance.GenerateBoss(_currentEnemyType);
-            else EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
+            if (_isBossLevel) EnemySpawner.Instance.GenerateBoss(_currentEnemyType);
+            else EnemySpawner.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
         }
 
         /// <summary>

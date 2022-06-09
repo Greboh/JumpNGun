@@ -76,7 +76,7 @@ namespace JumpNGun
         public override void Awake()
         {
             //subscribe to event
-            EventManager.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
+            EventHandler.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
         }
 
         public override void Start()

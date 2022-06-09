@@ -108,7 +108,7 @@ namespace JumpNGun
             FlipSprite();
             
             // Trigger event
-            EventManager.Instance.TriggerEvent("OnTakeDamage", new Dictionary<string, object>()
+            EventHandler.Instance.TriggerEvent("OnTakeDamage", new Dictionary<string, object>()
                 {
                     {"damage", _parent.Damage}, // The projectile's damage
                     {"object", _parent.Player.GameObject}, // The collision object 

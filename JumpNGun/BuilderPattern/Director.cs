@@ -10,6 +10,7 @@
         {
             _builder = builder;
         }
+        
 
         /// <summary>
         /// Constructs the GameObject

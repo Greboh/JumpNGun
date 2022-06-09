@@ -24,11 +24,19 @@ namespace JumpNGun
 
         private int _currentScore;
 
+        /// <summary>
+        /// Get the current score
+        /// </summary>
+        /// <returns>Current score</returns>
         public int GetScore()
         {
             return _currentScore;
         }
         
+        /// <summary>
+        /// Add to current score
+        /// </summary>
+        /// <param name="addAmount">Amount to add</param>
         public void AddToScore(int addAmount)
         {
             _currentScore += addAmount;

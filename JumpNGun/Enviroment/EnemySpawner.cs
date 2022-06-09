@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace JumpNGun
 {
-    class EnemyGenerator
+    class EnemySpawner
     {
-        private static EnemyGenerator _instance;
+        private static EnemySpawner _instance;
 
-        public static EnemyGenerator Instance
+        public static EnemySpawner Instance
         {
-            get { return _instance ??= new EnemyGenerator(); }
+            get { return _instance ??= new EnemySpawner(); }
         }
 
         private Random _random = new Random();

@@ -19,25 +19,16 @@ namespace JumpNGun
 
     public struct KeyCode
     {
-        
-        /// <summary>
-        /// The keyboardBinding
-        /// </summary>
+        // The keyboardBinding
         public Keys KeyboardBinding { get; set; }
         
-        /// <summary>
-        /// The mouseBinding 
-        /// </summary>
+        // The mouseBinding 
         public MouseButton MouseBinding { get; set; }
 
-        /// <summary>
-        /// Name of the action that the binding is on
-        /// </summary>
+        // Name of the action that the binding is on
         public string ActionName { get; set; }
         
-        /// <summary>
-        /// Whether to use keyboard or mouse on this keybind
-        /// </summary>
+        // Whether to use keyboard or mouse on this keybind
         public bool IsKeyboardBinding { get; private set; }
         
         #region Constructors
@@ -103,8 +94,6 @@ namespace JumpNGun
             BindKey(Shoot, new ShootCommand());
             BindKey(Dash, new DashCommand());
             
-            PrintAllKeybindings();
-
             // Example on Rebinding a key
             RebindKey(new KeyCode(Keys.Space, "shoot"), new ShootCommand());
         }
@@ -130,13 +119,12 @@ namespace JumpNGun
                     // If that key is pressed
                     if (_currentKeyState.IsKeyDown(currentKey))
                     {
-                        // Console.WriteLine(keyCode.KeyboardBinding);
                         _keybindings[keyCode].Execute(player);
                         
                         // Trigger event sending the key and that it's pressed down
-                        EventManager.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
+                        EventHandler.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
                         {
-                            {"key", keyCode.KeyboardBinding},
+                            {"key", currentKey},
                             {"isKeyDown", true}
                         });
                         
@@ -145,9 +133,9 @@ namespace JumpNGun
                     else if (_currentKeyState.IsKeyUp(currentKey) && currentKey != Keys.None)
                     {
                         // Trigger event sending the pressed key and that it's no longer pressed down
-                        EventManager.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
+                        EventHandler.Instance.TriggerEvent("OnKeyPress", new Dictionary<string, object>()
                         {
-                            {"key", keyCode.KeyboardBinding},
+                            {"key", currentKey},
                             {"isKeyDown", false}
                         });
                     }
@@ -156,9 +144,7 @@ namespace JumpNGun
                 {
                     if (keyCode.MouseBinding == GetMouseButtons())
                     {
-                        // Console.WriteLine(keyCode.MouseBinding);
                         _keybindings[keyCode].Execute(player);
-                        
                     }
                 }
             }
@@ -194,10 +180,6 @@ namespace JumpNGun
                 // Check if the Tkey's ActionName is equal to our newKeys ActionName
                 if(keybinding.Key.ActionName == newKey.ActionName)
                 {
-                    Console.WriteLine("\nRebinding");
-                    
-                    PrintKeybinding(keybinding.Key);
-                    
                     // Remove the dictionary TKey
                     _keybindings.Remove(keybinding.Key);
 
@@ -220,15 +202,11 @@ namespace JumpNGun
                             Shoot = newKey;
                             break;
                     }
-                    
                 }
             }
 
             // Add the new keybinding
             _keybindings.Add(newKey, command);
-            
-            Console.WriteLine($"\nRebinding was successful!");
-            PrintKeybinding(newKey);
         }
 
         #endregion
@@ -254,46 +232,6 @@ namespace JumpNGun
 
             return mouse;
         }
-
-        #region ConsolePrint Methods
-
-        /// <summary>
-        /// Prints all Keybindings to console
-        /// </summary>
-        private void PrintAllKeybindings()
-        {
-            Console.WriteLine("All Keybindings: ");
-            foreach (KeyValuePair<KeyCode, ICommand> keyCode in _keybindings)
-            {
-                Console.WriteLine("_____________________________________________");
-                Console.WriteLine($"1. ActionName: {keyCode.Key.ActionName}\n" +
-                                  $"2. Keyboard-binding: {keyCode.Key.KeyboardBinding}\n" +
-                                  $"3. Mouse-Binding: {keyCode.Key.MouseBinding}\n" +
-                                  $"4. Command: {keyCode.Value.GetType().Name}");
-                Console.WriteLine("_____________________________________________");
-            }
-        }
-
-        /// <summary>
-        /// Prints a specific KeyBinding to console
-        /// </summary>
-        /// <param name="key">Keybinding to print</param>
-        private void PrintKeybinding(KeyCode key)
-        {
-            foreach (var keybinding in _keybindings)
-            {
-                if (key.ActionName == keybinding.Key.ActionName)
-                {
-                    Console.WriteLine("_____________________________________________");
-                    Console.WriteLine($"1. ActionName: {key.ActionName}\n" +
-                                      $"2. Keyboard-binding: {key.KeyboardBinding}\n" +
-                                      $"3. Mouse-Binding: {key.MouseBinding}\n" +
-                                      $"4. Command: {keybinding.Value.GetType().Name}");
-                    Console.WriteLine("_____________________________________________");
-                }
-            }
-        }
-
-        #endregion
+        
     }
 }

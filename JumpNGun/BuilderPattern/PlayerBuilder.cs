@@ -52,8 +52,8 @@ namespace JumpNGun
             
                     animator.AddAnimation(BuildAnimation("Jump", new string[] {"1_Soldier_jump", "2_Soldier_jump"}));
                     
-                    animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", "3_Soldier_Death","4_Soldier_Death", 
-                        "5_Soldier_Death", "6_Soldier_Death", "7_Soldier_Death", "8_Soldier_Death",}));
+                    animator.AddAnimation(BuildAnimation("Death", new []{"1_Soldier_Death", "2_Soldier_Death", 
+                        "3_Soldier_Death","4_Soldier_Death", "5_Soldier_Death", "6_Soldier_Death", "7_Soldier_Death", "8_Soldier_Death",}));
                     
                 } break;
                 case CharacterType.Ranger:
@@ -76,11 +76,7 @@ namespace JumpNGun
                 {
                     
                 } break;
-                
-
             }
-            
-
         }
 
         /// <summary>
@@ -93,10 +89,12 @@ namespace JumpNGun
             switch (character)
             {
                 case CharacterType.Soldier:
-                    _gameObject.AddComponent(new Player(character, 100, -100, 50, 0.5f, 1f, 2, 100, 350, 15));
+                    _gameObject.AddComponent(new Player(character, 100, -100, 50, 0.5f, 1f, 2, 
+                        100, 350, 15));
                     break;
                 case CharacterType.Ranger:
-                    _gameObject.AddComponent(new Player(character,150, -120, 75, 0.25f, 1.5f, 2, 80, 250, 20));
+                    _gameObject.AddComponent(new Player(character,150, -120, 75, 0.25f, 1.5f, 2, 
+                        80, 250, 20));
                     break;
                 case CharacterType.Wizard:
                     break;
@@ -109,9 +107,6 @@ namespace JumpNGun
             _gameObject.AddComponent(new Collider());
             _gameObject.AddComponent(new LevelSystem());
             _gameObject.Tag = "player";
-            
-            
-
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace JumpNGun
         {
             _pareMenuStateHandler = parent;
             
-            EventManager.Instance.Subscribe("OnInput", OnInput);
+            EventHandler.Instance.Subscribe("OnInput", OnInput);
             
             foreach (var go in GameWorld.Instance.GameObjects)
             {

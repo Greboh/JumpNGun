@@ -22,7 +22,7 @@ namespace JumpNGun
         
         private Vector2 _moveDirection; // The direction the player should move
         private Vector2 _spawnPosition = new Vector2(40, 705); // Reference the player's spawnPosition
-        private Rectangle _groundCollisionRectangle = Rectangle.Empty; // Reference the current groundCollision
+        private Rectangle _currentGroundCollisionBox = Rectangle.Empty; // Reference the current groundCollision
 
         public float Speed { get; } // Speed at which the player moves
         private float _jumpHeight; // The jump height of the player
@@ -75,8 +75,8 @@ namespace JumpNGun
         
         public override void Awake()
         {
-            EventManager.Instance.Subscribe("OnKeyPress", OnKeyPressed);
-            EventManager.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
+            EventHandler.Instance.Subscribe("OnKeyPress", OnKeyPressed);
+            EventHandler.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
         }
 
         public override void Start()
@@ -87,10 +87,14 @@ namespace JumpNGun
             _animator = GameObject.GetComponent<Animator>() as Animator;
             _pCollider = GameObject.GetComponent<Collider>() as Collider;
 
-
-            GameObject.Transform.Position = _spawnPosition; // Set transformPosition to spawnPosition
-            _gravityPull = _gravity; // Set the gravityPull
-            _currentHealth = _maxHealth; // set currentHealth to MaxHealth
+            // Set transformPosition to spawnPosition
+            GameObject.Transform.Position = _spawnPosition; 
+            
+            // Set the gravityPull
+            _gravityPull = _gravity; 
+            
+            // set currentHealth to MaxHealth
+            _currentHealth = _maxHealth; 
         }
 
         public override void Update(GameTime gameTime)
@@ -107,13 +111,56 @@ namespace JumpNGun
             HandleAnimations();
             ScreenBounds();
             WalkingSoundEffects();
-
         }
 
         #endregion
 
         #region Class Methods
+        
+        /// <summary>
+        /// Check if we are grounded
+        /// </summary>
+        private void CheckGrounded()
+        {
+            foreach (Collider otherCollision in GameWorld.Instance.Colliders)
+            {
+                // If our CollisionBox collides with another CollisionBox and it's tag is ground and we haven't collided with ground yet
+                if (_pCollider.CollisionBox.Intersects(otherCollision.CollisionBox) && !_hasCollidedWithGround)
+                {
+                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
+                    {
+                        _isGrounded = CalculateCollisionLineIntersection(otherCollision);
+                    }
+                }
+            }
 
+            // If we are grounded but do not collide with our groundCollision, then we are not grounded!
+            if (_isGrounded && !_pCollider.CollisionBox.Intersects(_currentGroundCollisionBox))
+            {
+                _isGrounded = false;
+                _hasCollidedWithGround = false;
+            }
+        }
+        
+        /// <summary>
+        /// Creates gravity making sure the player falls unless he is grounded
+        /// </summary>
+        private void HandleGravity()
+        {
+            // Guard clause
+            if (_isGrounded) return;
+
+            // Makes the gravity stronger over time, creating a feeling of a pull
+            _gravityPull += GameWorld.DeltaTime * _gravityMultiplier;
+
+            Vector2 fallDirection = new Vector2(0, 1);
+
+            // Multiply fallDirection with our gravityPull
+            fallDirection *= _gravityPull;
+
+            GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
+        }
+        
         /// <summary>
         /// Called from MoveCommand.cs
         /// Moves the player
@@ -176,59 +223,6 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Logic for handling when we can dash
-        /// </summary>
-        private void HandleDashLogic()
-        {
-            if (_canDash) return; // Guard clause
-
-
-            _dashTimer += GameWorld.DeltaTime; // Add to our dashTimer
-
-            // Check if its bigger than the cooldown
-            if (_dashTimer > _dashCooldown)
-            {
-                _canDash = true;
-                _dashTimer = 0;
-            }
-        }
-
-        /// <summary>
-        /// Creates gravity making sure the player falls unless he is grounded
-        /// </summary>
-        private void HandleGravity()
-        {
-            if (_isGrounded) return;
-
-            // Makes the gravity stronger over time, creating a feeling of a pull
-            _gravityPull += GameWorld.DeltaTime * _gravityMultiplier;
-
-            Vector2 fallDirection = new Vector2(0, 1);
-
-            // Multiply fallDirection with our gravityPull
-            fallDirection *= _gravityPull;
-
-            GameObject.Transform.Translate(fallDirection * GameWorld.DeltaTime);
-        }
-
-        /// <summary>
-        /// Change player position to oposite side if he exceeds screenbounds
-        /// </summary>
-        private void ScreenBounds()
-        {
-            //If player moves beyond 0 on x-axis move player max x-value on axis
-            if (GameObject.Transform.Position.X < 0)
-            {
-                GameObject.Transform.Transport(new Vector2(GameWorld.Instance.GraphicsDevice.Viewport.Width, GameObject.Transform.Position.Y));
-            }
-            //If player moves beyond max value on x-axis move player to 0 on x-axis 
-            if (GameObject.Transform.Position.X > GameWorld.Instance.GraphicsDevice.Viewport.Width)
-            {
-                GameObject.Transform.Transport(new Vector2(10, GameObject.Transform.Position.Y));
-            }
-        }
-
-        /// <summary>
         /// Called from ShootCommand.cs
         /// Shoots a projectile if we can shoot
         /// </summary>
@@ -237,7 +231,7 @@ namespace JumpNGun
             if (!_canShoot) return; // Guard clause
 
             // Create a new GameObject
-            GameObject projectile = ProjectileFactory.Instance.Create(_character, Vector2.Zero);
+            GameObject projectile = ProjectileFactory.Instance.Create(_character);
 
             // Set the GameObjects position
             projectile.Transform.Position = GameObject.Transform.Position;
@@ -260,10 +254,13 @@ namespace JumpNGun
             _canShoot = false;
         }
         
+        /// <summary>
+        /// Checks if the player's health is >= 0
+        /// </summary>
         private void HandleDeath()
         {
             // Check if player is alive
-            if (_currentHealth > 0)
+            if (_currentHealth >= 1)
             {
                 _isAlive = true;
                 return;
@@ -276,7 +273,8 @@ namespace JumpNGun
             // Check if the death animation is done
             if (_animator.IsAnimationDone)
             {
-                EventManager.Instance.TriggerEvent("OnPlayerDeath", new Dictionary<string, object>());
+                EventHandler.Instance.TriggerEvent("OnPlayerDeath", new Dictionary<string, object>());
+                GameWorld.Instance.Destroy(this.GameObject);
             }
         }
 
@@ -312,35 +310,32 @@ namespace JumpNGun
             if (_movementKeys.ContainsValue(true) && _isGrounded && _isAlive) _animator.PlayAnimation("Run");
             
         }
-
-        /// <summary>
-        /// Check if we are grounded
-        /// </summary>
-        private void CheckGrounded()
-        {
-            foreach (Collider otherCollision in GameWorld.Instance.Colliders)
-            {
-                // If our CollisionBox collides with another CollisionBox and it's tag is ground and we haven't collided with ground yet
-                if (_pCollider.CollisionBox.Intersects(otherCollision.CollisionBox) && !_hasCollidedWithGround)
-                {
-                    if (otherCollision.GameObject.Tag == "ground" || otherCollision.GameObject.Tag == "platform")
-                    {
-                        _isGrounded = CalculateCollisionLineIntersection(otherCollision);
-                    }
-                }
-            }
-
-            // If we are grounded but do not collide with our groundCollision, then we are not grounded!
-            if (_isGrounded && !_pCollider.CollisionBox.Intersects(_groundCollisionRectangle))
-            {
-                _isGrounded = false;
-                _hasCollidedWithGround = false;
-            }
-        }
-
+        
         #endregion
 
         #region Helper Methods
+        
+        /// <summary>
+        /// Calculates which part of the player's CollisionBox it has intersected with and applies logic according to it
+        /// </summary>
+        /// <param name="collisionCollider">The other-collision's collider</param>
+        private bool CalculateCollisionLineIntersection(Collider collisionCollider)
+        {
+            // If the bottom line of the playerCollider intersects with the other-collision's CollisionBox and we haven't collided with the ground yet
+            if (_pCollider.BottomLine.Intersects(collisionCollider.CollisionBox))
+            {
+                // Check if the player is inside the ground collision or if hes just a tiny bit above it
+                if (_pCollider.CollisionBox.Bottom >= collisionCollider.CollisionBox.Top && _pCollider.CollisionBox.Bottom <= collisionCollider.CollisionBox.Top + 5)
+                {
+                    _jumpCount = 0; // Reset jump counter
+                    _gravityPull = _gravity; // Reset gravity pull
+                    _currentGroundCollisionBox = collisionCollider.CollisionBox; // Reference our current collisionColliders CollisionBox
+                    _hasCollidedWithGround = true; // We have collided with ground now
+                    return true;
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// Checks if the sprite should be flipped by using the moveDirection
@@ -349,6 +344,23 @@ namespace JumpNGun
         {
             // Set SpriteEffect depending on our moveDirection.x
             _sr.SpriteEffects = moveDirection.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+        }
+        
+        /// <summary>
+        /// Logic for handling when we can dash
+        /// </summary>
+        private void HandleDashLogic()
+        {
+            if (_canDash) return; // Guard clause
+            
+            _dashTimer += GameWorld.DeltaTime; // Add to our dashTimer
+
+            // Check if its bigger than the cooldown
+            if (_dashTimer > _dashCooldown)
+            {
+                _canDash = true;
+                _dashTimer = 0;
+            }
         }
 
         /// <summary>
@@ -368,38 +380,20 @@ namespace JumpNGun
         }
 
         /// <summary>
-        /// Calculates which part of the player's CollisionBox it has intersected with and applies logic according to it
+        /// Change player position to oposite side if he exceeds screenbounds
         /// </summary>
-        /// <param name="collisionCollider">The other-collision's collider</param>
-        private bool CalculateCollisionLineIntersection(Collider collisionCollider)
+        private void ScreenBounds()
         {
-            // If the bottom line of the playerCollider intersects with the other-collision's CollisionBox and we haven't collided with the ground yet
-            if (_pCollider.BottomLine.Intersects(collisionCollider.CollisionBox))
+            //If player moves beyond 0 on x-axis move player max x-value on axis
+            if (GameObject.Transform.Position.X < 0)
             {
-                // Check if the player is inside the ground collision or if hes just a tiny bit above it
-                if (_pCollider.CollisionBox.Bottom >= collisionCollider.CollisionBox.Top && _pCollider.CollisionBox.Bottom <= collisionCollider.CollisionBox.Top + 5)
-                {
-                    _jumpCount = 0; // Reset jump counter
-                    _gravityPull = _gravity; // Reset gravity pull
-                    _groundCollisionRectangle = collisionCollider.CollisionBox; // Reference our current collisionColliders CollisionBox
-                    _hasCollidedWithGround = true; // We have collided with ground now
-                    return true;
-                }
+                GameObject.Transform.Transport(new Vector2(GameWorld.Instance.GraphicsDevice.Viewport.Width, GameObject.Transform.Position.Y));
             }
-            // If the player hits the ground CollisionBox from either the left or the right side
-            else if (_pCollider.CollisionBox.Intersects(collisionCollider.LeftLine))
+            //If player moves beyond max value on x-axis move player to 0 on x-axis 
+            if (GameObject.Transform.Position.X > GameWorld.Instance.GraphicsDevice.Viewport.Width)
             {
-                // Push the player a little bit
-                //GameObject.Transform.Translate(new Vector2(-1, 0) * 10); // Create a small push back
-                return false;
+                GameObject.Transform.Transport(new Vector2(10, GameObject.Transform.Position.Y));
             }
-            else if (_pCollider.CollisionBox.Intersects(collisionCollider.RightLine))
-            {
-                //GameObject.Transform.Translate(new Vector2(1, 0) * 10);
-                return false;
-            }
-
-            return false;
         }
 
         #endregion
@@ -447,9 +441,8 @@ namespace JumpNGun
             {
                 _movementKeys[currentKey] = (bool) ctx["isKeyDown"];
             }
-
             // If the currentKey is the same as our Jump KeyCode
-            if (currentKey == _input.Jump.KeyboardBinding)
+            else if (currentKey == _input.Jump.KeyboardBinding)
             {
                 _isJumping = (bool) ctx["isKeyDown"];
             }

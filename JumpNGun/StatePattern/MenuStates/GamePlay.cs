@@ -57,7 +57,7 @@ namespace JumpNGun
 
             LevelManager.Instance.ExecuteLevelGeneration();
 
-            EventManager.Instance.Subscribe("OnPlayerDeath", OnGameover);
+            EventHandler.Instance.Subscribe("OnPlayerDeath", OnGameover);
 
             foreach (var go in GameWorld.Instance.GameObjects)
             {
@@ -195,7 +195,7 @@ namespace JumpNGun
                     }
 
                     // UnFreeze gameobjects
-                    EventManager.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
                         {
                             {"freeze", false}
                         }
@@ -225,7 +225,7 @@ namespace JumpNGun
                         0, new Vector2(0, 0), SpriteEffects.None, 1);
 
                     // Freeze gameobjects
-                    EventManager.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
                         {
                             {"freeze", true}
                         }

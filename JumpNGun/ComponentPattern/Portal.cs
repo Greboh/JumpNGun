@@ -84,7 +84,7 @@ namespace JumpNGun
             //if portal isn't a start portal trigger next level event
             if (!_isStartPortal)
             {
-                EventManager.Instance.TriggerEvent("NextLevel", new Dictionary<string, object>
+                EventHandler.Instance.TriggerEvent("NextLevel", new Dictionary<string, object>
                     {
                         {"NewLevel", null}
                     });

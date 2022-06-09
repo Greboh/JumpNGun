@@ -15,7 +15,7 @@ namespace JumpNGun
 
         public virtual void Awake()
         {
-            EventManager.Instance.Subscribe("OnFreeze", OnFreeze);
+            EventHandler.Instance.Subscribe("OnFreeze", OnFreeze);
         }
 
         public virtual void Start()

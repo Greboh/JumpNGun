@@ -12,6 +12,9 @@ namespace JumpNGun
            uses dictionaries to couple a string to a SoundEffectInstance to be used in other classes
        */
 
+        public bool SfxDisabled { get; set; }
+        public bool MusicDisabled { get; set; }
+        
         private Random _rnd = new Random();
 
         #region Menu soundeffects
@@ -19,19 +22,17 @@ namespace JumpNGun
         private static SoundEffectInstance _menuHover2;
         private static SoundEffectInstance _menuHover3;
         private static SoundEffectInstance _menuClick;
-
-
         #endregion
 
         #region Player soundeffects
-        private static SoundEffectInstance _jump;
+        private static SoundEffectInstance _jump1;
+        private static SoundEffectInstance _jump2;
+        private static SoundEffectInstance _jump3;
         private static SoundEffectInstance _footstep1;
         private static SoundEffectInstance _footstep2;
         private static SoundEffectInstance _footstep3;
         private static SoundEffectInstance _footstep4;
 
-        private static SoundEffectInstance _jump1;
-        private static SoundEffectInstance _jump2;
 
         private static SoundEffectInstance _pickup;
 
@@ -50,8 +51,6 @@ namespace JumpNGun
         
         #endregion
 
-        public bool SfxDisabled { get; set; }
-        public bool MusicDisabled { get; set; }
 
 
         #region Instance
@@ -97,7 +96,7 @@ namespace JumpNGun
         /// </summary>
         private void InitClips()
         {
-            _jump = GameWorld.Instance.Content.Load<SoundEffect>("jump").CreateInstance();
+            _jump1 = GameWorld.Instance.Content.Load<SoundEffect>("jump").CreateInstance();
             _menuHover1 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_1").CreateInstance();
             _menuHover2 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_2").CreateInstance();
             _menuHover3 = GameWorld.Instance.Content.Load<SoundEffect>("menu_hover_3").CreateInstance();
@@ -111,8 +110,8 @@ namespace JumpNGun
             _footstep3 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_3").CreateInstance();
             _footstep4 = GameWorld.Instance.Content.Load<SoundEffect>("footstep_4").CreateInstance();
 
-            _jump1 = GameWorld.Instance.Content.Load<SoundEffect>("jump_1").CreateInstance();
-            _jump2 = GameWorld.Instance.Content.Load<SoundEffect>("jump_2").CreateInstance();
+            _jump2 = GameWorld.Instance.Content.Load<SoundEffect>("jump_1").CreateInstance();
+            _jump3 = GameWorld.Instance.Content.Load<SoundEffect>("jump_2").CreateInstance();
 
             _pickup = GameWorld.Instance.Content.Load<SoundEffect>("pickup").CreateInstance();
 
@@ -130,7 +129,7 @@ namespace JumpNGun
         /// </summary>
         private void BuildClips()
         {
-            _soundEffects.Add("jump", _jump);
+            _soundEffects.Add("jump", _jump1);
             _soundEffects.Add("menu_hover_1", _menuHover1);
             _soundEffects.Add("menu_hover_2", _menuHover2);
             _soundEffects.Add("menu_hover_3", _menuHover3);
@@ -141,8 +140,8 @@ namespace JumpNGun
             _soundEffects.Add("footstep_3", _footstep3);
             _soundEffects.Add("footstep_4", _footstep4);
 
-            _soundEffects.Add("jump_1", _jump1);
-            _soundEffects.Add("jump_2", _jump2);
+            _soundEffects.Add("jump_1", _jump2);
+            _soundEffects.Add("jump_2", _jump3);
 
             _soundEffects.Add("pickup", _pickup);
 
@@ -240,10 +239,10 @@ namespace JumpNGun
             switch (rdm)
             {
                 case 1:
-                    _jump1.Play();
+                    _jump2.Play();
                     break;
                 case 2:
-                    _jump2.Play();
+                    _jump3.Play();
                     break;
             }
         }
@@ -290,7 +289,7 @@ namespace JumpNGun
         /// <summary>
         /// Toggles Soundtrack volume to 1 (on)
         /// </summary>
-        public void toggleSoundtrackOn()
+        public void ToggleSoundtrackOn()
         {
             foreach (KeyValuePair<string,SoundEffectInstance> s in _soundtracks)
             {

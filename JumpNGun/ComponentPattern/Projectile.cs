@@ -10,7 +10,6 @@ namespace JumpNGun
     {
         public Vector2 Velocity { get; set; }
         public float Speed { get; set; }
-        
         public int Damage { get; set; }
 
         private Collider _collider;
@@ -56,7 +55,7 @@ namespace JumpNGun
                 if (col.CollisionBox.Intersects(_collider.CollisionBox) && col != _collider)
                 {
                     // Trigger event
-                    EventManager.Instance.TriggerEvent("OnTakeDamage", new Dictionary<string, object>()
+                    EventHandler.Instance.TriggerEvent("OnTakeDamage", new Dictionary<string, object>()
                         {
                             {"damage", Damage}, // The projectile's damage
                             {"object", col.GameObject}, // The collision object 
