@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+
 namespace JumpNGun
 {
     public abstract class Enemy : Component
     {
         //health for enemy
-        protected int health;
+        protected float health;
 
         //damage for enemey
-        public int Damage { get; protected set; }
+        public float Damage { get; protected set; }
 
         //speed for enemy
         public float Speed { get; set; }
@@ -19,7 +20,7 @@ namespace JumpNGun
 
         //random to pick random numbers when needed
         protected Random rnd = new Random();
-        
+
         //collider component
         public Collider Collider { get; private set; }
 
@@ -37,7 +38,7 @@ namespace JumpNGun
 
         //initial position of enemu
         protected Vector2 spawnPosition;
-        
+
         //determines whether enemy is ranged or not
         public bool IsRanged { get; protected set; }
 
@@ -45,7 +46,7 @@ namespace JumpNGun
         public bool IsBoss { get; protected set; }
 
         //speed for projectiles, instantiated by enemeies
-        public float ProjectileSpeed { get; protected set; } 
+        public float ProjectileSpeed { get; protected set; }
 
         //attack timer to manage ability to attack
         public float AttackTimer { get; set; }
@@ -138,7 +139,7 @@ namespace JumpNGun
         {
             GameObject.Transform.Translate(Velocity * Speed * GameWorld.DeltaTime);
         }
-        
+
         /// <summary>
         /// Change state to death state when health goes below or equal to 0
         /// //LAVET AF NICHLAS HOBERG
@@ -191,14 +192,16 @@ namespace JumpNGun
         private void OnTakeDamage(Dictionary<string, object> ctx)
         {
             GameObject collisionObject = (GameObject) ctx["object"];
-            int damageTaken = (int) ctx["damage"];
+            float damageTaken = (float) ctx["damage"];
             GameObject projectile = (GameObject) ctx["projectile"];
-            
-            if(collisionObject == this.GameObject && projectile.Tag == "p_Projectile")
+
+            if (collisionObject == this.GameObject && projectile.Tag == "p_Projectile")
             {
                 health -= damageTaken;
                 GameWorld.Instance.Destroy(projectile);
 
+                if ((projectile.GetComponent<Projectile>() as Projectile).HasVampiricAbility)
+                    (GameWorld.Instance.FindObjectOfType<Player>() as Player).CurrentHealth += (damageTaken * 0.1f);
             }
         }
 

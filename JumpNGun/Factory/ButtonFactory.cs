@@ -29,6 +29,8 @@ namespace JumpNGun
                             InputField,
                             Character1,
                             Character2,
+                            AbilityIcon,
+                            AbilityPick,
                            }
     class ButtonFactory : Factory
     {
@@ -207,6 +209,22 @@ namespace JumpNGun
                         gameObject.AddComponent(new Button(_type));
 
                     }
+                    break;
+                
+                
+                case ButtonType.AbilityPick:
+                {
+                    // Sprite is placeHolder, just to make sure it has a sprite!
+                    sr.SetSprite("icon_DamageIncrease");
+                    gameObject.AddComponent(new Button(_type));
+                }
+                    break;
+                case ButtonType.AbilityIcon:
+                {
+                    // Sprite is placeHolder, just to make sure it has a sprite!
+                    sr.SetSprite("iconSmall_DamageIncrease");
+                    gameObject.AddComponent(new Button(_type));
+                }
                     break;
 
             }

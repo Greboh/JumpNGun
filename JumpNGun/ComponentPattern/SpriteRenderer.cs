@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace JumpNGun
@@ -22,12 +23,13 @@ namespace JumpNGun
 
         //spriteeffects for sprite. flips, etc
         public SpriteEffects SpriteEffects { get; set; }
-       
 
-
+        private float _layerDepth;
+        
         public override void Start()
         {
             Origin = new Vector2(Sprite.Width / 2, Sprite.Height / 2);
+            _layerDepth = 1.0f;
         }
 
 
@@ -39,7 +41,7 @@ namespace JumpNGun
         {
             Sprite = GameWorld.Instance.Content.Load<Texture2D>(spriteName);
         }
-        
+
         public void SetColor(Color newColor)
         {
             Color = newColor;
@@ -49,7 +51,11 @@ namespace JumpNGun
         {
             Origin = newOrigin;
         }
-        
+        public void SetLayerDepth(float newDepth)
+        {
+            _layerDepth = newDepth;
+        }
+
 
         /// <summary>
         /// Draw sprite
@@ -59,7 +65,7 @@ namespace JumpNGun
         {
             if (StopRendering) return;
             
-            spriteBatch.Draw(Sprite, GameObject.Transform.Position, null, Color, 0, Origin, 1, SpriteEffects, 1);
+            spriteBatch.Draw(Sprite, GameObject.Transform.Position, null, Color, 0, Origin, 1, SpriteEffects,_layerDepth);
             
         }
     }

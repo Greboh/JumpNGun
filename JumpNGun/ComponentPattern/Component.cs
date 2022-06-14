@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace JumpNGun
         public GameObject GameObject { get; set; }
 
         public bool IsDisabled { get; private set; }
-
+        
         public virtual void Awake()
         {
             EventHandler.Instance.Subscribe("OnFreeze", OnFreeze);
@@ -38,6 +39,19 @@ namespace JumpNGun
             if (!GameObject.HasComponent<Button>())
             {
                 IsDisabled = (bool) ctx["freeze"];
+            }
+            
+            
+            if(GameObject.HasComponent<Player>())
+            {
+                if (IsDisabled)
+                {
+                    (GameObject.GetComponent<Player>() as Player).CanMove = false;
+                }
+                else
+                {
+                    (GameObject.GetComponent<Player>() as Player).CanMove = true;
+                }
             }
         }
     }

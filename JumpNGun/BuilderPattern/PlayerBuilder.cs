@@ -109,6 +109,7 @@ namespace JumpNGun
             _gameObject.AddComponent(new Input());
             _gameObject.AddComponent(new Collider());
             _gameObject.AddComponent(new LevelSystem());
+            _gameObject.AddComponent(new AbilitySystem());
             _gameObject.Tag = "player";
         }
 

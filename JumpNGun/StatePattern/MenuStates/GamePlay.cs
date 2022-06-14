@@ -11,13 +11,15 @@ namespace JumpNGun
     {
         Unpaused,
         Paused,
+        LevelUp,
     }
+
     /// <summary>
     /// LAVET AF KEAN & NICHLAS
     /// </summary>
     public class GamePlay : IStateMenu
     {
-        #region fields
+        #region oldFields
 
         private MenuStateHandler _pareMenuStateHandler;
 
@@ -28,7 +30,7 @@ namespace JumpNGun
         private Texture2D _musicStatus; // holds music status texture from either _enabled or _disabled
         private Texture2D _sfxStatus; // holds sfx status texture from either _enabled or _disabled
 
-        private SpriteFont _scoreFont; // font used for displaying scores in pause menu
+        private SpriteFont _font; // font used for displaying scores in pause menu
 
         private bool _isPaused; // pause bool check
 
@@ -37,6 +39,20 @@ namespace JumpNGun
         private PauseState _currentPauseState = PauseState.Unpaused; // sets default PauseState to enum Unpaused
 
         private LevelSystem _levelSystem;
+
+        #endregion
+
+        #region newFields
+
+        private bool _startOfGame = true;
+
+        private AbilitySystem _abilitySystem;
+
+        private Texture2D _levelUpOverlay;
+
+        private string _abilityName = "Press and hold on an ability!";
+
+        private string _abilityDescription = string.Empty;
 
         #endregion
 
@@ -49,24 +65,31 @@ namespace JumpNGun
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
         {
-            _pareMenuStateHandler = parent;
+            #region old
 
+            _pareMenuStateHandler = parent;
             SoundManager.Instance.StopClip("soundtrack_2");
             SoundManager.Instance.PlayClip("soundtrack_1");
-
-
             Director playerDirector = new Director(new PlayerBuilder(_pareMenuStateHandler.PlayerType));
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
-
             LevelManager.Instance.ExecuteLevelGeneration();
-
             EventHandler.Instance.Subscribe("OnPlayerDeath", OnGameover);
+
+            #endregion
+
+            EventHandler.Instance.Subscribe("OnLevelUp", OnLevelUp);
+            EventHandler.Instance.Subscribe("OnAbilitySelected", OnAbilitySelected);
+            EventHandler.Instance.Subscribe("OnShowAbilityDescription", OnShowAbilityDescription);
+
 
             foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
         }
+
+
+        #region old
 
         /// <summary>
         /// Event that gets trigger when the player dies   
@@ -78,6 +101,8 @@ namespace JumpNGun
             MenuStateHandler.Instance.ChangeState(_pareMenuStateHandler.MainMenu);
         }
 
+        #endregion
+
         /// <summary>
         /// Updates logic when state is GamePlay, also handles pause menu input
         /// LAVET AF KEAN & NICHLAS
@@ -85,6 +110,8 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
         {
+            #region old
+
             _levelSystem ??= GameWorld.Instance.FindObjectOfType<LevelSystem>() as LevelSystem;
 
             PauseMenuHandling();
@@ -98,11 +125,23 @@ namespace JumpNGun
 
             //call cleanup in every cycle
             GameWorld.Instance.CleanUpGameObjects();
+
+            #endregion
+
+            // Run in update to make sure it gets the AbilitySystem. Only gets it once!
+            if (_startOfGame)
+            {
+                _abilitySystem ??= GameWorld.Instance.FindObjectOfType<AbilitySystem>() as AbilitySystem;
+                _abilitySystem.PickAtStart();
+                _startOfGame = false;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+            #region old
 
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
@@ -110,12 +149,10 @@ namespace JumpNGun
                 GameWorld.Instance.GameObjects[i].Draw(spriteBatch);
             }
 
-            //draws pause menu overlay
-            HandlePauseLogic(spriteBatch);
-            
+
             // Makes sure PlayerType is not set to none
             // Needs to be in a method that updates since we set CharacterType later than Gameplay!
-            if(_pareMenuStateHandler.PlayerType != CharacterType.None)
+            if (_pareMenuStateHandler.PlayerType != CharacterType.None)
             {
                 switch (_pareMenuStateHandler.PlayerType)
                 {
@@ -130,11 +167,19 @@ namespace JumpNGun
                         break;
                 }
             }
+
+            #endregion
+
+            //draws pause menu overlay
+            HandlePauseLogic(spriteBatch);
+
             spriteBatch.End();
         }
 
         public void LoadContent()
         {
+            #region old
+
             //call start method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
@@ -145,11 +190,13 @@ namespace JumpNGun
             _pausedOverlay = GameWorld.Instance.Content.Load<Texture2D>("paused_overlay");
             _enabled = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _disabled = GameWorld.Instance.Content.Load<Texture2D>("crossedout");
-
             _musicStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
             _sfxStatus = GameWorld.Instance.Content.Load<Texture2D>("checkmark");
+            _font = GameWorld.Instance.Content.Load<SpriteFont>("font");
 
-            _scoreFont = GameWorld.Instance.Content.Load<SpriteFont>("font");
+            #endregion
+
+            _levelUpOverlay = GameWorld.Instance.Content.Load<Texture2D>("levelUpOverlay");
         }
 
         /// <summary>
@@ -158,15 +205,23 @@ namespace JumpNGun
         /// </summary>
         public void Exit()
         {
+            #region old
+
             _currentPauseState = PauseState.Unpaused;
-            
-            _pareMenuStateHandler.ComponentCleanUp();
-
             Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
-
+            _pareMenuStateHandler.ComponentCleanUp();
             ScoreHandler.Instance.ResetScore();
             _levelSystem.Resetlevel();
+
+            #endregion
+
+            _startOfGame = true;
+            EventHandler.Instance.Unsubscribe("OnLevelUp", OnLevelUp);
+            EventHandler.Instance.Unsubscribe("OnAbilitySelected", OnAbilitySelected);
+            EventHandler.Instance.Unsubscribe("OnShowAbilityDescription", OnShowAbilityDescription);
         }
+
+        #region old
 
         /// <summary>
         /// Handles keyboard inputs for opening and closing pause menu
@@ -197,6 +252,21 @@ namespace JumpNGun
         }
 
         /// <summary>
+        /// Sets music/sfx status icons
+        /// LAVET AF KEAN
+        /// </summary>
+        private void SetAudioStatusIcons()
+        {
+            //sets _musicStatus texture to _disabled if false otherwise sets it to _enabled
+            _musicStatus = SoundManager.Instance.MusicDisabled ? _disabled : _enabled;
+
+            //sets _sfxStatus texture to _disabled if false otherwise sets it to _enabled
+            _sfxStatus = SoundManager.Instance.SfxDisabled ? _disabled : _enabled;
+        }
+
+        #endregion
+
+        /// <summary>
         /// Handles what assets and button types to draw when PauseState is set to .Paused
         /// LAVET AF KEAN
         /// </summary>
@@ -206,6 +276,8 @@ namespace JumpNGun
             //Handles draws when pause menu is open / closed
             switch (_currentPauseState)
             {
+                #region old
+
                 case PauseState.Unpaused:
                 {
                     //removes buttons instansitated in pause menu
@@ -228,18 +300,22 @@ namespace JumpNGun
                 }
                     break;
 
+                #endregion
+
                 case PauseState.Paused:
                 {
+                    #region old
+
                     spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null,
-                        Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 1);
+                        Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.9f);
 
                     spriteBatch.Draw(_characterAvatar, new Rectangle(401, 325, _characterAvatar.Width, _characterAvatar.Height), null, Color.White,
-                        0, new Vector2(0, 0), SpriteEffects.None, 1);
+                        0, new Vector2(0, 0), SpriteEffects.None, 0.8f);
 
-                    spriteBatch.DrawString(_scoreFont, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 515), Color.White);
+                    spriteBatch.DrawString(_font, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 513), Color.White);
 
 
-                    spriteBatch.DrawString(_scoreFont, "Level : " + _levelSystem.GetLevel(), new Vector2(401, 535), Color.White);
+                    spriteBatch.DrawString(_font, "Level : " + _levelSystem.GetLevel(), new Vector2(401, 533), Color.White);
 
 
                     spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White,
@@ -254,6 +330,11 @@ namespace JumpNGun
                         }
                     );
 
+                    #endregion
+
+
+                    DrawAbilityDescription(spriteBatch);
+
                     //instansiates buttons used if paused
                     if (!_isPaused)
                     {
@@ -261,24 +342,114 @@ namespace JumpNGun
                         GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.SfxPause, Vector2.Zero));
                         GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain, Vector2.Zero));
 
+                        DrawAbilityIcons();
+
+
                         _isPaused = true;
                     }
+                }
+                    break;
+
+                case PauseState.LevelUp:
+                {
+                    // Freeze gameobjects
+                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                        {
+                            {"freeze", true}
+                        }
+                    );
+
+                    DrawLevelUp(spriteBatch);
                 }
                     break;
             }
         }
 
-        /// <summary>
-        /// Sets music/sfx status icons
-        /// LAVET AF KEAN
-        /// </summary>
-        private void SetAudioStatusIcons()
-        {
-            //sets _musicStatus texture to _disabled if false otherwise sets it to _enabled
-            _musicStatus = SoundManager.Instance.MusicDisabled ? _disabled : _enabled;
 
-            //sets _sfxStatus texture to _disabled if false otherwise sets it to _enabled
-            _sfxStatus = SoundManager.Instance.SfxDisabled ? _disabled : _enabled;
+        private void DrawLevelUp(SpriteBatch spriteBatch)
+        {
+            // Draw LevelUpOverlay
+            spriteBatch.Draw(_levelUpOverlay, new Rectangle(357, 85, _levelUpOverlay.Width, _levelUpOverlay.Height), null,
+                Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.9f);
+
+            // Make sure to only instantiate buttons once.
+            if (!_isPaused)
+            {
+                HandleLevelUp();
+
+                _isPaused = true;
+            }
+        }
+
+
+        private void HandleLevelUp()
+        {
+            // Gets the count of pickable abilities
+            int numberOfPickableAbilities = _abilitySystem.AbilitiesToPickFrom.Count;
+
+            for (int i = 0; i < numberOfPickableAbilities; i++)
+            {
+                GameObject abilityPickButton = ButtonFactory.Instance.Create(ButtonType.AbilityPick);
+
+                (abilityPickButton.GetComponent<Button>() as Button).AbilityPickIndex = i;
+                GameWorld.Instance.Instantiate(abilityPickButton);
+            }
+        }
+
+        private void DrawAbilityIcons()
+        {
+            // Gets the count of current abilities
+
+            int numberOfCurrentAbilities = _abilitySystem.PlayerAbilities.Count;
+
+            if (numberOfCurrentAbilities == 0) return;
+
+            for (int i = 0; i < numberOfCurrentAbilities; i++)
+            {
+                GameObject abilityButton = ButtonFactory.Instance.Create(ButtonType.AbilityIcon);
+
+                (abilityButton.GetComponent<Button>() as Button).AbilityIconIndex = i;
+                GameWorld.Instance.Instantiate(abilityButton);
+            }
+        }
+
+        private void DrawAbilityDescription(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(_font, "Ability Name: " + _abilityName, new Vector2(401, 553), Color.White);
+            spriteBatch.DrawString(_font, "Ability Description: " + _abilityDescription, new Vector2(401, 573), Color.White);
+        }
+
+
+        private void OnLevelUp(Dictionary<string, object> ctx)
+        {
+            _currentPauseState = PauseState.LevelUp;
+
+            if (_startOfGame) return;
+
+            _abilitySystem.PickAbility();
+        }
+
+        private void OnAbilitySelected(Dictionary<string, object> ctx)
+        {
+            _currentPauseState = PauseState.Unpaused;
+        }
+
+        private void OnShowAbilityDescription(Dictionary<string, object> ctx)
+        {
+            bool shouldShow = (bool) ctx["shouldShow"];
+
+            if (shouldShow)
+            {
+                Ability ability = (Ability) ctx["ability"];
+
+                _abilityName = ability.abilityName;
+                _abilityDescription = ability.abilityDescription;
+            }
+            else
+            {
+                _abilityName = "Press and hold on an ability!";
+                _abilityDescription = string.Empty;
+            }
         }
 
         #endregion

@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using JumpNGun.StatePattern.GameStates;
 using Microsoft.Xna.Framework.Input;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace JumpNGun
 {
@@ -14,7 +18,6 @@ namespace JumpNGun
             The class is otherwise used for changing GameStates corresponding to clicked the button context
             Lavet af kean
         */
-
 
         #region Fields
 
@@ -53,13 +56,38 @@ namespace JumpNGun
 
         private bool _inputClicked;
         private bool _inputKeyInteract;
-        
+
         private Keys _currentInputKey = Keys.None;
 
         private bool _canIntersect = true;
 
         #endregion
 
+
+        private AbilitySystem _abilitySystem;
+        private Ability _storedAbility;
+
+        public int AbilityPickIndex { get; set; }
+        public Vector2[] AbilityPickVector2s { get; } = new[]
+        {
+            new Vector2(380, 165),
+            new Vector2(380, 275),
+            new Vector2(380, 385)
+        };
+
+        public int AbilityIconIndex { get; set; }
+        public Vector2[] AbilityIconVector2s { get; } = new[]
+        {
+            new Vector2(640, 382),
+            new Vector2(720, 382),
+            new Vector2(800, 382),
+            new Vector2(880, 382),
+            new Vector2(640, 455),
+            new Vector2(720, 455),
+            new Vector2(800, 455),
+            new Vector2(880, 455),
+        };
+        
         #region Constructor
 
         public Button(ButtonType type)
@@ -76,6 +104,8 @@ namespace JumpNGun
             // Sets position for the button sprite from predetermined vector positions
             switch (_type)
             {
+                #region old
+
                 case ButtonType.Start:
                     _position = _startButtonPosition;
                     break;
@@ -127,15 +157,45 @@ namespace JumpNGun
                 case ButtonType.Character2:
                     _position = _character2Position;
                     break;
+
+                #endregion
+
+
+                case ButtonType.AbilityPick:
+                    _position = AbilityPickVector2s[AbilityPickIndex];
+                    break;
+                case ButtonType.AbilityIcon:
+                    _position = AbilityIconVector2s[AbilityIconIndex];
+                    break;
             }
         }
 
         public override void Start()
         {
+            #region old
+
             GameObject.Transform.Position = _position;
             _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             _sr.SetOrigin(Vector2.Zero); // sets origin to top left
+            _sr.SetLayerDepth(0.8f);
             _buttonRect = new Rectangle((int) _position.X, (int) _position.Y, _sr.Sprite.Width, _sr.Sprite.Height); // construcs rectangle from position and sprite width/height
+
+            #endregion
+
+
+            // Make sure that it gets the right sprite now! And NOT the placeholder sprite
+            if (_type == ButtonType.AbilityPick)
+            {
+                _abilitySystem ??= GameWorld.Instance.FindObjectOfType<AbilitySystem>() as AbilitySystem;
+                _sr.Sprite = _abilitySystem.AbilitiesToPickFrom[AbilityPickIndex].abilitySprite;
+            }
+            
+            if (_type == ButtonType.AbilityIcon)
+            {
+                _abilitySystem ??= GameWorld.Instance.FindObjectOfType<AbilitySystem>() as AbilitySystem;
+                _sr.Sprite = _abilitySystem.PlayerAbilities[AbilityIconIndex].abilitySmallSprite;
+                _storedAbility = _abilitySystem.PlayerAbilities[AbilityIconIndex];
+            }
         }
 
         /// <summary>
@@ -147,7 +207,7 @@ namespace JumpNGun
         {
             _mouseRect = new Rectangle(GameWorld.Instance.MyMouse.X, GameWorld.Instance.MyMouse.Y, 10, 10); // mouse rectangle
             _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds; // negates double input on buttons
-            
+
             // used for checking mouse rect & sprite rect intersection
             if (_mouseRect.Intersects(_buttonRect))
             {
@@ -160,6 +220,8 @@ namespace JumpNGun
 
                 switch (_type)
                 {
+                    #region old
+
                     case ButtonType.Start:
                         StartGame();
                         break;
@@ -172,27 +234,21 @@ namespace JumpNGun
                     case ButtonType.Quit:
                         Quit();
                         break;
-
                     case ButtonType.Audio:
                         AudioButton();
                         break;
-
                     case ButtonType.Controls:
                         ControlsButton();
                         break;
-
                     case ButtonType.Music:
                         MusicToggleButton();
                         break;
-
                     case ButtonType.Sfx:
                         SoundEffectsToggleButton();
                         break;
-
                     case ButtonType.Back:
                         BackButton();
                         break;
-
                     case ButtonType.QuitToMain:
                         QuitToMain();
                         break;
@@ -218,12 +274,104 @@ namespace JumpNGun
                     case ButtonType.Character2:
                         CharacterRanger();
                         break;
+
+                    #endregion
+
+                    case ButtonType.AbilityPick:
+                        PickAbilityButton();                    
+                        break;
+                    case ButtonType.AbilityIcon:
+                        AbilityIconLogic();
+                        break;
                 }
             }
             else
             {
                 _sr.SetColor(Color.White); // resets hover color
                 _fireOnce = true;
+            }
+        }
+        
+        private void PickAbilityButton()
+        {
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            {
+                _abilitySystem.SelectedAbility(_abilitySystem.AbilitiesToPickFrom[AbilityPickIndex]);
+
+                _mouseCooldown += 0;
+                _canIntersect = false;
+            }
+        }
+
+
+        private void AbilityIconLogic()
+        {
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+                ShowAbilityDescription(true, _storedAbility);
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                ShowAbilityDescription(false, _storedAbility);
+                _canIntersect = true;
+            }
+        }
+        
+        private void ShowAbilityDescription(bool shouldShow, Ability ability)
+        {
+            EventHandler.Instance.TriggerEvent("OnShowAbilityDescription", new Dictionary<string, object>()
+                {
+                    {"shouldShow", shouldShow},
+                    {"ability", ability}
+                }
+            );
+        }
+
+
+        #region OldMethods
+
+        private void InputFieldLogic()
+        {
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
+            {
+                _inputClicked = true;
+                _canIntersect = false;
+            }
+            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
+            {
+                _canIntersect = true;
+            }
+        }
+
+        private void InputField()
+        {
+            if (_inputClicked)
+            {
+                KeyboardState keyboardState = Keyboard.GetState();
+                Keys[] keyArray = keyboardState.GetPressedKeys();
+
+                foreach (Keys key in keyArray)
+                {
+                    if (keyboardState.IsKeyDown(key) && !_inputKeyInteract && key != Keys.Space)
+                    {
+                        _currentInputKey = key;
+
+                        _inputKeyInteract = true;
+
+                        EventHandler.Instance.TriggerEvent("OnInput", new Dictionary<string, object>()
+                            {
+                                {"inputKey", _currentInputKey.ToString()}
+                            }
+                        );
+
+                        MenuStateHandler.Instance.PlayerName += _currentInputKey.ToString();
+                    }
+                }
+
+                if (!keyboardState.IsKeyUp(_currentInputKey) || !_inputKeyInteract) return;
+
+                _inputKeyInteract = false;
             }
         }
 
@@ -401,19 +549,19 @@ namespace JumpNGun
             if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
             {
                 // return to Main menu from settings
-                if (MenuStateHandler.Instance.CurrentMenuState is SettingsMenu) 
+                if (MenuStateHandler.Instance.CurrentMenuState is SettingsMenu)
                 {
                     MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.MainMenu);
                 }
-                
+
                 // return to main settings menu from audio settings
-                else if (MenuStateHandler.Instance.CurrentMenuState is Audio) 
+                else if (MenuStateHandler.Instance.CurrentMenuState is Audio)
                 {
                     MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }
-                
+
                 // return to main settings menu from control settings
-                else if (MenuStateHandler.Instance.CurrentMenuState is Controls) 
+                else if (MenuStateHandler.Instance.CurrentMenuState is Controls)
                 {
                     MenuStateHandler.Instance.ChangeState(new SettingsMenu());
                 }
@@ -423,7 +571,6 @@ namespace JumpNGun
                 {
                     MenuStateHandler.Instance.ChangeState(new MainMenu());
                 }
-
 
 
                 _mouseCooldown += 0;
@@ -539,7 +686,7 @@ namespace JumpNGun
             {
                 if (MenuStateHandler.Instance.PlayerName != string.Empty)
                 {
-                    MenuStateHandler.Instance.ChangeState( MenuStateHandler.Instance.MainMenu);
+                    MenuStateHandler.Instance.ChangeState(MenuStateHandler.Instance.MainMenu);
                 }
 
                 _canIntersect = false;
@@ -548,52 +695,6 @@ namespace JumpNGun
             {
                 _canIntersect = true;
             }
-        }
-
-        private void InputFieldLogic()
-        {
-            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
-            {
-                _inputClicked = true;
-                _canIntersect = false;
-            }
-            else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
-            {
-                _canIntersect = true;
-            }
-        }
-        
-        private void InputField()
-        {
-            if (_inputClicked)
-            {
-                KeyboardState keyboardState = Keyboard.GetState();
-                Keys[] keyArray = keyboardState.GetPressedKeys();
-                
-                foreach (Keys key in keyArray)
-                {
-                    if (keyboardState.IsKeyDown(key) && !_inputKeyInteract && key != Keys.Space)
-                    {
-                        _currentInputKey = key;
-                    
-                        _inputKeyInteract = true;
-
-                        EventHandler.Instance.TriggerEvent("OnInput", new Dictionary<string, object>()
-                            {
-                                {"inputKey", _currentInputKey.ToString()}
-                            }
-                        );
-                        
-                        MenuStateHandler.Instance.PlayerName += _currentInputKey.ToString();
-                    }
-                }
-
-                if (!keyboardState.IsKeyUp(_currentInputKey) || !_inputKeyInteract) return;
-                
-                _inputKeyInteract = false;
-            }
-
-
         }
 
         private void CharacterSoldier()
@@ -627,6 +728,8 @@ namespace JumpNGun
                 _canIntersect = true;
             }
         }
+
+        #endregion
 
         #endregion
     }

@@ -67,8 +67,8 @@ namespace JumpNGun
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(_backgroundimage, new Vector2(0, 0), Color.White); // background texture
-
+            spriteBatch.Draw(_backgroundimage, new Vector2(0,0 ), Color.White);
+            
             spriteBatch.Draw(_cloud1, _position1, Color.White); // cloud 1
             spriteBatch.Draw(_cloud2, _position2, Color.White); // cloud 2
             spriteBatch.Draw(_cloud3, _position3, Color.White); // cloud 3

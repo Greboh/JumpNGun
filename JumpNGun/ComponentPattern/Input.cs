@@ -117,7 +117,7 @@ namespace JumpNGun
                     Keys currentKey = keyCode.KeyboardBinding;
 
                     // If that key is pressed
-                    if (_currentKeyState.IsKeyDown(currentKey))
+                    if (_currentKeyState.IsKeyDown(currentKey) && player.CanMove)
                     {
                         _keybindings[keyCode].Execute(player);
                         

@@ -12,6 +12,15 @@ namespace JumpNGun
     public class Player : Component
     {
         #region Fields
+        
+        // Player's max health
+        public float MaxHealth { get; set; }
+        
+        // Player's current health
+        public float CurrentHealth { get; set; }
+        
+        // Reference to the projectile's damage
+        public float Damage { get; set; } 
 
         // Reference our characterType
         private CharacterType _character; 
@@ -52,16 +61,12 @@ namespace JumpNGun
         // Cooldown on Shoot
         private float _shootCooldown; 
         // Reference to the projectile's speed
-        private float _projectileSpeed; 
-        // Player's max health
-        private float _maxHealth;
-        // Player's current health
-        private float _currentHealth; 
+        private float _projectileSpeed;
+
         // Reference to the fillAmount of the healthBar
         private float _healthBarFillAmount;
 
-        // Reference to the projectile's damage
-        private int _damage; 
+       
         // The initial force of gravity
         private int _gravity = 50; 
         // Used to multiply the gravity over time making it stronger
@@ -92,6 +97,18 @@ namespace JumpNGun
 
         #endregion
         
+
+        #region Abilities
+
+        public bool CanMove { get; set; }
+        
+        public bool HasProjectileWrap { get; set; }
+        public bool HasVampiricBite { get; set; }
+
+        #endregion
+
+        
+        
         public Player(CharacterType character, float speed, float jumpHeight, float dashStrength, float dashCooldown, float shootCooldown, int maxJumpCount, int maxHealth,
             float projectileSpeed, int damage)
         {
@@ -102,9 +119,9 @@ namespace JumpNGun
             _maxJumpCount = maxJumpCount;
             _dashCooldown = dashCooldown;
             _shootCooldown = shootCooldown;
-            _maxHealth = maxHealth;
+            MaxHealth = maxHealth;
             _projectileSpeed = projectileSpeed;
-            _damage = damage;
+            Damage = damage;
         }
 
         #region Component Methods
@@ -113,6 +130,8 @@ namespace JumpNGun
         {
             EventHandler.Instance.Subscribe("OnKeyPress", OnKeyPressed);
             EventHandler.Instance.Subscribe("OnTakeDamage", OnTakeDamage);
+            
+         
         }
 
         public override void Start()
@@ -130,7 +149,7 @@ namespace JumpNGun
             _gravityPull = _gravity; 
             
             // set currentHealth to MaxHealth
-            _currentHealth = _maxHealth; 
+            CurrentHealth = MaxHealth; 
             
             // Load healthBar
             _healthBar = GameWorld.Instance.Content.Load<Texture2D>("HealthBar");
@@ -139,10 +158,9 @@ namespace JumpNGun
         public override void Update(GameTime gameTime)
         {
             _input.Execute(this);
-            HandleDeath();
+            HandleHealth();
             CheckGrounded();
             HandleGravity();
-            HandleHealthBar();
 
             if (!_isAlive) return;
             
@@ -292,7 +310,15 @@ namespace JumpNGun
             ((Projectile) projectile.GetComponent<Projectile>()).Speed = _projectileSpeed;
             
             // Set Projectiles Damage
-            ((Projectile) projectile.GetComponent<Projectile>()).Damage = _damage;
+            ((Projectile) projectile.GetComponent<Projectile>()).Damage = Damage;
+            
+            
+            
+            
+            ((Projectile) projectile.GetComponent<Projectile>()).FiredFromPlayer = true;
+            ((Projectile) projectile.GetComponent<Projectile>()).HasWrapAbility = HasProjectileWrap;
+            ((Projectile) projectile.GetComponent<Projectile>()).HasVampiricAbility = HasVampiricBite;
+
             
             // Instantiate Projectile
             GameWorld.Instance.Instantiate(projectile);
@@ -302,14 +328,22 @@ namespace JumpNGun
         /// <summary>
         /// Checks if the player's health is >= 0
         /// </summary>
-        private void HandleDeath()
+        private void HandleHealth()
         {
+            // Check if the players current health is bigger than max
+            if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
+            
+            // Set the health bar's fill amount
+            // We multiply by 100 to make it percentage, then multiply by 10 to stretch the sprite
+            _healthBarFillAmount =  (CurrentHealth / MaxHealth  * 100) * 10;
+            
             // Check if player is alive
-            if (_currentHealth >= 1)
+            if (CurrentHealth >= 1)
             {
                 _isAlive = true;
                 return;
             }
+            
             
             _isAlive = false;
             
@@ -356,14 +390,6 @@ namespace JumpNGun
             
         }
         
-        /// <summary>
-        /// Updates the healthBar
-        /// </summary>
-        private void HandleHealthBar()
-        {
-            // We multiply by 100 to make it percentage, then multiply by 10 to stretch the sprite
-            _healthBarFillAmount =  (_currentHealth / _maxHealth  * 100) * 10;
-        }
         
         #endregion
 
@@ -461,7 +487,7 @@ namespace JumpNGun
         private void OnTakeDamage(Dictionary<string, object> ctx)
         {
             GameObject collisionObject = (GameObject) ctx["object"];
-            int damageTaken = (int) ctx["damage"];
+            float damageTaken = (float)ctx["damage"];
             GameObject projectile = (GameObject) ctx["projectile"];
 
             // If the collisionObject is not this one return
@@ -471,11 +497,11 @@ namespace JumpNGun
             {
                 if (projectile.Tag == "e_Projectile")
                 {
-                    _currentHealth -= damageTaken;
+                    CurrentHealth -= damageTaken;
                     GameWorld.Instance.Destroy(projectile);
                 }
             }
-            else _currentHealth -= damageTaken;
+            else CurrentHealth -= damageTaken;
 
         }
 

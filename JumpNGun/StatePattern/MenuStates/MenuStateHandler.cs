@@ -40,6 +40,7 @@ namespace JumpNGun
         public IStateMenu Controls { get; private set; }
         public IStateMenu Audio { get; private set; }
         public IStateMenu Highscore { get; private set; }
+        public IStateMenu LevelUpMenu { get; private set; }
 
 
         #endregion
@@ -55,18 +56,17 @@ namespace JumpNGun
             Controls = new Controls();
             Audio = new Audio();
             Highscore = new Highscore();
+            LevelUpMenu = new LevelUpMenu();
+            
 
 
             GameTitle = GameWorld.Instance.Content.Load<Texture2D>("game_title");
-            
         }
 
 
         public void Update(GameTime gameTime)
         {
             CurrentMenuState.Execute(gameTime);
-
-
         }
 
         public void LoadContent()

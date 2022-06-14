@@ -84,7 +84,7 @@ namespace JumpNGun
             // Check if the name matches a TKey and Invoke event otherwise do nothing.
             if (Instance._events.TryGetValue(name, out Action<Dictionary<string, object>> currentEvent))
             {
-                // Make sure the currentEvent is not null and then Invoke / Callx1 it
+                // Make sure the currentEvent is not null and then Invoke / Call it
                 currentEvent?.Invoke(context);
             }
             else Console.WriteLine($"Cannot trigger event: {name} since it doesn't exist!");
