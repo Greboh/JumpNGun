@@ -35,7 +35,7 @@ namespace JumpNGun
 
         //List of all possible rectangle locations on map
         private Rectangle[] _locations = new Rectangle[]
-{
+        {
             new Rectangle(0, 125, 222, 125),
             new Rectangle(222, 125, 222, 125),
             new Rectangle(444, 125, 222, 125),
@@ -64,7 +64,7 @@ namespace JumpNGun
             new Rectangle(444, 625, 222, 125),
             new Rectangle(666, 625, 222, 125),
             new Rectangle(888, 625, 222, 125)
-};
+        };
 
         //Valid distance from a rectangle's center to a vertical, diagonal or horizontal alligned rectangle
         private Point[] _validDistances = new Point[]

@@ -19,7 +19,7 @@ namespace JumpNGun
     /// </summary>
     public class GamePlay : IStateMenu
     {
-        #region oldFields
+        #region oldFields unchanged fields
 
         private MenuStateHandler _pareMenuStateHandler;
 
@@ -42,7 +42,7 @@ namespace JumpNGun
 
         #endregion
 
-        #region newFields
+        #region Fields
 
         private bool _startOfGame = true;
 
@@ -56,7 +56,7 @@ namespace JumpNGun
 
         #endregion
 
-        #region methods
+        #region Methods
 
         /// <summary>
         ///Initializes code that runs when GamePlay state is instansiated
@@ -65,7 +65,7 @@ namespace JumpNGun
         /// <param name="parent"></param>
         public void Enter(MenuStateHandler parent)
         {
-            #region old
+            #region Old unchanged code
 
             _pareMenuStateHandler = parent;
             SoundManager.Instance.StopClip("soundtrack_2");
@@ -80,29 +80,12 @@ namespace JumpNGun
             EventHandler.Instance.Subscribe("OnLevelUp", OnLevelUp);
             EventHandler.Instance.Subscribe("OnAbilitySelected", OnAbilitySelected);
             EventHandler.Instance.Subscribe("OnShowAbilityDescription", OnShowAbilityDescription);
-
-
+            
             foreach (var go in GameWorld.Instance.GameObjects)
             {
                 go.Awake();
             }
         }
-
-
-        #region old
-
-        /// <summary>
-        /// Event that gets trigger when the player dies   
-        /// LAVET AF NICHLAS
-        /// </summary>
-        /// <param name="ctx">The context that gets sent from the trigger in Player.cs</param>
-        private void OnGameover(Dictionary<string, object> ctx)
-        {
-            MenuStateHandler.Instance.ChangeState(_pareMenuStateHandler.MainMenu);
-        }
-
-        #endregion
-
         /// <summary>
         /// Updates logic when state is GamePlay, also handles pause menu input
         /// LAVET AF KEAN & NICHLAS
@@ -110,7 +93,7 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         public void Execute(GameTime gameTime)
         {
-            #region old
+            #region Old unchanged code
 
             _levelSystem ??= GameWorld.Instance.FindObjectOfType<LevelSystem>() as LevelSystem;
 
@@ -136,12 +119,11 @@ namespace JumpNGun
                 _startOfGame = false;
             }
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront);
 
-            #region old
+            #region Old unchanged code
 
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
@@ -175,11 +157,9 @@ namespace JumpNGun
 
             spriteBatch.End();
         }
-
         public void LoadContent()
         {
-            #region old
-
+            #region Old unchanged code
             //call start method on every active GameObject in list
             for (int i = 0; i < GameWorld.Instance.GameObjects.Count; i++)
             {
@@ -195,17 +175,17 @@ namespace JumpNGun
             _font = GameWorld.Instance.Content.Load<SpriteFont>("font");
 
             #endregion
-
+            
+            // Loads the levelUpOverlay
             _levelUpOverlay = GameWorld.Instance.Content.Load<Texture2D>("levelUpOverlay");
         }
-
         /// <summary>
         /// Code that runs when state is changed
         /// LAVET AF KEAN & NICHLAS
         /// </summary>
         public void Exit()
         {
-            #region old
+            #region Old unchanged code
 
             _currentPauseState = PauseState.Unpaused;
             Database.Instance.AddScore(_pareMenuStateHandler.PlayerName, ScoreHandler.Instance.GetScore());
@@ -215,12 +195,207 @@ namespace JumpNGun
 
             #endregion
 
+            // Set start of game to True
             _startOfGame = true;
+            // Unsubscribe to events
             EventHandler.Instance.Unsubscribe("OnLevelUp", OnLevelUp);
             EventHandler.Instance.Unsubscribe("OnAbilitySelected", OnAbilitySelected);
             EventHandler.Instance.Unsubscribe("OnShowAbilityDescription", OnShowAbilityDescription);
         }
 
+        /// <summary>
+        /// Handles what assets and button types to draw when PauseState is set to .Paused
+        /// LAVET AF KEAN
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        private void HandlePauseLogic(SpriteBatch spriteBatch)
+        {
+            //Handles draws when pause menu is open / closed
+            switch (_currentPauseState)
+            {
+                case PauseState.LevelUp:
+                {
+                    if (!_abilitySystem.NoAbilitiesLeft)
+                    {
+                        // Freeze gameobjects
+                        EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                            {
+                                {"freeze", true}
+                            }
+                        );
+
+                        DrawLevelUp(spriteBatch);
+                    }
+                    else _currentPauseState = PauseState.Unpaused;
+
+                }
+                    break;
+                
+                #region Old unchanged code
+
+                case PauseState.Unpaused:
+                {
+                    //removes buttons instansitated in pause menu
+                    foreach (GameObject go in GameWorld.Instance.GameObjects)
+                    {
+                        if (go.HasComponent<Button>())
+                        {
+                            GameWorld.Instance.Destroy(go);
+                        }
+                    }
+
+                    // UnFreeze gameobjects
+                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                        {
+                            {"freeze", false}
+                        }
+                    );
+
+                    _isPaused = false;
+                }
+                    break;
+
+                #endregion
+                
+                case PauseState.Paused:
+                {
+                    DrawAbilityDescription(spriteBatch);
+                        
+                    #region Old unchanged code
+
+                    spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null,
+                        Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.9f);
+
+                    spriteBatch.Draw(_characterAvatar, new Rectangle(401, 325, _characterAvatar.Width, _characterAvatar.Height), null, Color.White,
+                        0, new Vector2(0, 0), SpriteEffects.None, 0.8f);
+
+                    spriteBatch.DrawString(_font, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 513), Color.White);
+
+
+                    spriteBatch.DrawString(_font, "Level : " + _levelSystem.GetLevel(), new Vector2(401, 533), Color.White);
+
+
+                    spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White,
+                        0, new Vector2(0, 0), SpriteEffects.None, 1);
+                    spriteBatch.Draw(_sfxStatus, new Rectangle(1269, 88, _disabled.Width, _disabled.Height), null, Color.White,
+                        0, new Vector2(0, 0), SpriteEffects.None, 1);
+
+                    // Freeze gameobjects
+                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                        {
+                            {"freeze", true}
+                        }
+                    );
+                    #endregion
+
+                    //instansiates buttons used if paused
+                    if (!_isPaused)
+                    {
+                        DrawAbilityIcons();
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.MusicPause, Vector2.Zero));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.SfxPause, Vector2.Zero));
+                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain, Vector2.Zero));
+                        _isPaused = true;
+                    }
+                }
+                    break;
+            }
+        }
+        
+        private void DrawLevelUp(SpriteBatch spriteBatch)
+        {
+            // Draw LevelUpOverlay
+            spriteBatch.Draw(_levelUpOverlay, new Rectangle(357, 85, _levelUpOverlay.Width, _levelUpOverlay.Height), null,
+                Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.9f);
+
+            // Make sure to only instantiate buttons once.
+            if (!_isPaused)
+            {
+                HandleLevelUp();
+
+                _isPaused = true;
+            }
+        }
+        
+        private void HandleLevelUp()
+        {
+            // Gets the count of pickable abilities
+            int numberOfPickableAbilities = _abilitySystem.AbilitiesToPickFrom.Count;
+            
+            for (int i = 0; i < numberOfPickableAbilities; i++)
+            {
+                GameObject abilityPickButton = ButtonFactory.Instance.Create(ButtonType.AbilityPick);
+
+                (abilityPickButton.GetComponent<Button>() as Button).AbilityPickIndex = i;
+                GameWorld.Instance.Instantiate(abilityPickButton);
+            }
+        }
+
+        private void DrawAbilityIcons()
+        {
+            // Gets the count of current abilities
+            int numberOfCurrentAbilities = _abilitySystem.PlayerAbilities.Count;
+            
+            // Make sure we dont have 0 abilities
+            if (numberOfCurrentAbilities == 0) return;
+
+            for (int i = 0; i < numberOfCurrentAbilities; i++)
+            {
+                GameObject abilityButton = ButtonFactory.Instance.Create(ButtonType.AbilityIcon);
+
+                (abilityButton.GetComponent<Button>() as Button).AbilityIconIndex = i;
+                GameWorld.Instance.Instantiate(abilityButton);
+            }
+        }
+
+        private void DrawAbilityDescription(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(_font, "Ability Name: " + _abilityName, new Vector2(401, 553), Color.White);
+            spriteBatch.DrawString(_font, "Ability Description: " + _abilityDescription, new Vector2(401, 573), Color.White);
+        }
+        
+        private void OnLevelUp(Dictionary<string, object> ctx)
+        {
+            // Set pauseState
+            _currentPauseState = PauseState.LevelUp;
+            
+            // If start of game return
+            if (_startOfGame) return;
+            
+            // Call PickAbility
+            _abilitySystem.PickAbility();
+        }
+
+        private void OnAbilitySelected(Dictionary<string, object> ctx)
+        {
+            // Set pauseState
+            _currentPauseState = PauseState.Unpaused;
+        }
+
+        private void OnShowAbilityDescription(Dictionary<string, object> ctx)
+        {
+            // Get bool from event
+            bool shouldShow = (bool) ctx["shouldShow"];
+
+            // Check if we should show description
+            if (shouldShow)
+            {
+                Ability ability = (Ability) ctx["ability"];
+
+                // Set ability name and description to the ability's name and description
+                _abilityName = ability.AbilityName;
+                _abilityDescription = ability.AbilityDescription;
+            }
+            else
+            {
+                // Reset strings
+                _abilityName = "Press and hold on an ability!";
+                _abilityDescription = string.Empty;
+            }
+        }
+
+        #endregion
+        
         #region old
 
         /// <summary>
@@ -263,193 +438,15 @@ namespace JumpNGun
             //sets _sfxStatus texture to _disabled if false otherwise sets it to _enabled
             _sfxStatus = SoundManager.Instance.SfxDisabled ? _disabled : _enabled;
         }
-
-        #endregion
-
+        
         /// <summary>
-        /// Handles what assets and button types to draw when PauseState is set to .Paused
-        /// LAVET AF KEAN
+        /// Event that gets trigger when the player dies   
+        /// LAVET AF NICHLAS
         /// </summary>
-        /// <param name="spriteBatch"></param>
-        private void HandlePauseLogic(SpriteBatch spriteBatch)
+        /// <param name="ctx">The context that gets sent from the trigger in Player.cs</param>
+        private void OnGameover(Dictionary<string, object> ctx)
         {
-            //Handles draws when pause menu is open / closed
-            switch (_currentPauseState)
-            {
-                #region old
-
-                case PauseState.Unpaused:
-                {
-                    //removes buttons instansitated in pause menu
-                    foreach (GameObject go in GameWorld.Instance.GameObjects)
-                    {
-                        if (go.HasComponent<Button>())
-                        {
-                            GameWorld.Instance.Destroy(go);
-                        }
-                    }
-
-                    // UnFreeze gameobjects
-                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
-                        {
-                            {"freeze", false}
-                        }
-                    );
-
-                    _isPaused = false;
-                }
-                    break;
-
-                #endregion
-
-                case PauseState.Paused:
-                {
-                    #region old
-
-                    spriteBatch.Draw(_pausedOverlay, new Rectangle(357, 212, _pausedOverlay.Width, _pausedOverlay.Height), null,
-                        Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.9f);
-
-                    spriteBatch.Draw(_characterAvatar, new Rectangle(401, 325, _characterAvatar.Width, _characterAvatar.Height), null, Color.White,
-                        0, new Vector2(0, 0), SpriteEffects.None, 0.8f);
-
-                    spriteBatch.DrawString(_font, "Score : " + ScoreHandler.Instance.GetScore(), new Vector2(401, 513), Color.White);
-
-
-                    spriteBatch.DrawString(_font, "Level : " + _levelSystem.GetLevel(), new Vector2(401, 533), Color.White);
-
-
-                    spriteBatch.Draw(_musicStatus, new Rectangle(1269, 20, _enabled.Width, _enabled.Height), null, Color.White,
-                        0, new Vector2(0, 0), SpriteEffects.None, 1);
-                    spriteBatch.Draw(_sfxStatus, new Rectangle(1269, 88, _disabled.Width, _disabled.Height), null, Color.White,
-                        0, new Vector2(0, 0), SpriteEffects.None, 1);
-
-                    // Freeze gameobjects
-                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
-                        {
-                            {"freeze", true}
-                        }
-                    );
-
-                    #endregion
-
-
-                    DrawAbilityDescription(spriteBatch);
-
-                    //instansiates buttons used if paused
-                    if (!_isPaused)
-                    {
-                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.MusicPause, Vector2.Zero));
-                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.SfxPause, Vector2.Zero));
-                        GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain, Vector2.Zero));
-
-                        DrawAbilityIcons();
-
-
-                        _isPaused = true;
-                    }
-                }
-                    break;
-
-                case PauseState.LevelUp:
-                {
-                    // Freeze gameobjects
-                    EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
-                        {
-                            {"freeze", true}
-                        }
-                    );
-
-                    DrawLevelUp(spriteBatch);
-                }
-                    break;
-            }
-        }
-
-
-        private void DrawLevelUp(SpriteBatch spriteBatch)
-        {
-            // Draw LevelUpOverlay
-            spriteBatch.Draw(_levelUpOverlay, new Rectangle(357, 85, _levelUpOverlay.Width, _levelUpOverlay.Height), null,
-                Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.9f);
-
-            // Make sure to only instantiate buttons once.
-            if (!_isPaused)
-            {
-                HandleLevelUp();
-
-                _isPaused = true;
-            }
-        }
-
-
-        private void HandleLevelUp()
-        {
-            // Gets the count of pickable abilities
-            int numberOfPickableAbilities = _abilitySystem.AbilitiesToPickFrom.Count;
-
-            for (int i = 0; i < numberOfPickableAbilities; i++)
-            {
-                GameObject abilityPickButton = ButtonFactory.Instance.Create(ButtonType.AbilityPick);
-
-                (abilityPickButton.GetComponent<Button>() as Button).AbilityPickIndex = i;
-                GameWorld.Instance.Instantiate(abilityPickButton);
-            }
-        }
-
-        private void DrawAbilityIcons()
-        {
-            // Gets the count of current abilities
-
-            int numberOfCurrentAbilities = _abilitySystem.PlayerAbilities.Count;
-
-            if (numberOfCurrentAbilities == 0) return;
-
-            for (int i = 0; i < numberOfCurrentAbilities; i++)
-            {
-                GameObject abilityButton = ButtonFactory.Instance.Create(ButtonType.AbilityIcon);
-
-                (abilityButton.GetComponent<Button>() as Button).AbilityIconIndex = i;
-                GameWorld.Instance.Instantiate(abilityButton);
-            }
-        }
-
-        private void DrawAbilityDescription(SpriteBatch spriteBatch)
-        {
-            spriteBatch.DrawString(_font, "Ability Name: " + _abilityName, new Vector2(401, 553), Color.White);
-            spriteBatch.DrawString(_font, "Ability Description: " + _abilityDescription, new Vector2(401, 573), Color.White);
-        }
-
-
-        private void OnLevelUp(Dictionary<string, object> ctx)
-        {
-            _currentPauseState = PauseState.LevelUp;
-
-            if (_startOfGame) return;
-
-            _abilitySystem.PickAbility();
-        }
-
-        private void OnAbilitySelected(Dictionary<string, object> ctx)
-        {
-            _currentPauseState = PauseState.Unpaused;
-        }
-
-        private void OnShowAbilityDescription(Dictionary<string, object> ctx)
-        {
-            bool shouldShow = (bool) ctx["shouldShow"];
-
-            if (shouldShow)
-            {
-                Ability ability = (Ability) ctx["ability"];
-
-                _abilityName = ability.abilityName;
-                _abilityDescription = ability.abilityDescription;
-            }
-            else
-            {
-                _abilityName = "Press and hold on an ability!";
-                _abilityDescription = string.Empty;
-            }
+            MenuStateHandler.Instance.ChangeState(_pareMenuStateHandler.MainMenu);
         }
 
         #endregion

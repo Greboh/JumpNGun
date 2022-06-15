@@ -980,6 +980,18 @@
 /processorParam:TextureFormat=Color
 /build:icon_HealthRegn.png
 
+#begin icon_MagneticPull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:icon_MagneticPull.png
+
 #begin icon_MoveSpeed.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1004,7 +1016,7 @@
 /processorParam:TextureFormat=Color
 /build:icon_ProjectileWrap.png
 
-#begin icon_VampricBite.png
+#begin icon_VampiricBite.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1014,7 +1026,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:icon_VampricBite.png
+/build:icon_VampiricBite.png
 
 #begin iconSmall_DamageIncrease.png
 /importer:TextureImporter
@@ -1040,6 +1052,18 @@
 /processorParam:TextureFormat=Color
 /build:iconSmall_HealthRegn.png
 
+#begin iconSmall_MagneticPull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:iconSmall_MagneticPull.png
+
 #begin iconSmall_MoveSpeed.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1064,7 +1088,7 @@
 /processorParam:TextureFormat=Color
 /build:iconSmall_ProjectileWrap.png
 
-#begin iconSmall_VampricBite.png
+#begin iconSmall_VampiricBite.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1074,7 +1098,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:iconSmall_VampricBite.png
+/build:iconSmall_VampiricBite.png
 
 #begin levelUpOverlay.png
 /importer:TextureImporter

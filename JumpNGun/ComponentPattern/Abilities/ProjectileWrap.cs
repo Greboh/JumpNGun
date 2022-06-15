@@ -5,26 +5,22 @@ namespace JumpNGun
 {
     public class ProjectileWrap : Ability
     {
-        public override void Create()
+        protected override void Create()
         {
-            abilityName = "Projectile Wrap";
-            abilityDescription = "Makes your projectiles wrap around the screen";
-            amount = 0;
-            isStartAbility = false;
+            AbilityName = "Projectile Wrap";
+            AbilityDescription = "Makes your projectiles wrap around the screen";
+            IsStartAbility = false;
         }
-
         public override void Selected()
         {
-            Console.WriteLine($"\nAbility {abilityName} Selected!");
-            Console.WriteLine(abilityDescription);
+            Console.WriteLine($"\nAbility {AbilityName} Selected!");
+            Console.WriteLine(AbilityDescription);
         }
-
         protected override void LoadContent()
         {
-            abilitySprite = GameWorld.Instance.Content.Load<Texture2D>("icon_ProjectileWrap");
-            abilitySmallSprite = GameWorld.Instance.Content.Load<Texture2D>("iconSmall_ProjectileWrap");
+            AbilitySprite = GameWorld.Instance.Content.Load<Texture2D>("icon_ProjectileWrap");
+            AbilityIcon = GameWorld.Instance.Content.Load<Texture2D>("iconSmall_ProjectileWrap");
         }
-
         protected override void Execute(Player player)
         {
             if (!player.HasProjectileWrap) player.HasProjectileWrap = true;

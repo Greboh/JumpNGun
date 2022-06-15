@@ -68,7 +68,7 @@ namespace JumpNGun
                 {
                     sr.SetSprite("1_Medium_Orb");
                     animator.AddAnimation(BuildAnimation("Idle", new []{"1_Medium_Orb", "2_Medium_Orb", "3_Medium_Orb", "4_Medium_Orb"}));
-                    orb.AddComponent(new ExperienceOrb(500, position));
+                    orb.AddComponent(new ExperienceOrb(250, position));
 
                 }break;
 
@@ -76,7 +76,7 @@ namespace JumpNGun
                 {
                     sr.SetSprite("1_Large_Orb");
                     animator.AddAnimation(BuildAnimation("Idle", new []{"1_Large_Orb", "2_Large_Orb", "3_Large_Orb", "4_Large_Orb"}));
-                    orb.AddComponent(new ExperienceOrb(1000, position));
+                    orb.AddComponent(new ExperienceOrb(350, position));
 
                 }break;
                     

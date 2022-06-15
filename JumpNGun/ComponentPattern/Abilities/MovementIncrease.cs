@@ -6,28 +6,28 @@ namespace JumpNGun
 {
     public class MovementIncrease : Ability
     {
-        public override void Create()
+        protected override void Create()
         {
             EventHandler.Instance.Subscribe("NextLevel", OnNextLevel);
 
-            abilityName = "Movement speed increase over time";
-            abilityDescription = "Increase your movement speed after each stage";
+            AbilityName = "Movement speed increase over time";
+            AbilityDescription = "Increase your movement speed after each stage";
 
             amount = 10.0f;
             
-            isStartAbility = true;
+            IsStartAbility = true;
         }
 
         public override void Selected()
         {
-            Console.WriteLine($"\nAbility {abilityName} Selected!");
-            Console.WriteLine(abilityDescription);
+            Console.WriteLine($"\nAbility {AbilityName} Selected!");
+            Console.WriteLine(AbilityDescription);
         }
 
         protected override void LoadContent()
         {
-            abilitySprite = GameWorld.Instance.Content.Load<Texture2D>("icon_MoveSpeed");
-            abilitySmallSprite = GameWorld.Instance.Content.Load<Texture2D>("iconSmall_MoveSpeed");
+            AbilitySprite = GameWorld.Instance.Content.Load<Texture2D>("icon_MoveSpeed");
+            AbilityIcon = GameWorld.Instance.Content.Load<Texture2D>("iconSmall_MoveSpeed");
 
         }
 

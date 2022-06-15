@@ -24,7 +24,6 @@ namespace JumpNGun
         // The xpBar's texture
         private Texture2D _xpBarTexture2D;
 
-        private Player _player;
         
         public override void Awake()
         {
@@ -36,7 +35,6 @@ namespace JumpNGun
         {
             // Load the texture
             _xpBarTexture2D = GameWorld.Instance.Content.Load<Texture2D>("ExperienceBar");
-            _player = GameObject.GetComponent<Player>() as Player;
         }
 
         public override void Update(GameTime gameTime)
@@ -59,7 +57,6 @@ namespace JumpNGun
             _currentLevel++; // Raise the current level by 1
             _currentXpAmount -= _experienceRequirement; // currentXp should be subtracted by the required xp
             _experienceRequirement += 250; // Raise the requirement for gaining a level
-            _player.CurrentHealth = _player.MaxHealth;
             
             EventHandler.Instance.TriggerEvent("OnLevelUp", new Dictionary<string, object>());
 

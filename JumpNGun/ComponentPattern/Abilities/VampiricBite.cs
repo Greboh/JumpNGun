@@ -5,24 +5,23 @@ namespace JumpNGun
 {
     public class VampiricBite : Ability
     {
-        public override void Create()
+        protected override void Create()
         {
-            abilityName = "Vampiric Bite";
-            abilityDescription = "Heal you for 10% of your damage whenever you hit a enemy";
-            amount = 0;
-            isStartAbility = false;
+            AbilityName = "Vampiric Bite";
+            AbilityDescription = "Heal you for 10% of your damage whenever you hit a enemy";
+            IsStartAbility = false;
         }
 
         public override void Selected()
         {
-            Console.WriteLine($"\nAbility {abilityName} Selected!");
-            Console.WriteLine(abilityDescription);
+            Console.WriteLine($"\nAbility {AbilityName} Selected!");
+            Console.WriteLine(AbilityDescription);
         }
 
         protected override void LoadContent()
         {
-            abilitySprite = GameWorld.Instance.Content.Load<Texture2D>("icon_VampricBite");
-            abilitySmallSprite = GameWorld.Instance.Content.Load<Texture2D>("iconSmall_VampricBite");
+            AbilitySprite = GameWorld.Instance.Content.Load<Texture2D>("icon_VampiricBite");
+            AbilityIcon = GameWorld.Instance.Content.Load<Texture2D>("iconSmall_VampiricBite");
         }
 
         protected override void Execute(Player player)

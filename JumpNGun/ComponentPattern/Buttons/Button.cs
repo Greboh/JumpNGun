@@ -19,7 +19,7 @@ namespace JumpNGun
             Lavet af kean
         */
 
-        #region Fields
+        #region Old fields nothing new
 
         private Vector2 _position;
 
@@ -63,11 +63,9 @@ namespace JumpNGun
 
         #endregion
 
-
-        private AbilitySystem _abilitySystem;
-        private Ability _storedAbility;
-
         public int AbilityPickIndex { get; set; }
+        public int AbilityIconIndex { get; set; }
+
         public Vector2[] AbilityPickVector2s { get; } = new[]
         {
             new Vector2(380, 165),
@@ -75,7 +73,6 @@ namespace JumpNGun
             new Vector2(380, 385)
         };
 
-        public int AbilityIconIndex { get; set; }
         public Vector2[] AbilityIconVector2s { get; } = new[]
         {
             new Vector2(640, 382),
@@ -87,7 +84,12 @@ namespace JumpNGun
             new Vector2(800, 455),
             new Vector2(880, 455),
         };
-        
+
+        private AbilitySystem _abilitySystem;
+
+        private Ability _storedAbility;
+
+
         #region Constructor
 
         public Button(ButtonType type)
@@ -97,14 +99,20 @@ namespace JumpNGun
 
         #endregion
 
-        #region Methods
-
+        #region Component Methods
         public override void Awake()
         {
             // Sets position for the button sprite from predetermined vector positions
             switch (_type)
             {
-                #region old
+                case ButtonType.AbilityPick:
+                    _position = AbilityPickVector2s[AbilityPickIndex];
+                    break;
+                case ButtonType.AbilityIcon:
+                    _position = AbilityIconVector2s[AbilityIconIndex];
+                    break;
+                
+                #region Old code nothing new
 
                 case ButtonType.Start:
                     _position = _startButtonPosition;
@@ -159,21 +167,13 @@ namespace JumpNGun
                     break;
 
                 #endregion
-
-
-                case ButtonType.AbilityPick:
-                    _position = AbilityPickVector2s[AbilityPickIndex];
-                    break;
-                case ButtonType.AbilityIcon:
-                    _position = AbilityIconVector2s[AbilityIconIndex];
-                    break;
             }
         }
 
         public override void Start()
         {
-            #region old
-
+            #region Old code nothing new
+            
             GameObject.Transform.Position = _position;
             _sr = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
             _sr.SetOrigin(Vector2.Zero); // sets origin to top left
@@ -181,19 +181,18 @@ namespace JumpNGun
             _buttonRect = new Rectangle((int) _position.X, (int) _position.Y, _sr.Sprite.Width, _sr.Sprite.Height); // construcs rectangle from position and sprite width/height
 
             #endregion
-
-
+            
             // Make sure that it gets the right sprite now! And NOT the placeholder sprite
             if (_type == ButtonType.AbilityPick)
             {
                 _abilitySystem ??= GameWorld.Instance.FindObjectOfType<AbilitySystem>() as AbilitySystem;
-                _sr.Sprite = _abilitySystem.AbilitiesToPickFrom[AbilityPickIndex].abilitySprite;
+                _sr.Sprite = _abilitySystem.AbilitiesToPickFrom[AbilityPickIndex].AbilitySprite;
             }
             
             if (_type == ButtonType.AbilityIcon)
             {
                 _abilitySystem ??= GameWorld.Instance.FindObjectOfType<AbilitySystem>() as AbilitySystem;
-                _sr.Sprite = _abilitySystem.PlayerAbilities[AbilityIconIndex].abilitySmallSprite;
+                _sr.Sprite = _abilitySystem.PlayerAbilities[AbilityIconIndex].AbilityIcon;
                 _storedAbility = _abilitySystem.PlayerAbilities[AbilityIconIndex];
             }
         }
@@ -205,23 +204,43 @@ namespace JumpNGun
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            _mouseRect = new Rectangle(GameWorld.Instance.MyMouse.X, GameWorld.Instance.MyMouse.Y, 10, 10); // mouse rectangle
-            _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds; // negates double input on buttons
+            #region Old code nothing new
 
+            // mouse rectangle
+            _mouseRect = new Rectangle(GameWorld.Instance.MyMouse.X, GameWorld.Instance.MyMouse.Y, 10, 10); 
+            
+            // negates double input on buttons
+            _mouseCooldown += (float) gameTime.ElapsedGameTime.TotalSeconds; 
+
+            #endregion
+            
             // used for checking mouse rect & sprite rect intersection
             if (_mouseRect.Intersects(_buttonRect))
             {
-                _sr.SetColor(Color.LightGray); // sets color on hover
-                if (_fireOnce) // makes sure button sounds don't play continuously when hovered
+                #region #region Old code nothing new
+
+                // sets color on hover
+                _sr.SetColor(Color.LightGray); 
+                
+                // makes sure button sounds don't play continuously when hovered
+                if (_fireOnce) 
                 {
                     SoundManager.Instance.PlayRandomClick();
                     _fireOnce = false;
                 }
 
+                #endregion
+
                 switch (_type)
                 {
-                    #region old
-
+                    case ButtonType.AbilityPick:
+                        PickAbilityButton();                    
+                        break;
+                    case ButtonType.AbilityIcon:
+                        AbilityDescriptionLogic();
+                        break;
+                    
+                        #region Old code nothing new
                     case ButtonType.Start:
                         StartGame();
                         break;
@@ -276,13 +295,6 @@ namespace JumpNGun
                         break;
 
                     #endregion
-
-                    case ButtonType.AbilityPick:
-                        PickAbilityButton();                    
-                        break;
-                    case ButtonType.AbilityIcon:
-                        AbilityIconLogic();
-                        break;
                 }
             }
             else
@@ -291,35 +303,50 @@ namespace JumpNGun
                 _fireOnce = true;
             }
         }
+        #endregion
+
+        #region new Class Methods
         
+        /// <summary>
+        /// Responsible for detecting which ability was picked
+        /// </summary>
         private void PickAbilityButton()
         {
-            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect && _mouseCooldown > 0.5f)
+            // Check if mouse is pressed
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed)
             {
+                // Select ability
                 _abilitySystem.SelectedAbility(_abilitySystem.AbilitiesToPickFrom[AbilityPickIndex]);
-
-                _mouseCooldown += 0;
-                _canIntersect = false;
             }
         }
-
-
-        private void AbilityIconLogic()
+        /// <summary>
+        /// Responsible for showing the ability description
+        /// </summary>
+        private void AbilityDescriptionLogic()
         {
+            // CHeck if mouse is pressed and we can intersect the button
             if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
+                // Show the ability description on the storedAbility
                 ShowAbilityDescription(true, _storedAbility);
                 _canIntersect = false;
             }
             else if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Released && !_canIntersect)
             {
+                // hide the ability description on the storedAbility
                 ShowAbilityDescription(false, _storedAbility);
                 _canIntersect = true;
             }
         }
         
+        /// <summary>
+        /// Responsible for trigger event to show the description
+        /// </summary>
+        /// <param name="shouldShow">Controls if the description is visible</param>
+        /// <param name="ability">The ability to show / hide the description of</param>
         private void ShowAbilityDescription(bool shouldShow, Ability ability)
         {
+            // Trigger event 
             EventHandler.Instance.TriggerEvent("OnShowAbilityDescription", new Dictionary<string, object>()
                 {
                     {"shouldShow", shouldShow},
@@ -328,8 +355,9 @@ namespace JumpNGun
             );
         }
 
+        #endregion
 
-        #region OldMethods
+        #region OldMethods nothing new
 
         private void InputFieldLogic()
         {
@@ -731,6 +759,6 @@ namespace JumpNGun
 
         #endregion
 
-        #endregion
+       
     }
 }

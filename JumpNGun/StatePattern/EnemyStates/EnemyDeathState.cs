@@ -33,7 +33,14 @@ namespace JumpNGun
                 
                 ScoreHandler.Instance.AddToScore(20);
                 GameWorld.Instance.Destroy(_parent.GameObject);
-                GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, _parent.GameObject.Transform.Position));
+                if (_parent is Reaper|| _parent is Worm)
+                {
+                    GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Medium, _parent.GameObject.Transform.Position));
+                }
+                else if (!(_parent is ReaperMinion))
+                {
+                    GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, _parent.GameObject.Transform.Position));
+                }
             }        
         }
 
