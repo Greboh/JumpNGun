@@ -313,10 +313,11 @@ namespace JumpNGun
         private void PickAbilityButton()
         {
             // Check if mouse is pressed
-            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed)
+            if (GameWorld.Instance.MyMouse.LeftButton == ButtonState.Pressed && _canIntersect)
             {
                 // Select ability
                 _abilitySystem.SelectedAbility(_abilitySystem.AbilitiesToPickFrom[AbilityPickIndex]);
+                _canIntersect = false;
             }
         }
         /// <summary>

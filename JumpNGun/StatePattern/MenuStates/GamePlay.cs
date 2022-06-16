@@ -43,7 +43,6 @@ namespace JumpNGun
         #endregion
 
         #region Fields
-
         private bool _startOfGame = true;
 
         private AbilitySystem _abilitySystem;
@@ -53,7 +52,6 @@ namespace JumpNGun
         private string _abilityName = "Press and hold on an ability!";
 
         private string _abilityDescription = string.Empty;
-
         #endregion
 
         #region Methods
@@ -213,24 +211,6 @@ namespace JumpNGun
             //Handles draws when pause menu is open / closed
             switch (_currentPauseState)
             {
-                case PauseState.LevelUp:
-                {
-                    if (!_abilitySystem.NoAbilitiesLeft)
-                    {
-                        // Freeze gameobjects
-                        EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
-                            {
-                                {"freeze", true}
-                            }
-                        );
-
-                        DrawLevelUp(spriteBatch);
-                    }
-                    else _currentPauseState = PauseState.Unpaused;
-
-                }
-                    break;
-                
                 #region Old unchanged code
 
                 case PauseState.Unpaused:
@@ -297,6 +277,24 @@ namespace JumpNGun
                         GameWorld.Instance.Instantiate(ButtonFactory.Instance.Create(ButtonType.QuitToMain, Vector2.Zero));
                         _isPaused = true;
                     }
+                }
+                    break;
+                
+                case PauseState.LevelUp:
+                {
+                    if (!_abilitySystem.NoAbilitiesLeft)
+                    {
+                        // Freeze gameobjects
+                        EventHandler.Instance.TriggerEvent("OnFreeze", new Dictionary<string, object>()
+                            {
+                                {"freeze", true}
+                            }
+                        );
+
+                        DrawLevelUp(spriteBatch);
+                    }
+                    else _currentPauseState = PauseState.Unpaused;
+
                 }
                     break;
             }
