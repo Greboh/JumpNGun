@@ -27,6 +27,8 @@ namespace JumpNGun
         // determines amount of platform pr. level
         private int _platformAmount = 4;
 
+        private int _objectAmount = 2; 
+
         // current amount of enemies through game
         public int EnemyCurrentAmount { get; set; } = 2;
 
@@ -38,10 +40,20 @@ namespace JumpNGun
 
         // current enemy being used in gamge
         private EnemyType _currentEnemyType;
-        private bool _canPress = true;
+
+        private WorldObjectType _currenWorObjectType;
+
+        private EnemySpawner _enemySpawner = new EnemySpawner();
+        private WorldObjectSpawner _worldObjectSpawner = new WorldObjectSpawner();
+        private PlatformSpawner _platformSpawner = new PlatformSpawner();
+
+        //private PlatformGenerator _plaformSpawner = new PlatformGenerator();
+
+        private bool canPress;
 
         //List for storing rectangles that contain a platform
-        public List<Rectangle> UsedLocations { get; private set; } 
+        public List<Rectangle> UsedLocations { get; private set; }
+
 
         private LevelManager()
         {
@@ -70,19 +82,22 @@ namespace JumpNGun
 
             //Create ground
             GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(_currentGroundPlatform, Vector2.Zero));
+            
+            //Create map.
+            Map.Instance.CreateMap();
 
             //Create first portal
-            GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(40, 705)));
+            GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.Portal, new Vector2(40, 705)));
 
             //Create all relevant platforms
-            PlatformGenerator.Instance.GeneratePlatforms(_platformAmount, _currentPlatformType);
+            _platformSpawner.GeneratePlatforms(_platformAmount, _currentPlatformType);
 
-            //Get all rectangles that contain platforms 
-            UsedLocations = PlatformGenerator.Instance.GetLocations();
+            //Create all relevant worldObjects
+            _worldObjectSpawner.ExecuteObjectSpawn(_objectAmount, _currenWorObjectType);
 
             //Create relevant boss or all relevant enemies 
-            if (_isBossLevel) EnemyGenerator.Instance.GenerateBoss(_currentEnemyType);
-            else EnemyGenerator.Instance.GenerateEnemies(_enemyStartAmount, _currentEnemyType, UsedLocations);
+            if (_isBossLevel) _enemySpawner.GenerateBoss(_currentEnemyType);
+            else _enemySpawner.ExecuteEnemySpawn(_enemyStartAmount, _currentEnemyType);
         }
 
         /// <summary>
@@ -96,7 +111,7 @@ namespace JumpNGun
 
             if (EnemyCurrentAmount <= 0)
             {
-                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.portal, new Vector2(1210, 700)));
+                GameWorld.Instance.Instantiate(WorldObjectFactory.Instance.Create(WorldObjectType.Portal, new Vector2(1210, 700)));
             }
         }
 
@@ -115,6 +130,7 @@ namespace JumpNGun
                         _currentPlatformType = PlatformType.Grass;
                         _currentGroundPlatform = PlatformType.GrassGround;
                         _currentEnemyType = EnemyType.Mushroom;
+                        _currenWorObjectType = WorldObjectType.GrassObject;
                     }
                     break;
                 case 7:
@@ -122,6 +138,7 @@ namespace JumpNGun
                         _currentPlatformType = PlatformType.Dessert;
                         _currentGroundPlatform = PlatformType.DessertGround;
                         _currentEnemyType = EnemyType.Worm;
+                        _currenWorObjectType = WorldObjectType.DessertObject;
                     }
                     break;
                 case 13:
@@ -129,6 +146,7 @@ namespace JumpNGun
                         _currentEnemyType = EnemyType.Skeleton;
                         _currentPlatformType = PlatformType.Graveyard;
                         _currentGroundPlatform = PlatformType.GraveGround;
+                        _currenWorObjectType = WorldObjectType.GraveObject;
                     }
                     break;
                 case 18:
@@ -136,7 +154,7 @@ namespace JumpNGun
                         EnemyCurrentAmount = 1;
                         _currentPlatformType = PlatformType.Graveyard;
                         _currentEnemyType = EnemyType.Reaper;
-
+                        _currenWorObjectType = WorldObjectType.GraveObject;
                         _isBossLevel = true;
                     }
                     break;
@@ -152,7 +170,7 @@ namespace JumpNGun
         {
             if (ctx.ContainsKey("NewLevel"))
             {
-                IncrementLevel();
+                IncrementObjectAmount();
                 CleanLevel();
                 ExecuteLevelGeneration();
                 Console.WriteLine("Current level:" + _level);
@@ -175,8 +193,7 @@ namespace JumpNGun
                 }
             }
 
-            //Clear lists containing rectangles with platforms
-            UsedLocations.Clear();
+            Map.Instance.TileMap.Clear();
 
             //Set position of player to left corner of screen
             (GameWorld.Instance.FindObjectOfType<Player>() as Player).GameObject.Transform.Position = new Vector2(40, 705);
@@ -186,7 +203,7 @@ namespace JumpNGun
         /// Increments level and amount of platforms. 
         /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
-        private void IncrementLevel()
+        private void IncrementObjectAmount()
         {
             //increment _level
             _level++; 
@@ -197,11 +214,15 @@ namespace JumpNGun
             //if level is odd increment amount of enemies
             if (_level % 2 != 0) _enemyStartAmount++;
 
+            if (_level % 2 == 0) _objectAmount++; 
+
             //set EnemyCurrenAmount equal to _enemyStartAmount
             EnemyCurrentAmount = _enemyStartAmount;
 
             //amount of platforms capped at 19, to avoid overcrowding screen and errors
             if (_platformAmount > 19) _platformAmount = 19;
+            if (_enemyStartAmount > 13) _platformAmount = 13;
+            if (_objectAmount > 10) _objectAmount = 10;
         }
 
         /// <summary>
@@ -216,32 +237,27 @@ namespace JumpNGun
             //set platform amount to 4
             _platformAmount = 4;
 
+            _objectAmount = 2;
+
             //set enemyStart amount to 2
             _enemyStartAmount = 2;
 
             //set EnemyCurrentAmount to 2
             EnemyCurrentAmount = 2;
-
-            //Clear used locations if it isn't null
-            if (UsedLocations != null ) UsedLocations.Clear();
         }
 
-
-
-        public void ChangeLevelDebug()
+        public void TestGenerationDEBUG()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.K) && _canPress)
+            if (Keyboard.GetState().IsKeyDown(Keys.X) && canPress == true)
             {
-                _canPress = false;
-                IncrementLevel();
+                IncrementObjectAmount();
                 CleanLevel();
                 ExecuteLevelGeneration();
-                Console.WriteLine("Current level:" + _level);
-                Console.WriteLine("Current enemyAmount:" + EnemyCurrentAmount);
+                canPress = false;
             }
-            else if (Keyboard.GetState().IsKeyUp(Keys.K) && _canPress == false)
+            else if (Keyboard.GetState().IsKeyUp(Keys.X) && canPress == false)
             {
-                _canPress = true;
+                canPress = true;
             }
         }
     }

@@ -30,7 +30,6 @@ namespace JumpNGun
             if (position == new Vector2(40, 705))
             {
                 isStartPortal = true;
-                StopPlayerRendering();
             }
         }
 
@@ -116,28 +115,10 @@ namespace JumpNGun
                 //if other collider is player set _open to false and stop rendering of player
                 if(_portalCollider.CollisionBox.Intersects(otherCollider.CollisionBox) && otherCollider.GameObject.Tag == "player")
                 {
-                    StopPlayerRendering();
                     _open = false;
                 }
             }
         }
 
-        /// <summary>
-        /// Stops and starts player rendering accodring to isStartPortal bool
-        /// </summary>
-        private void StopPlayerRendering()
-        {
-            foreach (GameObject go in GameWorld.Instance.GameObjects)
-            {
-                if (go.Tag == "player" && !isStartPortal)
-                {
-                    (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = true;
-                }
-                else if (go.Tag == "player" && isStartPortal)
-                {
-                    (go.GetComponent<SpriteRenderer>() as SpriteRenderer).StopRendering = false;
-                }
-            }
-        }
     }
 }

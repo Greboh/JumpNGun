@@ -41,19 +41,14 @@ namespace JumpNGun
         {
             //Instantiate gameobject
             GameObject gameObject = new GameObject();
-
             //Instantiate SpriteRenderer and add it to gameObject
             SpriteRenderer sr = (SpriteRenderer) gameObject.AddComponent(new SpriteRenderer());
-
             //Instantiate and add collider to gameObject
             gameObject.AddComponent(new Collider());
-
             //Set tag for gameObject to "Enemy"
             gameObject.Tag = "Enemy";
-
             //Instantiate and add Animtator to gameObject
             _animator = (Animator) gameObject.AddComponent(new Animator());
-
 
             /*Add relevant component by type, to instantiate relevant component for enemy. 
              * Build relevant animations and SetSprite*/

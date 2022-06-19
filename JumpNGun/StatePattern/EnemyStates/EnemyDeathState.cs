@@ -10,9 +10,7 @@ namespace JumpNGun
         public void Enter(Enemy parent)
         {
             _parent = parent;
-            
             _parent.Velocity = Vector2.Zero;
-            
             Animate();
         }
 
@@ -26,7 +24,6 @@ namespace JumpNGun
                 });
 
                 ScoreHandler.Instance.AddToScore(20);
-                ScoreHandler.Instance.PrintScore();
                 GameWorld.Instance.Destroy(_parent.GameObject);
                 GameWorld.Instance.Instantiate(ExperienceOrbFactory.Instance.Create(ExperienceOrbType.Small, _parent.GameObject.Transform.Position));
             }        

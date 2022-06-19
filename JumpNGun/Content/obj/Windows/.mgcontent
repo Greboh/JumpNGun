@@ -4,7 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/1_Ranger_idle.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/1_Soldier_idle.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/1_Soldier_jump.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/1_Soldier_run.png</File>
@@ -19,8 +18,10 @@
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/5_Soldier_idle.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/5_Soldier_run.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/6_Soldier_run.png</File>
-    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/Arrow.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/Bullet.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/bush1.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/cactus1.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/cactus2.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/Desert platform.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/dessert_ground.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/fireball1.png</File>
@@ -45,6 +46,8 @@
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/golem_idle4.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/Grass platform.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/grass_ground.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/grassTree.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/graveTree.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/graveyard platform.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/graveyard_ground.PNG</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/ground_platform.png</File>
@@ -142,6 +145,9 @@
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/skelet_walk2.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/skelet_walk3.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/skelet_walk4.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/skeleton1.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/tombstone1.png</File>
+    <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/tombstone2.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/worm_attack1.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/worm_attack2.png</File>
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/worm_attack3.png</File>
@@ -171,6 +177,12 @@
     <File>C:/Users/kjfic/OneDrive/Skrivebord/SKOLEPROJEKTER/please please/JumpNGun/JumpNGun/Content/worm_walk9.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

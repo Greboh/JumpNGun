@@ -72,11 +72,11 @@ namespace JumpNGun
             if (!_isGrounded) return;
 
             //set PlatformRectangle equal to the rectangle in _locations that contain this objects position
-            foreach (Rectangle location in _locations)
+            foreach (Tile tile in Map.Instance.TileMap)
             {
-                if (location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
+                if (tile.Location.Contains(GameObject.Transform.Position) && !_locationRectangleFound)
                 {
-                    PlatformRectangle = location;
+                    PlatformRectangle = tile.Location;
                     
                     //ensure that we only find location once
                     _locationRectangleFound = true;
@@ -91,20 +91,24 @@ namespace JumpNGun
         private void CreateMovementArea()
         {
             //loop through _locations 
-            for (int i = 0; i < _locations.Count; i++)
+            for (int i = 0; i < Map.Instance.TileMap.Count; i++)
             {
-                //if any rectangles in _locations allign horizontally and right next to each other, make a combined rectangle of the respective rectangles 
-                if (PlatformRectangle.Right == _locations[i].Left && PlatformRectangle.Y == _locations[i].Y)
+                if (Map.Instance.TileMap[i].HasPlatform)
                 {
-                    //set Platformrectangle equal to new rectangle 
-                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
-                }
-                if (PlatformRectangle.Left == _locations[i].Right && PlatformRectangle.Y == _locations[i].Y)
-                {
-                    //set Platformrectangle equal to new rectangle 
-                    PlatformRectangle = Rectangle.Union(PlatformRectangle, _locations[i]);
+                    //if any rectangles in _locations allign horizontally and right next to each other, make a combined rectangle of the respective rectangles 
+                    if (PlatformRectangle.Right == Map.Instance.TileMap[i].Location.Left && PlatformRectangle.Y == Map.Instance.TileMap[i].Location.Y)
+                    {
+                        //set Platformrectangle equal to new rectangle 
+                        PlatformRectangle = Rectangle.Union(PlatformRectangle, Map.Instance.TileMap[i].Location);
+                    }
+                    if (PlatformRectangle.Left == Map.Instance.TileMap[i].Location.Right && PlatformRectangle.Y == Map.Instance.TileMap[i].Location.Y)
+                    {
+                        //set Platformrectangle equal to new rectangle 
+                        PlatformRectangle = Rectangle.Union(PlatformRectangle, Map.Instance.TileMap[i].Location);
+                    }
                 }
             }
+
         }
         
         /// <summary>
@@ -113,9 +117,12 @@ namespace JumpNGun
         /// </summary>
         private void GetAllRectangleLocations()
         {
-            for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
+            for (int i = 0; i < Map.Instance.TileMap.Count; i++)
             {
-                _locations.Add(LevelManager.Instance.UsedLocations[i]);
+                if (Map.Instance.TileMap[i].HasPlatform)
+                {
+                    _locations.Add(Map.Instance.TileMap[i].Location);
+                }
             }
         }
 

@@ -102,14 +102,6 @@ namespace JumpNGun
             
             MenuStateHandler.Instance.Update(gameTime);
 
-            // if (_nextMenuStateHandler != null)
-            // {
-            //     currentMenuStateHandler = _nextMenuStateHandler;
-            //     currentMenuStateHandler.LoadContent();
-            //     _nextMenuStateHandler = null;
-            // }
-            // else currentMenuStateHandler.Update(gameTime);
-            LevelManager.Instance.ChangeLevelDebug();
             base.Update(gameTime);
         }
 

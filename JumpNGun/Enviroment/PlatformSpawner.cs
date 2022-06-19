@@ -3,24 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 namespace JumpNGun
 {
-    public class PlatformGenerator
+    public class PlatformSpawner
     {
-        private static PlatformGenerator _instance;
-
-        public static PlatformGenerator Instance
-        {
-            get { return _instance ??= new PlatformGenerator(); }
-        }
-
         #region FOR RECTANGLES
-
-
-
-        
-
         private Texture2D texture;
 
         public Rectangle TopLine { get; private set; }
@@ -30,55 +19,7 @@ namespace JumpNGun
         #endregion
 
         //List of locations valid for spawn
-        private List<Rectangle> _validLocations = new List<Rectangle>();
-
-        //List of locations invalid for spawn
-        private List<Rectangle> _usedLocations = new List<Rectangle>();
-
-        //List of all possible rectangle locations on map
-        private Rectangle[] _locations = new Rectangle[]
-{
-            new Rectangle(0, 0, 222, 125),
-            new Rectangle(222, 0, 222, 125),
-            new Rectangle(444, 0, 222, 125),
-            new Rectangle(666, 0, 222, 125),
-            new Rectangle(888, 0, 222, 125),
-            new Rectangle(1110, 0, 222, 125),
-
-            new Rectangle(0, 125, 222, 125),
-            new Rectangle(222, 125, 222, 125),
-            new Rectangle(444, 125, 222, 125),
-            new Rectangle(666, 125, 222, 125),
-            new Rectangle(888, 125, 222, 125),
-            new Rectangle(1110, 125, 222, 125),
-
-            new Rectangle(0, 250, 222, 125),
-            new Rectangle(222, 250, 222, 125),
-            new Rectangle(444, 250, 222, 125),
-            new Rectangle(666, 250, 222, 125),
-            new Rectangle(888, 250, 222, 125),
-            new Rectangle(1110, 250, 222, 125),
-
-
-            new Rectangle(0, 375, 222, 125),
-            new Rectangle(222, 375, 222, 125),
-            new Rectangle(444, 375, 222, 125),
-            new Rectangle(666, 375, 222, 125),
-            new Rectangle(888, 375, 222, 125),
-            new Rectangle(1110, 375, 222, 125),
-
-            new Rectangle(0, 500, 222, 125),
-            new Rectangle(222, 500, 222, 125),
-            new Rectangle(444, 500, 222, 125),
-            new Rectangle(666, 500, 222, 125),
-            new Rectangle(888, 500, 222, 125),
-            new Rectangle(1110, 500, 222, 125),
-
-            new Rectangle(222, 625, 222, 125),
-            new Rectangle(444, 625, 222, 125),
-            new Rectangle(666, 625, 222, 125),
-            new Rectangle(888, 625, 222, 125)
-};
+        private List<Tile> _validLocations = new List<Tile>();
 
         //Valid distance from a rectangle's center to a vertical, diagonal or horizontal alligned rectangle
         private Point[] _validDistances = new Point[]
@@ -96,22 +37,20 @@ namespace JumpNGun
         private Random _random = new Random();
 
         //variable to store current rectangle in
-        private Rectangle _currentRectangle;
-
-        //current position for platform spawn
-        private Vector2 _spawnPosition;
+        private Tile _currentTile;
 
         //used to check if values in _validDistances has been changed
         private bool _hasAltered;
 
+
         #region FOR DRAWING RECTANGLES
-        public void Draw(SpriteBatch spritebatch)
-        {
-            for (int i = 0; i < _locations.Length; i++)
-            {
-                DrawRectangle(_locations[i], spritebatch);
-            }
-        }
+        //public void Draw(SpriteBatch spritebatch)
+        //{
+        //    for (int i = 0; i < Map.Instance.TileMap.Count; i++)
+        //    {
+        //            DrawRectangle(Map.Instance.TileMap[i].Location, spritebatch);
+        //    }
+        //}
 
         public void LoadContent()
         {
@@ -142,20 +81,14 @@ namespace JumpNGun
         public void GeneratePlatforms(int amountOfPlatforms, PlatformType type)
         {
             //set _currentRectangle equal to the returned rectangle from method
-            _currentRectangle = SpawnFirstPlatform(type);
+            _currentTile = SpawnFirstPlatform(type);
             
             for (int i = 0; i < amountOfPlatforms; i++)
             {
-                Tuple<Vector2, Rectangle> positionData = GeneratePositions(_currentRectangle);
-
-                //vector returned from GeneratePositionPath method
-                _spawnPosition = positionData.Item1;
-
-                //rectangle returned from GeneratePositionPath method
-                _currentRectangle = positionData.Item2;
+                _currentTile = GeneratePositions(_currentTile);
 
                 //Instantiate a platform at _spawnposition
-                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, _spawnPosition));
+                GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, _currentTile.PlatformPosition));
             }
         }
 
@@ -164,22 +97,18 @@ namespace JumpNGun
         /// //LAVET AF KRISTIAN J. FICH
         /// </summary>
         /// <returns>current rectangle</returns>
-        private Rectangle SpawnFirstPlatform(PlatformType type)
+        private Tile SpawnFirstPlatform(PlatformType type)
         {
             //Choose the first location rectangle
-            Rectangle rectangle = _locations[_random.Next(30, 33)];
-
-            //Create a vector position in the center of first location rectangle
-            Vector2 position = new Vector2(rectangle.Center.X, rectangle.Center.Y);
+            Tile tile = Map.Instance.TileMap[_random.Next(21, 24)];
 
             //Instantiate platform in our first location;
-            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, position));
+            GameWorld.Instance.Instantiate(PlatformFactory.Instance.Create(type, tile.PlatformPosition));
 
-            //make rectangle invalid for platform spawn
-            _usedLocations.Add(rectangle);
+            tile.HasPlatform = true;
 
             //return the first location rectangle
-            return rectangle;
+            return tile;
         }
 
         /// <summary>
@@ -188,48 +117,39 @@ namespace JumpNGun
         /// </summary>
         /// <param name="rectangle">current rectangle</param>
         /// <returns>position and rectangle containing position</returns>
-        private Tuple<Vector2, Rectangle> GeneratePositions(Rectangle rectangle)
+        private Tile GeneratePositions(Tile tile)
         {
-            //Loops through all rectangles in array
-            for (int i = 0; i < _locations.Length; i++)
+            //Loop through all tiles in map
+            for (int i = 0; i < Map.Instance.TileMap.Count; i++)
             {
-                //calculates distance from rectangle center to locations[i] center 
-                Point distance = _locations[i].Center - rectangle.Center;
+                //calculates distance between two tile locations 
+                Point distance = Map.Instance.TileMap[i].Location.Center - tile.Location.Center;
 
-                //loops through all points in array
-                for (int j = 0; j < _validDistances.Length; j++)
+                if (_validDistances.Contains(distance) && !Map.Instance.TileMap[i].HasPlatform)
                 {
-                    //checks if distance is viable and if _locations[i] isn't used. Adds to validlocations if conditions are met
-                    if (_validDistances[j].Equals(distance) && !_usedLocations.Contains(_locations[i]))
-                    {
-                        _validLocations.Add(_locations[i]);
-                    }
+                    _validLocations.Add(Map.Instance.TileMap[i]);
                 }
             }
-
-            //if any _validLocations contains a rectangle we pick one at random 
+            //if list contains a valid tile we pick one at random 
             if (_validLocations.Count > 0)
             {
-                rectangle = _validLocations[_random.Next(0, _validLocations.Count)];
+                tile = _validLocations[_random.Next(0, _validLocations.Count)];
+                tile.HasPlatform = true;
             }
-            //in case of no rectangles in _validLocations we call method again with new points in _validDistances
+            //in case of no tiles in _validLocations we call method again with new points in _validDistances
             else
             {
                 SetDistancesUp();
-                return GeneratePositions(rectangle);
+                return GeneratePositions(tile);
             }
 
             //remove valid locations from list 
             _validLocations.Clear();
 
-            //make rectangle invalid by adding it to _usedLocations
-            _usedLocations.Add(rectangle);
-
             //return all valid distances to original. 
             SetDistancesBack();
 
-
-            return Tuple.Create(new Vector2(rectangle.Center.X, rectangle.Center.Y), rectangle);
+            return tile;
         }
 
         /// <summary>
@@ -265,16 +185,6 @@ namespace JumpNGun
                 if (_validDistances[i].Y < 0) _validDistances[i].Y = -125;
             }
             _hasAltered = false;
-        }
-
-        /// <summary>
-        /// Returns list of rectangles that contain a platform
-        /// //LAVET AF KRISTIAN J. FICH
-        /// </summary>
-        /// <returns></returns>
-        public List<Rectangle> GetLocations()
-        {
-            return _usedLocations;
         }
 
     }

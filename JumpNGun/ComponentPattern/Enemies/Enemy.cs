@@ -71,6 +71,7 @@ namespace JumpNGun
         //to store EnemyDeathState
         protected IEnemyState abilityEnemyState;
 
+
         #region Component Methods
 
         public override void Awake()
@@ -83,18 +84,13 @@ namespace JumpNGun
         {
             //get SpriteRenderer component of this gameobject
             SpriteRenderer = GameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
-
             //get animator component of this gameobject
             Animator = GameObject.GetComponent<Animator>() as Animator;
-
             //get collider component of this gameobject
             Collider = GameObject.GetComponent<Collider>() as Collider;
-
             //get gameobject with player component
             Player = GameWorld.Instance.FindObjectOfType<Player>() as Player;
-
             InitializeStates();
-
             ChangeState(moveEnemyState);
         }
 
@@ -179,7 +175,6 @@ namespace JumpNGun
         {
             if (newEnemyState == currentEnemyState) return;
 
-            // Console.WriteLine($" Enemy: {this.GetType().Name} entered state: {newEnemyState.GetType().Name}");
             currentEnemyState?.Exit();
 
             currentEnemyState = newEnemyState;

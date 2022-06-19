@@ -114,9 +114,12 @@ namespace JumpNGun
         /// </summary>
         private void GetAllRectangleLocations()
         {
-            for (int i = 0; i < LevelManager.Instance.UsedLocations.Count; i++)
+            for (int i = 0; i < Map.Instance.TileMap.Count; i++)
             {
-                _locations.Add(LevelManager.Instance.UsedLocations[i]);
+                if (Map.Instance.TileMap[i].HasPlatform)
+                {
+                    _locations.Add(Map.Instance.TileMap[i].Location);
+                }
             }
         }
 
@@ -180,7 +183,7 @@ namespace JumpNGun
         /// Change veloctiy of skeleton object if conditions are met 
         /// //LAVET AF KRISTIAN J. FICH 
         /// </summary>
-        protected void ChasePlayer()
+        private void ChasePlayer()
         {
             //return if currentEnemyState isn't moveEnemyState
             if (currentEnemyState != moveEnemyState) return;

@@ -862,3 +862,19 @@ A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.csproj.CopyComplete
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.dll
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.pdb
 A:\Github\JumpNGun\JumpNGun\obj\Debug\netcoreapp3.1\JumpNGun.genruntimeconfig.cache
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\1_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\2_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\3_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\4_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\5_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\6_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\7_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\8_Soldier_Death.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cactus1.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\cactus2.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\grassTree.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\bush1.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\graveTree.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\skeleton1.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\tombstone2.xnb
+C:\Users\kjfic\OneDrive\Skrivebord\SKOLEPROJEKTER\please please\JumpNGun\JumpNGun\bin\Debug\netcoreapp3.1\Content\tombstone1.xnb

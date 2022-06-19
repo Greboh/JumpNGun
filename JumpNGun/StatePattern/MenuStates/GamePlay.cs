@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace JumpNGun
@@ -39,13 +40,14 @@ namespace JumpNGun
             SoundManager.Instance.StopClip("soundtrack_2");
             SoundManager.Instance.PlayClip("soundtrack_1");
 
+            LevelManager.Instance.ExecuteLevelGeneration();
 
             Director playerDirector = new Director(new PlayerBuilder(CharacterType.Soldier));
             GameWorld.Instance.newGameObjects.Add(playerDirector.Construct());
 
-            LevelManager.Instance.ExecuteLevelGeneration();
             
             EventManager.Instance.Subscribe("OnPlayerDeath", OnGameover);
+
 
             foreach (var go in GameWorld.Instance.gameObjects)
             {
@@ -71,22 +73,22 @@ namespace JumpNGun
             {
                 GameWorld.Instance.gameObjects[i].Update(gameTime);
             }
-
+            LevelManager.Instance.TestGenerationDEBUG();
             //call cleanup in every cycle
             GameWorld.Instance.CleanUpGameObjects();
-            
+            //Console.WriteLine(Mouse.GetState().Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            
+
             //draw sprites of every active gameObject in list
             for (int i = 0; i < GameWorld.Instance.gameObjects.Count; i++)
             {
                 GameWorld.Instance.gameObjects[i].Draw(spriteBatch);
             }
-            
+
             HandlePauseLogic(spriteBatch);
             
             spriteBatch.End();

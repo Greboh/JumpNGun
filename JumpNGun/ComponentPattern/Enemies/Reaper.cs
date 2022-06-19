@@ -38,7 +38,6 @@ namespace JumpNGun
         public override void Start()
         {
             base.Start();
-
             //set detectionRange to sprite width
             detectionRange = SpriteRenderer.Sprite.Width;
         }
@@ -96,10 +95,8 @@ namespace JumpNGun
         {
             //should use ability set to true
             ShouldUseAbility = true;
-
             //generate random number to pick ability
             int rndNumber = rnd.Next(1, 3);
-
             //pick ability by random number
             switch (rndNumber)
             {
@@ -113,7 +110,6 @@ namespace JumpNGun
                     CanSummon = true;
                 } break;
             }
-            
             //change state to abilityEnemyState to execute picked ability
             ChangeState(abilityEnemyState);
             

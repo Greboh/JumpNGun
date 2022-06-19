@@ -2,19 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace JumpNGun
 {
-    class EnemyGenerator
+    class EnemySpawner
     {
-        private static EnemyGenerator _instance;
+        private Random _random = new Random();
 
-        public static EnemyGenerator Instance
+
+        public void ExecuteEnemySpawn(int amountOfEnemies, EnemyType type)
         {
-            get { return _instance ??= new EnemyGenerator(); }
+            Thread spawnThread = new Thread(() => GenerateEnemies(amountOfEnemies, type));
+            spawnThread.IsBackground = true;
+            spawnThread.Start();
         }
 
-        private Random _random = new Random();
+
+
 
         /// <summary>
         /// Generates X amount of enemies based on parameters
@@ -23,24 +28,25 @@ namespace JumpNGun
         /// <param name="amountOfEnemies">amount of enemies to be instantiated</param>
         /// <param name="type">type of enemy to be instantieated</param>
         /// <param name="locations">valid locations for any given enemy</param>
-        public void GenerateEnemies(int amountOfEnemies, EnemyType type, List<Rectangle> locations)
+        private void GenerateEnemies(int amountOfEnemies, EnemyType type)
         {
             for (int i = 0; i < amountOfEnemies; i++)
             {
-                GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type, GeneratePosition(locations[i + _random.Next(1, 2)])));
+                GameWorld.Instance.Instantiate(EnemyFactory.Instance.Create(type, SelectTile()));
             }
         }
 
-        /// <summary>
-        /// Creates and returns a a vector in the center of rect
-        /// //LAVET AF KRISTIAN J. FICH
-        /// </summary>
-        /// <param name="rect">rectangle within vector will be created</param>
-        /// <returns></returns>
-        private Vector2 GeneratePosition(Rectangle rect)
+        private Vector2 SelectTile()
         {
-            return new Vector2(rect.Center.X, rect.Center.Y - 70);
+            Tile tile = Map.Instance.TileMap[_random.Next(0, Map.Instance.TileMap.Count)];
+            if (!tile.HasEnemy && tile.HasPlatform)
+            {
+                tile.HasEnemy = true;
+                return tile.EnemyPosition;
+            }
+            else return SelectTile();
         }
+
 
         /// <summary>
         /// Instantiate boss by type
